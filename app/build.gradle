@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "com.kaczmarek.moneycalculator"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+def verMoxy = "2.0.2"
+def verRoom = "2.1.0"
+def verDagger = "2.24"
+def verCoroutines = "1.2.2"
+def navVersion = "2.1.0"
+def stechoVersion = '1.5.0'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    // Kotlin-stdlib
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX libraries
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+
+    implementation "androidx.room:room-runtime:$verRoom"
+    implementation "androidx.room:room-ktx:$verRoom"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    // Google material
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // UB android core library
+    implementation 'com.unitbean.core:android:1.1.0'
+
+    // Moxy
+    implementation "com.github.moxy-community:moxy:$verMoxy"
+    implementation "com.github.moxy-community:moxy-androidx:$verMoxy"
+    implementation "com.github.moxy-community:moxy-material:$verMoxy"
+
+    // Kotlin coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$verCoroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$verCoroutines"
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$verDagger"
+
+    //stecho
+    implementation "com.facebook.stetho:stetho:$stechoVersion"
+
+    // kapts
+    kapt "com.github.moxy-community:moxy-compiler:$verMoxy"
+    kapt "com.google.dagger:dagger-compiler:$verDagger"
+    kapt "androidx.room:room-compiler:$verRoom"
+}

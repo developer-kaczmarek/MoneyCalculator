@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_calculator"
+        android:title="@string/activity_main_title_calculator_item"
+        android:icon="@drawable/ic_budget"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/item_history"
+        android:title="@string/activity_main_title_history_item"
+        android:icon="@drawable/ic_invoice"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/item_settings"
+        android:title="@string/activity_main_title_settings_item"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom"/>
+
+</menu>
