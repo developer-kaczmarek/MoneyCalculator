@@ -87,7 +87,7 @@ class BanknoteCard : LinearLayout {
     }
 
     private fun setNameBanknote(value: Float) {
-        if (value > 1) {
+        if (value >= 1) {
             tv_banknote_name.text = getString(R.string.common_ruble_format, value.toInt())
             tv_banknote_type.setText(R.string.common_bank_ruble)
         } else {
@@ -99,7 +99,7 @@ class BanknoteCard : LinearLayout {
     private fun calculateTotalAmount() {
         amount = valueBanknote * count
 
-        if (valueBanknote > 1) {
+        if (valueBanknote >= 1) {
             tv_banknote_total_amount.text =
                 getString(R.string.common_ruble_format, amount.toInt())
         } else {

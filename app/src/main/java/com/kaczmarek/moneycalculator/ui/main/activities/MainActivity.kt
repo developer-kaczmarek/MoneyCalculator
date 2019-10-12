@@ -67,6 +67,7 @@ class MainActivity : BaseActivity(), MainView, FragmentNavigation,
         when (fragment) {
             is CalculatorFragment -> {
                 bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
+                application.assets
             }
         }
     }

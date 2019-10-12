@@ -53,7 +53,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
             startPostponedEnterTransition()
             (activity as? BackStackChangeListener)?.onBackStackChange(this)
         }
-        presenter.getBanknoteList()
+        presenter.getBanknotes()
 
         iv_save.setOnClickListener(this)
         iv_back.setOnClickListener(this)
@@ -73,7 +73,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
 
     override fun addBanknoteCard() {
         context?.let { context ->
-            presenter.banknote.forEach { banknote ->
+            presenter.banknotes.forEach { banknote ->
                 val componentCard = BanknoteCard(context)
                 val layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -152,7 +152,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
             }
         }
 
-        presenter.banknote[focusedEditTextId].amount =
+        presenter.banknotes[focusedEditTextId].amount =
             presenter.components[focusedEditTextId].getAmount()
         presenter.updateTotalAmount()
     }
