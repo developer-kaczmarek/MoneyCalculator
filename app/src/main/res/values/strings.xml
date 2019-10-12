@@ -39,4 +39,8 @@
     <string name="activity_main_title_settings_item">Настройки</string>
     <string name="activity_main_total">Итог</string>
 
+    <!--CalculatorFragment-->
+    <string name="fragment_calculator_save_successful">Результат сохранен</string>
+    <string name="fragment_calculator_save_error">В результате сохранения произошла ошибка: %s</string>
+
 </resources>

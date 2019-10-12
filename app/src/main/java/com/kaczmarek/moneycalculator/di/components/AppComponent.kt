@@ -14,6 +14,8 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
+    val context: Context
+
     fun calculator(calculatorModule: CalculatorModule): CalculatorSubcomponent
 
     @Component.Builder

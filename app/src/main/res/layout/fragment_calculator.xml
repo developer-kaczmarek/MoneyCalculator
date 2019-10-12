@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_calculator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/gray_f3f"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -65,8 +66,8 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:fontFamily="@font/gotham_pro"
-            android:text="@string/common_bank_note"
             android:gravity="end"
+            android:text="@string/common_bank_note"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -97,6 +98,7 @@
 
             <Button
                 android:id="@+id/b_digit_0_0"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -104,11 +106,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_1"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_1_0"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -116,11 +118,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_4"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_2_0"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -128,11 +130,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_7"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/iv_save"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -142,8 +144,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_save"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                style="@style/KeyboardTheme"/>
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -154,6 +155,7 @@
 
             <Button
                 android:id="@+id/b_digit_0_1"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -161,11 +163,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_2"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_1_1"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -173,11 +175,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_5"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_2_1"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -185,11 +187,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_8"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_3_1"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -197,8 +199,7 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_0"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -209,6 +210,7 @@
 
             <Button
                 android:id="@+id/b_digit_0_2"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -216,11 +218,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_3"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_1_2"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -228,11 +230,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_6"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/b_digit_2_2"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -240,11 +242,11 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:text="@string/digit_9"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/KeyboardTheme"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/iv_delete"
+                style="@style/KeyboardTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -253,8 +255,7 @@
                 android:fontFamily="@font/gotham_pro_medium"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_backspace"
-                android:textSize="24sp"
-                style="@style/KeyboardTheme"/>
+                android:textSize="24sp" />
         </LinearLayout>
 
     </LinearLayout>

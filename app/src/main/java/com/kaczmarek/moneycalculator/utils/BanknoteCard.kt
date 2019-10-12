@@ -57,6 +57,8 @@ class BanknoteCard : LinearLayout {
         calculateTotalAmount()
     }
 
+    fun getCount() = count
+
     fun addDigit(digit: String) {
         if (!(digit == getString(R.string.digit_0) && et_banknote_count.text.isEmpty())){
             et_banknote_count.setText(
