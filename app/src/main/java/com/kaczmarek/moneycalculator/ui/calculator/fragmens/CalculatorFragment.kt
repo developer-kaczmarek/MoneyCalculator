@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
+import com.google.android.material.snackbar.Snackbar
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.calculator.presenters.CalculatorPresenter
@@ -110,6 +111,9 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
             R.id.iv_delete -> {
                 presenter.components[focusedEditTextId].deleteDigit()
             }
+            R.id.iv_save -> {
+                presenter.saveSession()
+            }
             R.id.b_digit_0_0 -> {
                 scrollById(idComponent = focusedEditTextId)
                 presenter.components[focusedEditTextId].addDigit(b_digit_0_0.text.toString())
@@ -154,6 +158,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
 
         presenter.banknotes[focusedEditTextId].amount =
             presenter.components[focusedEditTextId].getAmount()
+        presenter.banknotes[focusedEditTextId].count = presenter.components[focusedEditTextId].getCount()
         presenter.updateTotalAmount()
     }
 
@@ -167,6 +172,10 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
             tv_total_amount.text =
                 String.format(getString(R.string.common_ruble_float_format), presenter.totalAmount)
         }
+    }
+
+    override fun showMessage(message: String) {
+        this.toast(message)
     }
 
     private fun scrollById(idComponent: Int) {

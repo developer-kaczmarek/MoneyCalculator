@@ -4,21 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
+import com.kaczmarek.moneycalculator.di.services.database.models.Session
 
 /**
  * Created by Angelina Podbolotova on 04.10.2019.
  */
-@Database(entities = [Banknote::class], version = 1, exportSchema = false)
+@Database(entities = [Banknote::class, Session::class], version = 1, exportSchema = false)
+@TypeConverters(BanknoteConverters::class)
 abstract class DatabaseService : RoomDatabase() {
 
     abstract fun banknoteDao(): BanknoteDao
-    /**
-     * При изменении схемы БД производится производится затирание дат
-     * последних обновлений в SharedPreferences
-     */
+
+    abstract fun sessionDao(): SessionDao
+
     private fun populateInitialData(context: Context) {
         if (banknoteDao().count() == 0) {
             runInTransaction {

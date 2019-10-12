@@ -11,4 +11,6 @@ import moxy.viewstate.strategy.StateStrategyType
 interface CalculatorView : BaseView{
     fun addBanknoteCard()
     fun updateTotalAmount()
+    fun showMessage(message: String)
+
 }

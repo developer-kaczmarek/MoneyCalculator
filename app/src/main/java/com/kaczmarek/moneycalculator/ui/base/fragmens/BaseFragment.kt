@@ -7,9 +7,12 @@ package com.kaczmarek.moneycalculator.ui.base.fragmens
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.activities.BaseActivity
+import com.kaczmarek.moneycalculator.utils.toast
+import com.ub.utils.dpToPx
 import moxy.MvpAppCompatFragment
 
 open class BaseFragment : MvpAppCompatFragment() {
@@ -35,6 +38,12 @@ open class BaseFragment : MvpAppCompatFragment() {
         toolbar?.let {
             baseActivity?.setSupportActionBar(toolbar)
         }
+    }
+
+    protected fun toast(message: String,
+                        toastDuration: Int = Toast.LENGTH_SHORT,
+                        yOffset: Int = requireContext().dpToPx(16).toInt()) {
+        baseActivity?.toast(message, toastDuration, yOffset)
     }
 
 }

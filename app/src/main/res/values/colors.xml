@@ -4,26 +4,14 @@
     <color name="colorPrimaryDark">#1d1d1d</color>
     <color name="colorAccent">#ffffff</color>
 
-    <color name="ic_launcher_background">#1d1d1d</color>
-
     <color name="black_30">#30000000</color>
     <color name="black">#000000</color>
     <color name="black_1d1">#1d1d1d</color>
 
     <color name="white">#ffffff</color>
 
-    <color name="gray_ccc">#B6B6B6</color>
     <color name="gray_f3f">#f3f4fa</color>
     <color name="gray_7b7">#7b7b7b</color>
-
-
-    <color name="gray_cfd">#cfd1de</color>
-    <color name="blue_400">#5C6BC0</color>
-    <color name="blue_300">#7986CB</color>
-
-    <color name="green_400">#66BB6A</color>
-    <color name="green_300">#81C784</color>
-    <color name="color">#81C784</color>
 
     <color name="transparent">#00ffffff</color>
 </resources>
