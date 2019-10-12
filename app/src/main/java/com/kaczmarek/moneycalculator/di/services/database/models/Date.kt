@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class CountDate(
+data class Date(
     val date: String
 ) {
     @PrimaryKey(autoGenerate = true)

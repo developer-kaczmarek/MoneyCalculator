@@ -9,11 +9,14 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
 @Dao
 interface BanknoteDao {
     @Query("SELECT * FROM banknotes")
-    fun getAllBanknotes(): List<Banknote>
+    fun getAll(): List<Banknote>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertBanknote(banknote: Banknote)
+    fun insertAll(banknotes: List<Banknote>)
 
     @Update
     fun updateBanknote(banknote: Banknote)
+
+    @Query("SELECT COUNT(*) FROM banknotes")
+    fun count(): Int
 }

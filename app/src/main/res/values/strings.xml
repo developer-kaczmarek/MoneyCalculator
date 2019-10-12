@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Кулькулятор купюр</string>
-    <string name="name_database">calculator-db</string>
 
     <!--Commons-->
     <string name="common_ruble_format">%d ₽</string>
