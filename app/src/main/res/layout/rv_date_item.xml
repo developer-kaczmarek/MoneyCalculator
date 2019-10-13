@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray_f3f"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_date_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/gotham_pro_bold"
+        android:textColor="@color/black_1d1"
+        android:textSize="18sp"
+        tools:text="28/10/2019" />
+</LinearLayout>

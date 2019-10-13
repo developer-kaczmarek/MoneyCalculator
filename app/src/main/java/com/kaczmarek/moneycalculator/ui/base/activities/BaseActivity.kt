@@ -1,7 +1,10 @@
 package com.kaczmarek.moneycalculator.ui.base.activities
 
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
+import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.views.BaseView
 
 import com.ub.utils.hideSoftKeyboard
@@ -14,10 +17,12 @@ import moxy.MvpAppCompatActivity
 abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 
     private var alertDialog: AlertDialog? = null
+    private var toolbar: Toolbar? = null
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
 
+        toolbar = findViewById(R.id.toolbar)
         toolbar?.let { setSupportActionBar(toolbar) }
     }
 

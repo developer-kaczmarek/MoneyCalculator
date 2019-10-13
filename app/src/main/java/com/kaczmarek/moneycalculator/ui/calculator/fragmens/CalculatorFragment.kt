@@ -54,8 +54,6 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
             startPostponedEnterTransition()
             (activity as? BackStackChangeListener)?.onBackStackChange(this)
         }
-        presenter.getBanknotes()
-
         iv_save.setOnClickListener(this)
         iv_back.setOnClickListener(this)
         iv_next.setOnClickListener(this)
@@ -70,6 +68,11 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
         b_digit_2_1.setOnClickListener(this)
         b_digit_2_2.setOnClickListener(this)
         b_digit_3_1.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getBanknotes()
     }
 
     override fun addBanknoteCard() {

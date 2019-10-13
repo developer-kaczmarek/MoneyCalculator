@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Кулькулятор купюр</string>
+    <string name="app_name">Калькулятор купюр</string>
 
     <!--Commons-->
     <string name="common_ruble_format">%d ₽</string>
@@ -43,4 +43,6 @@
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
     <string name="fragment_calculator_save_error">В результате сохранения произошла ошибка: %s</string>
 
+    <!--HistoryFragment-->
+    <string name="fragment_history_load_error">В результате загрузки данных произошла ошибка: %s</string>
 </resources>
