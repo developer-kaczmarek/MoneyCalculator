@@ -3,6 +3,7 @@ package com.kaczmarek.moneycalculator.di.components
 import android.content.Context
 import com.kaczmarek.moneycalculator.di.modules.AppModule
 import com.kaczmarek.moneycalculator.di.modules.CalculatorModule
+import com.kaczmarek.moneycalculator.di.modules.HistoryModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -17,6 +18,8 @@ interface AppComponent {
     val context: Context
 
     fun calculator(calculatorModule: CalculatorModule): CalculatorSubcomponent
+
+    fun history(historyModule: HistoryModule): HistorySubcomponent
 
     @Component.Builder
     interface Builder {

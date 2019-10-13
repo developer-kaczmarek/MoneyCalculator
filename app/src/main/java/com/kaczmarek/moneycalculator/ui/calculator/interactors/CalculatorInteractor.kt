@@ -15,7 +15,8 @@ class CalculatorInteractor(private val repository: ICalculatorRepository) {
 
     suspend fun saveSession(totalAmount: Float, completedBanknotes: List<Banknote>){
         val currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-        val session =  Session(currentTime, totalAmount, completedBanknotes)
+        val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        val session =  Session(currentDate, currentTime, totalAmount, completedBanknotes)
         repository.saveSession(session)
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.activities.BaseActivity
 import com.kaczmarek.moneycalculator.ui.calculator.fragmens.CalculatorFragment
+import com.kaczmarek.moneycalculator.ui.history.fragmens.HistoryFragment
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.ui.main.presenters.MainPresenter
 import com.kaczmarek.moneycalculator.ui.main.views.MainView
@@ -27,6 +28,7 @@ class MainActivity : BaseActivity(), MainView, FragmentNavigation,
         bnv_main.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> openScreen(CalculatorFragment.TAG)
+                R.id.item_history -> openScreen(HistoryFragment.TAG)
                 else -> false
             }
         }
@@ -49,7 +51,17 @@ class MainActivity : BaseActivity(), MainView, FragmentNavigation,
                 presenter.addFragmentToStack(R.id.item_calculator)
                 attachFragment(
                     fl_main_container.id,
-                    CalculatorFragment.newInstance(),
+                    CalculatorFragment(),
+                    tag,
+                    isAddToBackStack
+                )
+                true
+            }
+            HistoryFragment.TAG -> {
+                presenter.addFragmentToStack(R.id.item_history)
+                attachFragment(
+                    fl_main_container.id,
+                    HistoryFragment.newInstance(),
                     tag,
                     isAddToBackStack
                 )
@@ -67,7 +79,9 @@ class MainActivity : BaseActivity(), MainView, FragmentNavigation,
         when (fragment) {
             is CalculatorFragment -> {
                 bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
-                application.assets
+            }
+            is HistoryFragment -> {
+                bnv_main.menu.findItem(R.id.item_history).isChecked = true
             }
         }
     }

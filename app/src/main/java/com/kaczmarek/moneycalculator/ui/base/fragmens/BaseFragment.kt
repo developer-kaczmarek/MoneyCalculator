@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.activities.BaseActivity
@@ -39,6 +40,10 @@ open class BaseFragment : MvpAppCompatFragment() {
             baseActivity?.setSupportActionBar(toolbar)
         }
     }
+    protected fun setTitle(@StringRes titleId: Int) {
+        baseActivity?.setTitle(titleId)
+    }
+
 
     protected fun toast(message: String,
                         toastDuration: Int = Toast.LENGTH_SHORT,

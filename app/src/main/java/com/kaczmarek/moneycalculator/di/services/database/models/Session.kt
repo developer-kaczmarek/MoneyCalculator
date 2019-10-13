@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "sessions")
 data class Session(
+    val date: String,
     val time: String,
     val totalAmount: Float,
     val banknotes: List<Banknote>

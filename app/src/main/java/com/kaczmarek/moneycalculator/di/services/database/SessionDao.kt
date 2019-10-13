@@ -10,4 +10,7 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Session
 interface SessionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(session: Session)
+
+    @Query("SELECT * FROM sessions")
+    fun getAll(): List<Session>
 }

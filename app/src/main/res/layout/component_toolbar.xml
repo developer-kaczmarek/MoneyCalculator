@@ -15,8 +15,6 @@
          app:subtitleTextAppearance="@style/ToolBarSubtitleTextAppearance"
          app:titleTextAppearance="@style/ToolBarTitleTextAppearance"
          tools:targetApi="lollipop" />
-
-
     <View
         android:id="@+id/v_toolbar_shadow"
         android:layout_width="match_parent"
