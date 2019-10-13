@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
-import com.google.android.material.snackbar.Snackbar
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.calculator.presenters.CalculatorPresenter
@@ -15,7 +14,6 @@ import com.kaczmarek.moneycalculator.ui.calculator.views.CalculatorView
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.utils.BanknoteCard
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
-import com.kaczmarek.moneycalculator.utils.FragmentNavigation
 import kotlinx.android.synthetic.main.component_banknote_card.view.*
 import kotlinx.android.synthetic.main.fragment_calculator.*
 import moxy.presenter.InjectPresenter
@@ -24,7 +22,7 @@ import kotlin.math.floor
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
  */
-class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
+class CalculatorFragment : BaseFragment(), CalculatorView,
     View.OnClickListener {
 
     @InjectPresenter
@@ -201,9 +199,5 @@ class CalculatorFragment : BaseFragment(), CalculatorView, FragmentNavigation,
 
     companion object {
         const val TAG = "CalculatorFragment"
-
-        fun newInstance(): CalculatorFragment {
-            return CalculatorFragment()
-        }
     }
 }

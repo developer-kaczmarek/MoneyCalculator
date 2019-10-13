@@ -2,17 +2,18 @@ package com.kaczmarek.moneycalculator.ui.history.fragmens
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.history.presenters.HistoryPresenter
 import com.kaczmarek.moneycalculator.ui.history.views.HistoryView
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
-import com.kaczmarek.moneycalculator.utils.FragmentNavigation
 import moxy.presenter.InjectPresenter
 import com.kaczmarek.moneycalculator.ui.history.adapters.HistoryRVAdapter
 import kotlinx.android.synthetic.main.fragment_history.*
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_history.*
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class HistoryFragment : BaseFragment(), HistoryView, FragmentNavigation{
+class HistoryFragment : BaseFragment(), HistoryView{
 
     @InjectPresenter
     lateinit var presenter: HistoryPresenter
@@ -52,12 +53,26 @@ class HistoryFragment : BaseFragment(), HistoryView, FragmentNavigation{
         }
         rv_history.adapter = adapter
         presenter.getSessions()
+        Log.i("MY TAG", "onViewCreated")
     }
 
     override fun onStart() {
         super.onStart()
         setTitle(R.string.activity_main_title_history_item)
+        Log.i("MY TAG", "onStart")
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("MY TAG", "onResume")
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        Log.i("MY TAG", "onAttachFragment")
+    }
+
+
 
     override fun showMessage(message: String) {
         this.toast(message)
@@ -70,9 +85,5 @@ class HistoryFragment : BaseFragment(), HistoryView, FragmentNavigation{
 
     companion object {
         const val TAG = "HistoryFragment"
-
-        fun newInstance(): HistoryFragment {
-            return HistoryFragment()
-        }
     }
 }
