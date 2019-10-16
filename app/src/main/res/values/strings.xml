@@ -45,4 +45,6 @@
 
     <!--HistoryFragment-->
     <string name="fragment_history_load_error">В результате загрузки данных произошла ошибка: %s</string>
+    <string name="fragment_history_today_sessions">Сегодня</string>
+    <string name="fragment_history_yesterday_sessions">Вчера</string>
 </resources>
