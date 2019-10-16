@@ -14,7 +14,6 @@ import com.kaczmarek.moneycalculator.ui.calculator.views.CalculatorView
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.utils.BanknoteCard
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
-import kotlinx.android.synthetic.main.component_banknote_card.view.*
 import kotlinx.android.synthetic.main.fragment_calculator.*
 import moxy.presenter.InjectPresenter
 import kotlin.math.floor
@@ -71,6 +70,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
     override fun onResume() {
         super.onResume()
         presenter.getBanknotes()
+        presenter.updateTotalAmount()
     }
 
     override fun addBanknoteCard() {
@@ -85,7 +85,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
                 componentCard.setCount(0)
                 componentCard.setColorTheme(banknote.backgroundColor, banknote.textColor)
                 presenter.components.add(componentCard)
-                componentCard.et_banknote_count.setOnFocusChangeListener { _, hasFocus ->
+                componentCard.editTextBanknoteCount.setOnFocusChangeListener { v, hasFocus ->
                     focusedEditTextId = presenter.components.indexOf(componentCard)
                     componentCard.setHideHint(hasFocus)
                     updateStateControlPanel()
@@ -111,6 +111,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
             }
             R.id.iv_delete -> {
                 presenter.components[focusedEditTextId].deleteDigit()
+                scrollById(idComponent = focusedEditTextId)
             }
             R.id.iv_save -> {
                 presenter.saveSession()
@@ -118,6 +119,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
             R.id.b_digit_0_0 -> {
                 scrollById(idComponent = focusedEditTextId)
                 presenter.components[focusedEditTextId].addDigit(b_digit_0_0.text.toString())
+
             }
             R.id.b_digit_0_1 -> {
                 scrollById(idComponent = focusedEditTextId)
@@ -157,6 +159,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
             }
         }
 
+
         presenter.banknotes[focusedEditTextId].amount =
             presenter.components[focusedEditTextId].getAmount()
         presenter.banknotes[focusedEditTextId].count = presenter.components[focusedEditTextId].getCount()
@@ -181,10 +184,11 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
 
     private fun scrollById(idComponent: Int) {
         val outLocation = IntArray(2)
-        presenter.components[idComponent].getLocationOnScreen(outLocation)
-        hsv_calculator.smoothScrollBy(outLocation[0], 0)
-        presenter.components[idComponent].et_banknote_count.requestFocus()
         focusedEditTextId = idComponent
+        presenter.components[focusedEditTextId].getLocationOnScreen(outLocation)
+        hsv_calculator.smoothScrollBy(outLocation[0], 0)
+        presenter.components[focusedEditTextId].editTextBanknoteCount.requestFocus()
+
     }
 
     private fun updateStateControlPanel() {

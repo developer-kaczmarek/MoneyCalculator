@@ -6,15 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_f3f"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <com.kaczmarek.moneycalculator.utils.CustomScrollView
         android:id="@+id/hsv_calculator"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@color/gray_f3f"
         android:fadeScrollbars="false"
         android:scrollbars="none">

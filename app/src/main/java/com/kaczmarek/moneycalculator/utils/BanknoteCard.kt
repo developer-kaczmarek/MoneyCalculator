@@ -2,12 +2,20 @@ package com.kaczmarek.moneycalculator.utils
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
+import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.kaczmarek.moneycalculator.R
 import com.ub.utils.UbUtils.getString
 import kotlinx.android.synthetic.main.component_banknote_card.view.*
+import android.util.TypedValue
+import android.view.Gravity
+import android.widget.EditText
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.ub.utils.dpToPx
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -17,6 +25,7 @@ class BanknoteCard : LinearLayout {
     private var valueBanknote = 0F
     private var count = 0
     private var amount = 0F
+    var editTextBanknoteCount: EditText
 
 
     constructor(context: Context) : this(context, null)
@@ -28,22 +37,41 @@ class BanknoteCard : LinearLayout {
     ) {
         View.inflate(context, R.layout.component_banknote_card, this)
         isEnable = false
-        et_banknote_count.showSoftInputOnFocus = false
-
-        et_banknote_count.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                et_banknote_count.setHint(R.string.digit_0)
-            } else {
-                et_banknote_count.hint = ""
-            }
+        editTextBanknoteCount = EditText(context)
+        editTextBanknoteCount
+        editTextBanknoteCount.id = View.generateViewId()
+        editTextBanknoteCount.setEms(8)
+        editTextBanknoteCount.gravity = Gravity.CENTER
+        editTextBanknoteCount.hint = getString(R.string.common_count_bank_note)
+        editTextBanknoteCount.filters = arrayOf(InputFilter.LengthFilter(3))
+        editTextBanknoteCount.setTextColor(ContextCompat.getColor(context, R.color.white))
+        editTextBanknoteCount.setHintTextColor(ContextCompat.getColor(context, R.color.white))
+        editTextBanknoteCount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
+        editTextBanknoteCount.backgroundTintList =
+            ContextCompat.getColorStateList(context, R.color.white)
+        editTextBanknoteCount.typeface = ResourcesCompat.getFont(context, R.font.gotham_pro)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            editTextBanknoteCount.importantForAutofill =
+                View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
         }
+        editTextBanknoteCount.showSoftInputOnFocus = false
+        val params = LayoutParams(
+            0,
+            LayoutParams.WRAP_CONTENT
+        ).apply {
+            weight = 1.0f
+            gravity = Gravity.CENTER
+        }
+        params.setMargins(0, 0, dpToPx(16).toInt(), 0)
+        editTextBanknoteCount.layoutParams = params
+        ll_container_count.addView(editTextBanknoteCount)
     }
 
-    fun setHideHint(isHide: Boolean){
-        if(isHide){
-            et_banknote_count.hint = ""
+    fun setHideHint(isHide: Boolean) {
+        if (isHide) {
+            editTextBanknoteCount.hint = ""
         } else {
-            et_banknote_count.setHint(R.string.digit_0)
+            editTextBanknoteCount.setHint(R.string.digit_0)
         }
     }
 
@@ -60,28 +88,28 @@ class BanknoteCard : LinearLayout {
     fun getCount() = count
 
     fun addDigit(digit: String) {
-        if (!(digit == getString(R.string.digit_0) && et_banknote_count.text.isEmpty())){
-            et_banknote_count.setText(
+        if (!(digit == getString(R.string.digit_0) && editTextBanknoteCount.text.isEmpty())) {
+            editTextBanknoteCount.setText(
                 String.format(
                     "%s%s",
-                    et_banknote_count.text,
+                    editTextBanknoteCount.text,
                     digit
                 )
             )
-            et_banknote_count.setSelection(et_banknote_count.text.length)
-            setCount(et_banknote_count.text.toString().toInt())
+            editTextBanknoteCount.setSelection(editTextBanknoteCount.text.length)
+            setCount(editTextBanknoteCount.text.toString().toInt())
         }
     }
 
     fun getAmount() = amount
 
     fun deleteDigit() {
-        val textFromEditText = et_banknote_count.text.toString()
-        et_banknote_count.setText(textFromEditText.substring(0, textFromEditText.length - 1))
-        et_banknote_count.setSelection(et_banknote_count.text.length)
+        val textFromEditText = editTextBanknoteCount.text.toString()
+        editTextBanknoteCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
+        editTextBanknoteCount.setSelection(editTextBanknoteCount.text.length)
         setCount(
-            if (et_banknote_count.text.isNotEmpty()) {
-                et_banknote_count.text.toString().toInt()
+            if (editTextBanknoteCount.text.isNotEmpty()) {
+                editTextBanknoteCount.text.toString().toInt()
             } else {
                 0
             }
@@ -100,7 +128,6 @@ class BanknoteCard : LinearLayout {
 
     private fun calculateTotalAmount() {
         amount = valueBanknote * count
-
         if (valueBanknote >= 1) {
             tv_banknote_total_amount.text =
                 getString(R.string.common_ruble_format, amount.toInt())

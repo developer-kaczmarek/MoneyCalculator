@@ -1,6 +1,5 @@
 package com.kaczmarek.moneycalculator.ui.history.presenters
 
-import android.util.Log
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.di.DIManager
 import com.kaczmarek.moneycalculator.di.services.database.models.Session
@@ -22,9 +21,7 @@ import javax.inject.Inject
 class HistoryPresenter : BasePresenter<HistoryView>() {
     @Inject
     lateinit var interactor: HistoryInteractor
-
-    val sessions = arrayListOf<Session>()
-     lateinit var groupSessions: Map<String, List<Session>>
+    lateinit var groupSessions: Map<String, List<Session>>
     val allHistoryItems = arrayListOf<BaseItem>()
 
     init {
@@ -34,25 +31,20 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
     override fun onDestroy() {
         super.onDestroy()
         DIManager.removeHistorySubcomponent()
-
     }
 
     fun getSessions() {
         launch {
             try {
                 allHistoryItems.clear()
-                sessions.clear()
-                sessions.addAll(interactor.getAll())
-                groupSessions = sessions.groupBy { it.date }
-                groupSessions.forEach{
-                    allHistoryItems.add(DateItem(it.key))
-                    it.value.forEach {session ->
-                        allHistoryItems.add(SessionItem(session))
+                groupSessions = interactor.getAll().reversed().groupBy { it.date }
+                groupSessions.forEach { session ->
+                    allHistoryItems.add(DateItem(session.key))
+                    session.value.sortedBy { it.time }.forEach {
+                        allHistoryItems.add(SessionItem(it))
                     }
-
                 }
                 viewState.updateSessions()
-
             } catch (e: Exception) {
                 viewState.showMessage(
                     getString(

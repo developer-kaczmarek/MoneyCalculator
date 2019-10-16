@@ -53,8 +53,8 @@ class MainActivity : BaseActivity(), MainView,
 
     override fun onFirstOpen() {
         bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
-        fragmentManager.beginTransaction().add(R.id.fl_main_container,calculator, CalculatorFragment.TAG).commit()
         fragmentManager.beginTransaction().add(R.id.fl_main_container, history, HistoryFragment.TAG).hide(history).commit()
+        fragmentManager.beginTransaction().add(R.id.fl_main_container,calculator, CalculatorFragment.TAG).commit()
     }
 
     override fun onBackStackChange(fragment: Fragment) {

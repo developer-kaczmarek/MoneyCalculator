@@ -18,7 +18,7 @@
     <LinearLayout
         android:id="@+id/ll_banknote_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -35,6 +35,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/ll_container_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -51,25 +52,6 @@
                 android:textAlignment="viewStart"
                 android:textSize="72sp"
                 android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_banknote_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal|center_vertical"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:ems="8"
-                android:fontFamily="@font/gotham_pro"
-                android:gravity="center"
-                android:hint="@string/common_count_bank_note"
-                android:inputType="number"
-                android:maxLength="3"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="18sp"
-                android:importantForAutofill="noExcludeDescendants" />
         </LinearLayout>
 
         <LinearLayout

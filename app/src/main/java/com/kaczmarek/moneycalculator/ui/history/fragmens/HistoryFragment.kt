@@ -53,26 +53,12 @@ class HistoryFragment : BaseFragment(), HistoryView{
         }
         rv_history.adapter = adapter
         presenter.getSessions()
-        Log.i("MY TAG", "onViewCreated")
     }
 
     override fun onStart() {
         super.onStart()
         setTitle(R.string.activity_main_title_history_item)
-        Log.i("MY TAG", "onStart")
     }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i("MY TAG", "onResume")
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        Log.i("MY TAG", "onAttachFragment")
-    }
-
-
 
     override fun showMessage(message: String) {
         this.toast(message)
