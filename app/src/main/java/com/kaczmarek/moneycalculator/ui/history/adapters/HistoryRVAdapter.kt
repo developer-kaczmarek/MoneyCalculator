@@ -1,5 +1,7 @@
 package com.kaczmarek.moneycalculator.ui.history.adapters
 
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +18,34 @@ import com.ub.utils.gone
 import com.ub.utils.visible
 import kotlinx.android.synthetic.main.rv_date_item.view.*
 import kotlinx.android.synthetic.main.rv_session_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class HistoryRVAdapter(private val presenter: HistoryPresenter) : BaseRVAdapter<RecyclerView.ViewHolder>() {
+class HistoryRVAdapter(private val presenter: HistoryPresenter) :
+    BaseRVAdapter<RecyclerView.ViewHolder>() {
+    lateinit var root: ViewGroup
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        root = parent
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = when (viewType) {
-        R.layout.rv_date_item -> DateItemViewHolder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
-        else -> SessionItemViewHolder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
+        return when (viewType) {
+            R.layout.rv_date_item -> DateItemViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    viewType,
+                    parent,
+                    false
+                )
+            )
+            else -> SessionItemViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    viewType,
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -38,7 +59,8 @@ class HistoryRVAdapter(private val presenter: HistoryPresenter) : BaseRVAdapter<
 
     override fun getItemCount(): Int = presenter.allHistoryItems.size
 
-    inner class SessionItemViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class SessionItemViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
 
         init {
             itemView.iv_session_more.setOnClickListener(this)
@@ -48,24 +70,29 @@ class HistoryRVAdapter(private val presenter: HistoryPresenter) : BaseRVAdapter<
             val item = presenter.allHistoryItems[position] as SessionItem
             itemView.tv_session_time.text = item.session.time
             if (item.session.totalAmount - floor(item.session.totalAmount) == 0F) {
-                itemView.tv_session_total_amount.text = getString(R.string.common_ruble_format, floor(item.session.totalAmount).toInt())
+                itemView.tv_session_total_amount.text =
+                    getString(R.string.common_ruble_format, floor(item.session.totalAmount).toInt())
             } else {
-                itemView.tv_session_total_amount.text = getString(R.string.common_ruble_float_format, item.session.totalAmount)
+                itemView.tv_session_total_amount.text =
+                    getString(R.string.common_ruble_float_format, item.session.totalAmount)
             }
             itemView.rv_session_banknotes.adapter = BanknoteRVAdapter(item.session.banknotes)
         }
 
         override fun onClick(v: View) {
-            when(v.id){
+            when (v.id) {
                 R.id.iv_session_more -> {
-                    if(itemView.rv_session_banknotes.visibility == View.GONE){
+                    if (itemView.rv_session_banknotes.visibility == View.GONE) {
+                        itemView.iv_session_more.animate().rotation(180F).start()
+                        TransitionManager.beginDelayedTransition(root, AutoTransition())
                         itemView.rv_session_banknotes.visible
                     } else {
+                        itemView.iv_session_more.animate().rotation(0F).start()
+                        TransitionManager.beginDelayedTransition(root)
                         itemView.rv_session_banknotes.gone
                     }
                 }
             }
-           // listener?.onClick(v, adapterPosition)
         }
     }
 
@@ -73,7 +100,17 @@ class HistoryRVAdapter(private val presenter: HistoryPresenter) : BaseRVAdapter<
 
         fun bind(position: Int) {
             val item = presenter.allHistoryItems[position] as DateItem
-            itemView.tv_date_title.text = item.date
+            val calendar = Calendar.getInstance()
+            val currentDate = calendar.time
+            calendar.add(Calendar.DATE, -1)
+            val yesterdayDate = calendar.time
+            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+            when {
+                item.date == formatter.format(currentDate) -> itemView.tv_date_title.setText(R.string.fragment_history_today_sessions)
+                item.date == formatter.format(yesterdayDate) -> itemView.tv_date_title.setText(R.string.fragment_history_yesterday_sessions)
+                else -> itemView.tv_date_title.text = item.date
+            }
         }
     }
 

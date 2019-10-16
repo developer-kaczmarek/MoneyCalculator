@@ -2,12 +2,10 @@ package com.kaczmarek.moneycalculator.ui.history.fragmens
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.history.presenters.HistoryPresenter
