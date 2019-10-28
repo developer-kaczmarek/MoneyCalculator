@@ -19,4 +19,5 @@ interface BanknoteDao {
 
     @Query("SELECT COUNT(*) FROM banknotes")
     fun count(): Int
+
 }

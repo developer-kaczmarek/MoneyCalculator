@@ -31,8 +31,8 @@ android {
 }
 
 def verMoxy = "2.0.2"
-def verRoom = "2.1.0"
-def verDagger = "2.24"
+def verRoom = "2.2.0"
+def verDagger = "2.25"
 def verCoroutines = "1.2.2"
 def navVersion = "2.1.0"
 def stechoVersion = '1.5.1'
@@ -62,31 +62,36 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
 
-    // Google material
+    //Google material
     implementation 'com.google.android.material:material:1.0.0'
 
-    // UB android core library
+    //UB android core library
     implementation 'com.unitbean.core:android:1.4.0'
 
-    // Moxy
+    //Moxy
     implementation "com.github.moxy-community:moxy:$verMoxy"
     implementation "com.github.moxy-community:moxy-androidx:$verMoxy"
     implementation "com.github.moxy-community:moxy-material:$verMoxy"
 
-    // Kotlin coroutines
+    //Kotlin coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$verCoroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$verCoroutines"
 
-    // Dagger 2
+    //Dagger 2
     implementation "com.google.dagger:dagger:$verDagger"
+    implementation "com.google.dagger:dagger-android:$verDagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$verDagger"
 
-    //stecho
-
+    //Gson
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Stecho
     implementation "com.facebook.stetho:stetho:$stechoVersion"
 
-    // kapts
+    //Kapts
     kapt "com.github.moxy-community:moxy-compiler:$verMoxy"
+    kapt "com.google.dagger:dagger-android-processor:$verDagger"
     kapt "com.google.dagger:dagger-compiler:$verDagger"
     kapt "androidx.room:room-compiler:$verRoom"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

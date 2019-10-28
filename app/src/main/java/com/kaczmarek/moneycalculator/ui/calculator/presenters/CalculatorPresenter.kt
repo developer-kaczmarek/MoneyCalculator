@@ -27,6 +27,8 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
         DIManager.getCalculatorSubcomponent().inject(this)
     }
 
+    fun getKeyboardLayout() =  interactor.getKeyboardLayout()
+
     override fun onDestroy() {
         super.onDestroy()
         DIManager.removeCalculatorSubcomponent()
@@ -43,7 +45,12 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
 
     fun getBanknotes() {
         banknotes.clear()
-        banknotes.addAll(interactor.getAll())
+        val allBanknotes = interactor.getAll()
+        allBanknotes.forEach {
+            if (it.isShow) {
+                banknotes.add(it)
+            }
+        }
         updateTotalAmount()
         viewState.addBanknoteCard()
     }

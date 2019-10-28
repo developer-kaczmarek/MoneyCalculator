@@ -9,5 +9,7 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Session
 interface ICalculatorRepository {
     fun getAll(): List<Banknote>
     suspend fun saveSession(session: Session)
+    fun getKeyboardLayout(): Int
+    fun isAlwaysOnDisplay(): Boolean
 
 }

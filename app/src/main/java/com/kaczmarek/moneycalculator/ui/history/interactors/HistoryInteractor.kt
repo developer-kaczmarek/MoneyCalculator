@@ -1,5 +1,6 @@
 package com.kaczmarek.moneycalculator.ui.history.interactors
 
+import com.kaczmarek.moneycalculator.di.services.database.models.Session
 import com.kaczmarek.moneycalculator.ui.history.repositories.IHistoryRepository
 
 /**
@@ -8,4 +9,11 @@ import com.kaczmarek.moneycalculator.ui.history.repositories.IHistoryRepository
 class HistoryInteractor(private val repository: IHistoryRepository) {
 
     suspend fun getAll() = repository.getAll()
+
+    fun getHistoryStoragePeriod() = repository.getHistoryStoragePeriod()
+
+    fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
+    suspend fun deleteSession(session: Session) {
+        repository.deleteSession(session)
+    }
 }

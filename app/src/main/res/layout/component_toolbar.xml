@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-     <androidx.appcompat.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
          android:id="@+id/toolbar"
          android:layout_width="match_parent"
          android:layout_height="?attr/actionBarSize"
@@ -14,7 +14,19 @@
          android:theme="@style/ThemeToolbar"
          app:subtitleTextAppearance="@style/ToolBarSubtitleTextAppearance"
          app:titleTextAppearance="@style/ToolBarTitleTextAppearance"
-         tools:targetApi="lollipop" />
+         tools:targetApi="lollipop" >
+
+        <ImageView
+            android:id="@+id/iv_toolbar_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/content_description_save"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_save_light" />
+
+     </androidx.appcompat.widget.Toolbar>
     <View
         android:id="@+id/v_toolbar_shadow"
         android:layout_width="match_parent"

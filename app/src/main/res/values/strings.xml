@@ -14,6 +14,7 @@
     <string name="common_done">Готово</string>
     <string name="common_cancel">Отмена</string>
     <string name="common_further">Далее</string>
+    <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
 
     <!--Digits-->
     <string name="digit_0" translatable="false">0</string>
@@ -39,12 +40,24 @@
     <string name="activity_main_title_settings_item">Настройки</string>
     <string name="activity_main_total">Итог</string>
 
+    <!--SettingsFragment-->
+    <string name="fragment_settings_banknotes">Номиналы</string>
+    <string name="fragment_settings_keyboard_layout">Раскладка клавиатуры</string>
+    <string name="fragment_settings_display">Экран</string>
+    <string name="fragment_settings_display_off">Не выключать экран</string>
+    <string name="fragment_settings_save">Сохранить</string>
+    <string name="fragment_settings_save_history">Хранить историю</string>
+    <string name="fragment_settings_indefinitely">Бессрочно</string>
+    <string name="fragment_settings_in_fourteen_days">За 14 дней</string>
+    <string name="fragment_settings_in_thirty_days">За 30 дней</string>
+    <string name="fragment_settings_phone_keyboard">Телефонная раскладка</string>
+    <string name="fragment_settings_numpad_keyboard">Раскладка Numpad</string>
+
     <!--CalculatorFragment-->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
     <string name="fragment_calculator_save_error">В результате сохранения произошла ошибка: %s</string>
 
     <!--HistoryFragment-->
-    <string name="fragment_history_load_error">В результате загрузки данных произошла ошибка: %s</string>
     <string name="fragment_history_today_sessions">Сегодня</string>
     <string name="fragment_history_yesterday_sessions">Вчера</string>
 </resources>

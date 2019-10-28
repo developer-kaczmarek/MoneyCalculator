@@ -19,4 +19,8 @@ class CalculatorInteractor(private val repository: ICalculatorRepository) {
         val session =  Session(currentDate, currentTime, totalAmount, completedBanknotes)
         repository.saveSession(session)
     }
+
+    fun getKeyboardLayout() = repository.getKeyboardLayout()
+
+    fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
 }

@@ -8,12 +8,10 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
 /**
  * Created by Angelina Podbolotova on 12.10.2019.
  */
-object BanknoteConverters {
+class BanknoteConverters {
     @TypeConverter
-    @JvmStatic
     fun fromString(value: String): List<Banknote> = Gson().fromJson(value, object : TypeToken<List<Banknote>>() {}.type)
 
     @TypeConverter
-    @JvmStatic
     fun fromArrayLisr(list: List<Banknote>): String = Gson().toJson(list)
 }

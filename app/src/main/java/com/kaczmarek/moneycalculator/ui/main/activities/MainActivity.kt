@@ -10,6 +10,7 @@ import com.kaczmarek.moneycalculator.ui.history.fragmens.HistoryFragment
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.ui.main.presenters.MainPresenter
 import com.kaczmarek.moneycalculator.ui.main.views.MainView
+import com.kaczmarek.moneycalculator.ui.settings.fragmens.SettingsFragment
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.presenter.InjectPresenter
@@ -19,9 +20,10 @@ class MainActivity : BaseActivity(), MainView,
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
-    val calculator =  CalculatorFragment()
-    val history =  HistoryFragment()
-    var activeFragment:BaseFragment = calculator
+    val calculator = CalculatorFragment()
+    val history = HistoryFragment()
+    val settings = SettingsFragment()
+    var activeFragment: BaseFragment = calculator
     val fragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +33,22 @@ class MainActivity : BaseActivity(), MainView,
         bnv_main.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(calculator).commit()
+                    fragmentManager.beginTransaction().hide(activeFragment).show(calculator)
+                        .commit()
                     activeFragment = calculator
                     true
                 }
                 R.id.item_history -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(history).detach(history).attach(history).commit()
+                    fragmentManager.beginTransaction().hide(activeFragment).show(history)
+                        .detach(history).attach(history).commit()
                     activeFragment = history
+
+                    true
+                }
+                R.id.item_settings -> {
+                    fragmentManager.beginTransaction().hide(activeFragment).show(settings)
+                        .detach(settings).attach(settings).commit()
+                    activeFragment = settings
 
                     true
                 }
@@ -53,18 +64,19 @@ class MainActivity : BaseActivity(), MainView,
 
     override fun onFirstOpen() {
         bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
-        fragmentManager.beginTransaction().add(R.id.fl_main_container, history, HistoryFragment.TAG).hide(history).commit()
-        fragmentManager.beginTransaction().add(R.id.fl_main_container,calculator, CalculatorFragment.TAG).commit()
+        fragmentManager.beginTransaction()
+            .add(R.id.fl_main_container, settings, SettingsFragment.TAG).hide(settings).commit()
+        fragmentManager.beginTransaction().add(R.id.fl_main_container, history, HistoryFragment.TAG)
+            .hide(history).commit()
+        fragmentManager.beginTransaction()
+            .add(R.id.fl_main_container, calculator, CalculatorFragment.TAG).commit()
     }
 
     override fun onBackStackChange(fragment: Fragment) {
         when (fragment) {
-            is CalculatorFragment -> {
-                bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
-            }
-            is HistoryFragment -> {
-                bnv_main.menu.findItem(R.id.item_history).isChecked = true
-            }
+            is CalculatorFragment -> bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
+            is HistoryFragment -> bnv_main.menu.findItem(R.id.item_history).isChecked = true
+            is SettingsFragment -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
         }
     }
 }

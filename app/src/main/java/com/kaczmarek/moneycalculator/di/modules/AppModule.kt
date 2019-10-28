@@ -1,6 +1,9 @@
 package com.kaczmarek.moneycalculator.di.modules
 
 import android.content.Context
+import android.content.SharedPreferences
+import com.kaczmarek.moneycalculator.di.SettingsService
+import com.kaczmarek.moneycalculator.di.SettingsService.Companion.KEY_SETTINGS
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
 import dagger.Module
 import dagger.Provides
@@ -11,10 +14,19 @@ import javax.inject.Singleton
  */
 @Module
 object AppModule {
-    @JvmStatic
     @Provides
     @Singleton
     fun provideDatabaseService(context: Context): DatabaseService {
         return DatabaseService.getDatabase(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefs(context: Context): SharedPreferences {
+        return context.getSharedPreferences(KEY_SETTINGS, Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsService(prefs: SharedPreferences) = SettingsService(prefs)
 }
