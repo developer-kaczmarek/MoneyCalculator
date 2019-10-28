@@ -1,5 +1,6 @@
 package com.kaczmarek.moneycalculator.di.modules
 
+import com.kaczmarek.moneycalculator.di.SettingsService
 import com.kaczmarek.moneycalculator.di.scopes.HistoryScope
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
 import com.kaczmarek.moneycalculator.ui.history.interactors.HistoryInteractor
@@ -21,7 +22,7 @@ class HistoryModule {
 
     @Provides
     @HistoryScope
-    internal fun provideRepository(databaseService: DatabaseService): IHistoryRepository {
-        return HistoryRepository(databaseService)
+    internal fun provideRepository(databaseService: DatabaseService, settingsService: SettingsService): IHistoryRepository {
+        return HistoryRepository(databaseService, settingsService)
     }
 }

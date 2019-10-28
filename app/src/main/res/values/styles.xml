@@ -6,11 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:editTextStyle">@style/EditTextTheme</item>
     </style>
 
     <!--Keyboard-->
     <style name="KeyboardTheme" parent="AppTheme">
         <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="EditTextTheme" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textCursorDrawable">@drawable/shape_rect_cursor</item>
     </style>
 
     <!--Toolbar-->

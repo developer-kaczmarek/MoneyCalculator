@@ -7,4 +7,7 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Session
  */
 interface IHistoryRepository {
     suspend fun getAll(): List<Session>
+    fun getHistoryStoragePeriod(): Int
+    fun isAlwaysOnDisplay(): Boolean
+    suspend fun deleteSession(session: Session)
 }

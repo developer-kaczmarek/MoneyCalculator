@@ -35,7 +35,6 @@ abstract class DatabaseService : RoomDatabase() {
         }
     }
 
-
     companion object {
 
         private const val DB_NAME = "calculator_db"

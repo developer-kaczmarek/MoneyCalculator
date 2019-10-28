@@ -50,7 +50,7 @@ class HistoryFragment : BaseFragment(), HistoryView{
             (activity as? BackStackChangeListener)?.onBackStackChange(this)
         }
         rv_history.adapter = adapter
-        presenter.getSessions()
+        presenter.getKeyboardLayout()
     }
 
     override fun onStart() {

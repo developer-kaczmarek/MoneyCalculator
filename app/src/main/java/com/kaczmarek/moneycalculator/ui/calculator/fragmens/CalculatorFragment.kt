@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
 import com.kaczmarek.moneycalculator.R
+import com.kaczmarek.moneycalculator.di.SettingsService.Companion.NUMPAD
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.calculator.presenters.CalculatorPresenter
 import com.kaczmarek.moneycalculator.ui.calculator.views.CalculatorView
@@ -65,6 +66,15 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
         b_digit_2_1.setOnClickListener(this)
         b_digit_2_2.setOnClickListener(this)
         b_digit_3_1.setOnClickListener(this)
+
+        if(presenter.getKeyboardLayout() == NUMPAD){
+            b_digit_0_0.setText(R.string.digit_7)
+            b_digit_0_1.setText(R.string.digit_8)
+            b_digit_0_2.setText(R.string.digit_9)
+            b_digit_2_0.setText(R.string.digit_1)
+            b_digit_2_1.setText(R.string.digit_2)
+            b_digit_2_2.setText(R.string.digit_3)
+        }
     }
 
     override fun onResume() {

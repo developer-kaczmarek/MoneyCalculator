@@ -13,4 +13,7 @@ interface SessionDao {
 
     @Query("SELECT * FROM sessions")
     fun getAll(): List<Session>
+
+    @Delete
+    fun deleteSession(session: Session)
 }
