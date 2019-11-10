@@ -25,7 +25,7 @@
         <item name="android:textColorSecondary">@color/white</item>
         <!-- navigation icon color -->
         <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/black_333</item>
 
     </style>
 

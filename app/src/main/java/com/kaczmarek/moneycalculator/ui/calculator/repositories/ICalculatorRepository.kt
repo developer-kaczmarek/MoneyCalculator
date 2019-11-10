@@ -11,5 +11,7 @@ interface ICalculatorRepository {
     suspend fun saveSession(session: Session)
     fun getKeyboardLayout(): Int
     fun isAlwaysOnDisplay(): Boolean
+    fun setCalculatorItems(banknotes: List<Banknote>)
+    fun getCalculatorItems(): List<Banknote>
 
 }

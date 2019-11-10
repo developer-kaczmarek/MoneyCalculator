@@ -1,6 +1,6 @@
 package com.kaczmarek.moneycalculator.ui.settings.repositories
 
-import com.kaczmarek.moneycalculator.di.SettingsService
+import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
 import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
 
@@ -22,7 +22,7 @@ class SettingsRepository(private val databaseService: DatabaseService, private v
 
     override suspend fun getAllBanknotes(): List<Banknote> = databaseService.banknoteDao().getAll()
 
-    override fun updateBanknote(banknote: Banknote) = databaseService.banknoteDao().updateBanknote(banknote)
+    override suspend fun updateBanknote(banknote: Banknote) = databaseService.banknoteDao().updateBanknote(banknote)
 
     override fun getHistoryStoragePeriod() = settingsService.historyStoragePeriod
 

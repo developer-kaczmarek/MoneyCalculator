@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
 import com.kaczmarek.moneycalculator.R
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.NUMPAD
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.calculator.presenters.CalculatorPresenter
 import com.kaczmarek.moneycalculator.ui.calculator.views.CalculatorView
@@ -43,6 +43,10 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
         return inflater.inflate(R.layout.fragment_calculator, container, false)
     }
 
+    override fun onDestroyView() {
+       presenter.setCalculatorItems()
+        super.onDestroyView()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,6 +89,7 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
 
     override fun addBanknoteCard() {
         context?.let { context ->
+            presenter.components.clear()
             presenter.banknotes.forEach { banknote ->
                 val componentCard = BanknoteCard(context)
                 val layoutParams = LinearLayout.LayoutParams(
@@ -92,10 +97,10 @@ class CalculatorFragment : BaseFragment(), CalculatorView,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
                 componentCard.setValueBanknote(banknote.name)
-                componentCard.setCount(0)
+                componentCard.addDigit(banknote.count.toString())
                 componentCard.setColorTheme(banknote.backgroundColor, banknote.textColor)
                 presenter.components.add(componentCard)
-                componentCard.editTextBanknoteCount.setOnFocusChangeListener { v, hasFocus ->
+                componentCard.editTextBanknoteCount.setOnFocusChangeListener { _, hasFocus ->
                     focusedEditTextId = presenter.components.indexOf(componentCard)
                     componentCard.setHideHint(hasFocus)
                     updateStateControlPanel()

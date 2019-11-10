@@ -2,9 +2,9 @@ package com.kaczmarek.moneycalculator.ui.history.presenters
 
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.di.DIManager
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.FOURTEEN_DAYS
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.INDEFINITELY
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.THIRTY_DAYS
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.FOURTEEN_DAYS
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.INDEFINITELY
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
 import com.kaczmarek.moneycalculator.di.services.database.models.Session
 import com.kaczmarek.moneycalculator.ui.base.adapters.BaseItem
 import com.kaczmarek.moneycalculator.ui.base.presenters.BasePresenter
@@ -38,7 +38,7 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
         DIManager.removeHistorySubcomponent()
     }
 
-    fun getKeyboardLayout() {
+    fun getHistoryStoragePeriod() {
         when (interactor.getHistoryStoragePeriod()) {
             INDEFINITELY -> getSessions()
             FOURTEEN_DAYS -> deleteSessionsFor(14)

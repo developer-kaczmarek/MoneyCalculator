@@ -1,6 +1,6 @@
 package com.kaczmarek.moneycalculator.ui.history.repositories
 
-import com.kaczmarek.moneycalculator.di.SettingsService
+import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
 import com.kaczmarek.moneycalculator.di.services.database.models.Session
 

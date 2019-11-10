@@ -1,4 +1,4 @@
-package com.kaczmarek.moneycalculator.di
+package com.kaczmarek.moneycalculator.di.services
 
 import android.content.SharedPreferences
 import androidx.annotation.IntDef
@@ -16,23 +16,36 @@ class SettingsService(private val prefs: SharedPreferences) {
         }
 
     var keyboardLayout: Int
-        get() = prefs.getInt(KEY_KEYBOARD_LAYOUT, CLASSIC)
+        get() = prefs.getInt(
+            KEY_KEYBOARD_LAYOUT,
+            CLASSIC
+        )
         set(@KeyboardLayout keyboardLayout) {
             prefs.edit().putInt(KEY_KEYBOARD_LAYOUT, keyboardLayout).apply()
         }
 
     var historyStoragePeriod: Int
-        get() = prefs.getInt(KEY_HISTORY_STORAGE_PERIOD, INDEFINITELY)
+        get() = prefs.getInt(
+            KEY_HISTORY_STORAGE_PERIOD,
+            INDEFINITELY
+        )
         set(@StoragePeriod historyStoragePeriod) {
             prefs.edit().putInt(KEY_HISTORY_STORAGE_PERIOD, historyStoragePeriod).apply()
         }
 
     companion object {
-        @IntDef(CLASSIC, NUMPAD)
+        @IntDef(
+            CLASSIC,
+            NUMPAD
+        )
         @Retention(AnnotationRetention.SOURCE)
         annotation class KeyboardLayout
 
-        @IntDef(INDEFINITELY, FOURTEEN_DAYS, THIRTY_DAYS)
+        @IntDef(
+            INDEFINITELY,
+            FOURTEEN_DAYS,
+            THIRTY_DAYS
+        )
         @Retention(AnnotationRetention.SOURCE)
         annotation class StoragePeriod
 

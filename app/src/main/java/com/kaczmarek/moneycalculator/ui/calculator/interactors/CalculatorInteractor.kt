@@ -23,4 +23,8 @@ class CalculatorInteractor(private val repository: ICalculatorRepository) {
     fun getKeyboardLayout() = repository.getKeyboardLayout()
 
     fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
+
+    fun setCalculatorItems(banknotes: List<Banknote>) = repository.setCalculatorItems(banknotes)
+
+    fun getCalculatorItems() = repository.getCalculatorItems()
 }

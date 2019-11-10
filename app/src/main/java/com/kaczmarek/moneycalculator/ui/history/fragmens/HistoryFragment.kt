@@ -14,6 +14,8 @@ import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
 import moxy.presenter.InjectPresenter
 import com.kaczmarek.moneycalculator.ui.history.adapters.HistoryRVAdapter
+import com.ub.utils.gone
+import com.ub.utils.visible
 import kotlinx.android.synthetic.main.fragment_history.*
 
 
@@ -50,7 +52,7 @@ class HistoryFragment : BaseFragment(), HistoryView{
             (activity as? BackStackChangeListener)?.onBackStackChange(this)
         }
         rv_history.adapter = adapter
-        presenter.getKeyboardLayout()
+        presenter.getHistoryStoragePeriod()
     }
 
     override fun onStart() {
@@ -63,7 +65,18 @@ class HistoryFragment : BaseFragment(), HistoryView{
     }
 
     override fun updateSessions() {
+        showSessions()
         adapter.notifyDataSetChanged()
+    }
+
+    fun showSessions() {
+        if (presenter.allHistoryItems.size != 0) {
+            rv_history.visible
+            tv_empty_history.gone
+        } else {
+            rv_history.gone
+            tv_empty_history.visible
+        }
     }
 
 

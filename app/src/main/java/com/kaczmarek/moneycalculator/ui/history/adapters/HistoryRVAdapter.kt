@@ -63,7 +63,7 @@ class HistoryRVAdapter(private val presenter: HistoryPresenter) :
         View.OnClickListener {
 
         init {
-            itemView.iv_session_more.setOnClickListener(this)
+            itemView.ll_session_header.setOnClickListener(this)
         }
 
         fun bind(position: Int) {
@@ -81,7 +81,7 @@ class HistoryRVAdapter(private val presenter: HistoryPresenter) :
 
         override fun onClick(v: View) {
             when (v.id) {
-                R.id.iv_session_more -> {
+                R.id.ll_session_header -> {
                     if (itemView.rv_session_banknotes.visibility == View.GONE) {
                         itemView.iv_session_more.animate().rotation(180F).start()
                         TransitionManager.beginDelayedTransition(root, AutoTransition())

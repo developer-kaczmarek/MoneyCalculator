@@ -22,7 +22,7 @@ class SettingsInteractor(private val repository: ISettingsRepository) {
         repository.saveAlwaysOnDisplay(isSelected)
     }
 
-    fun saveVisibilityBanknotes(banknotes: List<Banknote>) {
+    suspend fun saveVisibilityBanknotes(banknotes: List<Banknote>) {
         banknotes.forEach {
             repository.updateBanknote(it)
         }

@@ -1,8 +1,9 @@
 package com.kaczmarek.moneycalculator.ui.settings.presenters
 
+import android.widget.CheckBox
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.di.DIManager
-import com.kaczmarek.moneycalculator.di.SettingsService
+import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
 import com.kaczmarek.moneycalculator.ui.base.presenters.BasePresenter
 import com.kaczmarek.moneycalculator.ui.settings.interactors.SettingsInteractor
@@ -21,6 +22,7 @@ class SettingsPresenter : BasePresenter<SettingsView>() {
     @Inject
     lateinit var interactor: SettingsInteractor
     val banknotes = arrayListOf<Banknote>()
+    val components = arrayListOf<CheckBox>()
 
     init {
         DIManager.getSettingsSubcomponent().inject(this)
@@ -59,8 +61,27 @@ class SettingsPresenter : BasePresenter<SettingsView>() {
         interactor.saveAlwaysOnDisplay(isSelected)
     }
 
-    fun saveVisibilityBanknotes(){
-        interactor.saveVisibilityBanknotes(banknotes)
+    fun areAllBanknotesInvisible(): Boolean {
+        var allBanknotesInvisible = true
+        banknotes.forEach {
+            if (it.isShow) {
+                allBanknotesInvisible = false
+            }
+        }
+        return allBanknotesInvisible
+    }
+
+    fun saveVisibilityBanknotes() = launch {
+        try {
+            interactor.saveVisibilityBanknotes(banknotes)
+        } catch (e: Exception) {
+            viewState.showMessage(
+                getString(
+                    R.string.common_save_error,
+                    e.toString()
+                )
+            )
+        }
     }
 
     fun getHistoryStoragePeriod() = interactor.getHistoryStoragePeriod()

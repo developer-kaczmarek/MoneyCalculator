@@ -11,11 +11,11 @@ import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.doOnPreDraw
 import com.kaczmarek.moneycalculator.R
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.CLASSIC
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.FOURTEEN_DAYS
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.INDEFINITELY
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.NUMPAD
-import com.kaczmarek.moneycalculator.di.SettingsService.Companion.THIRTY_DAYS
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.CLASSIC
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.FOURTEEN_DAYS
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.INDEFINITELY
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
+import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
 import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
 import com.kaczmarek.moneycalculator.ui.settings.presenters.SettingsPresenter
@@ -39,6 +39,7 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
     private var stateStoragePeriod = INDEFINITELY
     private var stateKeyboardLayout = CLASSIC
     private var stateAlwaysOnDisplay = false
+    private var isNewChange = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,6 +68,7 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
         rg_settings_history.setOnCheckedChangeListener(this)
         rg_settings_keyboard.setOnCheckedChangeListener(this)
         sw_settings_display.setOnCheckedChangeListener { _, isSelected ->
+            isNewChange = true
             stateAlwaysOnDisplay = isSelected
         }
 
@@ -96,25 +98,27 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
     }
 
     override fun loadBanknotes() {
+        presenter.components.clear()
         presenter.banknotes.forEach {
-            val banknoteCheck = CheckBox(context)
-            banknoteCheck.id = it.id
+            val banknoteCheckBox = CheckBox(context)
+            banknoteCheckBox.id = it.id
             if (it.name >= 1) {
-                banknoteCheck.text = getString(R.string.common_ruble_format, it.name.toInt())
+                banknoteCheckBox.text = getString(R.string.common_ruble_format, it.name.toInt())
             } else {
-                banknoteCheck.text =
+                banknoteCheckBox.text =
                     getString(R.string.common_penny_format, (it.name * 100).toInt())
             }
 
-            banknoteCheck.isChecked = it.isShow
-            banknoteCheck.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
-            banknoteCheck.typeface =
-                ResourcesCompat.getFont(banknoteCheck.context, R.font.gotham_pro)
-            banknoteCheck.setPadding(banknoteCheck.context.dpToPx(16).toInt(), 0, 0, 0)
-            ll_settings_banknotes.addView(banknoteCheck)
-
-            banknoteCheck.setOnCheckedChangeListener { view, isChecked ->
-                presenter.banknotes[view.id].isShow = isChecked
+            banknoteCheckBox.isChecked = it.isShow
+            banknoteCheckBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
+            banknoteCheckBox.typeface =
+                ResourcesCompat.getFont(banknoteCheckBox.context, R.font.gotham_pro)
+            banknoteCheckBox.setPadding(banknoteCheckBox.context.dpToPx(16).toInt(), 0, 0, 0)
+            ll_settings_banknotes.addView(banknoteCheckBox)
+            presenter.components.add(banknoteCheckBox)
+            banknoteCheckBox.setOnCheckedChangeListener { view, isChecked ->
+                isNewChange = true
+                presenter.banknotes[presenter.components.indexOf(view)].isShow = isChecked
             }
         }
     }
@@ -122,10 +126,22 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.iv_toolbar_action -> {
-                presenter.saveVisibilityBanknotes()
-                presenter.saveHistoryStoragePeriod(stateStoragePeriod)
-                presenter.saveKeyboardLayout(stateKeyboardLayout)
-                presenter.saveAlwaysOnDisplay(stateAlwaysOnDisplay)
+                if (isNewChange) {
+                    if (presenter.areAllBanknotesInvisible()) {
+                        showMessage(
+                            getString(R.string.fragment_settings_all_banknotes_invisible)
+                        )
+                    } else {
+                        presenter.saveVisibilityBanknotes()
+                        presenter.saveHistoryStoragePeriod(stateStoragePeriod)
+                        presenter.saveKeyboardLayout(stateKeyboardLayout)
+                        presenter.saveAlwaysOnDisplay(stateAlwaysOnDisplay)
+                        showMessage(getString(R.string.fragment_settings_save_successful))
+                    }
+                } else {
+                    showMessage(getString(R.string.fragment_settings_no_new_changes))
+                }
+
             }
         }
     }
@@ -133,6 +149,7 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
     override fun onCheckedChanged(rg: RadioGroup?, checkedId: Int) {
         when (rg?.id) {
             R.id.rg_settings_history -> {
+                isNewChange = true
                 stateStoragePeriod = when (checkedId) {
                     R.id.rb_save_indefinitely -> INDEFINITELY
                     R.id.rb_save_fourteen_days -> FOURTEEN_DAYS
@@ -140,6 +157,7 @@ class SettingsFragment : BaseFragment(), SettingsView, View.OnClickListener,
                 }
             }
             R.id.rg_settings_keyboard -> {
+                isNewChange = true
                 stateKeyboardLayout = when (checkedId) {
                     R.id.rb_numpad_keyboard -> NUMPAD
                     else -> CLASSIC

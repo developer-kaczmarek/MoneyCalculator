@@ -1,10 +1,10 @@
 package com.kaczmarek.moneycalculator.ui.main.activities
 
 import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.activities.BaseActivity
-import com.kaczmarek.moneycalculator.ui.base.fragmens.BaseFragment
 import com.kaczmarek.moneycalculator.ui.calculator.fragmens.CalculatorFragment
 import com.kaczmarek.moneycalculator.ui.history.fragmens.HistoryFragment
 import com.kaczmarek.moneycalculator.ui.main.listeners.BackStackChangeListener
@@ -20,11 +20,7 @@ class MainActivity : BaseActivity(), MainView,
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
-    val calculator = CalculatorFragment()
-    val history = HistoryFragment()
-    val settings = SettingsFragment()
-    var activeFragment: BaseFragment = calculator
-    val fragmentManager = supportFragmentManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,22 +29,15 @@ class MainActivity : BaseActivity(), MainView,
         bnv_main.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(calculator)
-                        .commit()
-                    activeFragment = calculator
+                    attachFragment(fl_main_container.id, CalculatorFragment(), CalculatorFragment.TAG)
                     true
                 }
                 R.id.item_history -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(history)
-                        .detach(history).attach(history).commit()
-                    activeFragment = history
-
+                    attachFragment(fl_main_container.id, HistoryFragment(), HistoryFragment.TAG)
                     true
                 }
                 R.id.item_settings -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(settings)
-                        .detach(settings).attach(settings).commit()
-                    activeFragment = settings
+                    attachFragment(fl_main_container.id, SettingsFragment(), SettingsFragment.TAG)
 
                     true
                 }
@@ -64,12 +53,7 @@ class MainActivity : BaseActivity(), MainView,
 
     override fun onFirstOpen() {
         bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
-        fragmentManager.beginTransaction()
-            .add(R.id.fl_main_container, settings, SettingsFragment.TAG).hide(settings).commit()
-        fragmentManager.beginTransaction().add(R.id.fl_main_container, history, HistoryFragment.TAG)
-            .hide(history).commit()
-        fragmentManager.beginTransaction()
-            .add(R.id.fl_main_container, calculator, CalculatorFragment.TAG).commit()
+        attachFragment(fl_main_container.id, CalculatorFragment(), CalculatorFragment.TAG)
     }
 
     override fun onBackStackChange(fragment: Fragment) {
@@ -77,6 +61,32 @@ class MainActivity : BaseActivity(), MainView,
             is CalculatorFragment -> bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
             is HistoryFragment -> bnv_main.menu.findItem(R.id.item_history).isChecked = true
             is SettingsFragment -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
+        }
+    }
+
+    private fun attachFragment(@IdRes containerId: Int, fragmentInstance: Fragment, tag: String?) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+
+        var fragment = supportFragmentManager.findFragmentByTag(tag)
+        if (fragment == null) {
+            fragment = fragmentInstance
+            fragmentTransaction.add(containerId, fragment, tag)
+        } else {
+            fragmentTransaction.attach(fragment)
+        }
+
+        val curFrag = supportFragmentManager.primaryNavigationFragment
+        if (fragment != curFrag) {
+            if (curFrag != null) {
+                fragmentTransaction.detach(curFrag)
+            }
+
+            fragmentTransaction.addToBackStack(tag)
+
+            fragmentTransaction
+                .setPrimaryNavigationFragment(fragment)
+                .setReorderingAllowed(true)
+                .commit()
         }
     }
 }

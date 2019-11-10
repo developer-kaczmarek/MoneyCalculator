@@ -14,5 +14,20 @@
         android:id="@+id/rv_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <TextView
+        android:id="@+id/tv_empty_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/gotham_pro"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:visibility="gone"
+        android:text="@string/fragment_history_empty_history"
+        android:textColor="@color/black_1d1"
+        android:textSize="18sp" />
+
 </LinearLayout>

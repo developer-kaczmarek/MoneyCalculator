@@ -15,6 +15,7 @@
     <string name="common_cancel">Отмена</string>
     <string name="common_further">Далее</string>
     <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
+    <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
 
     <!--Digits-->
     <string name="digit_0" translatable="false">0</string>
@@ -52,12 +53,15 @@
     <string name="fragment_settings_in_thirty_days">За 30 дней</string>
     <string name="fragment_settings_phone_keyboard">Телефонная раскладка</string>
     <string name="fragment_settings_numpad_keyboard">Раскладка Numpad</string>
+    <string name="fragment_settings_save_successful">Изменения сохранены</string>
+    <string name="fragment_settings_no_new_changes">Нет новых изменений</string>
+    <string name="fragment_settings_all_banknotes_invisible">Изменения не сохранены. Выберите хотя бы один номинал</string>
 
     <!--CalculatorFragment-->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
-    <string name="fragment_calculator_save_error">В результате сохранения произошла ошибка: %s</string>
 
     <!--HistoryFragment-->
     <string name="fragment_history_today_sessions">Сегодня</string>
     <string name="fragment_history_yesterday_sessions">Вчера</string>
+    <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
 </resources>

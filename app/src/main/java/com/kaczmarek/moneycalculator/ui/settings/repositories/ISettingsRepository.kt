@@ -10,7 +10,7 @@ interface ISettingsRepository {
     fun saveHistoryStoragePeriod(setting: Int)
     fun saveKeyboardLayout(setting: Int)
     fun saveAlwaysOnDisplay(isSelected: Boolean)
-    fun updateBanknote(banknote: Banknote)
+    suspend fun updateBanknote(banknote: Banknote)
     fun getHistoryStoragePeriod(): Int
     fun getKeyboardLayout(): Int
     fun isAlwaysOnDisplay(): Boolean

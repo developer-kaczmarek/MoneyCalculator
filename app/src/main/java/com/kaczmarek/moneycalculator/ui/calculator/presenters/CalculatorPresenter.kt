@@ -32,7 +32,6 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
     override fun onDestroy() {
         super.onDestroy()
         DIManager.removeCalculatorSubcomponent()
-
     }
 
     fun updateTotalAmount() {
@@ -51,8 +50,7 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
                 banknotes.add(it)
             }
         }
-        updateTotalAmount()
-        viewState.addBanknoteCard()
+        getCalculatorItems()
     }
 
     fun saveSession() {
@@ -70,11 +68,44 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
             } catch (e: Exception) {
                 viewState.showMessage(
                     getString(
-                        R.string.fragment_calculator_save_error,
+                        R.string.common_save_error,
                         e.toString()
                     )
                 )
             }
         }
+    }
+
+    fun setCalculatorItems() {
+        interactor.setCalculatorItems(banknotes)
+    }
+
+    private fun getCalculatorItems() {
+        val calculatorItems = interactor.getCalculatorItems()
+        if (isIdenticalLists(calculatorItems)) {
+            calculatorItems.forEachIndexed { index, banknote ->
+                if(banknotes[index].id == banknote.id) {
+                    banknotes[index].count = banknote.count
+                }
+            }
+        }
+
+        updateTotalAmount()
+        viewState.addBanknoteCard()
+    }
+
+    private fun isIdenticalLists(calculatorItems : List< Banknote>): Boolean {
+        var isIdenticalList =  true
+        if(calculatorItems.size != banknotes.size) {
+            isIdenticalList = false
+        }
+        if (isIdenticalList) {
+            calculatorItems.forEachIndexed { index, banknote ->
+                if (banknotes[index].id != banknote.id) {
+                    isIdenticalList = false
+                }
+            }
+        }
+        return isIdenticalList
     }
 }

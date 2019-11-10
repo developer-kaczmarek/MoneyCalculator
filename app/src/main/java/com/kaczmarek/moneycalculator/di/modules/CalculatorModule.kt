@@ -1,7 +1,8 @@
 package com.kaczmarek.moneycalculator.di.modules
 
-import com.kaczmarek.moneycalculator.di.SettingsService
+import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.scopes.CalculatorScope
+import com.kaczmarek.moneycalculator.di.services.CalculatorService
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
 import com.kaczmarek.moneycalculator.ui.calculator.interactors.CalculatorInteractor
 import com.kaczmarek.moneycalculator.ui.calculator.repositories.CalculatorRepository
@@ -22,7 +23,11 @@ class CalculatorModule {
 
     @Provides
     @CalculatorScope
-    internal fun provideRepository(databaseService: DatabaseService, settingsService: SettingsService): ICalculatorRepository {
-        return CalculatorRepository(databaseService, settingsService)
+    internal fun provideRepository(
+        databaseService: DatabaseService,
+        settingsService: SettingsService,
+        calculatorService: CalculatorService
+    ): ICalculatorRepository {
+        return CalculatorRepository(databaseService, settingsService, calculatorService)
     }
 }
