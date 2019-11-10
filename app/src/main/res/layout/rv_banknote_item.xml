@@ -1,53 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_banknote_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_banknote"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/gotham_pro"
         android:textColor="@color/black_1d1"
         android:textSize="14sp"
-        tools:text="5000 р" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/gotham_pro"
-        android:textColor="@color/black_1d1"
-        android:textSize="14sp"
-        android:text=" x " />
-    <TextView
-        android:id="@+id/tv_banknote_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/gotham_pro"
-        android:textColor="@color/black_1d1"
-        android:textSize="14sp"
-        tools:text="1" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/gotham_pro"
-        android:textColor="@color/black_1d1"
-        android:textSize="14sp"
-        android:text=" = " />
+        tools:text="5000,00 ₽ x 5 = 25000,00 ₽" />
 
-    <TextView
-        android:id="@+id/tv_banknote_amount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/gotham_pro"
-        android:textColor="@color/black_1d1"
-        android:textSize="14sp"
-        tools:text="5000 р" />
 </LinearLayout>

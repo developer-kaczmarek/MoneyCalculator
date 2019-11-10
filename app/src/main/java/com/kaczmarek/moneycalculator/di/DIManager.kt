@@ -1,11 +1,9 @@
 package com.kaczmarek.moneycalculator.di
 
-import com.kaczmarek.moneycalculator.di.components.AppComponent
-import com.kaczmarek.moneycalculator.di.components.CalculatorSubcomponent
-import com.kaczmarek.moneycalculator.di.components.HistorySubcomponent
-import com.kaczmarek.moneycalculator.di.components.SettingsSubcomponent
+import com.kaczmarek.moneycalculator.di.components.*
 import com.kaczmarek.moneycalculator.di.modules.CalculatorModule
 import com.kaczmarek.moneycalculator.di.modules.HistoryModule
+import com.kaczmarek.moneycalculator.di.modules.MainModule
 import com.kaczmarek.moneycalculator.di.modules.SettingsModule
 
 /**
@@ -19,6 +17,8 @@ object DIManager {
     private var historySubcomponent: HistorySubcomponent? = null
 
     private var settingsSubcomponent: SettingsSubcomponent? = null
+
+    private var mainSubcomponent: MainSubcomponent? = null
 
     fun getCalculatorSubcomponent(): CalculatorSubcomponent {
         if (calculatorSubcomponent == null) {
@@ -57,5 +57,18 @@ object DIManager {
 
     fun removeSettingsSubcomponent() {
         historySubcomponent = null
+    }
+
+    fun getMainSubcomponent(): MainSubcomponent {
+        if (mainSubcomponent == null) {
+            mainSubcomponent =
+                appComponent.main(MainModule())
+        }
+        return mainSubcomponent
+            ?: throw IllegalStateException("$mainSubcomponent must not be null")
+    }
+
+    fun removeMainSubcomponent() {
+        mainSubcomponent = null
     }
 }

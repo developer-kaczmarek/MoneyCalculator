@@ -29,15 +29,18 @@ class MainActivity : BaseActivity(), MainView,
         bnv_main.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> {
-                    attachFragment(fl_main_container.id, CalculatorFragment(), CalculatorFragment.TAG)
+                    presenter.addFragmentToStack(R.id.item_calculator)
+                    attachFragment(fl_main_container.id, CalculatorFragment(), CalculatorFragment.TAG, true)
                     true
                 }
                 R.id.item_history -> {
-                    attachFragment(fl_main_container.id, HistoryFragment(), HistoryFragment.TAG)
+                    presenter.addFragmentToStack(R.id.item_history)
+                    attachFragment(fl_main_container.id, HistoryFragment(), HistoryFragment.TAG, true)
                     true
                 }
                 R.id.item_settings -> {
-                    attachFragment(fl_main_container.id, SettingsFragment(), SettingsFragment.TAG)
+                    presenter.addFragmentToStack(R.id.item_settings)
+                    attachFragment(fl_main_container.id, SettingsFragment(), SettingsFragment.TAG, true)
 
                     true
                 }
@@ -53,6 +56,7 @@ class MainActivity : BaseActivity(), MainView,
 
     override fun onFirstOpen() {
         bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
+        presenter.addFragmentToStack(R.id.item_calculator)
         attachFragment(fl_main_container.id, CalculatorFragment(), CalculatorFragment.TAG)
     }
 
@@ -64,7 +68,7 @@ class MainActivity : BaseActivity(), MainView,
         }
     }
 
-    private fun attachFragment(@IdRes containerId: Int, fragmentInstance: Fragment, tag: String?) {
+    private fun attachFragment(@IdRes containerId: Int, fragmentInstance: Fragment, tag: String?, isAddToBackStack: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         var fragment = supportFragmentManager.findFragmentByTag(tag)
@@ -81,7 +85,9 @@ class MainActivity : BaseActivity(), MainView,
                 fragmentTransaction.detach(curFrag)
             }
 
-            fragmentTransaction.addToBackStack(tag)
+            if (isAddToBackStack) {
+                fragmentTransaction.addToBackStack(tag)
+            }
 
             fragmentTransaction
                 .setPrimaryNavigationFragment(fragment)

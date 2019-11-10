@@ -36,9 +36,12 @@ class BanknoteRVAdapter(private val banknotes: List<Banknote>) : BaseRVAdapter<R
 
         fun bind(position: Int) {
             val item = banknotes[position]
-            itemView.tv_banknote_name.text = getString(R.string.common_ruble_float_format, item.name)
-            itemView.tv_banknote_count.text = item.count.toString()
-            itemView.tv_banknote_amount.text = getString(R.string.common_ruble_float_format, item.amount)
+            itemView.tv_banknote.text = getString(
+                R.string.fragment_history_computation,
+                item.name,
+                item.count,
+                item.amount
+            )
         }
     }
 }

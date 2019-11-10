@@ -60,7 +60,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    app:srcCompat="@drawable/ic_navigate_bottom" />
+                    app:srcCompat="@drawable/ic_navigate_bottom"
+                    android:contentDescription="@string/content_description_arrow_card" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

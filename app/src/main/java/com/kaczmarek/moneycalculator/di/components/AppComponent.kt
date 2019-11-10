@@ -1,10 +1,7 @@
 package com.kaczmarek.moneycalculator.di.components
 
 import android.content.Context
-import com.kaczmarek.moneycalculator.di.modules.AppModule
-import com.kaczmarek.moneycalculator.di.modules.CalculatorModule
-import com.kaczmarek.moneycalculator.di.modules.HistoryModule
-import com.kaczmarek.moneycalculator.di.modules.SettingsModule
+import com.kaczmarek.moneycalculator.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -23,6 +20,8 @@ interface AppComponent {
     fun history(historyModule: HistoryModule): HistorySubcomponent
 
     fun settings(settingsModule: SettingsModule): SettingsSubcomponent
+
+    fun main(mainModule: MainModule): MainSubcomponent
 
     @Component.Builder
     interface Builder {

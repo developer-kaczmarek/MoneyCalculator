@@ -34,6 +34,7 @@
     <string name="content_description_delete">Удаление</string>
     <string name="content_description_arrow_back">Стрелка назад</string>
     <string name="content_description_arrow_next">Стрелка вперед</string>
+    <string name="content_description_arrow_card">Стрелка разворота карточки</string>
 
     <!--MainActivity-->
     <string name="activity_main_title_calculator_item">Калькулятор</string>
@@ -64,4 +65,5 @@
     <string name="fragment_history_today_sessions">Сегодня</string>
     <string name="fragment_history_yesterday_sessions">Вчера</string>
     <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
+    <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
 </resources>

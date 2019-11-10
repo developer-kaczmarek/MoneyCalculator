@@ -69,7 +69,7 @@ class HistoryFragment : BaseFragment(), HistoryView{
         adapter.notifyDataSetChanged()
     }
 
-    fun showSessions() {
+    private fun showSessions() {
         if (presenter.allHistoryItems.size != 0) {
             rv_history.visible
             tv_empty_history.gone
