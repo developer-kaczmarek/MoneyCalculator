@@ -16,7 +16,8 @@ fun FragmentActivity.toast(
     toastDuration: Int = Toast.LENGTH_SHORT,
     yOffset: Int = dpToPx(16).toInt()
 ) {
-    val layout = layoutInflater.inflate(R.layout.component_toast, findViewById(R.id.ll_toast_container))
+    val layout =
+        layoutInflater.inflate(R.layout.component_toast, findViewById(R.id.ll_toast_container))
 
     val text = layout.findViewById(R.id.tv_toast_message) as TextView
     text.text = message.trim()

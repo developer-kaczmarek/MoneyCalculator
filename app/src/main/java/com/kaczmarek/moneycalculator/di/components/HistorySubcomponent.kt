@@ -2,7 +2,7 @@ package com.kaczmarek.moneycalculator.di.components
 
 import com.kaczmarek.moneycalculator.di.modules.HistoryModule
 import com.kaczmarek.moneycalculator.di.scopes.HistoryScope
-import com.kaczmarek.moneycalculator.ui.history.presenters.HistoryPresenter
+import com.kaczmarek.moneycalculator.ui.history.PresenterHistory
 import dagger.Subcomponent
 
 /**
@@ -11,5 +11,5 @@ import dagger.Subcomponent
 @HistoryScope
 @Subcomponent(modules = [HistoryModule::class])
 interface HistorySubcomponent {
-    fun inject(presenter: HistoryPresenter)
+    fun inject(presenter: PresenterHistory)
 }

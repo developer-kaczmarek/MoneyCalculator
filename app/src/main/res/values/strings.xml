@@ -5,7 +5,7 @@
     <string name="common_ruble_format">%d ₽</string>
     <string name="common_ruble_float_format">%.2f ₽</string>
     <string name="common_penny_format">%d к.</string>
-    <string name="common_bank_note">5000 ₽</string>
+    <string name="common_bank_note">0 ₽</string>
     <string name="common_bank_ruble">₽</string>
     <string name="common_bank_penny">К.</string>
     <string name="common_count_bank_note" translatable="false">0</string>
@@ -15,6 +15,7 @@
     <string name="common_cancel">Отмена</string>
     <string name="common_further">Далее</string>
     <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
+    <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
     <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
 
     <!--Digits-->
@@ -41,6 +42,7 @@
     <string name="activity_main_title_history_item">История</string>
     <string name="activity_main_title_settings_item">Настройки</string>
     <string name="activity_main_total">Итог</string>
+    <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
 
     <!--SettingsFragment-->
     <string name="fragment_settings_banknotes">Номиналы</string>
@@ -60,6 +62,8 @@
 
     <!--CalculatorFragment-->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
+    <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
+    <string name="fragment_calculator_all_delete_values">Все значения удалены</string>
 
     <!--HistoryFragment-->
     <string name="fragment_history_today_sessions">Сегодня</string>

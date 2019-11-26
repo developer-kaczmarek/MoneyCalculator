@@ -4,9 +4,9 @@ import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.scopes.CalculatorScope
 import com.kaczmarek.moneycalculator.di.services.CalculatorService
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
-import com.kaczmarek.moneycalculator.ui.calculator.interactors.CalculatorInteractor
-import com.kaczmarek.moneycalculator.ui.calculator.repositories.CalculatorRepository
-import com.kaczmarek.moneycalculator.ui.calculator.repositories.ICalculatorRepository
+import com.kaczmarek.moneycalculator.ui.calculator.InteractorCalculator
+import com.kaczmarek.moneycalculator.ui.calculator.RepositoryCalculator
+import com.kaczmarek.moneycalculator.ui.calculator.IRepositoryCalculator
 import dagger.Module
 import dagger.Provides
 
@@ -17,8 +17,10 @@ import dagger.Provides
 class CalculatorModule {
     @Provides
     @CalculatorScope
-    internal fun provideInteractor(repo: ICalculatorRepository): CalculatorInteractor {
-        return CalculatorInteractor(repo)
+    internal fun provideInteractor(repo: IRepositoryCalculator): InteractorCalculator {
+        return InteractorCalculator(
+            repo
+        )
     }
 
     @Provides
@@ -27,7 +29,11 @@ class CalculatorModule {
         databaseService: DatabaseService,
         settingsService: SettingsService,
         calculatorService: CalculatorService
-    ): ICalculatorRepository {
-        return CalculatorRepository(databaseService, settingsService, calculatorService)
+    ): IRepositoryCalculator {
+        return RepositoryCalculator(
+            databaseService,
+            settingsService,
+            calculatorService
+        )
     }
 }

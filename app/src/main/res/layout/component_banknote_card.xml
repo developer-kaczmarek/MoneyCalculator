@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/gray_f3f">
 <androidx.cardview.widget.CardView
     android:id="@+id/cv_banknote_info"
@@ -81,10 +82,10 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham_pro"
-                android:text="@string/common_bank_note"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:text="@string/common_bank_note"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

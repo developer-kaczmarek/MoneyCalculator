@@ -3,9 +3,9 @@ package com.kaczmarek.moneycalculator.di.modules
 import com.kaczmarek.moneycalculator.di.scopes.MainScope
 import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
-import com.kaczmarek.moneycalculator.ui.main.interactors.MainInteractor
-import com.kaczmarek.moneycalculator.ui.main.repositories.IMainRepository
-import com.kaczmarek.moneycalculator.ui.main.repositories.MainRepository
+import com.kaczmarek.moneycalculator.ui.main.InteractorMain
+import com.kaczmarek.moneycalculator.ui.main.IRepositoryMain
+import com.kaczmarek.moneycalculator.ui.main.RepositoryMain
 import dagger.Module
 import dagger.Provides
 
@@ -16,13 +16,19 @@ import dagger.Provides
 class MainModule {
     @Provides
     @MainScope
-    internal fun provideInteractor(repo: IMainRepository): MainInteractor {
-        return MainInteractor(repo)
+    internal fun provideInteractor(repo: IRepositoryMain): InteractorMain {
+        return InteractorMain(repo)
     }
 
     @Provides
     @MainScope
-    internal fun provideRepository(databaseService: DatabaseService, settingsService: SettingsService): IMainRepository {
-        return MainRepository(databaseService, settingsService)
+    internal fun provideRepository(
+        databaseService: DatabaseService,
+        settingsService: SettingsService
+    ): IRepositoryMain {
+        return RepositoryMain(
+            databaseService,
+            settingsService
+        )
     }
 }

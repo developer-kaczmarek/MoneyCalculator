@@ -10,7 +10,8 @@ import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
  */
 class BanknoteConverters {
     @TypeConverter
-    fun fromString(value: String): List<Banknote> = Gson().fromJson(value, object : TypeToken<List<Banknote>>() {}.type)
+    fun fromString(value: String): List<Banknote> =
+        Gson().fromJson(value, object : TypeToken<List<Banknote>>() {}.type)
 
     @TypeConverter
     fun fromArrayLisr(list: List<Banknote>): String = Gson().toJson(list)

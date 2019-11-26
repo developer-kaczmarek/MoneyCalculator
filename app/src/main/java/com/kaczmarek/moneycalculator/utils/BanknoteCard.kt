@@ -105,8 +105,15 @@ class BanknoteCard : LinearLayout {
 
     fun deleteDigit() {
         val textFromEditText = editTextBanknoteCount.text.toString()
-        editTextBanknoteCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
-        editTextBanknoteCount.setSelection(editTextBanknoteCount.text.length)
+        if (textFromEditText.isNotEmpty()) {
+            editTextBanknoteCount.setText(
+                textFromEditText.substring(
+                    0,
+                    textFromEditText.length - 1
+                )
+            )
+            editTextBanknoteCount.setSelection(editTextBanknoteCount.text.length)
+        }
         setCount(
             if (editTextBanknoteCount.text.isNotEmpty()) {
                 editTextBanknoteCount.text.toString().toInt()

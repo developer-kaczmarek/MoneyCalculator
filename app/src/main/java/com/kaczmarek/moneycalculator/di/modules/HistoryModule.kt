@@ -1,11 +1,10 @@
 package com.kaczmarek.moneycalculator.di.modules
 
-import com.kaczmarek.moneycalculator.di.services.SettingsService
 import com.kaczmarek.moneycalculator.di.scopes.HistoryScope
 import com.kaczmarek.moneycalculator.di.services.database.DatabaseService
-import com.kaczmarek.moneycalculator.ui.history.interactors.HistoryInteractor
-import com.kaczmarek.moneycalculator.ui.history.repositories.HistoryRepository
-import com.kaczmarek.moneycalculator.ui.history.repositories.IHistoryRepository
+import com.kaczmarek.moneycalculator.ui.history.InteractorHistory
+import com.kaczmarek.moneycalculator.ui.history.RepositoryHistory
+import com.kaczmarek.moneycalculator.ui.history.IRepositoryHistory
 import dagger.Module
 import dagger.Provides
 
@@ -16,13 +15,15 @@ import dagger.Provides
 class HistoryModule {
     @Provides
     @HistoryScope
-    internal fun provideInteractor(repo: IHistoryRepository): HistoryInteractor {
-        return HistoryInteractor(repo)
+    internal fun provideInteractor(repo: IRepositoryHistory): InteractorHistory {
+        return InteractorHistory(repo)
     }
 
     @Provides
     @HistoryScope
-    internal fun provideRepository(databaseService: DatabaseService, settingsService: SettingsService): IHistoryRepository {
-        return HistoryRepository(databaseService, settingsService)
+    internal fun provideRepository(databaseService: DatabaseService): IRepositoryHistory {
+        return RepositoryHistory(
+            databaseService
+        )
     }
 }
