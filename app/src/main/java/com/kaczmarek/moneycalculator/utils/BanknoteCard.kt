@@ -8,14 +8,12 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.kaczmarek.moneycalculator.R
-import com.ub.utils.UbUtils.getString
 import kotlinx.android.synthetic.main.component_banknote_card.view.*
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.ub.utils.dpToPx
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -62,7 +60,7 @@ class BanknoteCard : LinearLayout {
             weight = 1.0f
             gravity = Gravity.CENTER
         }
-        params.setMargins(0, 0, dpToPx(16).toInt(), 0)
+        params.setMargins(0, 0, dpToPxInt(16), 0)
         editTextBanknoteCount.layoutParams = params
         ll_container_count.addView(editTextBanknoteCount)
     }

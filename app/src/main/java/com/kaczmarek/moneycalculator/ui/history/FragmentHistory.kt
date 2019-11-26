@@ -11,9 +11,9 @@ import com.kaczmarek.moneycalculator.ui.base.FragmentBase
 import com.kaczmarek.moneycalculator.ui.base.ViewBase
 import com.kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
+import com.kaczmarek.moneycalculator.utils.gone
+import com.kaczmarek.moneycalculator.utils.visible
 import moxy.presenter.InjectPresenter
-import com.ub.utils.gone
-import com.ub.utils.visible
 import kotlinx.android.synthetic.main.fragment_history.*
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType

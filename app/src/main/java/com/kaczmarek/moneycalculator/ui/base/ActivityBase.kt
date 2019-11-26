@@ -3,7 +3,7 @@ package com.kaczmarek.moneycalculator.ui.base
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.kaczmarek.moneycalculator.R
-import com.ub.utils.hideSoftKeyboard
+import com.kaczmarek.moneycalculator.utils.hideSoftKeyboard
 import moxy.MvpAppCompatActivity
 import moxy.MvpView
 import moxy.viewstate.strategy.OneExecutionStateStrategy

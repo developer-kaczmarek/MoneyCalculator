@@ -5,8 +5,6 @@ import com.facebook.stetho.Stetho
 import com.kaczmarek.moneycalculator.di.DIManager
 import com.kaczmarek.moneycalculator.di.components.DaggerAppComponent
 
-import com.ub.utils.UbUtils
-
 /**
  * Created by Angelina Podbolotova on 22.09.2019.
  */
@@ -20,6 +18,5 @@ class BaseApplication : Application() {
 
         Stetho.initializeWithDefaults(applicationContext)
 
-        UbUtils.init(this)
     }
 }

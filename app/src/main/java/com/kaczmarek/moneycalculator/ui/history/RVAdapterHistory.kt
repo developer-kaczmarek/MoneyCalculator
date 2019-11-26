@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.getViewType
 import com.kaczmarek.moneycalculator.utils.getString
+import com.kaczmarek.moneycalculator.utils.gone
+import com.kaczmarek.moneycalculator.utils.visible
 import kotlin.math.floor
-import com.ub.utils.base.BaseRVAdapter
-import com.ub.utils.gone
-import com.ub.utils.visible
 import kotlinx.android.synthetic.main.rv_date_item.view.*
 import kotlinx.android.synthetic.main.rv_session_item.view.*
 import java.text.SimpleDateFormat
@@ -22,7 +21,7 @@ import java.util.*
  * Created by Angelina Podbolotova on 13.10.2019.
  */
 class RVAdapterHistory(private val presenter: PresenterHistory) :
-    BaseRVAdapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var root: ViewGroup
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         root = parent
@@ -106,9 +105,9 @@ class RVAdapterHistory(private val presenter: PresenterHistory) :
             val yesterdayDate = calendar.time
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-            when {
-                item.date == formatter.format(currentDate) -> itemView.tv_date_title.setText(R.string.fragment_history_today_sessions)
-                item.date == formatter.format(yesterdayDate) -> itemView.tv_date_title.setText(R.string.fragment_history_yesterday_sessions)
+            when (item.date) {
+                formatter.format(currentDate) -> itemView.tv_date_title.setText(R.string.fragment_history_today_sessions)
+                formatter.format(yesterdayDate) -> itemView.tv_date_title.setText(R.string.fragment_history_yesterday_sessions)
                 else -> itemView.tv_date_title.text = item.date
             }
         }

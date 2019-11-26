@@ -68,9 +68,6 @@ dependencies {
     //Google material
     implementation 'com.google.android.material:material:1.0.0'
 
-    //UB android core library
-    implementation 'com.unitbean.core:android:1.4.1'
-
     //Moxy
     implementation "com.github.moxy-community:moxy:$verMoxy"
     implementation "com.github.moxy-community:moxy-androidx:$verMoxy"

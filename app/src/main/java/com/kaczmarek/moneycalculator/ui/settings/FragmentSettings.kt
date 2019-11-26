@@ -20,8 +20,8 @@ import com.kaczmarek.moneycalculator.ui.base.FragmentBase
 import com.kaczmarek.moneycalculator.ui.base.ViewBase
 import com.kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
-import com.ub.utils.dpToPx
-import com.ub.utils.visible
+import com.kaczmarek.moneycalculator.utils.dpToPx
+import com.kaczmarek.moneycalculator.utils.visible
 import kotlinx.android.synthetic.main.component_toolbar.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import moxy.presenter.InjectPresenter

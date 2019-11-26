@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import com.kaczmarek.moneycalculator.R
+import com.kaczmarek.moneycalculator.utils.dpToPx
 import com.kaczmarek.moneycalculator.utils.toast
-import com.ub.utils.dpToPx
 import moxy.MvpAppCompatFragment
 
 open class FragmentBase : MvpAppCompatFragment() {
@@ -42,7 +42,6 @@ open class FragmentBase : MvpAppCompatFragment() {
     protected fun setTitle(@StringRes titleId: Int) {
         baseActivity?.setTitle(titleId)
     }
-
 
     protected fun toast(message: String,
                         toastDuration: Int = Toast.LENGTH_SHORT,

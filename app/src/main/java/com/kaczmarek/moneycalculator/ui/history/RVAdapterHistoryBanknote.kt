@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.di.services.database.models.Banknote
 import com.kaczmarek.moneycalculator.utils.getString
-import com.ub.utils.base.BaseRVAdapter
 import kotlinx.android.synthetic.main.rv_banknote_item.view.*
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
 class RVAdapterHistoryBanknote(private val banknotes: List<Banknote>) :
-    BaseRVAdapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return R.layout.rv_banknote_item
