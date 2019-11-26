@@ -36,7 +36,6 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
             banknotes.clear()
             banknotes.addAll(interactor.getAllBanknotes())
             viewState.loadBanknotes()
-
         } catch (e: Exception) {
             viewState.showMessage(
                 getString(
