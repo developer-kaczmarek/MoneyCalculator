@@ -88,6 +88,9 @@ dependencies {
     //Stecho
     implementation "com.facebook.stetho:stetho:$stechoVersion"
 
+    //
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
+
     //Kapts
     kapt "com.github.moxy-community:moxy-compiler:$verMoxy"
     kapt "com.google.dagger:dagger-android-processor:$verDagger"

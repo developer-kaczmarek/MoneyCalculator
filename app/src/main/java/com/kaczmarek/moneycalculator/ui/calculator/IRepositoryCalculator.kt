@@ -12,5 +12,7 @@ interface IRepositoryCalculator {
     fun getKeyboardLayout(): Int
     fun setCalculatorItems(banknotes: List<Banknote>)
     fun getCalculatorItems(): List<Banknote>
+    fun getCountMeetComponents(): Int
+    fun updateCountMeetComponent(countMeetComponent: Int)
 
 }

@@ -14,4 +14,6 @@ interface IRepositorySettings {
     fun getHistoryStoragePeriod(): Int
     fun getKeyboardLayout(): Int
     fun isAlwaysOnDisplay(): Boolean
+    fun getCountMeetComponents(): Int
+    fun updateCountMeetComponent(countMeetComponent: Int)
 }

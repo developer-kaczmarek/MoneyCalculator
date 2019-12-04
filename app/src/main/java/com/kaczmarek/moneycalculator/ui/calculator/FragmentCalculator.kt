@@ -7,12 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.annotation.IdRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.doOnPreDraw
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
 import com.kaczmarek.moneycalculator.ui.base.FragmentBase
 import com.kaczmarek.moneycalculator.ui.base.ViewBase
+import com.kaczmarek.moneycalculator.ui.main.ActivityMain
 import com.kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
+import com.kaczmarek.moneycalculator.ui.settings.FragmentSettingsOverview
 import com.kaczmarek.moneycalculator.utils.BanknoteCard
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
 import kotlinx.android.synthetic.main.fragment_calculator.*
@@ -31,6 +37,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
     lateinit var presenter: PresenterCalculator
     private var navigationListener: ExternalNavigation? = null
     private var focusedEditTextId = 0
+    private var countMeetComponent = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -82,10 +89,15 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
             b_digit_2_1.setText(R.string.digit_2)
             b_digit_2_2.setText(R.string.digit_3)
         }
+
+        if (presenter.howMuchKnowComponents() <=2) {
+            countMeetComponent = presenter.howMuchKnowComponents()
+            nextMeeting(view)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         presenter.getBanknotes()
         presenter.updateTotalAmount()
     }
@@ -199,6 +211,71 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
         } else {
             iv_back.isEnabled = focusedEditTextId != 0
             iv_next.isEnabled = focusedEditTextId != presenter.components.size - 1
+        }
+    }
+
+    private fun meetAppOnCalculator(viewFragment: View, @IdRes idRes: Int, title: String, description: String, targetRadius: Int) {
+        TapTargetView.showFor(activity,
+            TapTarget.forView(
+                viewFragment.findViewById(idRes),
+                title,
+                description
+            )
+                .outerCircleColor(R.color.colorAccent)
+                .outerCircleAlpha(0.93f)
+                .textColor(R.color.white)
+                .descriptionTextSize(14)
+                .titleTextSize(18)
+                .textTypeface(ResourcesCompat.getFont(viewFragment.context, R.font.gotham_pro))
+                .drawShadow(true)
+                .cancelable(false)
+                .transparentTarget(true)
+                .targetRadius(targetRadius),
+            object : TapTargetView.Listener() {
+                override fun onTargetClick(view: TapTargetView) {
+                    super.onTargetClick(view)
+                    if (countMeetComponent<=2) {
+                        presenter.updateCountMeetComponent(countMeetComponent)
+                        countMeetComponent++
+                        nextMeeting(viewFragment)
+                    }
+
+                }
+            })
+    }
+
+    private fun nextMeeting(view: View) {
+        when(countMeetComponent) {
+            0 -> meetAppOnCalculator(
+                view,
+                R.id.ll_control_panel,
+                getString(R.string.fragment_calculator_title_component_board),
+                getString(R.string.fragment_calculator_description_component_board),
+                180
+            )
+            1 -> {
+                meetAppOnCalculator(
+                    view,
+                    R.id.iv_delete,
+                    getString(R.string.fragment_calculator_title_component_delete),
+                    getString(R.string.fragment_calculator_description_component_delete),
+                    40
+                )
+            }
+            2 -> {
+                meetAppOnCalculator(
+                    view,
+                    R.id.iv_save,
+                    getString(R.string.fragment_calculator_title_component_save),
+                    getString(R.string.fragment_calculator_description_component_save_calculator),
+                    40
+                )
+            }
+            3 -> {
+                countMeetComponent++
+                presenter.updateCountMeetComponent(countMeetComponent)
+                (activity as ActivityMain?)?.attachFragment(FragmentSettingsOverview(), FragmentSettingsOverview.TAG)
+            }
         }
     }
 

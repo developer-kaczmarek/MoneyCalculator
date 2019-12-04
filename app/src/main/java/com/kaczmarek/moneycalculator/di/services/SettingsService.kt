@@ -33,6 +33,12 @@ class SettingsService(private val prefs: SharedPreferences) {
             prefs.edit().putInt(KEY_HISTORY_STORAGE_PERIOD, historyStoragePeriod).apply()
         }
 
+    var countMeetComponents: Int
+        get() = prefs.getInt(KEY_COUNT_MEET_COMPONENTS, 0)
+        set(countMeetComponents) {
+            prefs.edit().putInt(KEY_COUNT_MEET_COMPONENTS, countMeetComponents).apply()
+        }
+
     companion object {
         @IntDef(
             CLASSIC,
@@ -53,6 +59,7 @@ class SettingsService(private val prefs: SharedPreferences) {
         const val KEY_KEYBOARD_LAYOUT = "KEY_KEYBOARD_LAYOUT"
         const val KEY_ALWAYS_ON_DISPLAY = "KEY_ALWAYS_ON_DISPLAY"
         const val KEY_HISTORY_STORAGE_PERIOD = "KEY_HISTORY_STORAGE_PERIOD"
+        const val KEY_COUNT_MEET_COMPONENTS = "KEY_COUNT_MEET_COMPONENTS"
 
         const val CLASSIC = 0
         const val NUMPAD = 1

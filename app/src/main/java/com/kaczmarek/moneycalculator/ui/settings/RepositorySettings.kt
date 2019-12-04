@@ -34,4 +34,10 @@ class RepositorySettings(
     override fun getKeyboardLayout() = settingsService.keyboardLayout
 
     override fun isAlwaysOnDisplay() = settingsService.isAlwaysOnDisplay
+
+    override fun getCountMeetComponents() = settingsService.countMeetComponents
+
+    override fun updateCountMeetComponent(countMeetComponent: Int) {
+        settingsService.countMeetComponents = countMeetComponent
+    }
 }

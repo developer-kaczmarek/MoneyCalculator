@@ -87,4 +87,8 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
 
     fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
 
+    fun howMuchKnowComponents() = interactor.getCountMeetComponents()
+
+    fun updateCountMeetComponent(countMeetComponent: Int) = interactor.updateCountMeetComponent(countMeetComponent)
+
 }

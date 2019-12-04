@@ -109,4 +109,7 @@ class PresenterCalculator : PresenterBase<ViewCalculator>() {
         }
         return isIdenticalList
     }
+
+    fun howMuchKnowComponents() = interactor.getCountMeetComponents()
+    fun updateCountMeetComponent(countMeetComponent: Int) = interactor.updateCountMeetComponent(countMeetComponent)
 }

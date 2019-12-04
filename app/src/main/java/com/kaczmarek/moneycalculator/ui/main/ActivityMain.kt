@@ -2,14 +2,14 @@ package com.kaczmarek.moneycalculator.ui.main
 
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import com.kaczmarek.moneycalculator.R
 import com.kaczmarek.moneycalculator.ui.base.ActivityBase
 import com.kaczmarek.moneycalculator.ui.base.ViewBase
 import com.kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
 import com.kaczmarek.moneycalculator.ui.history.FragmentHistory
-import com.kaczmarek.moneycalculator.ui.settings.FragmentSettings
+import com.kaczmarek.moneycalculator.ui.settings.FragmentSettingsLicenses
+import com.kaczmarek.moneycalculator.ui.settings.FragmentSettingsOverview
 import com.kaczmarek.moneycalculator.utils.ExternalNavigation
 import com.kaczmarek.moneycalculator.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +17,7 @@ import moxy.presenter.InjectPresenter
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
-class MainActivity : ActivityBase(),
+class ActivityMain : ActivityBase(),
     ViewMain,
     BackStackChangeListenerMain, ExternalNavigation {
 
@@ -38,24 +38,17 @@ class MainActivity : ActivityBase(),
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> {
                     presenter.addFragmentToStack(R.id.item_calculator)
-                    attachFragment(
-                        fl_main_container.id,
-                        CalculatorFragment(),
-                        CalculatorFragment.TAG
-                    )
+                    attachFragment(CalculatorFragment(), CalculatorFragment.TAG)
                     true
                 }
                 R.id.item_history -> {
                     presenter.addFragmentToStack(R.id.item_history)
-                    attachFragment(fl_main_container.id,
-                        FragmentHistory(), FragmentHistory.TAG)
+                    attachFragment(FragmentHistory(), FragmentHistory.TAG)
                     true
                 }
                 R.id.item_settings -> {
                     presenter.addFragmentToStack(R.id.item_settings)
-                    attachFragment(fl_main_container.id,
-                        FragmentSettings(), FragmentSettings.TAG)
-
+                    attachFragment(FragmentSettingsOverview(), FragmentSettingsOverview.TAG)
                     true
                 }
                 else -> false
@@ -75,8 +68,7 @@ class MainActivity : ActivityBase(),
     override fun onFirstOpen() {
         bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
         presenter.addFragmentToStack(R.id.item_calculator)
-        attachFragment(fl_main_container.id,
-            CalculatorFragment(), CalculatorFragment.TAG)
+        attachFragment(CalculatorFragment(), CalculatorFragment.TAG)
     }
 
     override fun onBackStackChange(fragment: Fragment) {
@@ -84,17 +76,21 @@ class MainActivity : ActivityBase(),
         when (fragment) {
             is CalculatorFragment -> bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
             is FragmentHistory -> bnv_main.menu.findItem(R.id.item_history).isChecked = true
-            is FragmentSettings -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
+            is FragmentSettingsOverview -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
         }
     }
 
-    private fun attachFragment(@IdRes containerId: Int, fragmentInstance: Fragment, tag: String?) {
+    fun attachFragment(
+        fragmentInstance: Fragment,
+        tag: String?,
+        isAddToBackStack: Boolean = false
+    ) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         var fragment = supportFragmentManager.findFragmentByTag(tag)
         if (fragment == null) {
             fragment = fragmentInstance
-            fragmentTransaction.add(containerId, fragment, tag)
+            fragmentTransaction.add(fl_main_container.id, fragment, tag)
         } else {
             fragmentTransaction.attach(fragment)
         }
@@ -103,6 +99,10 @@ class MainActivity : ActivityBase(),
         if (fragment != curFrag) {
             if (curFrag != null) {
                 fragmentTransaction.detach(curFrag)
+            }
+
+            if (isAddToBackStack) {
+                fragmentTransaction.addToBackStack(tag)
             }
 
             fragmentTransaction
@@ -120,6 +120,8 @@ class MainActivity : ActivityBase(),
                 timeFirstBack = System.currentTimeMillis()
                 toast(getString(R.string.activity_main_exit_toast))
             }
+        } else if (currentFragment is FragmentSettingsLicenses) {
+            super.onBackPressed()
         } else {
             onFirstOpen()
         }

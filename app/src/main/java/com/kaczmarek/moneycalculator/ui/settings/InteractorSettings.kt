@@ -32,4 +32,9 @@ class InteractorSettings(private val repository: IRepositorySettings) {
     fun getKeyboardLayout() = repository.getKeyboardLayout()
 
     fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
+
+    fun getCountMeetComponents() = repository.getCountMeetComponents()
+
+    fun updateCountMeetComponent(countMeetComponent: Int) =
+        repository.updateCountMeetComponent(countMeetComponent)
 }

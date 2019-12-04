@@ -35,6 +35,10 @@ abstract class ActivityBase : MvpAppCompatActivity(),
         }
     }
 
+    fun showBackArrowButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
 }
 
 @StateStrategyType(OneExecutionStateStrategy::class)

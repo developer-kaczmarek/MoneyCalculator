@@ -21,7 +21,12 @@ class InteractorCalculator(private val repository: IRepositoryCalculator) {
 
     fun getKeyboardLayout() = repository.getKeyboardLayout()
 
+    fun getCountMeetComponents() = repository.getCountMeetComponents()
+
     fun setCalculatorItems(banknotes: List<Banknote>) = repository.setCalculatorItems(banknotes)
 
     fun getCalculatorItems() = repository.getCalculatorItems()
+
+    fun updateCountMeetComponent(countMeetComponent: Int) =
+        repository.updateCountMeetComponent(countMeetComponent)
 }

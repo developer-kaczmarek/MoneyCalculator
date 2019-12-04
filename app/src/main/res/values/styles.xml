@@ -42,4 +42,10 @@
     </style>
     <!--Toolbar-->
 
+    <style name="ThemeToolBarExpanded" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/gotham_pro</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

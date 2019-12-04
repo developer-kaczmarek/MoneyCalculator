@@ -23,6 +23,12 @@ class RepositoryCalculator(
 
     override fun getKeyboardLayout() = settingsService.keyboardLayout
 
+    override fun getCountMeetComponents() = settingsService.countMeetComponents
+
+    override fun updateCountMeetComponent(countMeetComponent: Int) {
+        settingsService.countMeetComponents = countMeetComponent
+    }
+
     override fun setCalculatorItems(banknotes: List<Banknote>) =
         calculatorService.setCalculatorItems(banknotes)
 

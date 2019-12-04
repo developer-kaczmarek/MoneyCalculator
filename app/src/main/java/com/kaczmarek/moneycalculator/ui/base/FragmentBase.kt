@@ -20,7 +20,6 @@ open class FragmentBase : MvpAppCompatFragment() {
     var baseActivity: ActivityBase? = null
 
     private var toolbar: Toolbar? = null
-    private var vToolbarShadow: View? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,12 +32,16 @@ open class FragmentBase : MvpAppCompatFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar = view.findViewById(R.id.toolbar)
-        vToolbarShadow = view.findViewById(R.id.v_toolbar_shadow)
 
         toolbar?.let {
             baseActivity?.setSupportActionBar(toolbar)
         }
     }
+
+    fun showBackArrowButton() {
+        baseActivity?.showBackArrowButton()
+    }
+
     protected fun setTitle(@StringRes titleId: Int) {
         baseActivity?.setTitle(titleId)
     }
