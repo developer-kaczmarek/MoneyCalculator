@@ -8,7 +8,7 @@
     android:background="@color/gray_f3f"
     android:orientation="vertical">
 
-    <com.kaczmarek.moneycalculator.utils.CustomScrollView
+    <kaczmarek.moneycalculator.utils.CustomScrollView
         android:id="@+id/hsv_calculator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:background="@color/gray_f3f"
             android:gravity="center"
             android:orientation="horizontal" />
-    </com.kaczmarek.moneycalculator.utils.CustomScrollView>
+    </kaczmarek.moneycalculator.utils.CustomScrollView>
 
     <LinearLayout
         android:id="@+id/ll_control_panel"

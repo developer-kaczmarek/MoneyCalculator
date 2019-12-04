@@ -1,4 +1,4 @@
-package com.kaczmarek.moneycalculator
+package kaczmarek.moneycalculator
 
 import org.junit.Test
 
