@@ -277,6 +277,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
                 )
             }
             3 -> {
+                presenter.updateCountMeetComponent(countMeetComponent)
                 (activity as ActivityMain?)?.attachFragment(
                     FragmentSettingsOverview(),
                     FragmentSettingsOverview.TAG
