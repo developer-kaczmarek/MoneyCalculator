@@ -78,6 +78,7 @@ class FragmentSettingsOverview : FragmentBase(),
         tv_settings_feedback.setOnClickListener(this)
         tv_settings_rate_app.setOnClickListener(this)
         tv_settings_licenses.setOnClickListener(this)
+        tv_settings_downgrade_app.setOnClickListener(this)
         sw_settings_display.setOnCheckedChangeListener { _, isSelected ->
             isNewChange = true
             stateAlwaysOnDisplay = isSelected
@@ -206,6 +207,15 @@ class FragmentSettingsOverview : FragmentBase(),
                     FragmentSettingsLicenses.TAG,
                     true
                 )
+            }
+            R.id.tv_settings_downgrade_app -> {
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(getString(R.string.fragment_settings_url_downgrade_app))
+                if (context?.packageManager?.resolveActivity(i, 0) != null) {
+                    startActivity(i)
+                } else {
+                    showMessage(message = getString(R.string.fragment_settings_app_for_intent_not_found))
+                }
             }
         }
     }

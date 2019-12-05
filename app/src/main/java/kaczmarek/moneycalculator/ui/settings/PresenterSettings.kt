@@ -89,6 +89,7 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
 
     fun howMuchKnowComponents() = interactor.getCountMeetComponents()
 
-    fun updateCountMeetComponent(countMeetComponent: Int) = interactor.updateCountMeetComponent(countMeetComponent)
+    fun updateCountMeetComponent(countMeetComponent: Int) =
+        interactor.updateCountMeetComponent(countMeetComponent)
 
 }

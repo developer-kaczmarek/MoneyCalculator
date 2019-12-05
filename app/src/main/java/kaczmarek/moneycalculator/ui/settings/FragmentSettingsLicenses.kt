@@ -15,7 +15,7 @@ import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 /**
- * Created by Angelina Podbolotova on 19.10.2019.
+ * Created by Angelina Podbolotova on 04.12.2019.
  */
 class FragmentSettingsLicenses : FragmentBase(),
     ViewLicensesOverview {

@@ -20,7 +20,7 @@ import java.util.*
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class RVAdapterHistory(private val presenter: PresenterHistory) :
+class RVAdapterHistorySession(private val presenter: PresenterHistory) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var root: ViewGroup
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

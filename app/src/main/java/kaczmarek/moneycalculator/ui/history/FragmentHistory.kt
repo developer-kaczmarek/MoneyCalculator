@@ -28,8 +28,8 @@ class FragmentHistory : FragmentBase(),
     @InjectPresenter
     lateinit var presenter: PresenterHistory
     private var navigationListener: ExternalNavigation? = null
-    private val adapter: RVAdapterHistory by lazy {
-        RVAdapterHistory(
+    private val adapter: RVAdapterHistorySession by lazy {
+        RVAdapterHistorySession(
             presenter
         )
     }

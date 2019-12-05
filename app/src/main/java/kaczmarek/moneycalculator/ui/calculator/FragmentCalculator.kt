@@ -90,7 +90,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
             b_digit_2_2.setText(R.string.digit_3)
         }
 
-        if (presenter.howMuchKnowComponents() <=2) {
+        if (presenter.howMuchKnowComponents() <= 2) {
             countMeetComponent = presenter.howMuchKnowComponents()
             nextMeeting(view)
         }
@@ -214,7 +214,12 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
         }
     }
 
-    private fun meetAppOnCalculator(viewFragment: View, @IdRes idRes: Int, title: String, description: String, targetRadius: Int) {
+    private fun meetAppOnCalculator(
+        viewFragment: View, @IdRes idRes: Int,
+        title: String,
+        description: String,
+        targetRadius: Int
+    ) {
         TapTargetView.showFor(activity,
             TapTarget.forView(
                 viewFragment.findViewById(idRes),
@@ -234,7 +239,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
             object : TapTargetView.Listener() {
                 override fun onTargetClick(view: TapTargetView) {
                     super.onTargetClick(view)
-                    if (countMeetComponent<=2) {
+                    if (countMeetComponent <= 2) {
                         presenter.updateCountMeetComponent(countMeetComponent)
                         countMeetComponent++
                         nextMeeting(viewFragment)
@@ -245,7 +250,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
     }
 
     private fun nextMeeting(view: View) {
-        when(countMeetComponent) {
+        when (countMeetComponent) {
             0 -> meetAppOnCalculator(
                 view,
                 R.id.ll_control_panel,
@@ -272,9 +277,10 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
                 )
             }
             3 -> {
-                countMeetComponent++
-                presenter.updateCountMeetComponent(countMeetComponent)
-                (activity as ActivityMain?)?.attachFragment(FragmentSettingsOverview(), FragmentSettingsOverview.TAG)
+                (activity as ActivityMain?)?.attachFragment(
+                    FragmentSettingsOverview(),
+                    FragmentSettingsOverview.TAG
+                )
             }
         }
     }

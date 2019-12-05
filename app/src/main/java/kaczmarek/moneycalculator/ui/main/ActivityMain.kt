@@ -76,7 +76,8 @@ class ActivityMain : ActivityBase(),
         when (fragment) {
             is CalculatorFragment -> bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
             is FragmentHistory -> bnv_main.menu.findItem(R.id.item_history).isChecked = true
-            is FragmentSettingsOverview -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
+            is FragmentSettingsOverview -> bnv_main.menu.findItem(R.id.item_settings).isChecked =
+                true
         }
     }
 
