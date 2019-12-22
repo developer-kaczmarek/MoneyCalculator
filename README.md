@@ -1,5 +1,5 @@
 # Калькулятор купюр
-[![Platform](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/platform.svg)]()[![Android](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/android.svg)](https://github.com/RedMadRobot/input-mask-android)
+[![LICENSE](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/license-GPLv3-blue.svg)](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/LICENSE)
 
 "Калькулятор купюр" - удобное приложение, предназначенное для подсчета наличности в кассе или сейфе и значительно облегчающее работу кассира. В новой версии добавлена история подсчетов.
 
