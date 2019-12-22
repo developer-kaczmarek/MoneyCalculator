@@ -1,9 +1,9 @@
-# Калькулутор купюр
+# Калькулятор купюр
 
-"Калькулутор купюр" является android-приложением, разработанным в учебных целях на языке Java. В проекте были исследованы механизмы работы **EditText**, **ObjectSpan**, **SpannableStringBuilder**, **RecyclerView**, **AlertDialog**, **ContextMenu**, **SearchView** и др. При проектировании архитектуры опирались на паттерн MVP. 
+"Калькулятор купюр" является android-приложением, разработанным в учебных целях на языке Java. В проекте были исследованы механизмы работы **EditText**, **ObjectSpan**, **SpannableStringBuilder**, **RecyclerView**, **AlertDialog**, **ContextMenu**, **SearchView** и др. При проектировании архитектуры опирались на паттерн MVP. 
 
 ## Версии приложения
-[![Google play](https://github.com/developer-kaczmarek/Notatki/blob/master/imageGooglePlay.png)](https://play.google.com/store/apps/details?id=kaczmarek.notatki)
+* [Версия 1.2](https://play.google.com/store/apps/details?id=kaczmarek.moneycalculator)
 
 ## Баги / Вопросы /  Предложения
 
