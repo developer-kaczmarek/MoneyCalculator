@@ -82,6 +82,22 @@ class FragmentSettingsOverview : FragmentBase(),
             stateAlwaysOnDisplay = isSelected
         }
 
+        val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
+        tv_settings_versions.text =
+            getString(R.string.fragment_settings_versions, packageInfo?.versionName)
+        if (presenter.howMuchKnowComponents() == 3) {
+            meetAppOnSettings(view)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setTitle(R.string.activity_main_title_settings_item)
+        iv_toolbar_action.visible
+    }
+
+    override fun onResume() {
+        super.onResume()
         stateStoragePeriod = presenter.getHistoryStoragePeriod()
         when (stateStoragePeriod) {
             INDEFINITELY -> rg_settings_history.check(R.id.rb_save_indefinitely)
@@ -95,19 +111,6 @@ class FragmentSettingsOverview : FragmentBase(),
         }
         stateAlwaysOnDisplay = presenter.isAlwaysOnDisplay()
         sw_settings_display.isChecked = stateAlwaysOnDisplay
-
-        val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
-        tv_settings_versions.text =
-            getString(R.string.fragment_settings_versions, packageInfo?.versionName)
-        if (presenter.howMuchKnowComponents() == 3) {
-            meetAppOnSettings(view)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setTitle(R.string.activity_main_title_settings_item)
-        iv_toolbar_action.visible
     }
 
     override fun showMessage(message: String) {
