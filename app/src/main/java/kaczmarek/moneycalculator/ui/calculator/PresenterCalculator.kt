@@ -27,6 +27,9 @@ class PresenterCalculator : PresenterBase<ViewCalculator>() {
 
     fun getKeyboardLayout() = interactor.getKeyboardLayout()
 
+    fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
+
+
     override fun onDestroy() {
         super.onDestroy()
         DIManager.removeCalculatorSubcomponent()

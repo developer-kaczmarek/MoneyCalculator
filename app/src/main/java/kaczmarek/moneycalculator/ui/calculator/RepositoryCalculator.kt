@@ -34,4 +34,6 @@ class RepositoryCalculator(
 
     override fun getCalculatorItems() = calculatorService.getCalculatorItems()
 
+    override fun isAlwaysOnDisplay() = settingsService.isAlwaysOnDisplay
+
 }

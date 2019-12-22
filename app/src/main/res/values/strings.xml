@@ -41,7 +41,6 @@
     <string name="activity_main_title_calculator_item">Калькулятор</string>
     <string name="activity_main_title_history_item">История</string>
     <string name="activity_main_title_settings_item">Настройки</string>
-    <string name="activity_main_title_licenses_item">Лицензии</string>
     <string name="activity_main_total">Итог</string>
     <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
 
@@ -50,12 +49,11 @@
     <string name="fragment_settings_keyboard_layout">Раскладка клавиатуры</string>
     <string name="fragment_settings_display">Экран</string>
     <string name="fragment_settings_about_app">О приложении</string>
-    <string name="fragment_settings_display_off">Не выключать экран</string>
+    <string name="fragment_settings_display_off">Не выключать экран при подсчете купюр</string>
     <string name="fragment_settings_feedback">Обратная связь</string>
     <string name="fragment_settings_downgrade_app">Понизить версию приложения до v1.2</string>
     <string name="fragment_settings_versions">Калькулятор купюр v%s с 💙 для Android</string>
     <string name="fragment_settings_rate_app">Поделиться своим мнением</string>
-    <string name="fragment_settings_licenses">Лицензии</string>
     <string name="fragment_settings_save">Сохранить</string>
     <string name="fragment_settings_save_history">Хранить историю</string>
     <string name="fragment_settings_indefinitely">Бессрочно</string>
@@ -69,7 +67,7 @@
     <string name="fragment_settings_email_title">developer.kaczmarek@yandex.ru</string>
     <string name="fragment_settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
     <string name="fragment_settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
-    <string name="fragment_settings_url_downgrade_app">https://developer-kaczmarek.github.io/</string>
+    <string name="fragment_settings_url_downgrade_app">https://github.com/developer-kaczmarek/MoneyCalculator</string>
 
     <!--CalculatorFragment-->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>

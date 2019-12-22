@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.IdRes
@@ -98,6 +99,16 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
 
     override fun onStart() {
         super.onStart()
+        val flags = activity?.window?.attributes?.flags
+        if (presenter.isAlwaysOnDisplay()) {
+            if (flags?.and((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)) == 0) {
+                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        } else {
+            if (flags?.and((WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)) != 0) {
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        }
         presenter.getBanknotes()
         presenter.updateTotalAmount()
     }

@@ -76,12 +76,23 @@ class RVAdapterHistorySession(private val presenter: PresenterHistory) :
                 RVAdapterHistoryBanknote(
                     item.session.banknotes
                 )
+
+            if (item.isShow) {
+                itemView.iv_session_more.rotation = 180F
+                itemView.rv_session_banknotes.visible
+            } else {
+                itemView.iv_session_more.rotation = 0F
+                itemView.rv_session_banknotes.gone
+            }
         }
 
         override fun onClick(v: View) {
+            val position = adapterPosition
+            if (position == RecyclerView.NO_POSITION) return
             when (v.id) {
                 R.id.ll_session_header -> {
-                    if (itemView.rv_session_banknotes.visibility == View.GONE) {
+                    val item = presenter.allHistoryItems[position] as SessionItem
+                    if (!item.isShow) {
                         itemView.iv_session_more.animate().rotation(180F).start()
                         TransitionManager.beginDelayedTransition(root, AutoTransition())
                         itemView.rv_session_banknotes.visible
@@ -90,6 +101,7 @@ class RVAdapterHistorySession(private val presenter: PresenterHistory) :
                         TransitionManager.beginDelayedTransition(root)
                         itemView.rv_session_banknotes.gone
                     }
+                    item.isShow = !item.isShow
                 }
             }
         }

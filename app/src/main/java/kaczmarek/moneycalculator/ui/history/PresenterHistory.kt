@@ -36,8 +36,8 @@ class PresenterHistory : PresenterBase<ViewHistory>() {
                 groupSessions = interactor.getAll().reversed().groupBy { it.date }
                 groupSessions.forEach { session ->
                     allHistoryItems.add(DateItem(session.key))
-                    session.value.sortedBy { it.time }.forEach {
-                        allHistoryItems.add(SessionItem(it))
+                    session.value.sortedByDescending { it.time }.forEach {
+                        allHistoryItems.add(SessionItem(it, false))
                     }
                 }
                 viewState.updateSessions()

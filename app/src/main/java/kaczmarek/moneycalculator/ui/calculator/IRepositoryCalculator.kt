@@ -14,5 +14,5 @@ interface IRepositoryCalculator {
     fun getCalculatorItems(): List<Banknote>
     fun getCountMeetComponents(): Int
     fun updateCountMeetComponent(countMeetComponent: Int)
-
+    fun isAlwaysOnDisplay(): Boolean
 }

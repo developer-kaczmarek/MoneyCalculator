@@ -23,7 +23,6 @@ import kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
 import kaczmarek.moneycalculator.ui.base.FragmentBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
-import kaczmarek.moneycalculator.ui.main.ActivityMain
 import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
 import kaczmarek.moneycalculator.utils.ExternalNavigation
 import kaczmarek.moneycalculator.utils.dpToPx
@@ -77,7 +76,6 @@ class FragmentSettingsOverview : FragmentBase(),
         rg_settings_keyboard.setOnCheckedChangeListener(this)
         tv_settings_feedback.setOnClickListener(this)
         tv_settings_rate_app.setOnClickListener(this)
-        tv_settings_licenses.setOnClickListener(this)
         tv_settings_downgrade_app.setOnClickListener(this)
         sw_settings_display.setOnCheckedChangeListener { _, isSelected ->
             isNewChange = true
@@ -200,13 +198,6 @@ class FragmentSettingsOverview : FragmentBase(),
                         )
                     )
                 }
-            }
-            R.id.tv_settings_licenses -> {
-                (activity as ActivityMain?)?.attachFragment(
-                    FragmentSettingsLicenses(),
-                    FragmentSettingsLicenses.TAG,
-                    true
-                )
             }
             R.id.tv_settings_downgrade_app -> {
                 val i = Intent(Intent.ACTION_VIEW)

@@ -17,6 +17,4 @@ class RepositoryMain(
 
     override fun getHistoryStoragePeriod() = settingsService.historyStoragePeriod
 
-    override fun isAlwaysOnDisplay() = settingsService.isAlwaysOnDisplay
-
 }

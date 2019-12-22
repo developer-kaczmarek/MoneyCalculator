@@ -37,7 +37,6 @@ class PresenterMain : PresenterBase<ViewMain>() {
         }
     }
 
-    fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
 
     private fun deleteSessionsFor(days: Int) {
         val stringDeleteDate =

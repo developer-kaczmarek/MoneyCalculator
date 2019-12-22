@@ -151,15 +151,18 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="16dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:fontFamily="@font/gotham_pro"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="4dp"
                         android:text="@string/fragment_settings_display_off"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
@@ -167,7 +170,7 @@
                     <Switch
                         android:id="@+id/sw_settings_display"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent" />
                 </LinearLayout>
 
 
@@ -223,17 +226,6 @@
                         android:padding="16dp"
                         android:text="@string/fragment_settings_rate_app"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_settings_licenses"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_pro"
-                        android:padding="16dp"
-                        android:text="@string/fragment_settings_licenses"
-                        android:textColor="@color/colorPrimary"
-                        android:background="?attr/selectableItemBackground"
                         android:textSize="14sp" />
 
                 </LinearLayout>

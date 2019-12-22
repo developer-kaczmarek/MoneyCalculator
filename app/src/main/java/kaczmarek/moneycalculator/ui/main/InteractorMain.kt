@@ -8,8 +8,6 @@ class InteractorMain(private val repository: IRepositoryMain) {
 
     fun getHistoryStoragePeriod() = repository.getHistoryStoragePeriod()
 
-    fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
-
     suspend fun deleteSession(session: Session) {
         repository.deleteSession(session)
     }

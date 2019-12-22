@@ -29,4 +29,6 @@ class InteractorCalculator(private val repository: IRepositoryCalculator) {
 
     fun updateCountMeetComponent(countMeetComponent: Int) =
         repository.updateCountMeetComponent(countMeetComponent)
+
+    fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
 }
