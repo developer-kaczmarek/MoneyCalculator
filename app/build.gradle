@@ -31,7 +31,7 @@ android {
 }
 
 def verMoxy = "2.0.2"
-def verRoom = "2.2.2"
+def verRoom = "2.2.3"
 def verDagger = "2.25.2"
 def verCoroutines = "1.2.2"
 def navVersion = "2.1.0"

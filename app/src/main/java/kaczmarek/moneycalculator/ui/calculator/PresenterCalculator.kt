@@ -6,7 +6,6 @@ import kaczmarek.moneycalculator.di.services.database.models.Banknote
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.BanknoteCard
 import kaczmarek.moneycalculator.utils.getString
-import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import javax.inject.Inject
 
@@ -19,7 +18,7 @@ class PresenterCalculator : PresenterBase<ViewCalculator>() {
     lateinit var interactor: InteractorCalculator
     val banknotes = arrayListOf<Banknote>()
     val components = arrayListOf<BanknoteCard>()
-    var totalAmount = 0F
+    var totalAmount: Double = 0.0
 
     init {
         DIManager.getCalculatorSubcomponent().inject(this)
@@ -36,7 +35,7 @@ class PresenterCalculator : PresenterBase<ViewCalculator>() {
     }
 
     fun updateTotalAmount() {
-        totalAmount = 0F
+        totalAmount = 0.0
         banknotes.forEach {
             totalAmount += it.amount
         }
@@ -55,28 +54,26 @@ class PresenterCalculator : PresenterBase<ViewCalculator>() {
     }
 
     fun saveSession() {
-        launch {
-            try {
-                if (totalAmount == 0F) {
-                    viewState.showMessage(getString(R.string.fragment_calculator_empty_total_amount_error))
-                } else {
-                    val completedBanknotes = arrayListOf<Banknote>()
-                    banknotes.forEach {
-                        if (it.count != 0 && it.isShow) {
-                            completedBanknotes.add(it)
-                        }
+        try {
+            if (totalAmount == 0.0) {
+                viewState.showMessage(getString(R.string.fragment_calculator_empty_total_amount_error))
+            } else {
+                val completedBanknotes = arrayListOf<Banknote>()
+                banknotes.forEach {
+                    if (it.count != 0 && it.isShow) {
+                        completedBanknotes.add(it)
                     }
-                    interactor.saveSession(totalAmount, completedBanknotes)
-                    viewState.showMessage(getString(R.string.fragment_calculator_save_successful))
                 }
-            } catch (e: Exception) {
-                viewState.showMessage(
-                    getString(
-                        R.string.common_save_error,
-                        e.toString()
-                    )
-                )
+                interactor.saveSession(totalAmount, completedBanknotes)
+                viewState.showMessage(getString(R.string.fragment_calculator_save_successful))
             }
+        } catch (e: Exception) {
+            viewState.showMessage(
+                getString(
+                    R.string.common_save_error,
+                    e.toString()
+                )
+            )
         }
     }
 

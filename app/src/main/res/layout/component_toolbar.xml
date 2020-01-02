@@ -32,10 +32,4 @@
             app:srcCompat="@drawable/ic_save_light" />
 
      </androidx.appcompat.widget.Toolbar>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0.11"
-        android:background="@color/black"/>
-
 </LinearLayout>

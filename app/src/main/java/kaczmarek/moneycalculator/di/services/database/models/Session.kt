@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 data class Session(
     val date: String,
     val time: String,
-    val totalAmount: Float,
+    val totalAmount: Double,
     val banknotes: List<Banknote>
 ) {
     @PrimaryKey(autoGenerate = true)

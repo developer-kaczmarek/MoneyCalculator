@@ -17,7 +17,7 @@ class RepositoryCalculator(
 
     override fun getAll() = databaseService.banknoteDao().getAll()
 
-    override suspend fun saveSession(session: Session) {
+    override fun saveSession(session: Session) {
         databaseService.sessionDao().save(session)
     }
 

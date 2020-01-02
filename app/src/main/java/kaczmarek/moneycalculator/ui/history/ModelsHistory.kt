@@ -5,5 +5,4 @@ import kaczmarek.moneycalculator.ui.base.BaseItem
 
 class DateItem(val date: String) : BaseItem
 
-class SessionItem(val session: Session, var isShow: Boolean) :
-    BaseItem
+class SessionItem(val session: Session, var isShow: Boolean) : BaseItem

@@ -30,25 +30,23 @@ class PresenterHistory : PresenterBase<ViewHistory>() {
     }
 
     fun getSessions() {
-        launch {
-            try {
-                allHistoryItems.clear()
-                groupSessions = interactor.getAll().reversed().groupBy { it.date }
-                groupSessions.forEach { session ->
-                    allHistoryItems.add(DateItem(session.key))
-                    session.value.sortedByDescending { it.time }.forEach {
-                        allHistoryItems.add(SessionItem(it, false))
-                    }
+        try {
+            allHistoryItems.clear()
+            groupSessions = interactor.getAll().reversed().groupBy { it.date }
+            groupSessions.forEach { session ->
+                allHistoryItems.add(DateItem(session.key))
+                session.value.sortedByDescending { it.time }.forEach {
+                    allHistoryItems.add(SessionItem(it, false))
                 }
-                viewState.updateSessions()
-            } catch (e: Exception) {
-                viewState.showMessage(
-                    getString(
-                        R.string.common_load_error,
-                        e.toString()
-                    )
-                )
             }
+            viewState.updateSessions()
+        } catch (e: Exception) {
+            viewState.showMessage(
+                getString(
+                    R.string.common_load_error,
+                    e.toString()
+                )
+            )
         }
     }
 }

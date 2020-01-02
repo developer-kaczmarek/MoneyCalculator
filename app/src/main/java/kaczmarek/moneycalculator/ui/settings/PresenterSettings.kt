@@ -7,7 +7,6 @@ import kaczmarek.moneycalculator.di.services.SettingsService
 import kaczmarek.moneycalculator.di.services.database.models.Banknote
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
-import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import java.lang.Exception
 import javax.inject.Inject
@@ -31,10 +30,12 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
         DIManager.removeSettingsSubcomponent()
     }
 
-    fun getAllBanknotes() = launch {
+    fun getAllBanknotes() {
         try {
+            val banknotesFromDatabase = interactor.getAllBanknotes()
             banknotes.clear()
-            banknotes.addAll(interactor.getAllBanknotes())
+            components.clear()
+            banknotes.addAll(banknotesFromDatabase)
             viewState.loadBanknotes()
         } catch (e: Exception) {
             viewState.showMessage(
@@ -43,6 +44,9 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
                     e.toString()
                 )
             )
+        }
+        finally {
+            viewState.showContent()
         }
     }
 
@@ -68,7 +72,7 @@ class PresenterSettings : PresenterBase<ViewSettings>() {
         return allBanknotesInvisible
     }
 
-    fun saveVisibilityBanknotes() = launch {
+    fun saveVisibilityBanknotes() {
         try {
             interactor.saveVisibilityBanknotes(banknotes)
         } catch (e: Exception) {

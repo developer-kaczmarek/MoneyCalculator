@@ -65,7 +65,7 @@ class RVAdapterHistorySession(private val presenter: PresenterHistory) :
         fun bind(position: Int) {
             val item = presenter.allHistoryItems[position] as SessionItem
             itemView.tv_session_time.text = item.session.time
-            if (item.session.totalAmount - floor(item.session.totalAmount) == 0F) {
+            if (item.session.totalAmount - floor(item.session.totalAmount) == 0.0) {
                 itemView.tv_session_total_amount.text =
                     getString(R.string.common_ruble_format, floor(item.session.totalAmount).toInt())
             } else {

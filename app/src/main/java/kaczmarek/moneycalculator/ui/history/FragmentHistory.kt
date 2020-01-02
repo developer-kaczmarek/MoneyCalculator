@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.history
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.FragmentBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
-import kaczmarek.moneycalculator.utils.ExternalNavigation
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.visible
 import moxy.presenter.InjectPresenter
@@ -27,16 +25,10 @@ class FragmentHistory : FragmentBase(),
 
     @InjectPresenter
     lateinit var presenter: PresenterHistory
-    private var navigationListener: ExternalNavigation? = null
     private val adapter: RVAdapterHistorySession by lazy {
         RVAdapterHistorySession(
             presenter
         )
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navigationListener = context as? ExternalNavigation
     }
 
     override fun onCreateView(

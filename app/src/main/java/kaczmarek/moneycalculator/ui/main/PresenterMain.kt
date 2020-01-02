@@ -18,7 +18,6 @@ import javax.inject.Inject
 class PresenterMain : PresenterBase<ViewMain>() {
     @Inject
     lateinit var interactor: InteractorMain
-    private val fragmentStack = Stack<Int>()
 
     init {
         DIManager.getMainSubcomponent().inject(this)
@@ -63,17 +62,4 @@ class PresenterMain : PresenterBase<ViewMain>() {
             }
         }
     }
-
-    /**
-     * Добавляет идентификтор фрагмента в [Stack] для осуществления корректной навигации
-     * и предотвращения множественного открытия
-     */
-    fun addFragmentToStack(fragmentId: Int) {
-        if (fragmentStack.contains(fragmentId)) {
-            fragmentStack.remove(fragmentId)
-        }
-        fragmentStack.add(fragmentId)
-    }
-
-
 }

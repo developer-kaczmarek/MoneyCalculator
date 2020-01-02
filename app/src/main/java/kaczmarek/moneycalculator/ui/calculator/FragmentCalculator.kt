@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.calculator
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,12 +20,10 @@ import kaczmarek.moneycalculator.ui.main.ActivityMain
 import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
 import kaczmarek.moneycalculator.ui.settings.FragmentSettingsOverview
 import kaczmarek.moneycalculator.utils.BanknoteCard
-import kaczmarek.moneycalculator.utils.ExternalNavigation
 import kotlinx.android.synthetic.main.fragment_calculator.*
 import moxy.presenter.InjectPresenter
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import kotlin.math.floor
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -36,14 +33,8 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
 
     @InjectPresenter
     lateinit var presenter: PresenterCalculator
-    private var navigationListener: ExternalNavigation? = null
     private var focusedEditTextId = 0
     private var countMeetComponent = 0
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navigationListener = context as? ExternalNavigation
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -186,10 +177,10 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
     }
 
     override fun updateTotalAmount() {
-        if (presenter.totalAmount - floor(presenter.totalAmount) == 0F) {
+        if (presenter.totalAmount - presenter.totalAmount.toInt() == 0.0) {
             tv_total_amount.text = String.format(
                 getString(R.string.common_ruble_format),
-                floor(presenter.totalAmount).toInt()
+                presenter.totalAmount.toInt()
             )
         } else {
             tv_total_amount.text =
@@ -231,7 +222,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
         description: String,
         targetRadius: Int
     ) {
-        TapTargetView.showFor(activity,
+        (activity as? ActivityMain)?.tapTargetView = TapTargetView.showFor(activity,
             TapTarget.forView(
                 viewFragment.findViewById(idRes),
                 title,
@@ -267,7 +258,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
                 R.id.ll_control_panel,
                 getString(R.string.fragment_calculator_title_component_board),
                 getString(R.string.fragment_calculator_description_component_board),
-                180
+                150
             )
             1 -> {
                 meetAppOnCalculator(

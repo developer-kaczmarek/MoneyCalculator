@@ -8,7 +8,7 @@ import kaczmarek.moneycalculator.di.services.database.models.Session
  */
 interface IRepositoryCalculator {
     fun getAll(): List<Banknote>
-    suspend fun saveSession(session: Session)
+    fun saveSession(session: Session)
     fun getKeyboardLayout(): Int
     fun setCalculatorItems(banknotes: List<Banknote>)
     fun getCalculatorItems(): List<Banknote>

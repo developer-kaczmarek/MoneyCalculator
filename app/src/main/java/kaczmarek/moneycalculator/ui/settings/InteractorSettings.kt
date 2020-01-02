@@ -7,7 +7,7 @@ import kaczmarek.moneycalculator.di.services.database.models.Banknote
  */
 class InteractorSettings(private val repository: IRepositorySettings) {
 
-    suspend fun getAllBanknotes() = repository.getAllBanknotes()
+    fun getAllBanknotes() = repository.getAllBanknotes()
 
     fun saveHistoryStoragePeriod(setting: Int) {
         repository.saveHistoryStoragePeriod(setting)
@@ -21,7 +21,7 @@ class InteractorSettings(private val repository: IRepositorySettings) {
         repository.saveAlwaysOnDisplay(isSelected)
     }
 
-    suspend fun saveVisibilityBanknotes(banknotes: List<Banknote>) {
+    fun saveVisibilityBanknotes(banknotes: List<Banknote>) {
         banknotes.forEach {
             repository.updateBanknote(it)
         }

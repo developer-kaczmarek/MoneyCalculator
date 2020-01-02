@@ -5,6 +5,6 @@ package kaczmarek.moneycalculator.ui.history
  */
 class InteractorHistory(private val repository: IRepositoryHistory) {
 
-    suspend fun getAll() = repository.getAll()
+    fun getAll() = repository.getAll()
 
 }

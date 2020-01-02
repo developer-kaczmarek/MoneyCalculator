@@ -1,7 +1,6 @@
 package kaczmarek.moneycalculator.ui.settings
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,8 +22,8 @@ import kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
 import kaczmarek.moneycalculator.ui.base.FragmentBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
+import kaczmarek.moneycalculator.ui.main.ActivityMain
 import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
-import kaczmarek.moneycalculator.utils.ExternalNavigation
 import kaczmarek.moneycalculator.utils.dpToPx
 import kaczmarek.moneycalculator.utils.visible
 import kotlinx.android.synthetic.main.component_toolbar.*
@@ -42,16 +41,10 @@ class FragmentSettingsOverview : FragmentBase(),
 
     @InjectPresenter
     lateinit var presenter: PresenterSettings
-    private var navigationListener: ExternalNavigation? = null
     private var stateStoragePeriod = INDEFINITELY
     private var stateKeyboardLayout = CLASSIC
     private var stateAlwaysOnDisplay = false
     private var isNewChange = false
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navigationListener = context as? ExternalNavigation
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,7 +111,6 @@ class FragmentSettingsOverview : FragmentBase(),
     }
 
     override fun loadBanknotes() {
-        presenter.components.clear()
         presenter.banknotes.forEach {
             val banknoteCheckBox = CheckBox(context)
             banknoteCheckBox.id = it.id
@@ -143,6 +135,10 @@ class FragmentSettingsOverview : FragmentBase(),
         }
     }
 
+    override fun showContent() {
+        nsv_settings.visible
+    }
+
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.iv_toolbar_action -> {
@@ -161,7 +157,6 @@ class FragmentSettingsOverview : FragmentBase(),
                 } else {
                     showMessage(getString(R.string.fragment_settings_no_new_changes))
                 }
-
             }
             R.id.tv_settings_feedback -> {
                 val emailIntent = Intent(
@@ -235,7 +230,7 @@ class FragmentSettingsOverview : FragmentBase(),
     }
 
     private fun meetAppOnSettings(viewFragment: View) {
-        TapTargetView.showFor(activity,
+        (activity as? ActivityMain)?.tapTargetView = TapTargetView.showFor(activity,
             TapTarget.forView(
                 viewFragment.findViewById(R.id.iv_toolbar_action),
                 getString(R.string.fragment_calculator_title_component_save),
@@ -269,4 +264,5 @@ class FragmentSettingsOverview : FragmentBase(),
 interface ViewSettings : ViewBase {
     fun showMessage(message: String)
     fun loadBanknotes()
+    fun showContent()
 }
