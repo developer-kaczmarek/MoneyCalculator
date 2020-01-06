@@ -10,6 +10,7 @@
 * [Версия 1.2](https://play.google.com/store/apps/details?id=kaczmarek.moneycalculator)
 
 ## Как это выглядит?
+![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI.png)
 
 ## Баги / Вопросы /  Предложения
 
