@@ -5,15 +5,18 @@ import android.graphics.Color
 import android.os.Build
 import android.text.InputFilter
 import android.util.AttributeSet
-import android.view.View
-import android.widget.LinearLayout
-import kaczmarek.moneycalculator.R
-import kotlinx.android.synthetic.main.component_banknote_card.view.*
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import kaczmarek.moneycalculator.R
+import kotlinx.android.synthetic.main.component_banknote_card.view.*
+
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -53,6 +56,25 @@ class BanknoteCard : LinearLayout {
                 View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
         }
         editTextBanknoteCount.showSoftInputOnFocus = false
+        editTextBanknoteCount.customSelectionActionModeCallback = object : android.view.ActionMode.Callback {
+            override fun onActionItemClicked(
+                mode: android.view.ActionMode?,
+                item: MenuItem?
+            ): Boolean {
+                return false
+            }
+
+            override fun onCreateActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+               return false
+            }
+
+            override fun onPrepareActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(mode: android.view.ActionMode?) {}
+
+        }
         val params = LayoutParams(
             0,
             LayoutParams.WRAP_CONTENT

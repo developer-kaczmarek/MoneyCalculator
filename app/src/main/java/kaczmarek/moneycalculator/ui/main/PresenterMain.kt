@@ -5,7 +5,6 @@ import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.SettingsService
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
-import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,21 +44,21 @@ class PresenterMain : PresenterBase<ViewMain>() {
                     time
                 }
             )
-        launch {
-            try {
-                interactor.getAll().forEach {
-                    if (it.date <= stringDeleteDate) {
-                        interactor.deleteSession(it)
-                    }
+
+        try {
+            interactor.getAll().forEach {
+                if (it.date <= stringDeleteDate) {
+                    interactor.deleteSession(it)
                 }
-            } catch (e: Exception) {
-                viewState.showMessage(
-                    getString(
-                        R.string.common_delete_error,
-                        e.toString()
-                    )
-                )
             }
+        } catch (e: Exception) {
+            viewState.showMessage(
+                getString(
+                    R.string.common_delete_error,
+                    e.toString()
+                )
+            )
         }
+
     }
 }

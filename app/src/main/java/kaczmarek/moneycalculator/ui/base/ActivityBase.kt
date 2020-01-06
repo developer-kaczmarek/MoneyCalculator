@@ -34,11 +34,6 @@ abstract class ActivityBase : MvpAppCompatActivity(),
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    fun showBackArrowButton() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
 }
 
 @StateStrategyType(OneExecutionStateStrategy::class)

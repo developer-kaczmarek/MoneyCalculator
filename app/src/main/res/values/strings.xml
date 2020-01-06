@@ -86,6 +86,7 @@
     <string name="fragment_history_yesterday_sessions">Вчера</string>
     <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
     <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
+    <string name="fragment_history_session_delete">Запись удалена</string>
 
     <!--LicensesFragment-->
 

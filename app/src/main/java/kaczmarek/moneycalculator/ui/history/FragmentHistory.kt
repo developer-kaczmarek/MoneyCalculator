@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.FragmentBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
@@ -21,7 +25,7 @@ import moxy.viewstate.strategy.StateStrategyType
  * Created by Angelina Podbolotova on 13.10.2019.
  */
 class FragmentHistory : FragmentBase(),
-    ViewHistory {
+    ViewHistory, ListenerDeleteItemHistory {
 
     @InjectPresenter
     lateinit var presenter: PresenterHistory
@@ -48,6 +52,13 @@ class FragmentHistory : FragmentBase(),
             startPostponedEnterTransition()
             (activity as? BackStackChangeListenerMain)?.onBackStackChange(this)
         }
+
+        context?.let {
+            ItemTouchHelper(SwipeCallbackHistory(0, ItemTouchHelper.LEFT, this)).apply {
+                attachToRecyclerView(rv_history)
+            }
+        }
+
         rv_history.adapter = adapter
         presenter.getSessions()
     }
@@ -66,8 +77,45 @@ class FragmentHistory : FragmentBase(),
         adapter.notifyDataSetChanged()
     }
 
+    override fun deleteSession(position: Int) {
+        adapter.notifyItemRemoved(position)
+        Snackbar.make(
+            cl_history_container,
+            getString(R.string.fragment_history_session_delete),
+            Snackbar.LENGTH_LONG
+        )
+            .apply {
+                setActionTextColor(ContextCompat.getColor(requireContext(), R.color.yellow_ffd))
+                setAction(R.string.common_cancel) {
+                    presenter.restoreItem()
+                }
+                addCallback(object : Snackbar.Callback() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        if (event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_TIMEOUT ||
+                            event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_MANUAL
+                        ) {
+                            presenter.deleteItemFromDatabase()
+                        }
+                    }
+                })
+                show()
+            }
+    }
+
+    override fun restoreSession(position: Int) {
+        adapter.notifyItemInserted(position)
+    }
+
+    override fun deleteHeader(positionHeader: Int) {
+        if (presenter.allHistoryItems.isNotEmpty()) {
+            adapter.notifyItemRemoved(positionHeader)
+        } else {
+            showSessions()
+        }
+    }
+
     private fun showSessions() {
-        if (presenter.allHistoryItems.size != 0) {
+        if (presenter.allHistoryItems.isNotEmpty()) {
             rv_history.visible
             tv_empty_history.gone
         } else {
@@ -76,6 +124,9 @@ class FragmentHistory : FragmentBase(),
         }
     }
 
+    override fun onSwipe(position: Int) {
+        presenter.deleteItemFromList(position)
+    }
 
     companion object {
         const val TAG = "HistoryFragment"
@@ -86,5 +137,8 @@ class FragmentHistory : FragmentBase(),
 interface ViewHistory : ViewBase {
     fun showMessage(message: String)
     fun updateSessions()
+    fun deleteSession(position: Int)
+    fun restoreSession(position: Int)
+    fun deleteHeader(positionHeader: Int)
 
 }

@@ -8,5 +8,6 @@ import kaczmarek.moneycalculator.di.services.database.models.Session
 interface IRepositoryHistory {
 
     fun getAll(): List<Session>
+    fun deleteSession(session: Session)
 
 }

@@ -38,10 +38,6 @@ open class FragmentBase : MvpAppCompatFragment() {
         }
     }
 
-    fun showBackArrowButton() {
-        baseActivity?.showBackArrowButton()
-    }
-
     protected fun setTitle(@StringRes titleId: Int) {
         baseActivity?.setTitle(titleId)
     }
