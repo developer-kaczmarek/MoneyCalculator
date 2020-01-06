@@ -6,8 +6,8 @@
 Приложение умеет считать все номиналы российских рублей, от 1 копейки до 5 тысяч рублей, при этом невостребованные номиналы всегда можно отключить в меню настроек, и тем самым избавиться от лишних полей в итоговой статистике.
 
 ## Версии приложения
-* Версия 2.0 - в разработке
-* [Версия 1.2](https://play.google.com/store/apps/details?id=kaczmarek.moneycalculator)
+* [Версия 2.0](https://play.google.com/store/apps/details?id=kaczmarek.moneycalculator)
+* [Версия 1.2](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/downloads/money_calculator_v1_2.apk)
 
 ## Как это выглядит?
 ![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI.png)
