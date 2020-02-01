@@ -106,6 +106,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
 
     override fun addBanknoteCard() {
         context?.let { context ->
+            ll_container_components.removeAllViews()
             presenter.components.clear()
             presenter.banknotes.forEach { banknote ->
                 val componentCard = BanknoteCard(context)

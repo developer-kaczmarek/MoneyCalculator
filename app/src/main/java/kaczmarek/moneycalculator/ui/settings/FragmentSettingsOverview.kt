@@ -69,7 +69,7 @@ class FragmentSettingsOverview : FragmentBase(),
         rg_settings_keyboard.setOnCheckedChangeListener(this)
         tv_settings_feedback.setOnClickListener(this)
         tv_settings_rate_app.setOnClickListener(this)
-        tv_settings_downgrade_app.setOnClickListener(this)
+        tv_settings_github.setOnClickListener(this)
         sw_settings_display.setOnCheckedChangeListener { _, isSelected ->
             isNewChange = true
             stateAlwaysOnDisplay = isSelected
@@ -139,6 +139,10 @@ class FragmentSettingsOverview : FragmentBase(),
         nsv_settings.visible
     }
 
+    override fun returnToCalculator() {
+        (activity as? ActivityMain)?.onFirstOpen()
+    }
+
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.iv_toolbar_action -> {
@@ -197,9 +201,9 @@ class FragmentSettingsOverview : FragmentBase(),
                     )
                 }
             }
-            R.id.tv_settings_downgrade_app -> {
+            R.id.tv_settings_github -> {
                 val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(getString(R.string.fragment_settings_url_downgrade_app))
+                i.data = Uri.parse(getString(R.string.fragment_settings_url_github))
                 if (context?.packageManager?.resolveActivity(i, 0) != null) {
                     startActivity(i)
                 } else {
@@ -265,4 +269,5 @@ interface ViewSettings : ViewBase {
     fun showMessage(message: String)
     fun loadBanknotes()
     fun showContent()
+    fun returnToCalculator()
 }

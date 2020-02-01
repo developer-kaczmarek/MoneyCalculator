@@ -51,7 +51,7 @@
     <string name="fragment_settings_about_app">О приложении</string>
     <string name="fragment_settings_display_off">Не выключать экран при подсчете купюр</string>
     <string name="fragment_settings_feedback">Обратная связь</string>
-    <string name="fragment_settings_downgrade_app">Понизить версию приложения до v1.2</string>
+    <string name="fragment_settings_github">Страница на Github</string>
     <string name="fragment_settings_versions">Калькулятор купюр v%s с 💙 для Android</string>
     <string name="fragment_settings_rate_app">Поделиться своим мнением</string>
     <string name="fragment_settings_save">Сохранить</string>
@@ -67,7 +67,7 @@
     <string name="fragment_settings_email_title">developer.kaczmarek@yandex.ru</string>
     <string name="fragment_settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
     <string name="fragment_settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
-    <string name="fragment_settings_url_downgrade_app">https://github.com/developer-kaczmarek/MoneyCalculator</string>
+    <string name="fragment_settings_url_github">https://github.com/developer-kaczmarek/MoneyCalculator</string>
 
     <!--CalculatorFragment-->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>

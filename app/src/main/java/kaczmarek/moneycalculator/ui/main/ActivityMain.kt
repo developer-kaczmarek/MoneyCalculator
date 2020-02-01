@@ -56,7 +56,6 @@ class ActivityMain : ActivityBase(),
 
 
     override fun onFirstOpen() {
-        bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
         attachFragment(CalculatorFragment(), CalculatorFragment.TAG, true)
     }
 
@@ -78,7 +77,9 @@ class ActivityMain : ActivityBase(),
         if (isFirstOpen) {
             fragmentTransaction.add(fl_main_container.id, fragmentInstance, tag)
         } else {
-            fragmentTransaction.replace(fl_main_container.id, fragmentInstance, tag)
+            if (currentFragment?.tag != tag) {
+                fragmentTransaction.replace(fl_main_container.id, fragmentInstance, tag)
+            }
         }
         fragmentTransaction.commit()
     }

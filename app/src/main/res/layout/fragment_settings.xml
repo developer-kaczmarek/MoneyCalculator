@@ -212,13 +212,13 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_settings_downgrade_app"
+                        android:id="@+id/tv_settings_github"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
                         android:fontFamily="@font/gotham_pro"
                         android:padding="16dp"
-                        android:text="@string/fragment_settings_downgrade_app"
+                        android:text="@string/fragment_settings_github"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
 
