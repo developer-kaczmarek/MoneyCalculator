@@ -71,18 +71,9 @@ class PresenterHistory : PresenterBase<ViewHistory>() {
     fun deleteItemFromDatabase() {
         try {
             recentlyRemovedItem?.let {
-                val date = it.second.session.date
-                var count = 0
-                allHistoryItems.forEach { baseItem ->
-                    if (baseItem is SessionItem && baseItem.session.date == date) {
-                        count++
-                    }
-                }
-                if (count == 0) {
-                    deleteHeaderItem(date)
-                }
                 interactor.deleteSession(it.second.session)
                 recentlyRemovedItem = null
+                getSessions()
             }
         } catch (e: Exception) {
             viewState.showMessage(
@@ -100,34 +91,12 @@ class PresenterHistory : PresenterBase<ViewHistory>() {
                 allHistoryItems.add(it.first, it.second)
                 viewState.restoreSession(it.first)
                 recentlyRemovedItem = null
+                getSessions()
             }
         } catch (e: Exception) {
             viewState.showMessage(
                 getString(
                     R.string.common_load_error,
-                    e.toString()
-                )
-            )
-        }
-    }
-
-    private fun deleteHeaderItem(date: String) {
-        try {
-            var positionHeader = -1
-            allHistoryItems.forEachIndexed { index, element ->
-                if (element is DateItem && element.date == date) {
-                    positionHeader = index
-                }
-            }
-            if (positionHeader != -1) {
-                allHistoryItems.removeAt(positionHeader)
-                viewState.deleteHeader(positionHeader)
-            }
-
-        } catch (e: Exception) {
-            viewState.showMessage(
-                getString(
-                    R.string.common_delete_error,
                     e.toString()
                 )
             )

@@ -91,8 +91,8 @@ class FragmentHistory : FragmentBase(),
                 }
                 addCallback(object : Snackbar.Callback() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                        if (event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_TIMEOUT ||
-                            event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_MANUAL
+                        if (event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_TIMEOUT
+                            || event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_MANUAL
                         ) {
                             presenter.deleteItemFromDatabase()
                         }
