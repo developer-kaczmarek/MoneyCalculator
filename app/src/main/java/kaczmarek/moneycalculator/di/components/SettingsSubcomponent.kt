@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.di.components
 
 import kaczmarek.moneycalculator.di.modules.SettingsModule
 import kaczmarek.moneycalculator.di.scopes.SettingsScope
-import kaczmarek.moneycalculator.ui.settings.PresenterSettings
+import kaczmarek.moneycalculator.ui.settings.SettingsPresenter
 import dagger.Subcomponent
 
 /**
@@ -11,5 +11,5 @@ import dagger.Subcomponent
 @SettingsScope
 @Subcomponent(modules = [SettingsModule::class])
 interface SettingsSubcomponent {
-    fun inject(presenter: PresenterSettings)
+    fun inject(presenter: SettingsPresenter)
 }

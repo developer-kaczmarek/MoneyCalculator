@@ -1,57 +1,45 @@
 package kaczmarek.moneycalculator.ui.history
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.ui.base.FragmentBase
+import kaczmarek.moneycalculator.ui.base.BaseFragment
+import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
-import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.visible
-import moxy.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.fragment_history.*
-import moxy.viewstate.strategy.OneExecutionStateStrategy
-import moxy.viewstate.strategy.StateStrategyType
+import moxy.ktx.moxyPresenter
 
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class FragmentHistory : FragmentBase(),
-    ViewHistory, ListenerDeleteItemHistory {
 
-    @InjectPresenter
-    lateinit var presenter: PresenterHistory
+interface HistoryView : ViewBase {
+    fun showMessage(message: String)
+    fun updateSessions(list: List<ItemBase>)
+    fun deleteSession(position: Int)
+    fun restoreSession(position: Int)
+    fun deleteHeader(positionHeader: Int)
+}
+
+class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
+    ListenerDeleteItemHistory {
+
+    private val presenter by moxyPresenter { HistoryPresenter() }
     private val adapter: RVAdapterHistorySession by lazy {
         RVAdapterHistorySession(
             presenter
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_history, container, false)
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        postponeEnterTransition()
-        (view.parent as? ViewGroup)?.doOnPreDraw {
-            startPostponedEnterTransition()
-            (activity as? BackStackChangeListenerMain)?.onBackStackChange(this)
-        }
 
         context?.let {
             ItemTouchHelper(SwipeCallbackHistory(0, ItemTouchHelper.LEFT, this)).apply {
@@ -63,18 +51,13 @@ class FragmentHistory : FragmentBase(),
         presenter.getSessions()
     }
 
-    override fun onStart() {
-        super.onStart()
-        setTitle(R.string.activity_main_title_history_item)
-    }
-
     override fun showMessage(message: String) {
         this.toast(message)
     }
 
-    override fun updateSessions() {
+    override fun updateSessions(list: List<ItemBase>) {
         showSessions()
-        adapter.notifyDataSetChanged()
+        adapter.update(list)
     }
 
     override fun deleteSession(position: Int) {
@@ -115,13 +98,13 @@ class FragmentHistory : FragmentBase(),
     }
 
     private fun showSessions() {
-        if (presenter.allHistoryItems.isNotEmpty()) {
+        /*if (presenter.allHistoryItems.isNotEmpty()) {
             rv_history.visible
             tv_empty_history.gone
         } else {
             rv_history.gone
             tv_empty_history.visible
-        }
+        }*/
     }
 
     override fun onSwipe(position: Int) {
@@ -131,14 +114,4 @@ class FragmentHistory : FragmentBase(),
     companion object {
         const val TAG = "HistoryFragment"
     }
-}
-
-@StateStrategyType(OneExecutionStateStrategy::class)
-interface ViewHistory : ViewBase {
-    fun showMessage(message: String)
-    fun updateSessions()
-    fun deleteSession(position: Int)
-    fun restoreSession(position: Int)
-    fun deleteHeader(positionHeader: Int)
-
 }

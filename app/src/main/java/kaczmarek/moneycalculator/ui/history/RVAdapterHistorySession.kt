@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.ui.base.getViewType
+import kaczmarek.moneycalculator.ui.base.BaseListAdapter
+import kaczmarek.moneycalculator.ui.base.BaseViewHolder
+import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.visible
@@ -20,69 +22,54 @@ import java.util.*
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class RVAdapterHistorySession(private val presenter: PresenterHistory) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
+    BaseListAdapter<ItemBase, BaseViewHolder>() {
+
     lateinit var root: ViewGroup
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         root = parent
-
+        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.rv_date_item -> DateItemViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    viewType,
-                    parent,
-                    false
-                )
-            )
-            else -> SessionItemViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    viewType,
-                    parent,
-                    false
-                )
-            )
+            TYPE_DATE_ITEM -> DateItemViewHolder(view)
+            else -> SessionItemViewHolder(view)
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is DateItemViewHolder -> holder.bind(position)
-            is SessionItemViewHolder -> holder.bind(position)
-        }
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind()
     }
 
-    override fun getItemViewType(position: Int) = presenter.allHistoryItems[position].getViewType()
-
-    override fun getItemCount(): Int = presenter.allHistoryItems.size
-
-    inner class SessionItemViewHolder(view: View) : RecyclerView.ViewHolder(view),
+    inner class SessionItemViewHolder(view: View) : BaseViewHolder(view),
         View.OnClickListener {
+        private val tvTime = itemView.tv_session_time
+        private val tvTotalAmount = itemView.tv_session_total_amount
+        private val rvBanknotes = itemView.rv_session_banknotes
+        private val ivMoreDetails = itemView.iv_session_more
+        private val llHeader = itemView.ll_session_header
 
         init {
-            itemView.ll_session_header.setOnClickListener(this)
+            llHeader.setOnClickListener(this)
         }
 
-        fun bind(position: Int) {
-            val item = presenter.allHistoryItems[position] as SessionItem
-            itemView.tv_session_time.text = item.session.time
-            if (item.session.totalAmount - floor(item.session.totalAmount) == 0.0) {
-                itemView.tv_session_total_amount.text =
+        override fun bind() {
+            super.bind()
+            val item = getItem(adapterPosition) as SessionItem
+            tvTime.text = item.session.time
+            tvTotalAmount.text =
+                if (item.session.totalAmount - floor(item.session.totalAmount) == 0.0) {
                     getString(R.string.common_ruble_format, floor(item.session.totalAmount).toInt())
-            } else {
-                itemView.tv_session_total_amount.text =
+                } else {
                     getString(R.string.common_ruble_float_format, item.session.totalAmount)
-            }
-            itemView.rv_session_banknotes.adapter =
-                RVAdapterHistoryBanknote(
-                    item.session.banknotes
-                )
+                }
+            rvBanknotes.adapter = RVAdapterHistoryBanknote(item.session.banknotes)
 
             if (item.isShow) {
-                itemView.iv_session_more.rotation = 180F
-                itemView.rv_session_banknotes.visible
+                ivMoreDetails.rotation = 180F
+                rvBanknotes.visible
             } else {
-                itemView.iv_session_more.rotation = 0F
-                itemView.rv_session_banknotes.gone
+                ivMoreDetails.rotation = 0F
+                rvBanknotes.gone
             }
         }
 
@@ -93,13 +80,13 @@ class RVAdapterHistorySession(private val presenter: PresenterHistory) :
                 R.id.ll_session_header -> {
                     val item = presenter.allHistoryItems[position] as SessionItem
                     if (!item.isShow) {
-                        itemView.iv_session_more.animate().rotation(180F).start()
+                        ivMoreDetails.animate().rotation(180F).start()
                         TransitionManager.beginDelayedTransition(root, AutoTransition())
-                        itemView.rv_session_banknotes.visible
+                        rvBanknotes.visible
                     } else {
-                        itemView.iv_session_more.animate().rotation(0F).start()
+                        ivMoreDetails.animate().rotation(0F).start()
                         TransitionManager.beginDelayedTransition(root)
-                        itemView.rv_session_banknotes.gone
+                        rvBanknotes.gone
                     }
                     item.isShow = !item.isShow
                 }
@@ -107,22 +94,23 @@ class RVAdapterHistorySession(private val presenter: PresenterHistory) :
         }
     }
 
-    inner class DateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class DateItemViewHolder(view: View) : BaseViewHolder(view) {
 
-        fun bind(position: Int) {
-            val item = presenter.allHistoryItems[position] as DateItem
+        private val tvTitle = itemView.tv_date_title
+
+        override fun bind() {
+            super.bind()
+            val item = getItem(adapterPosition) as DateItem
             val calendar = Calendar.getInstance()
             val currentDate = calendar.time
             calendar.add(Calendar.DATE, -1)
             val yesterdayDate = calendar.time
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-            when (item.date) {
-                formatter.format(currentDate) -> itemView.tv_date_title.setText(R.string.fragment_history_today_sessions)
-                formatter.format(yesterdayDate) -> itemView.tv_date_title.setText(R.string.fragment_history_yesterday_sessions)
-                else -> itemView.tv_date_title.text = item.date
+            tvTitle.text = when (item.date) {
+                formatter.format(currentDate) -> getString(R.string.fragment_history_today_sessions)
+                formatter.format(yesterdayDate) -> getString(R.string.fragment_history_yesterday_sessions)
+                else -> item.date
             }
         }
     }
-
 }

@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:editTextStyle">@style/EditTextTheme</item>
+        <item name="android:windowBackground">@color/gray_f3f</item>
     </style>
 
     <!--Keyboard-->
@@ -22,7 +23,6 @@
     <style name="ThemeToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
         <!-- navigation icon color -->
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlHighlight">@color/black_333</item>
@@ -35,17 +35,19 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="ToolBarSubtitleTextAppearance" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:fontFamily">@font/gotham_pro</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-    <!--Toolbar-->
-
-    <style name="ThemeToolBarExpanded" parent="android:TextAppearance">
-        <item name="android:fontFamily">@font/gotham_pro</item>
+    <style name="SettingsTitleTheme" parent="AppTheme">
+        <item name="android:fontFamily">@font/gotham_pro_bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:textColor">@color/black_1d1</item>
+    </style>
+
+    <style name="SettingsDescriptionTheme" parent="AppTheme">
+        <item name="android:fontFamily">@font/gotham_pro</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
 </resources>

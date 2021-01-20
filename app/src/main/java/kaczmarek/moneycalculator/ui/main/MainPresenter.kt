@@ -5,7 +5,8 @@ import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.SettingsService
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
-import moxy.InjectViewState
+import kotlinx.coroutines.launch
+import moxy.presenterScope
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -13,8 +14,8 @@ import javax.inject.Inject
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
  */
-@InjectViewState
-class PresenterMain : PresenterBase<ViewMain>() {
+
+class MainPresenter : PresenterBase<MainView>() {
     @Inject
     lateinit var interactor: InteractorMain
 
@@ -37,28 +38,21 @@ class PresenterMain : PresenterBase<ViewMain>() {
 
 
     private fun deleteSessionsFor(days: Int) {
-        val stringDeleteDate =
-            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
-                Calendar.getInstance().run {
-                    add(Calendar.DAY_OF_MONTH, -days)
-                    time
-                }
-            )
-
-        try {
-            interactor.getAll().forEach {
-                if (it.date <= stringDeleteDate) {
-                    interactor.deleteSession(it)
-                }
+        presenterScope.launch {
+            try {
+                val stringDeleteDate =
+                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                        Calendar.getInstance().run {
+                            add(Calendar.DAY_OF_MONTH, -days)
+                            time
+                        }
+                    )
+                interactor.deleteSession(interactor.getAll().first {
+                    it.date <= stringDeleteDate
+                })
+            } catch (e: Exception) {
+                viewState.showMessage(getString(R.string.common_delete_error, e.toString()))
             }
-        } catch (e: Exception) {
-            viewState.showMessage(
-                getString(
-                    R.string.common_delete_error,
-                    e.toString()
-                )
-            )
         }
-
     }
 }

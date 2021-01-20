@@ -26,9 +26,6 @@ class SettingsModule {
         databaseService: DatabaseService,
         settingsService: SettingsService
     ): IRepositorySettings {
-        return RepositorySettings(
-            databaseService,
-            settingsService
-        )
+        return RepositorySettings(databaseService, settingsService)
     }
 }

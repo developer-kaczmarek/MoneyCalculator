@@ -3,21 +3,20 @@ package kaczmarek.moneycalculator.ui.history
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.database.models.Session
-import kaczmarek.moneycalculator.ui.base.BaseItem
+import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
-import moxy.InjectViewState
 import javax.inject.Inject
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-@InjectViewState
-class PresenterHistory : PresenterBase<ViewHistory>() {
+
+class HistoryPresenter : PresenterBase<HistoryView>() {
     @Inject
     lateinit var interactor: InteractorHistory
     lateinit var groupSessions: Map<String, List<Session>>
-    val allHistoryItems = arrayListOf<BaseItem>()
+    val allHistoryItems = arrayListOf<ItemBase>()
     private var recentlyRemovedItem: Pair<Int, SessionItem>? = null
 
     init {
@@ -39,7 +38,7 @@ class PresenterHistory : PresenterBase<ViewHistory>() {
                     allHistoryItems.add(SessionItem(it, false))
                 }
             }
-            viewState.updateSessions()
+            viewState.updateSessions(allHistoryItems)
         } catch (e: Exception) {
             viewState.showMessage(
                 getString(

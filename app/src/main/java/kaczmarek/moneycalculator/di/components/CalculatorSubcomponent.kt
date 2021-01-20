@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.di.components
 
 import kaczmarek.moneycalculator.di.modules.CalculatorModule
 import kaczmarek.moneycalculator.di.scopes.CalculatorScope
-import kaczmarek.moneycalculator.ui.calculator.PresenterCalculator
+import kaczmarek.moneycalculator.ui.calculator.CalculatorPresenter
 import dagger.Subcomponent
 
 /**
@@ -11,5 +11,5 @@ import dagger.Subcomponent
 @CalculatorScope
 @Subcomponent(modules = [CalculatorModule::class])
 interface CalculatorSubcomponent {
-    fun inject(presenter: PresenterCalculator)
+    fun inject(presenter: CalculatorPresenter)
 }

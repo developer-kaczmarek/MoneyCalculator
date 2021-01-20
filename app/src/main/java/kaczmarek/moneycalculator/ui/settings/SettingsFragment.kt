@@ -4,14 +4,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.doOnPreDraw
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
@@ -20,49 +15,40 @@ import kaczmarek.moneycalculator.di.services.SettingsService.Companion.FOURTEEN_
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.INDEFINITELY
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
-import kaczmarek.moneycalculator.ui.base.FragmentBase
+import kaczmarek.moneycalculator.ui.base.BaseCheckChangeListener
+import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ViewBase
-import kaczmarek.moneycalculator.ui.main.ActivityMain
-import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
-import kaczmarek.moneycalculator.utils.dpToPx
+import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
+import kaczmarek.moneycalculator.ui.main.MainActivity
 import kaczmarek.moneycalculator.utils.visible
-import kotlinx.android.synthetic.main.component_toolbar.*
 import kotlinx.android.synthetic.main.fragment_settings.*
-import moxy.presenter.InjectPresenter
-import moxy.viewstate.strategy.OneExecutionStateStrategy
-import moxy.viewstate.strategy.StateStrategyType
+import moxy.ktx.moxyPresenter
 
 /**
  * Created by Angelina Podbolotova on 19.10.2019.
  */
-class FragmentSettingsOverview : FragmentBase(),
-    ViewSettings, View.OnClickListener,
+
+interface SettingsView : ViewBase {
+    fun showMessage(message: String)
+    fun setVisibilityBanknotes(list: List<SettingBanknoteItem>)
+    fun showContent()
+    fun returnToCalculator()
+}
+
+class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
+    View.OnClickListener, BaseCheckChangeListener,
     RadioGroup.OnCheckedChangeListener {
 
-    @InjectPresenter
-    lateinit var presenter: PresenterSettings
+    private val presenter by moxyPresenter { SettingsPresenter() }
     private var stateStoragePeriod = INDEFINITELY
     private var stateKeyboardLayout = CLASSIC
     private var stateAlwaysOnDisplay = false
     private var isNewChange = false
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
-
+    private var adapter: SettingsBanknotesRVAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postponeEnterTransition()
-        (view.parent as? ViewGroup)?.doOnPreDraw {
-            startPostponedEnterTransition()
-            (activity as? BackStackChangeListenerMain)?.onBackStackChange(this)
-        }
         presenter.getAllBanknotes()
         iv_toolbar_action.setOnClickListener(this)
         rg_settings_history.setOnCheckedChangeListener(this)
@@ -78,61 +64,41 @@ class FragmentSettingsOverview : FragmentBase(),
         val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
         tv_settings_versions.text =
             getString(R.string.fragment_settings_versions, packageInfo?.versionName)
-        if (presenter.howMuchKnowComponents() == 3) {
-            meetAppOnSettings(view)
+        if (presenter.getCountMeetComponents() == 3) meetAppOnSettings(view)
+        adapter = SettingsBanknotesRVAdapter().apply {
+            checkChangeListener = this@SettingsFragment
         }
+        rv_settings_banknotes.adapter = adapter
     }
 
     override fun onStart() {
         super.onStart()
-        setTitle(R.string.activity_main_title_settings_item)
-        iv_toolbar_action.visible
-    }
-
-    override fun onResume() {
-        super.onResume()
         stateStoragePeriod = presenter.getHistoryStoragePeriod()
+
         when (stateStoragePeriod) {
             INDEFINITELY -> rg_settings_history.check(R.id.rb_save_indefinitely)
             FOURTEEN_DAYS -> rg_settings_history.check(R.id.rb_save_fourteen_days)
             else -> rg_settings_history.check(R.id.rb_save_thirty_days)
         }
+
         stateKeyboardLayout = presenter.getKeyboardLayout()
+
         when (stateKeyboardLayout) {
             NUMPAD -> rg_settings_keyboard.check(R.id.rb_numpad_keyboard)
             else -> rg_settings_keyboard.check(R.id.rb_phone_keyboard)
         }
+
         stateAlwaysOnDisplay = presenter.isAlwaysOnDisplay()
+
         sw_settings_display.isChecked = stateAlwaysOnDisplay
     }
 
     override fun showMessage(message: String) {
-        this.toast(message)
+        toast(message)
     }
 
-    override fun loadBanknotes() {
-        presenter.banknotes.forEach {
-            val banknoteCheckBox = CheckBox(context)
-            banknoteCheckBox.id = it.id
-            if (it.name >= 1) {
-                banknoteCheckBox.text = getString(R.string.common_ruble_format, it.name.toInt())
-            } else {
-                banknoteCheckBox.text =
-                    getString(R.string.common_penny_format, (it.name * 100).toInt())
-            }
-
-            banknoteCheckBox.isChecked = it.isShow
-            banknoteCheckBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
-            banknoteCheckBox.typeface =
-                ResourcesCompat.getFont(banknoteCheckBox.context, R.font.gotham_pro)
-            banknoteCheckBox.setPadding(banknoteCheckBox.context.dpToPx(16).toInt(), 0, 0, 0)
-            ll_settings_banknotes.addView(banknoteCheckBox)
-            presenter.components.add(banknoteCheckBox)
-            banknoteCheckBox.setOnCheckedChangeListener { view, isChecked ->
-                isNewChange = true
-                presenter.banknotes[presenter.components.indexOf(view)].isShow = isChecked
-            }
-        }
+    override fun setVisibilityBanknotes(list: List<SettingBanknoteItem>) {
+        adapter?.update(list)
     }
 
     override fun showContent() {
@@ -140,26 +106,20 @@ class FragmentSettingsOverview : FragmentBase(),
     }
 
     override fun returnToCalculator() {
-        (activity as? ActivityMain)?.onFirstOpen()
+        (activity as MainActivity).openFragment(CalculatorFragment(), CalculatorFragment.TAG)
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
+    override fun onClick(view: View) {
+        when (view.id) {
             R.id.iv_toolbar_action -> {
-                if (isNewChange) {
-                    if (presenter.areAllBanknotesInvisible()) {
-                        showMessage(
-                            getString(R.string.fragment_settings_all_banknotes_invisible)
-                        )
-                    } else {
-                        presenter.saveVisibilityBanknotes()
-                        presenter.saveHistoryStoragePeriod(stateStoragePeriod)
-                        presenter.saveKeyboardLayout(stateKeyboardLayout)
-                        presenter.saveAlwaysOnDisplay(stateAlwaysOnDisplay)
-                        showMessage(getString(R.string.fragment_settings_save_successful))
-                    }
-                } else {
-                    showMessage(getString(R.string.fragment_settings_no_new_changes))
+                when {
+                    isNewChange && presenter.isAllBanknotesInvisible() -> showMessage(getString(R.string.fragment_settings_all_banknotes_invisible))
+                    isNewChange && !presenter.isAllBanknotesInvisible() -> presenter.saveAllSettings(
+                        stateStoragePeriod,
+                        stateKeyboardLayout,
+                        stateAlwaysOnDisplay
+                    )
+                    else -> showMessage(getString(R.string.fragment_settings_no_new_changes))
                 }
             }
             R.id.tv_settings_feedback -> {
@@ -175,13 +135,8 @@ class FragmentSettingsOverview : FragmentBase(),
                         )
                     )
                 } else {
-                    showMessage(
-                        getString(
-                            R.string.fragment_settings_app_for_intent_not_found
-                        )
-                    )
+                    showMessage(getString(R.string.fragment_settings_app_for_intent_not_found))
                 }
-
             }
             R.id.tv_settings_rate_app -> {
                 val packageName = activity?.packageName
@@ -213,8 +168,8 @@ class FragmentSettingsOverview : FragmentBase(),
         }
     }
 
-    override fun onCheckedChanged(rg: RadioGroup?, checkedId: Int) {
-        when (rg?.id) {
+    override fun onCheckedChanged(rg: RadioGroup, checkedId: Int) {
+        when (rg.id) {
             R.id.rg_settings_history -> {
                 isNewChange = true
                 stateStoragePeriod = when (checkedId) {
@@ -233,8 +188,15 @@ class FragmentSettingsOverview : FragmentBase(),
         }
     }
 
+    override fun onChange(view: View, position: Int, isCheck: Boolean) {
+        if (view.id == R.id.cb_banknote_visibility) {
+            isNewChange = true
+            presenter.banknotes[position].isShow = isCheck
+        }
+    }
+
     private fun meetAppOnSettings(viewFragment: View) {
-        (activity as? ActivityMain)?.tapTargetView = TapTargetView.showFor(activity,
+        (activity as MainActivity).tapTargetView = TapTargetView.showFor(activity,
             TapTarget.forView(
                 viewFragment.findViewById(R.id.iv_toolbar_action),
                 getString(R.string.fragment_calculator_title_component_save),
@@ -260,14 +222,6 @@ class FragmentSettingsOverview : FragmentBase(),
     }
 
     companion object {
-        const val TAG = "FragmentSettingsOverview"
+        const val TAG = "SettingsFragment"
     }
-}
-
-@StateStrategyType(OneExecutionStateStrategy::class)
-interface ViewSettings : ViewBase {
-    fun showMessage(message: String)
-    fun loadBanknotes()
-    fun showContent()
-    fun returnToCalculator()
 }

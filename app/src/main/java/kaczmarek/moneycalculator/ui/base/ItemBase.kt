@@ -1,15 +1,20 @@
 package kaczmarek.moneycalculator.ui.base
 
-import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.ui.history.DateItem
-import kaczmarek.moneycalculator.ui.history.SessionItem
+import androidx.annotation.IntDef
+import kaczmarek.moneycalculator.ui.history.TYPE_DATE_ITEM
+import kaczmarek.moneycalculator.ui.history.TYPE_SESSION_ITEM
+import kaczmarek.moneycalculator.ui.settings.TYPE_SETTING_BANKNOTE_ITEM
 
-/**
- * Created by Angelina Podbolotova on 14.09.2019.
- */
-interface BaseItem
-fun BaseItem.getViewType() = when (this) {
-    is DateItem -> R.layout.rv_date_item
-    is SessionItem -> R.layout.rv_session_item
-    else -> -1
+@IntDef(
+    TYPE_SETTING_BANKNOTE_ITEM,
+    TYPE_DATE_ITEM,
+    TYPE_SESSION_ITEM
+)
+@Retention(AnnotationRetention.SOURCE)
+annotation class ItemViewType
+
+interface ItemBase : DiffComparable {
+
+    @ItemViewType
+    val itemViewType: Int
 }

@@ -22,8 +22,6 @@ class HistoryModule {
     @Provides
     @HistoryScope
     internal fun provideRepository(databaseService: DatabaseService): IRepositoryHistory {
-        return RepositoryHistory(
-            databaseService
-        )
+        return RepositoryHistory(databaseService)
     }
 }

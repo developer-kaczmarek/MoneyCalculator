@@ -15,7 +15,7 @@
         android:resizeableActivity="false"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".ui.main.ActivityMain"
+        <activity android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
             <intent-filter>

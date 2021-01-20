@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray_f3f"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/component_toolbar"
+    <Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeToolbar"
+        android:title="@string/activity_main_title_settings_item"
+        app:titleTextAppearance="@style/ToolBarTitleTextAppearance">
+
+        <ImageView
+            android:id="@+id/iv_toolbar_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_save"
+            android:padding="4dp"
+            android:src="@drawable/ic_save_light" />
+
+    </Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_settings"
@@ -26,36 +41,31 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/SettingsTitleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/gotham_pro_bold"
-                android:text="@string/fragment_settings_banknotes"
-                android:textColor="@color/black_1d1"
-                android:textSize="18sp" />
+                android:text="@string/fragment_settings_banknotes" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp">
 
-                <LinearLayout
-                    android:id="@+id/ll_settings_banknotes"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_settings_banknotes"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:orientation="vertical" />
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             </androidx.cardview.widget.CardView>
 
             <TextView
+                style="@style/SettingsTitleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/gotham_pro_bold"
-                android:text="@string/fragment_settings_save_history"
-                android:textColor="@color/black_1d1"
-                android:textSize="18sp" />
+                android:text="@string/fragment_settings_save_history" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -67,14 +77,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:checkedButton="@id/rb_save_indefinitely">
+                    android:checkedButton="@id/rb_save_indefinitely"
+                    tools:ignore="RtlSymmetry">
 
                     <RadioButton
                         android:id="@+id/rb_save_indefinitely"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_pro"
-                        android:paddingLeft="16dp"
+                        android:paddingStart="16dp"
                         android:text="@string/fragment_settings_indefinitely"
                         android:textSize="14sp" />
 
@@ -83,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_pro"
-                        android:paddingLeft="16dp"
+                        android:paddingStart="16dp"
                         android:text="@string/fragment_settings_in_fourteen_days"
                         android:textSize="14sp" />
 
@@ -92,20 +103,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_pro"
-                        android:paddingLeft="16dp"
+                        android:paddingStart="16dp"
                         android:text="@string/fragment_settings_in_thirty_days"
                         android:textSize="14sp" />
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
 
             <TextView
+                style="@style/SettingsTitleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/gotham_pro_bold"
-                android:text="@string/fragment_settings_keyboard_layout"
-                android:textColor="@color/black_1d1"
-                android:textSize="18sp" />
+                android:text="@string/fragment_settings_keyboard_layout" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -117,14 +125,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:checkedButton="@id/rb_phone_keyboard">
+                    android:checkedButton="@id/rb_phone_keyboard"
+                    tools:ignore="RtlSymmetry">
 
                     <RadioButton
                         android:id="@+id/rb_phone_keyboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_pro"
-                        android:paddingLeft="16dp"
+                        android:paddingStart="16dp"
                         android:text="@string/fragment_settings_phone_keyboard"
                         android:textSize="14sp" />
 
@@ -133,26 +142,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_pro"
-                        android:paddingLeft="16dp"
+                        android:paddingStart="16dp"
                         android:text="@string/fragment_settings_numpad_keyboard"
                         android:textSize="14sp" />
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
 
             <TextView
+                style="@style/SettingsTitleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/gotham_pro_bold"
-                android:text="@string/fragment_settings_display"
-                android:textColor="@color/black_1d1"
-                android:textSize="18sp" />
+                android:text="@string/fragment_settings_display" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -172,23 +177,19 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/sw_settings_display"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
-
             </androidx.cardview.widget.CardView>
 
             <TextView
+                style="@style/SettingsTitleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/gotham_pro_bold"
-                android:text="@string/fragment_settings_about_app"
-                android:textColor="@color/black_1d1"
-                android:textSize="18sp" />
+                android:text="@string/fragment_settings_about_app" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -202,50 +203,36 @@
 
                     <TextView
                         android:id="@+id/tv_settings_feedback"
+                        style="@style/SettingsDescriptionTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:fontFamily="@font/gotham_pro"
-                        android:padding="16dp"
-                        android:text="@string/fragment_settings_feedback"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_settings_feedback" />
 
                     <TextView
                         android:id="@+id/tv_settings_github"
+                        style="@style/SettingsDescriptionTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:fontFamily="@font/gotham_pro"
-                        android:padding="16dp"
-                        android:text="@string/fragment_settings_github"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_settings_github" />
 
                     <TextView
                         android:id="@+id/tv_settings_rate_app"
+                        style="@style/SettingsDescriptionTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:fontFamily="@font/gotham_pro"
-                        android:padding="16dp"
-                        android:text="@string/fragment_settings_rate_app"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_settings_rate_app" />
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_settings_versions"
+                style="@style/SettingsDescriptionTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gotham_pro"
                 android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/fragment_settings_versions"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
+                android:text="@string/fragment_settings_versions" />
 
         </LinearLayout>
 

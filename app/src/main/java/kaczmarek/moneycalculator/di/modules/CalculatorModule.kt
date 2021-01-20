@@ -18,9 +18,7 @@ class CalculatorModule {
     @Provides
     @CalculatorScope
     internal fun provideInteractor(repo: IRepositoryCalculator): InteractorCalculator {
-        return InteractorCalculator(
-            repo
-        )
+        return InteractorCalculator(repo)
     }
 
     @Provides

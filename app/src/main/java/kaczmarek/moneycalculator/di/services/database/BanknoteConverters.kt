@@ -14,5 +14,5 @@ class BanknoteConverters {
         Gson().fromJson(value, object : TypeToken<List<Banknote>>() {}.type)
 
     @TypeConverter
-    fun fromArrayLisr(list: List<Banknote>): String = Gson().toJson(list)
+    fun fromArrayList(list: List<Banknote>): String = Gson().toJson(list)
 }

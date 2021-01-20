@@ -1,62 +1,44 @@
 package kaczmarek.moneycalculator.ui.calculator
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.doOnPreDraw
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
-import kaczmarek.moneycalculator.ui.base.FragmentBase
+import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ViewBase
-import kaczmarek.moneycalculator.ui.main.ActivityMain
-import kaczmarek.moneycalculator.ui.main.BackStackChangeListenerMain
-import kaczmarek.moneycalculator.ui.settings.FragmentSettingsOverview
+import kaczmarek.moneycalculator.ui.main.MainActivity
+import kaczmarek.moneycalculator.ui.settings.SettingsFragment
 import kaczmarek.moneycalculator.utils.BanknoteCard
 import kotlinx.android.synthetic.main.fragment_calculator.*
-import moxy.presenter.InjectPresenter
-import moxy.viewstate.strategy.OneExecutionStateStrategy
-import moxy.viewstate.strategy.StateStrategyType
+import moxy.ktx.moxyPresenter
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
  */
-class CalculatorFragment : FragmentBase(), ViewCalculator,
+
+interface CalculatorView : ViewBase {
+    fun addBanknoteCard()
+    fun updateTotalAmount()
+    fun showMessage(message: String)
+}
+
+class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), CalculatorView,
     View.OnClickListener, View.OnLongClickListener {
 
-    @InjectPresenter
-    lateinit var presenter: PresenterCalculator
+    private val presenter by moxyPresenter { CalculatorPresenter() }
     private var focusedEditTextId = 0
     private var countMeetComponent = 0
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_calculator, container, false)
-    }
-
-    override fun onDestroyView() {
-        presenter.setCalculatorItems()
-        super.onDestroyView()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postponeEnterTransition()
-        (view.parent as? ViewGroup)?.doOnPreDraw {
-            startPostponedEnterTransition()
-            (activity as? BackStackChangeListenerMain)?.onBackStackChange(this)
-        }
         iv_save.setOnClickListener(this)
         iv_back.setOnClickListener(this)
         iv_next.setOnClickListener(this)
@@ -104,70 +86,73 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
         presenter.updateTotalAmount()
     }
 
+    override fun onDestroyView() {
+        presenter.setCalculatorItems()
+        super.onDestroyView()
+    }
+
     override fun addBanknoteCard() {
         context?.let { context ->
             ll_container_components.removeAllViews()
             presenter.components.clear()
             presenter.banknotes.forEach { banknote ->
-                val componentCard = BanknoteCard(context)
-                val layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                componentCard.setValueBanknote(banknote.name)
-                componentCard.setCount(banknote.count)
-                if (banknote.count != 0) {
-                    componentCard.addDigit(banknote.count.toString())
+                val componentCard = BanknoteCard(context).apply {
+                    setValueBanknote(banknote.name)
+                    setCount(banknote.count)
+                    if (banknote.count != 0) addDigit(banknote.count.toString())
+                    setColorTheme(banknote.backgroundColor, banknote.textColor)
+                    editTextBanknoteCount.setOnFocusChangeListener { _, hasFocus ->
+                        focusedEditTextId = presenter.components.indexOf(this)
+                        setHideHint(hasFocus)
+                    }
                 }
-                componentCard.setColorTheme(banknote.backgroundColor, banknote.textColor)
                 presenter.components.add(componentCard)
-                componentCard.editTextBanknoteCount.setOnFocusChangeListener { _, hasFocus ->
-                    focusedEditTextId = presenter.components.indexOf(componentCard)
-                    componentCard.setHideHint(hasFocus)
-                }
-                ll_container_components.addView(componentCard, layoutParams)
+                ll_container_components.addView(
+                    componentCard, LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                )
             }
             updateStateControlPanel()
         }
     }
 
-    override fun onLongClick(v: View?): Boolean {
-        presenter.components.forEachIndexed { index, componentCard ->
-            componentCard.editTextBanknoteCount.text.clear()
-            componentCard.setCount(0)
-            presenter.banknotes[index].count = componentCard.getCount()
-            presenter.banknotes[index].amount = componentCard.getAmount()
+    override fun onLongClick(v: View): Boolean {
+        return if (v.id == R.id.iv_delete) {
+            presenter.components.forEachIndexed { index, componentCard ->
+                with(componentCard) {
+                    editTextBanknoteCount.text.clear()
+                    setCount(0)
+                }
+                presenter.banknotes[index].count = componentCard.getCount()
+                presenter.banknotes[index].amount = componentCard.getAmount()
+            }
+            presenter.updateTotalAmount()
+            scrollById(0)
+            showMessage(getString(R.string.fragment_calculator_all_delete_values))
+            true
+        } else {
+            false
         }
-        presenter.updateTotalAmount()
-        scrollById(0)
-        showMessage(getString(R.string.fragment_calculator_all_delete_values))
-        return true
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
+    override fun onClick(view: View) {
+        when (view.id) {
             R.id.iv_back -> {
-                if (focusedEditTextId != 0) {
-                    scrollById(idComponent = focusedEditTextId - 1)
-                }
+                if (focusedEditTextId != 0) scrollById(idComponent = focusedEditTextId - 1)
                 updateStateControlPanel()
             }
             R.id.iv_next -> {
-                if (focusedEditTextId != presenter.components.size - 1) {
-                    scrollById(idComponent = focusedEditTextId + 1)
-                }
+                if (focusedEditTextId != presenter.components.size - 1) scrollById(idComponent = focusedEditTextId + 1)
                 updateStateControlPanel()
             }
             R.id.iv_delete -> {
                 presenter.components[focusedEditTextId].deleteDigit()
                 scrollById(idComponent = focusedEditTextId)
             }
-            R.id.iv_save -> {
-                presenter.saveSession()
-            }
-            else -> {
-                clickDigit(focusedEditTextId, view as Button)
-            }
+            R.id.iv_save -> presenter.saveSession()
+            else -> clickDigit(focusedEditTextId, view as Button)
         }
 
         presenter.banknotes[focusedEditTextId].amount =
@@ -178,15 +163,10 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
     }
 
     override fun updateTotalAmount() {
-        if (presenter.totalAmount - presenter.totalAmount.toInt() == 0.0) {
-            tv_total_amount.text = String.format(
-                getString(R.string.common_ruble_format),
-                presenter.totalAmount.toInt()
-            )
-        } else {
-            tv_total_amount.text =
-                String.format(getString(R.string.common_ruble_float_format), presenter.totalAmount)
-        }
+        tv_total_amount.text = if (presenter.isTotalAmountInteger()) String.format(
+            getString(R.string.common_ruble_format),
+            presenter.totalAmount.toInt()
+        ) else String.format(getString(R.string.common_ruble_float_format), presenter.totalAmount)
     }
 
     override fun showMessage(message: String) {
@@ -223,7 +203,7 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
         description: String,
         targetRadius: Int
     ) {
-        (activity as? ActivityMain)?.tapTargetView = TapTargetView.showFor(activity,
+        (activity as MainActivity).tapTargetView = TapTargetView.showFor(activity,
             TapTarget.forView(
                 viewFragment.findViewById(idRes),
                 title,
@@ -281,9 +261,9 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
             }
             3 -> {
                 presenter.updateCountMeetComponent(countMeetComponent)
-                (activity as ActivityMain?)?.attachFragment(
-                    FragmentSettingsOverview(),
-                    FragmentSettingsOverview.TAG
+                (activity as MainActivity).openFragment(
+                    SettingsFragment(),
+                    SettingsFragment.TAG
                 )
             }
         }
@@ -292,11 +272,4 @@ class CalculatorFragment : FragmentBase(), ViewCalculator,
     companion object {
         const val TAG = "CalculatorFragment"
     }
-}
-
-@StateStrategyType(OneExecutionStateStrategy::class)
-interface ViewCalculator : ViewBase {
-    fun addBanknoteCard()
-    fun updateTotalAmount()
-    fun showMessage(message: String)
 }

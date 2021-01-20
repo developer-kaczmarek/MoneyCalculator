@@ -26,9 +26,6 @@ class MainModule {
         databaseService: DatabaseService,
         settingsService: SettingsService
     ): IRepositoryMain {
-        return RepositoryMain(
-            databaseService,
-            settingsService
-        )
+        return RepositoryMain(databaseService, settingsService)
     }
 }
