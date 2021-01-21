@@ -5,6 +5,9 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.BaseListAdapter
@@ -14,8 +17,6 @@ import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.visible
 import kotlin.math.floor
-import kotlinx.android.synthetic.main.rv_date_item.view.*
-import kotlinx.android.synthetic.main.rv_session_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,11 +43,11 @@ class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
 
     inner class SessionItemViewHolder(view: View) : BaseViewHolder(view),
         View.OnClickListener {
-        private val tvTime = itemView.tv_session_time
-        private val tvTotalAmount = itemView.tv_session_total_amount
-        private val rvBanknotes = itemView.rv_session_banknotes
-        private val ivMoreDetails = itemView.iv_session_more
-        private val llHeader = itemView.ll_session_header
+        private val tvTime = itemView.findViewById<TextView>(R.id.tv_session_time)
+        private val tvTotalAmount = itemView.findViewById<TextView>(R.id.tv_session_total_amount)
+        private val rvBanknotes = itemView.findViewById<RecyclerView>(R.id.rv_session_banknotes)
+        private val ivMoreDetails = itemView.findViewById<ImageView>(R.id.iv_session_more)
+        private val llHeader = itemView.findViewById<LinearLayout>(R.id.ll_session_header)
 
         init {
             llHeader.setOnClickListener(this)
@@ -96,7 +97,7 @@ class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
 
     inner class DateItemViewHolder(view: View) : BaseViewHolder(view) {
 
-        private val tvTitle = itemView.tv_date_title
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_date_title)
 
         override fun bind() {
             super.bind()

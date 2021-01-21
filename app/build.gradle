@@ -2,13 +2,11 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "kaczmarek.moneycalculator"
         minSdkVersion 21
@@ -27,6 +25,11 @@ android {
             }
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -47,7 +50,7 @@ android {
 
 def moxy_version = "2.1.2"
 def room_version = "2.2.6"
-def dagger_version = "2.27"
+def dagger_version = "2.31"
 def coroutines_version = "1.3.8"
 
 dependencies {

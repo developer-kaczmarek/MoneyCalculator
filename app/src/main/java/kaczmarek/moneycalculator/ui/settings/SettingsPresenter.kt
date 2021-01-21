@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.settings
 
-import android.widget.CheckBox
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.database.models.Banknote
@@ -15,7 +14,7 @@ import javax.inject.Inject
  */
 class SettingsPresenter : PresenterBase<SettingsView>() {
     @Inject
-    lateinit var interactor: InteractorSettings
+    lateinit var interactor: SettingsInteractor
     val banknotes = arrayListOf<Banknote>()
     //val components = arrayListOf<CheckBox>()
 

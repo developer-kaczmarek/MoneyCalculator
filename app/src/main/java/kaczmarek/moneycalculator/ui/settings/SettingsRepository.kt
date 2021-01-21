@@ -7,10 +7,10 @@ import kaczmarek.moneycalculator.di.services.database.models.Banknote
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class RepositorySettings(
+class SettingsRepository(
     private val databaseService: DatabaseService,
     private val settingsService: SettingsService
-) : IRepositorySettings {
+) : ISettingsRepository {
     override fun saveAlwaysOnDisplay(isSelected: Boolean) {
         settingsService.isAlwaysOnDisplay = isSelected
     }

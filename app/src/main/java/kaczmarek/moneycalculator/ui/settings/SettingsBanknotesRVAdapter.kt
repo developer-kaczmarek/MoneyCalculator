@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.BaseListAdapter
 import kaczmarek.moneycalculator.ui.base.BaseViewHolder
 import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.utils.getString
-import kotlinx.android.synthetic.main.rv_setting_banknote_item.view.*
 
 class SettingsBanknotesRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
 
@@ -29,7 +29,7 @@ class SettingsBanknotesRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
 
     inner class SettingBanknoteViewHolder(view: View) : BaseViewHolder(view),
         CompoundButton.OnCheckedChangeListener {
-        private val checkBoxVisibility = view.cb_banknote_visibility
+        private val checkBoxVisibility = view.findViewById<AppCompatCheckBox>(R.id.cb_banknote_visibility)
 
         init {
             checkBoxVisibility.setOnCheckedChangeListener(this)

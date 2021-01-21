@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
-import kotlinx.android.synthetic.main.rv_session_item.view.*
 
 
 class SwipeCallbackHistory(
@@ -41,16 +40,16 @@ class SwipeCallbackHistory(
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         viewHolder?.let {
-            val foregroundView = it.itemView.ll_foreground
+         /*   val foregroundView = it.itemView.ll_foreground
             ItemTouchHelper.Callback.getDefaultUIUtil()
-                .onSelected(foregroundView)
+                .onSelected(foregroundView)*/
         }
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        val foregroundView = viewHolder.itemView.ll_foreground
+       /* val foregroundView = viewHolder.itemView.ll_foreground
         ItemTouchHelper.Callback.getDefaultUIUtil()
-            .clearView(foregroundView)
+            .clearView(foregroundView)*/
     }
 
     override fun onChildDrawOver(
@@ -62,11 +61,11 @@ class SwipeCallbackHistory(
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        val foregroundView = viewHolder?.itemView?.ll_foreground
+      /*  val foregroundView = viewHolder?.itemView?.ll_foreground
         ItemTouchHelper.Callback.getDefaultUIUtil().onDrawOver(
             c, recyclerView, foregroundView, dX, dY,
             actionState, isCurrentlyActive
-        )
+        )*/
     }
 
     override fun onChildDraw(
@@ -79,12 +78,12 @@ class SwipeCallbackHistory(
         isCurrentlyActive: Boolean
     ) {
 
-        val itemView = viewHolder.itemView
+        /*val itemView = viewHolder.itemView
 
          val foregroundView = itemView.ll_foreground
 
         getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
-            actionState, isCurrentlyActive)
+            actionState, isCurrentlyActive)*/
     }
 
 

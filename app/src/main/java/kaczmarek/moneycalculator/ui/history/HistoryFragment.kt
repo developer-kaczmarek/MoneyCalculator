@@ -1,18 +1,18 @@
 package kaczmarek.moneycalculator.ui.history
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.databinding.FragmentHistoryBinding
 import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.ui.base.ViewBase
-import kaczmarek.moneycalculator.utils.gone
-import kaczmarek.moneycalculator.utils.visible
-import kotlinx.android.synthetic.main.fragment_history.*
 import moxy.ktx.moxyPresenter
 
 
@@ -32,10 +32,21 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
     ListenerDeleteItemHistory {
 
     private val presenter by moxyPresenter { HistoryPresenter() }
+    private var _binding: FragmentHistoryBinding? = null
+    private val binding get() = _binding!!
     private val adapter: RVAdapterHistorySession by lazy {
         RVAdapterHistorySession(
             presenter
         )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,12 +54,17 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
 
         context?.let {
             ItemTouchHelper(SwipeCallbackHistory(0, ItemTouchHelper.LEFT, this)).apply {
-                attachToRecyclerView(rv_history)
+                attachToRecyclerView(binding.rvHistory)
             }
         }
 
-        rv_history.adapter = adapter
+        binding.rvHistory.adapter = adapter
         presenter.getSessions()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun showMessage(message: String) {
@@ -63,7 +79,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
     override fun deleteSession(position: Int) {
         adapter.notifyItemRemoved(position)
         Snackbar.make(
-            cl_history_container,
+            binding.clHistoryContainer,
             getString(R.string.fragment_history_session_delete),
             Snackbar.LENGTH_LONG
         )

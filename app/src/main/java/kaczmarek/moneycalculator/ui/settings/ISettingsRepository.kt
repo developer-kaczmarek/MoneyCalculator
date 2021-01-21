@@ -5,7 +5,7 @@ import kaczmarek.moneycalculator.di.services.database.models.Banknote
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-interface IRepositorySettings {
+interface ISettingsRepository {
     fun getAllBanknotes(): List<Banknote>
     fun saveHistoryStoragePeriod(setting: Int)
     fun saveKeyboardLayout(setting: Int)

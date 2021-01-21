@@ -12,11 +12,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import kaczmarek.moneycalculator.R
-import kotlinx.android.synthetic.main.component_banknote_card.view.*
-
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -27,6 +26,9 @@ class BanknoteCard : LinearLayout {
     private var count = 0
     private var amount = 0F
     var editTextBanknoteCount: EditText
+    private var llContainerCound: LinearLayout
+    private var llBanknoteInfo: LinearLayout
+    private var tvBanknoteType: TextView
 
 
     constructor(context: Context) : this(context, null)
@@ -37,6 +39,9 @@ class BanknoteCard : LinearLayout {
         defStyleAttr
     ) {
         View.inflate(context, R.layout.component_banknote_card, this)
+        llContainerCound = findViewById(R.id.ll_container_count)
+        llBanknoteInfo = findViewById(R.id.ll_banknote_info)
+        tvBanknoteType = findViewById(R.id.tv_banknote_type)
         isEnable = false
         editTextBanknoteCount = EditText(context)
         editTextBanknoteCount
@@ -84,7 +89,8 @@ class BanknoteCard : LinearLayout {
         }
         params.setMargins(0, 0, dpToPxInt(16), 0)
         editTextBanknoteCount.layoutParams = params
-        ll_container_count.addView(editTextBanknoteCount)
+
+        llContainerCound.addView(editTextBanknoteCount)
     }
 
     fun setHideHint(isHide: Boolean) {
@@ -144,27 +150,27 @@ class BanknoteCard : LinearLayout {
     }
 
     private fun setNameBanknote(value: Float) {
-        if (value >= 1) {
+       /* if (value >= 1) {
             tv_banknote_name.text = getString(R.string.common_ruble_format, value.toInt())
             tv_banknote_type.setText(R.string.common_bank_ruble)
         } else {
             tv_banknote_name.text = getString(R.string.common_penny_format, (value * 100).toInt())
             tv_banknote_type.setText(R.string.common_bank_penny)
-        }
+        }*/
     }
 
     private fun calculateTotalAmount() {
         amount = valueBanknote * count
-        if (valueBanknote >= 1) {
+        /*if (valueBanknote >= 1) {
             tv_banknote_total_amount.text =
                 getString(R.string.common_ruble_format, amount.toInt())
         } else {
             tv_banknote_total_amount.text = getString(R.string.common_ruble_float_format, amount)
-        }
+        }*/
     }
 
     fun setColorTheme(colorBackground: String, colorTextType: String) {
-        ll_banknote_info.setBackgroundColor(Color.parseColor(colorBackground))
-        tv_banknote_type.setTextColor(Color.parseColor(colorTextType))
+       /* ll_banknote_info.setBackgroundColor(Color.parseColor(colorBackground))
+        tv_banknote_type.setTextColor(Color.parseColor(colorTextType))*/
     }
 }

@@ -4,12 +4,15 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.databinding.FragmentSettingsBinding
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.CLASSIC
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.FOURTEEN_DAYS
 import kaczmarek.moneycalculator.di.services.SettingsService.Companion.INDEFINITELY
@@ -21,7 +24,6 @@ import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
 import kaczmarek.moneycalculator.ui.main.MainActivity
 import kaczmarek.moneycalculator.utils.visible
-import kotlinx.android.synthetic.main.fragment_settings.*
 import moxy.ktx.moxyPresenter
 
 /**
@@ -40,57 +42,77 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     RadioGroup.OnCheckedChangeListener {
 
     private val presenter by moxyPresenter { SettingsPresenter() }
-    private var stateStoragePeriod = INDEFINITELY
-    private var stateKeyboardLayout = CLASSIC
     private var stateAlwaysOnDisplay = false
     private var isNewChange = false
+    private var stateStoragePeriod = INDEFINITELY
+    private var stateKeyboardLayout = CLASSIC
     private var adapter: SettingsBanknotesRVAdapter? = null
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.getAllBanknotes()
-        iv_toolbar_action.setOnClickListener(this)
-        rg_settings_history.setOnCheckedChangeListener(this)
-        rg_settings_keyboard.setOnCheckedChangeListener(this)
-        tv_settings_feedback.setOnClickListener(this)
-        tv_settings_rate_app.setOnClickListener(this)
-        tv_settings_github.setOnClickListener(this)
-        sw_settings_display.setOnCheckedChangeListener { _, isSelected ->
+        binding.ivToolbarAction.setOnClickListener(this)
+        binding.rgSettingsHistory.setOnCheckedChangeListener(this)
+        binding.rgSettingsKeyboard.setOnCheckedChangeListener(this)
+        binding.tvSettingsFeedback.setOnClickListener(this)
+        binding.tvSettingsRateApp.setOnClickListener(this)
+        binding.tvSettingsGithub.setOnClickListener(this)
+        binding.swSettingsDisplay.setOnCheckedChangeListener { _, isSelected ->
             isNewChange = true
             stateAlwaysOnDisplay = isSelected
         }
 
         val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
-        tv_settings_versions.text =
+        binding.tvSettingsVersions.text =
             getString(R.string.fragment_settings_versions, packageInfo?.versionName)
         if (presenter.getCountMeetComponents() == 3) meetAppOnSettings(view)
         adapter = SettingsBanknotesRVAdapter().apply {
             checkChangeListener = this@SettingsFragment
         }
-        rv_settings_banknotes.adapter = adapter
+        binding.rvSettingsBanknotes.adapter = adapter
     }
 
     override fun onStart() {
         super.onStart()
         stateStoragePeriod = presenter.getHistoryStoragePeriod()
 
-        when (stateStoragePeriod) {
-            INDEFINITELY -> rg_settings_history.check(R.id.rb_save_indefinitely)
-            FOURTEEN_DAYS -> rg_settings_history.check(R.id.rb_save_fourteen_days)
-            else -> rg_settings_history.check(R.id.rb_save_thirty_days)
-        }
+        binding.rgSettingsHistory.check(
+            when (stateStoragePeriod) {
+                INDEFINITELY -> R.id.rb_save_indefinitely
+                FOURTEEN_DAYS -> R.id.rb_save_fourteen_days
+                else -> R.id.rb_save_thirty_days
+            }
+        )
 
         stateKeyboardLayout = presenter.getKeyboardLayout()
 
-        when (stateKeyboardLayout) {
-            NUMPAD -> rg_settings_keyboard.check(R.id.rb_numpad_keyboard)
-            else -> rg_settings_keyboard.check(R.id.rb_phone_keyboard)
-        }
+        binding.rgSettingsKeyboard.check(
+            when (stateKeyboardLayout) {
+                NUMPAD -> R.id.rb_numpad_keyboard
+                else -> R.id.rb_phone_keyboard
+            }
+        )
 
         stateAlwaysOnDisplay = presenter.isAlwaysOnDisplay()
 
-        sw_settings_display.isChecked = stateAlwaysOnDisplay
+        binding.swSettingsDisplay.isChecked = stateAlwaysOnDisplay
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun showMessage(message: String) {
@@ -102,7 +124,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     }
 
     override fun showContent() {
-        nsv_settings.visible
+        binding.nsvSettings.visible
     }
 
     override fun returnToCalculator() {

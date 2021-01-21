@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.databinding.ActivityMainBinding
 import kaczmarek.moneycalculator.ui.base.BaseActivity
 import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
@@ -11,7 +12,6 @@ import kaczmarek.moneycalculator.ui.history.HistoryFragment
 import kaczmarek.moneycalculator.ui.settings.SettingsFragment
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.toast
-import kotlinx.android.synthetic.main.activity_main.*
 import moxy.ktx.moxyPresenter
 
 interface MainView : ViewBase {
@@ -26,11 +26,14 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
     var timeFirstBack = 0L
     var tapTargetView: TapTargetView? = null
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bnv_main.setOnNavigationItemSelectedListener {
+        binding.bnvMain.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> {
                     openFragment(CalculatorFragment(), CalculatorFragment.TAG)
@@ -91,14 +94,14 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
     fun openFragment(fragmentInstance: Fragment, tag: String, isFirstOpen: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (isFirstOpen) {
-            fragmentTransaction.add(fl_main_container.id, fragmentInstance, tag)
+            fragmentTransaction.add(binding.flMainContainer.id, fragmentInstance, tag)
         } else if (supportFragmentManager.primaryNavigationFragment?.tag != tag) {
-            fragmentTransaction.replace(fl_main_container.id, fragmentInstance, tag)
+            fragmentTransaction.replace(binding.flMainContainer.id, fragmentInstance, tag)
         }
         when (fragmentInstance) {
-            is SettingsFragment -> bnv_main.menu.findItem(R.id.item_settings).isChecked = true
-            is HistoryFragment -> bnv_main.menu.findItem(R.id.item_history).isChecked = true
-            else -> bnv_main.menu.findItem(R.id.item_calculator).isChecked = true
+            is SettingsFragment -> binding.bnvMain.menu.findItem(R.id.item_settings).isChecked = true
+            is HistoryFragment -> binding.bnvMain.menu.findItem(R.id.item_history).isChecked = true
+            else -> binding.bnvMain.menu.findItem(R.id.item_calculator).isChecked = true
         }
         fragmentTransaction.commit()
     }

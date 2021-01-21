@@ -5,7 +5,7 @@ import kaczmarek.moneycalculator.di.services.database.models.Banknote
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
-class InteractorSettings(private val repository: IRepositorySettings) {
+class SettingsInteractor(private val repository: ISettingsRepository) {
 
     fun getAllBanknotes() = repository.getAllBanknotes()
 

@@ -3,11 +3,11 @@ package kaczmarek.moneycalculator.ui.history
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.services.database.models.Banknote
 import kaczmarek.moneycalculator.utils.getString
-import kotlinx.android.synthetic.main.rv_banknote_item.view.*
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
@@ -34,9 +34,11 @@ class RVAdapterHistoryBanknote(private val banknotes: List<Banknote>) :
 
     inner class BanknoteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private val tvBanknote = itemView.findViewById<TextView>(R.id.tv_banknote)
+
         fun bind(position: Int) {
             val item = banknotes[position]
-            itemView.tv_banknote.text = getString(
+            tvBanknote.text = getString(
                 R.string.fragment_history_computation,
                 item.name,
                 item.count,

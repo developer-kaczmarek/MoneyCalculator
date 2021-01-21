@@ -36,10 +36,13 @@
     </style>
 
     <style name="SettingsTitleTheme" parent="AppTheme">
-        <item name="android:fontFamily">@font/gotham_pro_bold</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:layout_margin">16dp</item>
-        <item name="android:textColor">@color/black_1d1</item>
+        <item name="android:fontFamily">@font/gotham_pro_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">#A4A4A4</item>
     </style>
 
     <style name="SettingsDescriptionTheme" parent="AppTheme">
@@ -48,6 +51,13 @@
         <item name="android:padding">16dp</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="RadioButtonTheme" parent="AppTheme">
+        <item name="android:fontFamily">@font/gotham_pro</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 </resources>

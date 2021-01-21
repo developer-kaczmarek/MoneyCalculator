@@ -3,9 +3,9 @@ package kaczmarek.moneycalculator.di.modules
 import kaczmarek.moneycalculator.di.services.SettingsService
 import kaczmarek.moneycalculator.di.scopes.SettingsScope
 import kaczmarek.moneycalculator.di.services.database.DatabaseService
-import kaczmarek.moneycalculator.ui.settings.InteractorSettings
-import kaczmarek.moneycalculator.ui.settings.IRepositorySettings
-import kaczmarek.moneycalculator.ui.settings.RepositorySettings
+import kaczmarek.moneycalculator.ui.settings.SettingsInteractor
+import kaczmarek.moneycalculator.ui.settings.ISettingsRepository
+import kaczmarek.moneycalculator.ui.settings.SettingsRepository
 import dagger.Module
 import dagger.Provides
 
@@ -16,8 +16,8 @@ import dagger.Provides
 class SettingsModule {
     @Provides
     @SettingsScope
-    internal fun provideInteractor(repo: IRepositorySettings): InteractorSettings {
-        return InteractorSettings(repo)
+    internal fun provideInteractor(repo: ISettingsRepository): SettingsInteractor {
+        return SettingsInteractor(repo)
     }
 
     @Provides
@@ -25,7 +25,7 @@ class SettingsModule {
     internal fun provideRepository(
         databaseService: DatabaseService,
         settingsService: SettingsService
-    ): IRepositorySettings {
-        return RepositorySettings(databaseService, settingsService)
+    ): ISettingsRepository {
+        return SettingsRepository(databaseService, settingsService)
     }
 }
