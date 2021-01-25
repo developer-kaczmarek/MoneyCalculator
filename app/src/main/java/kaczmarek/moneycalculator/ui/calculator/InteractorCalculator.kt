@@ -1,14 +1,10 @@
 package kaczmarek.moneycalculator.ui.calculator
 
-import kaczmarek.moneycalculator.di.services.database.models.Banknote
-import kaczmarek.moneycalculator.di.services.database.models.Session
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by Angelina Podbolotova on 12.10.2019.
  */
-class InteractorCalculator(private val repository: IRepositoryCalculator) {
+/*class InteractorCalculator(private val repository: IRepositoryCalculator) {
 
     fun getAll() = repository.getAll()
 
@@ -32,3 +28,4 @@ class InteractorCalculator(private val repository: IRepositoryCalculator) {
 
     fun isAlwaysOnDisplay() = repository.isAlwaysOnDisplay()
 }
+*/

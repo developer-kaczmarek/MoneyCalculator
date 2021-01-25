@@ -1,14 +1,10 @@
 package kaczmarek.moneycalculator.ui.calculator
 
-import kaczmarek.moneycalculator.di.services.CalculatorService
-import kaczmarek.moneycalculator.di.services.SettingsService
-import kaczmarek.moneycalculator.di.services.database.DatabaseService
-import kaczmarek.moneycalculator.di.services.database.models.Banknote
-import kaczmarek.moneycalculator.di.services.database.models.Session
 
 /**
  * Created by Angelina Podbolotova on 12.10.2019.
  */
+/*
 class RepositoryCalculator(
     private val databaseService: DatabaseService,
     private val settingsService: SettingsService,
@@ -36,4 +32,4 @@ class RepositoryCalculator(
 
     override fun isAlwaysOnDisplay() = settingsService.isAlwaysOnDisplay
 
-}
+}*/

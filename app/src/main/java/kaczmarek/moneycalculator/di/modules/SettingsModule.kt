@@ -1,31 +1,17 @@
 package kaczmarek.moneycalculator.di.modules
 
-import kaczmarek.moneycalculator.di.services.SettingsService
-import kaczmarek.moneycalculator.di.scopes.SettingsScope
-import kaczmarek.moneycalculator.di.services.database.DatabaseService
-import kaczmarek.moneycalculator.ui.settings.SettingsInteractor
-import kaczmarek.moneycalculator.ui.settings.ISettingsRepository
-import kaczmarek.moneycalculator.ui.settings.SettingsRepository
 import dagger.Module
 import dagger.Provides
+import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService
+import javax.inject.Singleton
 
-/**
- * Created by Angelina Podbolotova on 12.10.2019.
- */
 @Module
-class SettingsModule {
-    @Provides
-    @SettingsScope
-    internal fun provideInteractor(repo: ISettingsRepository): SettingsInteractor {
-        return SettingsInteractor(repo)
-    }
+object SettingsModule {
 
     @Provides
-    @SettingsScope
-    internal fun provideRepository(
-        databaseService: DatabaseService,
-        settingsService: SettingsService
-    ): ISettingsRepository {
-        return SettingsRepository(databaseService, settingsService)
+    @Singleton
+    fun provideSettingsRepository(settingsService: SettingsSharedPrefsService): SettingsRepository {
+        return SettingsRepository(settingsService)
     }
 }

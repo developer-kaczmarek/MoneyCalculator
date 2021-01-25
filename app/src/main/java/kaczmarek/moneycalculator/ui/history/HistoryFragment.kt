@@ -72,7 +72,6 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
     }
 
     override fun updateSessions(list: List<ItemBase>) {
-        showSessions()
         adapter.update(list)
     }
 
@@ -106,21 +105,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
     }
 
     override fun deleteHeader(positionHeader: Int) {
-        if (presenter.allHistoryItems.isNotEmpty()) {
-            adapter.notifyItemRemoved(positionHeader)
-        } else {
-            showSessions()
-        }
-    }
-
-    private fun showSessions() {
-        /*if (presenter.allHistoryItems.isNotEmpty()) {
-            rv_history.visible
-            tv_empty_history.gone
-        } else {
-            rv_history.gone
-            tv_empty_history.visible
-        }*/
+        adapter.notifyItemRemoved(positionHeader)
     }
 
     override fun onSwipe(position: Int) {

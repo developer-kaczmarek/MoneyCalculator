@@ -1,10 +1,10 @@
 package kaczmarek.moneycalculator.di
 
 import kaczmarek.moneycalculator.di.components.*
-import kaczmarek.moneycalculator.di.modules.CalculatorModule
-import kaczmarek.moneycalculator.di.modules.HistoryModule
-import kaczmarek.moneycalculator.di.modules.MainModule
-import kaczmarek.moneycalculator.di.modules.SettingsModule
+import kaczmarek.moneycalculator.di.modules.CalculatorFragmentModule
+import kaczmarek.moneycalculator.di.modules.HistoryFragmentModule
+import kaczmarek.moneycalculator.di.modules.MainActivityModule
+import kaczmarek.moneycalculator.di.modules.SettingsFragmentModule
 import kaczmarek.moneycalculator.di.components.AppComponent
 
 /**
@@ -24,7 +24,7 @@ object DIManager {
     fun getCalculatorSubcomponent(): CalculatorSubcomponent {
         if (calculatorSubcomponent == null) {
             calculatorSubcomponent =
-                appComponent.calculator(CalculatorModule())
+                appComponent.calculator(CalculatorFragmentModule())
         }
         return calculatorSubcomponent
             ?: throw IllegalStateException("$calculatorSubcomponent must not be null")
@@ -37,7 +37,7 @@ object DIManager {
     fun getHistorySubcomponent(): HistorySubcomponent {
         if (historySubcomponent == null) {
             historySubcomponent =
-                appComponent.history(HistoryModule())
+                appComponent.history(HistoryFragmentModule())
         }
         return historySubcomponent
             ?: throw IllegalStateException("$calculatorSubcomponent must not be null")
@@ -50,7 +50,7 @@ object DIManager {
     fun getSettingsSubcomponent(): SettingsSubcomponent {
         if (settingsSubcomponent == null) {
             settingsSubcomponent =
-                appComponent.settings(SettingsModule())
+                appComponent.settings(SettingsFragmentModule())
         }
         return settingsSubcomponent
             ?: throw IllegalStateException("$settingsSubcomponent must not be null")
@@ -63,7 +63,7 @@ object DIManager {
     fun getMainSubcomponent(): MainSubcomponent {
         if (mainSubcomponent == null) {
             mainSubcomponent =
-                appComponent.main(MainModule())
+                appComponent.main(MainActivityModule())
         }
         return mainSubcomponent
             ?: throw IllegalStateException("$mainSubcomponent must not be null")

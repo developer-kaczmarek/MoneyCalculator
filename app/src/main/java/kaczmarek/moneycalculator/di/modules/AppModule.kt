@@ -3,11 +3,11 @@ package kaczmarek.moneycalculator.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import kaczmarek.moneycalculator.di.services.CalculatorService
-import kaczmarek.moneycalculator.di.services.SettingsService
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.KEY_SETTINGS
-import kaczmarek.moneycalculator.di.services.database.DatabaseService
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.KEY_SETTINGS
 import dagger.Module
 import dagger.Provides
+import kaczmarek.moneycalculator.database.room.db.RoomDatabase
 import javax.inject.Singleton
 
 /**
@@ -15,11 +15,6 @@ import javax.inject.Singleton
  */
 @Module
 object AppModule {
-    @Provides
-    @Singleton
-    fun provideDatabaseService(context: Context): DatabaseService {
-        return DatabaseService.getDatabase(context)
-    }
 
     @Provides
     @Singleton
@@ -29,10 +24,16 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSettingsService(prefs: SharedPreferences) =
-        SettingsService(prefs)
+    fun provideSettingsService(prefs: SharedPreferences) = SettingsSharedPrefsService(prefs)
 
     @Provides
     @Singleton
     fun provideCalculatorService() = CalculatorService()
+
+    @Provides
+    @Singleton
+    fun provideRoomDatabase(context: Context, prefs: SharedPreferences): RoomDatabase {
+        return RoomDatabase.getDatabase(context, prefs)
+    }
+
 }

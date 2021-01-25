@@ -1,7 +1,7 @@
 package kaczmarek.moneycalculator.ui.history
 
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.di.services.database.models.Session
+import kaczmarek.moneycalculator.domain.session.entity.SessionEntity
 import kaczmarek.moneycalculator.ui.base.ItemBase
 
 const val TYPE_DATE_ITEM = R.layout.rv_date_item
@@ -12,7 +12,7 @@ class DateItem(val date: String, override val itemViewType: Int = TYPE_DATE_ITEM
 }
 
 class SessionItem(
-    val session: Session,
+    val session: SessionEntity,
     var isShow: Boolean,
     override val itemViewType: Int = TYPE_SESSION_ITEM
 ) : ItemBase {

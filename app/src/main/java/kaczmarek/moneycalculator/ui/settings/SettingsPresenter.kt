@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.ui.settings
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.di.services.database.models.Banknote
+import kaczmarek.moneycalculator.domain.settings.usecase.*
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
 import kotlinx.coroutines.launch
@@ -13,10 +13,33 @@ import javax.inject.Inject
  * Created by Angelina Podbolotova on 19.10.2019.
  */
 class SettingsPresenter : PresenterBase<SettingsView>() {
-    @Inject
-    lateinit var interactor: SettingsInteractor
-    val banknotes = arrayListOf<Banknote>()
+    //val banknotes = arrayListOf<Banknote>()
     //val components = arrayListOf<CheckBox>()
+
+    @Inject
+    lateinit var getHistoryStoragePeriodUseCase: GetHistoryStoragePeriodUseCase
+
+    @Inject
+    lateinit var getKeyboardLayoutUseCase: GetKeyboardLayoutUseCase
+
+    @Inject
+    lateinit var getAlwaysBacklightOnUseCase: GetAlwaysBacklightOnUseCase
+
+    @Inject
+    lateinit var getCountMeetComponentUseCase: GetCountMeetComponentUseCase
+
+    @Inject
+    lateinit var setHistoryStoragePeriodUseCase: SetHistoryStoragePeriodUseCase
+
+    @Inject
+    lateinit var setKeyboardLayoutUseCase: SetKeyboardLayoutUseCase
+
+    @Inject
+    lateinit var setAlwaysBacklightOnUseCase: SetAlwaysBacklightOnUseCase
+
+    @Inject
+    lateinit var updateCountMeetComponentUseCase: UpdateCountMeetComponentUseCase
+
 
     init {
         DIManager.getSettingsSubcomponent().inject(this)
@@ -28,7 +51,7 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     }
 
     fun getAllBanknotes() {
-        presenterScope.launch {
+       /* presenterScope.launch {
             try {
                 banknotes.clear()
                 //components.clear()
@@ -41,34 +64,34 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
             } finally {
                 viewState.showContent()
             }
-        }
+        }*/
     }
 
     /**
      * Метод для получения флага указывающего все ли банкноты на калькуляторе будут невидимы
      */
-    fun isAllBanknotesInvisible(): Boolean = banknotes.none { it.isShow }
+   /* fun isAllBanknotesInvisible(): Boolean = banknotes.none { it.isShow }*/
 
     /**
      * Метод возращающий выбраный период сохранения истории вычислительных сессий
      */
-    fun getHistoryStoragePeriod() = interactor.getHistoryStoragePeriod()
+    fun getHistoryStoragePeriod(): Int = getHistoryStoragePeriodUseCase.getPeriod()
 
     /**
      * Метод возращающий выбраный тип отображения клавиатуры на калькуляторе
      */
-    fun getKeyboardLayout() = interactor.getKeyboardLayout()
+    fun getKeyboardLayout(): Int = getKeyboardLayoutUseCase.getType()
 
     /**
      * Метод возращающий флаг необходимо ли экран держать всегда включеным
      */
-    fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
+    fun isAlwaysOnDisplay(): Boolean = getAlwaysBacklightOnUseCase.isAlwaysBacklightOn()
 
     /**
      * Метод возращающий количество компонентов с которыми познакомился
      * пользователь при первом использовании
      */
-    fun getCountMeetComponents() = interactor.getCountMeetComponents()
+    fun getCountMeetComponents(): Int = getCountMeetComponentUseCase.getCount()
 
     /**
      * Метод обновления количества компонентов с которыми познакомился
@@ -77,24 +100,20 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
      * произойдет переход на калькулятор
      */
     fun updateCountMeetComponent(countMeetComponent: Int) {
-        interactor.updateCountMeetComponent(countMeetComponent)
+        updateCountMeetComponentUseCase.updateCount(countMeetComponent)
         viewState.returnToCalculator()
     }
 
     /**
      * Метод для сохранения всех настроек
      */
-    fun saveAllSettings(
-        stateStoragePeriod: Int,
-        stateKeyboardLayout: Int,
-        stateAlwaysOnDisplay: Boolean
-    ) {
+    fun saveAllSettings(stateStoragePeriod: Int, stateKeyboardLayout: Int, isAlwaysBacklightOn: Boolean) {
         presenterScope.launch {
             try {
-                interactor.saveVisibilityBanknotes(banknotes)
-                interactor.saveHistoryStoragePeriod(stateStoragePeriod)
-                interactor.saveKeyboardLayout(stateKeyboardLayout)
-                interactor.saveAlwaysOnDisplay(stateAlwaysOnDisplay)
+                setAlwaysBacklightOnUseCase.setAlwaysBacklight(isAlwaysBacklightOn)
+                setHistoryStoragePeriodUseCase.setPeriod(stateStoragePeriod)
+                setKeyboardLayoutUseCase.setType(stateKeyboardLayout)
+               // interactor.saveVisibilityBanknotes(banknotes)
                 viewState.showMessage(getString(R.string.fragment_settings_save_successful))
             } catch (e: Exception) {
                 viewState.showMessage(getString(R.string.common_save_error, e.toString()))

@@ -10,9 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.ui.base.BaseListAdapter
-import kaczmarek.moneycalculator.ui.base.BaseViewHolder
-import kaczmarek.moneycalculator.ui.base.ItemBase
+import kaczmarek.moneycalculator.ui.base.*
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.visible
@@ -33,7 +31,8 @@ class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
             TYPE_DATE_ITEM -> DateItemViewHolder(view)
-            else -> SessionItemViewHolder(view)
+            TYPE_SESSION_ITEM -> SessionItemViewHolder(view)
+            else -> ItemPlaceholderViewHolder(view)
         }
     }
 
@@ -63,7 +62,7 @@ class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
                 } else {
                     getString(R.string.common_ruble_float_format, item.session.totalAmount)
                 }
-            rvBanknotes.adapter = RVAdapterHistoryBanknote(item.session.banknotes)
+          //  rvBanknotes.adapter = RVAdapterHistoryBanknote(item.session.banknotes)
 
             if (item.isShow) {
                 ivMoreDetails.rotation = 180F
@@ -79,7 +78,7 @@ class RVAdapterHistorySession(private val presenter: HistoryPresenter) :
             if (position == RecyclerView.NO_POSITION) return
             when (v.id) {
                 R.id.ll_session_header -> {
-                    val item = presenter.allHistoryItems[position] as SessionItem
+                    val item = presenter.items[position] as SessionItem
                     if (!item.isShow) {
                         ivMoreDetails.animate().rotation(180F).start()
                         TransitionManager.beginDelayedTransition(root, AutoTransition())

@@ -1,23 +1,14 @@
 package kaczmarek.moneycalculator.ui.calculator
 
-import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.di.services.database.models.Banknote
+
 import kaczmarek.moneycalculator.ui.base.PresenterBase
-import kaczmarek.moneycalculator.utils.BanknoteCard
-import kaczmarek.moneycalculator.utils.getString
-import kotlinx.coroutines.launch
-import moxy.presenterScope
-import javax.inject.Inject
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
  */
 
 class CalculatorPresenter : PresenterBase<CalculatorView>() {
-    @Inject
-    lateinit var interactor: InteractorCalculator
-    val banknotes = arrayListOf<Banknote>()
+  /*  val banknotes = arrayListOf<Banknote>()
     val components = arrayListOf<BanknoteCard>()
     var totalAmount: Double = 0.0
 
@@ -30,19 +21,19 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         DIManager.removeCalculatorSubcomponent()
     }
 
-    /**
+    *//**
      * Метод возвращающий флаг необходимо ли не гасить экран при осуществлении вычислений
-     */
+     *//*
     fun getKeyboardLayout() = interactor.getKeyboardLayout()
 
-    /**
+    *//**
      * Метод возвращающий флаг необходимо ли не гасить экран при осуществлении вычислений
-     */
+     *//*
     fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
 
-    /**
+    *//**
      * Метод для подсчета и обновления итоговой суммы
-     */
+     *//*
     fun updateTotalAmount() {
         totalAmount = 0.0
         banknotes.forEach {
@@ -51,9 +42,9 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         viewState.updateTotalAmount()
     }
 
-    /**
+    *//**
      * Метод для получения списка банкнот
-     */
+     *//*
     fun getBanknotes() {
         presenterScope.launch {
             try {
@@ -71,10 +62,10 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         }
     }
 
-    /**
+    *//**
      * Метод для сохранения текущей вычислительной сессии.
      * В случае если итоговая сумма ровна нулю сессия не будет сохранена
-     */
+     *//*
     fun saveSession() {
         presenterScope.launch {
             try {
@@ -125,20 +116,20 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         return isIdenticalList
     }
 
-    /**
+    *//**
      * Метод для получением количества компонентов с которыми пользователь знаком
-     */
+     *//*
     fun howMuchKnowComponents() = interactor.getCountMeetComponents()
 
-    /**
+    *//**
      * Метод для обновления значения количества компонентов с которыми прошло первое знакомство
-     */
+     *//*
     fun updateCountMeetComponent(countMeetComponent: Int) {
         interactor.updateCountMeetComponent(countMeetComponent)
     }
 
-    /**
+    *//**
      * Метод возращающий флаг является итоговая сумма целым числом без чисел после запятой
-     */
-    fun isTotalAmountInteger(): Boolean = totalAmount - totalAmount.toInt() == 0.0
+     *//*
+    fun isTotalAmountInteger(): Boolean = totalAmount - totalAmount.toInt() == 0.0*/
 }

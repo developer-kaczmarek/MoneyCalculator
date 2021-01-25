@@ -1,0 +1,17 @@
+package kaczmarek.moneycalculator.database.room.model
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "banknotes")
+data class BanknoteDBModel(
+    val name: Float,
+    var count: Int,
+    var amount: Float,
+    val backgroundColor: String,
+    val textColor: String,
+    var isShow: Boolean
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

@@ -1,8 +1,12 @@
 package kaczmarek.moneycalculator.ui.main
 
+import android.util.Log
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.di.services.SettingsService
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.THIRTY_DAYS
+import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.GetHistoryStoragePeriodUseCase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
 import kotlinx.coroutines.launch
@@ -16,8 +20,12 @@ import javax.inject.Inject
  */
 
 class MainPresenter : PresenterBase<MainView>() {
+
     @Inject
-    lateinit var interactor: InteractorMain
+    lateinit var deleteSessionUseCase: DeleteSessionUseCase
+
+    @Inject
+    lateinit var getHistoryStoragePeriodUseCase: GetHistoryStoragePeriodUseCase
 
     init {
         DIManager.getMainSubcomponent().inject(this)
@@ -30,9 +38,9 @@ class MainPresenter : PresenterBase<MainView>() {
 
     override fun onFirstViewAttach() {
         viewState.onFirstOpen()
-        when (interactor.getHistoryStoragePeriod()) {
-            SettingsService.FOURTEEN_DAYS -> deleteSessionsFor(14)
-            SettingsService.THIRTY_DAYS -> deleteSessionsFor(30)
+        when (getHistoryStoragePeriodUseCase.getPeriod()) {
+            FOURTEEN_DAYS -> deleteSessionsFor(14)
+            THIRTY_DAYS -> deleteSessionsFor(30)
         }
     }
 
@@ -40,19 +48,22 @@ class MainPresenter : PresenterBase<MainView>() {
     private fun deleteSessionsFor(days: Int) {
         presenterScope.launch {
             try {
-                val stringDeleteDate =
+                deleteSessionUseCase.deleteByDate(
                     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
                         Calendar.getInstance().run {
                             add(Calendar.DAY_OF_MONTH, -days)
                             time
                         }
                     )
-                interactor.deleteSession(interactor.getAll().first {
-                    it.date <= stringDeleteDate
-                })
+                )
             } catch (e: Exception) {
+                Log.e(TAG, e.message.toString())
                 viewState.showMessage(getString(R.string.common_delete_error, e.toString()))
             }
         }
+    }
+
+    companion object {
+        const val TAG = "MainPresenter"
     }
 }

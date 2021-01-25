@@ -1,10 +1,6 @@
 package kaczmarek.moneycalculator.di.components
 
 import android.content.Context
-import kaczmarek.moneycalculator.di.components.CalculatorSubcomponent
-import kaczmarek.moneycalculator.di.components.HistorySubcomponent
-import kaczmarek.moneycalculator.di.components.MainSubcomponent
-import kaczmarek.moneycalculator.di.components.SettingsSubcomponent
 import kaczmarek.moneycalculator.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
@@ -14,18 +10,18 @@ import javax.inject.Singleton
  * Created by Angelina Podbolotova on 12.10.2019.
  */
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, BanknoteModule::class, SettingsModule::class, SessionModule::class])
 interface AppComponent {
 
     val context: Context
 
-    fun calculator(calculatorModule: CalculatorModule): CalculatorSubcomponent
+    fun calculator(calculatorModule: CalculatorFragmentModule): CalculatorSubcomponent
 
-    fun history(historyModule: HistoryModule): HistorySubcomponent
+    fun history(historyModule: HistoryFragmentModule): HistorySubcomponent
 
-    fun settings(settingsModule: SettingsModule): SettingsSubcomponent
+    fun settings(settingsFragmentModule: SettingsFragmentModule): SettingsSubcomponent
 
-    fun main(mainModule: MainModule): MainSubcomponent
+    fun main(mainModule: MainActivityModule): MainSubcomponent
 
     @Component.Builder
     interface Builder {
@@ -35,4 +31,5 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
 }

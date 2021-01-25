@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.di.services.database.models.Banknote
 import kaczmarek.moneycalculator.utils.getString
 
 /**
  * Created by Angelina Podbolotova on 13.10.2019.
  */
+/*
 class RVAdapterHistoryBanknote(private val banknotes: List<Banknote>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -46,4 +46,4 @@ class RVAdapterHistoryBanknote(private val banknotes: List<Banknote>) :
             )
         }
     }
-}
+}*/

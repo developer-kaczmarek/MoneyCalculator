@@ -13,11 +13,11 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.databinding.FragmentSettingsBinding
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.CLASSIC
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.FOURTEEN_DAYS
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.INDEFINITELY
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.NUMPAD
-import kaczmarek.moneycalculator.di.services.SettingsService.Companion.THIRTY_DAYS
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.CLASSIC
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.INDEFINITELY
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.NUMPAD
+import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.THIRTY_DAYS
 import kaczmarek.moneycalculator.ui.base.BaseCheckChangeListener
 import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ViewBase
@@ -134,7 +134,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     override fun onClick(view: View) {
         when (view.id) {
             R.id.iv_toolbar_action -> {
-                when {
+              /*  when {
                     isNewChange && presenter.isAllBanknotesInvisible() -> showMessage(getString(R.string.fragment_settings_all_banknotes_invisible))
                     isNewChange && !presenter.isAllBanknotesInvisible() -> presenter.saveAllSettings(
                         stateStoragePeriod,
@@ -142,7 +142,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
                         stateAlwaysOnDisplay
                     )
                     else -> showMessage(getString(R.string.fragment_settings_no_new_changes))
-                }
+                }*/
             }
             R.id.tv_settings_feedback -> {
                 val emailIntent = Intent(
@@ -213,7 +213,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     override fun onChange(view: View, position: Int, isCheck: Boolean) {
         if (view.id == R.id.cb_banknote_visibility) {
             isNewChange = true
-            presenter.banknotes[position].isShow = isCheck
+         //   presenter.banknotes[position].isShow = isCheck
         }
     }
 
