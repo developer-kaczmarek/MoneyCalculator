@@ -95,8 +95,10 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (isFirstOpen) {
             fragmentTransaction.add(binding.flMainContainer.id, fragmentInstance, tag)
+            fragmentTransaction.setPrimaryNavigationFragment(fragmentInstance)
         } else if (supportFragmentManager.primaryNavigationFragment?.tag != tag) {
             fragmentTransaction.replace(binding.flMainContainer.id, fragmentInstance, tag)
+            fragmentTransaction.setPrimaryNavigationFragment(fragmentInstance)
         }
         when (fragmentInstance) {
             is SettingsFragment -> binding.bnvMain.menu.findItem(R.id.item_settings).isChecked = true
