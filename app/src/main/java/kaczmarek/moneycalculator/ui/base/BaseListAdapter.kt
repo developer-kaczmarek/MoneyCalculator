@@ -11,6 +11,7 @@ constructor(differ: DiffUtil.ItemCallback<D> = DiffCallback()) : ListAdapter<D, 
 
     var clicklistener: BaseClickListener? = null
     var checkChangeListener: BaseCheckChangeListener? = null
+    var focusChangeListener: BaseOnFocusChangeListener? = null
 
     fun update(list: List<D>) {
         this.submitList(ArrayList(list))
@@ -43,4 +44,8 @@ interface BaseClickListener {
 
 interface BaseCheckChangeListener {
     fun onChange(view: View, position: Int, isCheck: Boolean)
+}
+
+interface BaseOnFocusChangeListener {
+    fun onFocusChange(view: View, position: Int, hasFocus: Boolean)
 }

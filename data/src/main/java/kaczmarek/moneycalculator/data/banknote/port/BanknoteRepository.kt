@@ -11,4 +11,8 @@ class BanknoteRepository(
     override suspend fun getBanknotes(): List<BanknoteEntity> =
         database.getBanknotes().map { mapper.mapToEntity(it) }.toList()
 
+    override suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean) {
+        database.updateVisibilityBanknote(idBanknote, isVisible)
+    }
+
 }

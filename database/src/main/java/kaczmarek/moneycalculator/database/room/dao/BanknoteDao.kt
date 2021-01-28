@@ -12,4 +12,7 @@ interface BanknoteDao : BaseDao<BanknoteDBModel> {
     @Query("SELECT COUNT(*) FROM banknotes")
     suspend fun count(): Int
 
+    @Query("UPDATE banknotes set isShow=:isVisible WHERE id=:idBanknote")
+    suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean)
+
 }

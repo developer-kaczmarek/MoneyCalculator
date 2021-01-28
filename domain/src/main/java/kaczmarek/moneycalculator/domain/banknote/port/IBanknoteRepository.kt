@@ -6,4 +6,6 @@ interface IBanknoteRepository {
 
     suspend fun getBanknotes(): List<BanknoteEntity>
 
+    suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean)
+
 }

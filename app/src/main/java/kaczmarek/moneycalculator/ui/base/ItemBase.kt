@@ -7,13 +7,13 @@ import kaczmarek.moneycalculator.ui.history.TYPE_DATE_ITEM
 import kaczmarek.moneycalculator.ui.history.TYPE_SESSION_ITEM
 import kaczmarek.moneycalculator.ui.settings.TYPE_SETTING_BANKNOTE_ITEM
 
-const val TYPE_ITEM_PLACEHOLDER = R.layout.rv_placeholder_item
+const val TYPE_PLACEHOLDER_ITEM = R.layout.rv_placeholder_item
 
 @IntDef(
     TYPE_SETTING_BANKNOTE_ITEM,
     TYPE_DATE_ITEM,
     TYPE_SESSION_ITEM,
-    TYPE_ITEM_PLACEHOLDER
+    TYPE_PLACEHOLDER_ITEM
 )
 @Retention(AnnotationRetention.SOURCE)
 annotation class ItemViewType
@@ -24,7 +24,7 @@ interface ItemBase : DiffComparable {
     val itemViewType: Int
 }
 
-data class ItemPlaceholder(override val itemViewType: Int = TYPE_ITEM_PLACEHOLDER) : ItemBase {
+data class ItemPlaceholder(override val itemViewType: Int = TYPE_PLACEHOLDER_ITEM) : ItemBase {
     override fun getItemId() = hashCode()
 }
 

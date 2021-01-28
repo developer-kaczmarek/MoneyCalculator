@@ -10,7 +10,6 @@ class SessionEntityMapper(private val banknoteEntityMapper: BanknoteEntityMapper
 
     override fun mapToEntity(obj: Session): SessionEntity {
         return SessionEntity(
-            obj.id,
             obj.date,
             obj.time,
             obj.totalAmount,
@@ -20,7 +19,6 @@ class SessionEntityMapper(private val banknoteEntityMapper: BanknoteEntityMapper
 
     override fun mapFromEntity(obj: SessionEntity): Session {
         return Session(
-            obj.id,
             obj.date,
             obj.time,
             obj.totalAmount,

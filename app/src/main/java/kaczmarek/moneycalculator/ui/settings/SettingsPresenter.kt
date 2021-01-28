@@ -2,6 +2,8 @@ package kaczmarek.moneycalculator.ui.settings
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.UpdateVisibilityBanknoteUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.*
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
@@ -13,8 +15,7 @@ import javax.inject.Inject
  * Created by Angelina Podbolotova on 19.10.2019.
  */
 class SettingsPresenter : PresenterBase<SettingsView>() {
-    //val banknotes = arrayListOf<Banknote>()
-    //val components = arrayListOf<CheckBox>()
+    val banknotes = arrayListOf<SettingBanknoteItem>()
 
     @Inject
     lateinit var getHistoryStoragePeriodUseCase: GetHistoryStoragePeriodUseCase
@@ -40,6 +41,12 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     @Inject
     lateinit var updateCountMeetComponentUseCase: UpdateCountMeetComponentUseCase
 
+    @Inject
+    lateinit var getBanknoteUseCase: GetBanknoteUseCase
+
+    @Inject
+    lateinit var updateVisibilityBanknoteUseCase: UpdateVisibilityBanknoteUseCase
+
 
     init {
         DIManager.getSettingsSubcomponent().inject(this)
@@ -50,27 +57,29 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
         DIManager.removeSettingsSubcomponent()
     }
 
+    /**
+     * Метод для получения списка всех банкнот для настройки видимости
+     */
     fun getAllBanknotes() {
-       /* presenterScope.launch {
+        presenterScope.launch {
             try {
                 banknotes.clear()
-                //components.clear()
-                banknotes.addAll(interactor.getAllBanknotes())
-                viewState.setVisibilityBanknotes(banknotes.map {
+                banknotes.addAll(getBanknoteUseCase.getList().map {
                     SettingBanknoteItem(it.id, it.name, it.isShow)
                 })
+                viewState.setVisibilityBanknotes(banknotes)
             } catch (e: Exception) {
                 viewState.showMessage(getString(R.string.common_load_error, e.toString()))
             } finally {
                 viewState.showContent()
             }
-        }*/
+        }
     }
 
     /**
      * Метод для получения флага указывающего все ли банкноты на калькуляторе будут невидимы
      */
-   /* fun isAllBanknotesInvisible(): Boolean = banknotes.none { it.isShow }*/
+    fun isAllBanknotesInvisible(): Boolean = banknotes.none { it.isShow }
 
     /**
      * Метод возращающий выбраный период сохранения истории вычислительных сессий
@@ -107,13 +116,17 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     /**
      * Метод для сохранения всех настроек
      */
-    fun saveAllSettings(stateStoragePeriod: Int, stateKeyboardLayout: Int, isAlwaysBacklightOn: Boolean) {
+    fun saveAllSettings(
+        stateStoragePeriod: Int,
+        stateKeyboardLayout: Int,
+        isAlwaysBacklightOn: Boolean
+    ) {
         presenterScope.launch {
             try {
                 setAlwaysBacklightOnUseCase.setAlwaysBacklight(isAlwaysBacklightOn)
                 setHistoryStoragePeriodUseCase.setPeriod(stateStoragePeriod)
                 setKeyboardLayoutUseCase.setType(stateKeyboardLayout)
-               // interactor.saveVisibilityBanknotes(banknotes)
+                banknotes.map { updateVisibilityBanknoteUseCase.changeVisibility(it.id, it.isShow) }
                 viewState.showMessage(getString(R.string.fragment_settings_save_successful))
             } catch (e: Exception) {
                 viewState.showMessage(getString(R.string.common_save_error, e.toString()))

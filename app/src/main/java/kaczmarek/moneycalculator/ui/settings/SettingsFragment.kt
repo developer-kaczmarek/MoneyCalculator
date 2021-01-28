@@ -31,15 +31,13 @@ import moxy.ktx.moxyPresenter
  */
 
 interface SettingsView : ViewBase {
-    fun showMessage(message: String)
     fun setVisibilityBanknotes(list: List<SettingBanknoteItem>)
     fun showContent()
     fun returnToCalculator()
 }
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
-    View.OnClickListener, BaseCheckChangeListener,
-    RadioGroup.OnCheckedChangeListener {
+    View.OnClickListener, BaseCheckChangeListener, RadioGroup.OnCheckedChangeListener {
 
     private val presenter by moxyPresenter { SettingsPresenter() }
     private var stateAlwaysOnDisplay = false
@@ -115,10 +113,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         _binding = null
     }
 
-    override fun showMessage(message: String) {
-        toast(message)
-    }
-
     override fun setVisibilityBanknotes(list: List<SettingBanknoteItem>) {
         adapter?.update(list)
     }
@@ -134,7 +128,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     override fun onClick(view: View) {
         when (view.id) {
             R.id.iv_toolbar_action -> {
-              /*  when {
+                when {
                     isNewChange && presenter.isAllBanknotesInvisible() -> showMessage(getString(R.string.fragment_settings_all_banknotes_invisible))
                     isNewChange && !presenter.isAllBanknotesInvisible() -> presenter.saveAllSettings(
                         stateStoragePeriod,
@@ -142,7 +136,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
                         stateAlwaysOnDisplay
                     )
                     else -> showMessage(getString(R.string.fragment_settings_no_new_changes))
-                }*/
+                }
             }
             R.id.tv_settings_feedback -> {
                 val emailIntent = Intent(
@@ -213,7 +207,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     override fun onChange(view: View, position: Int, isCheck: Boolean) {
         if (view.id == R.id.cb_banknote_visibility) {
             isNewChange = true
-         //   presenter.banknotes[position].isShow = isCheck
+            presenter.banknotes[position] = presenter.banknotes[position].copy(isShow = isCheck)
         }
     }
 

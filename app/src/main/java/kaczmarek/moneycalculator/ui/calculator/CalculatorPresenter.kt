@@ -1,16 +1,51 @@
 package kaczmarek.moneycalculator.ui.calculator
 
 
+import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.di.DIManager
+import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.session.usecase.SaveSessionUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.GetKeyboardLayoutUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponentUseCase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
+import kaczmarek.moneycalculator.utils.getString
+import kaczmarek.moneycalculator.utils.logDebug
+import kotlinx.coroutines.launch
+import moxy.presenterScope
+import java.text.SimpleDateFormat
+import java.util.*
+import javax.inject.Inject
+import kotlin.math.floor
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
  */
 
 class CalculatorPresenter : PresenterBase<CalculatorView>() {
-  /*  val banknotes = arrayListOf<Banknote>()
-    val components = arrayListOf<BanknoteCard>()
+
     var totalAmount: Double = 0.0
+    val banknotes = arrayListOf<BanknoteEntity>()
+
+    @Inject
+    lateinit var getKeyboardLayoutUseCase: GetKeyboardLayoutUseCase
+
+    @Inject
+    lateinit var getAlwaysBacklightOnUseCase: GetAlwaysBacklightOnUseCase
+
+    @Inject
+    lateinit var getCountMeetComponentUseCase: GetCountMeetComponentUseCase
+
+    @Inject
+    lateinit var updateCountMeetComponentUseCase: UpdateCountMeetComponentUseCase
+
+    @Inject
+    lateinit var getBanknoteUseCase: GetBanknoteUseCase
+
+    @Inject
+    lateinit var saveSessionUseCase: SaveSessionUseCase
 
     init {
         DIManager.getCalculatorSubcomponent().inject(this)
@@ -21,115 +56,97 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         DIManager.removeCalculatorSubcomponent()
     }
 
-    *//**
-     * Метод возвращающий флаг необходимо ли не гасить экран при осуществлении вычислений
-     *//*
-    fun getKeyboardLayout() = interactor.getKeyboardLayout()
+    /**
+     * Данный метод возвращает тип отображения клавиатуры
+     */
+    fun getKeyboardLayout() = getKeyboardLayoutUseCase.getType()
 
-    *//**
-     * Метод возвращающий флаг необходимо ли не гасить экран при осуществлении вычислений
-     *//*
-    fun isAlwaysOnDisplay() = interactor.isAlwaysOnDisplay()
+    /**
+     * Данный метод возвращает флаг необходимости поддержки экрана постоянно включенным
+     */
+    fun isAlwaysBacklightOn() = getAlwaysBacklightOnUseCase.isAlwaysBacklightOn()
 
-    *//**
-     * Метод для подсчета и обновления итоговой суммы
-     *//*
-    fun updateTotalAmount() {
-        totalAmount = 0.0
-        banknotes.forEach {
-            totalAmount += it.amount
-        }
-        viewState.updateTotalAmount()
+    /**
+     * Метод для получением количества компонентов с которыми пользователь знаком
+     */
+    fun getCountKnownComponents() = getCountMeetComponentUseCase.getCount()
+
+    /**
+     * Метод для получением количества компонентов с которыми пользователь знаком
+     */
+    fun updateCountMeetComponent(count: Int) {
+        updateCountMeetComponentUseCase.updateCount(count)
     }
 
-    *//**
-     * Метод для получения списка банкнот
-     *//*
-    fun getBanknotes() {
+    /**
+     * Метод для получением списка видимых банктнот
+     */
+    fun getVisibleBanknotes() {
         presenterScope.launch {
             try {
                 banknotes.clear()
-                banknotes.addAll(interactor.getAll().filter { it.isShow })
-                getCalculatorItems()
+                banknotes.addAll(getBanknoteUseCase.getList().filter { it.isShow })
+                viewState.addBanknoteCard()
+                updateTotalAmount()
             } catch (e: Exception) {
-                viewState.showMessage(
-                    getString(
-                        R.string.common_load_error,
-                        e.toString()
-                    )
-                )
+                logDebug(TAG, e.message)
+                viewState.showMessage(getString(R.string.common_load_error, e.toString()))
             }
         }
     }
 
-    *//**
-     * Метод для сохранения текущей вычислительной сессии.
-     * В случае если итоговая сумма ровна нулю сессия не будет сохранена
-     *//*
-    fun saveSession() {
+    /**
+     * Метод обновления общей суммы всех банкнот
+     */
+    fun updateTotalAmount() {
+        try {
+            totalAmount = banknotes.map { it.amount.toDouble() }.sum()
+            viewState.setTotalAmount(
+                if (totalAmount.isInteger()) {
+                    getString(R.string.common_ruble_format, totalAmount.toInt())
+                } else {
+                    getString(R.string.common_ruble_float_format, totalAmount)
+                }
+            )
+        } catch (e: Exception) {
+            logDebug(TAG, e.message)
+        }
+    }
+
+    /**
+     * Метод для сохранения текущий вычислительной сессия в БД
+     */
+    fun saveCurrentCalculatingSession() {
         presenterScope.launch {
             try {
                 if (totalAmount == 0.0) {
                     viewState.showMessage(getString(R.string.fragment_calculator_empty_total_amount_error))
                 } else {
-                    val completedBanknotes = arrayListOf<Banknote>()
-                    completedBanknotes.addAll(banknotes.filter { it.count != 0 && it.isShow })
-                    interactor.saveSession(totalAmount, completedBanknotes)
+                    val date = Date()
+                    saveSessionUseCase.save(
+                        SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date),
+                        SimpleDateFormat("HH:mm", Locale.getDefault()).format(date),
+                        totalAmount,
+                        banknotes.filter { it.count != 0 && it.isShow }
+                    )
                     viewState.showMessage(getString(R.string.fragment_calculator_save_successful))
                 }
             } catch (e: Exception) {
+                logDebug(TAG, e.message)
                 viewState.showMessage(getString(R.string.common_save_error, e.toString()))
             }
         }
     }
 
-    fun setCalculatorItems() {
-        interactor.setCalculatorItems(banknotes)
+    /**
+     * Метод для определения целочисленным ли является число типа Double
+     */
+    private fun Double.isInteger(): Boolean {
+        return this == floor(this) && this.isFinite()
     }
 
-    private fun getCalculatorItems() {
-        val calculatorItems = interactor.getCalculatorItems()
-        if (isIdenticalLists(calculatorItems)) {
-            calculatorItems.forEachIndexed { index, banknote ->
-                if (banknotes[index].id == banknote.id) {
-                    banknotes[index].count = banknote.count
-                    banknotes[index].amount = banknote.amount
-                }
-            }
-        }
-        updateTotalAmount()
-        viewState.addBanknoteCard()
+    companion object {
+        const val TAG = "CalculatorPresenter"
     }
 
-    private fun isIdenticalLists(calculatorItems: List<Banknote>): Boolean {
-        var isIdenticalList = true
-        if (calculatorItems.size != banknotes.size) {
-            isIdenticalList = false
-        }
-        if (isIdenticalList) {
-            calculatorItems.forEachIndexed { index, banknote ->
-                if (banknotes[index].id != banknote.id) {
-                    isIdenticalList = false
-                }
-            }
-        }
-        return isIdenticalList
-    }
-
-    *//**
-     * Метод для получением количества компонентов с которыми пользователь знаком
-     *//*
-    fun howMuchKnowComponents() = interactor.getCountMeetComponents()
-
-    *//**
-     * Метод для обновления значения количества компонентов с которыми прошло первое знакомство
-     *//*
-    fun updateCountMeetComponent(countMeetComponent: Int) {
-        interactor.updateCountMeetComponent(countMeetComponent)
-    }
-
-    *//**
-     * Метод возращающий флаг является итоговая сумма целым числом без чисел после запятой
-     *//*
-    fun isTotalAmountInteger(): Boolean = totalAmount - totalAmount.toInt() == 0.0*/
 }

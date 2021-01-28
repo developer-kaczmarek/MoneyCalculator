@@ -2,13 +2,16 @@ package kaczmarek.moneycalculator.di.modules
 
 import dagger.Module
 import dagger.Provides
+import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
 import kaczmarek.moneycalculator.data.session.port.SessionRepository
 import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.CalculatorFragmentScope
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.SaveSessionUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetKeyboardLayoutUseCase
+import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponentUseCase
 
 /**
  * Created by Angelina Podbolotova on 12.10.2019.
@@ -38,6 +41,18 @@ class CalculatorFragmentModule {
     @CalculatorFragmentScope
     fun provideSaveSessionUseCase(repository: SessionRepository): SaveSessionUseCase {
         return SaveSessionUseCase(repository)
+    }
+
+    @Provides
+    @CalculatorFragmentScope
+    fun provideUpdateCountMeetComponentUseCase(repository: SettingsRepository): UpdateCountMeetComponentUseCase {
+        return UpdateCountMeetComponentUseCase(repository)
+    }
+
+    @Provides
+    @CalculatorFragmentScope
+    fun provideGetBanknoteUseCase(repository: BanknoteRepository): GetBanknoteUseCase {
+        return GetBanknoteUseCase(repository)
     }
 
 }

@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.BaseListAdapter
 import kaczmarek.moneycalculator.ui.base.BaseViewHolder
-import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.utils.getString
 
-class SettingsBanknotesRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
+class SettingsBanknotesRVAdapter :
+    BaseListAdapter<SettingBanknoteItem, SettingsBanknotesRVAdapter.SettingBanknoteViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingBanknoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return SettingBanknoteViewHolder(view)
     }
 
     override fun onBindViewHolder(
-        holder: BaseViewHolder,
+        holder: SettingBanknoteViewHolder,
         position: Int,
         payloads: MutableList<Any>
     ) {
@@ -29,7 +29,9 @@ class SettingsBanknotesRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
 
     inner class SettingBanknoteViewHolder(view: View) : BaseViewHolder(view),
         CompoundButton.OnCheckedChangeListener {
-        private val checkBoxVisibility = view.findViewById<AppCompatCheckBox>(R.id.cb_banknote_visibility)
+
+        private val checkBoxVisibility =
+            view.findViewById<AppCompatCheckBox>(R.id.cb_banknote_visibility)
 
         init {
             checkBoxVisibility.setOnCheckedChangeListener(this)
@@ -37,7 +39,7 @@ class SettingsBanknotesRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
 
         override fun bind() {
             super.bind()
-            val item = getItem(adapterPosition) as SettingBanknoteItem
+            val item = getItem(adapterPosition)
             with(checkBoxVisibility) {
                 isChecked = item.isShow
                 text = if (item.name >= 1) getString(

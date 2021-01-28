@@ -5,10 +5,7 @@ package kaczmarek.moneycalculator.ui.base
  */
 
 import android.content.Context
-import android.widget.Toast
 import androidx.annotation.LayoutRes
-import kaczmarek.moneycalculator.utils.dpToPx
-import kaczmarek.moneycalculator.utils.toast
 import moxy.MvpAppCompatFragment
 
 open class BaseFragment(@LayoutRes contentLayoutId: Int) : MvpAppCompatFragment(contentLayoutId) {
@@ -22,10 +19,8 @@ open class BaseFragment(@LayoutRes contentLayoutId: Int) : MvpAppCompatFragment(
         }
     }
 
-    fun toast(message: String,
-                        toastDuration: Int = Toast.LENGTH_SHORT,
-                        yOffset: Int = requireContext().dpToPx(16).toInt()) {
-        baseActivity?.toast(message, toastDuration, yOffset)
+    fun showMessage(message: String) {
+        baseActivity?.showMessage(message = message)
     }
 
 }

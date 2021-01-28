@@ -17,6 +17,7 @@
 
     <style name="EditTextTheme" parent="@android:style/Widget.Holo.Light.EditText">
         <item name="android:textCursorDrawable">@drawable/shape_rect_cursor</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
     </style>
 
     <!--Toolbar-->

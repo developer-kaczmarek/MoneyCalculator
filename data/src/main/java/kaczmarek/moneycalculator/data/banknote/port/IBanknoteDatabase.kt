@@ -7,4 +7,6 @@ interface IBanknoteDatabase : ICrudRepository<Banknote> {
 
     suspend fun getBanknotes(): List<Banknote>
 
+    suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean)
+
 }

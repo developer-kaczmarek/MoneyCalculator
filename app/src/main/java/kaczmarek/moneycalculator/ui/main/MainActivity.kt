@@ -3,6 +3,7 @@ package kaczmarek.moneycalculator.ui.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.getkeepsafe.taptargetview.TapTargetView
+import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.databinding.ActivityMainBinding
 import kaczmarek.moneycalculator.ui.base.BaseActivity
@@ -11,12 +12,10 @@ import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
 import kaczmarek.moneycalculator.ui.history.HistoryFragment
 import kaczmarek.moneycalculator.ui.settings.SettingsFragment
 import kaczmarek.moneycalculator.utils.gone
-import kaczmarek.moneycalculator.utils.toast
 import moxy.ktx.moxyPresenter
 
 interface MainView : ViewBase {
     fun onFirstOpen()
-    fun showMessage(message: String)
 }
 
 class MainActivity : BaseActivity(R.layout.activity_main), MainView {
@@ -66,7 +65,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
                 finish()
             } else {
                 timeFirstBack = System.currentTimeMillis()
-                toast(getString(R.string.activity_main_exit_toast))
+                showMessage(getString(R.string.activity_main_exit_toast))
             }
         } else {
             tapTargetView?.gone
@@ -75,7 +74,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
     }
 
     override fun showMessage(message: String) {
-        this.toast(message)
+        Snackbar.make(binding.clMainContainer, message, Snackbar.LENGTH_LONG).show()
     }
 
     /**
@@ -101,7 +100,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
             fragmentTransaction.setPrimaryNavigationFragment(fragmentInstance)
         }
         when (fragmentInstance) {
-            is SettingsFragment -> binding.bnvMain.menu.findItem(R.id.item_settings).isChecked = true
+            is SettingsFragment -> binding.bnvMain.menu.findItem(R.id.item_settings).isChecked =
+                true
             is HistoryFragment -> binding.bnvMain.menu.findItem(R.id.item_history).isChecked = true
             else -> binding.bnvMain.menu.findItem(R.id.item_calculator).isChecked = true
         }

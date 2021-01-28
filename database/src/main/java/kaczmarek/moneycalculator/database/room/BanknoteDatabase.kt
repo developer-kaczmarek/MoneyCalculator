@@ -15,6 +15,10 @@ class BanknoteDatabase @Inject constructor(
         return roomDatabase.banknoteDao().getAll().map { mapper.mapFromDBModel(it) }
     }
 
+    override suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean) {
+        roomDatabase.banknoteDao().updateVisibilityBanknote(idBanknote, isVisible)
+    }
+
     override suspend fun insert(vararg obj: Banknote) {
         roomDatabase.banknoteDao().insert(*obj.map { mapper.mapToDBModel(it) }.toTypedArray())
     }

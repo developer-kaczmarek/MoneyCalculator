@@ -16,7 +16,6 @@ class SessionDBModelMapper(private val mapper: BanknoteDBModelMapper) :
 
     override fun mapFromDBModel(obj: SessionDBModel): Session {
         return Session(
-            obj.id,
             obj.date,
             obj.time,
             obj.totalAmount,

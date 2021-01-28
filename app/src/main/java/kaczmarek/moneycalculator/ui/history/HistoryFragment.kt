@@ -21,7 +21,6 @@ import moxy.ktx.moxyPresenter
  */
 
 interface HistoryView : ViewBase {
-    fun showMessage(message: String)
     fun updateSessions(list: List<ItemBase>)
     fun deleteSession(position: Int)
     fun restoreSession(position: Int)
@@ -65,10 +64,6 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView,
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun showMessage(message: String) {
-        this.toast(message)
     }
 
     override fun updateSessions(list: List<ItemBase>) {
