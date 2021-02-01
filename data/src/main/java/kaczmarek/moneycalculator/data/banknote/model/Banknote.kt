@@ -6,6 +6,5 @@ data class Banknote(
     val count: Int,
     val amount: Float,
     val backgroundColor: String,
-    val textColor: String,
     val isShow: Boolean
 )

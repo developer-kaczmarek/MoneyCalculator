@@ -3,14 +3,18 @@ package kaczmarek.moneycalculator.utils
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
-
+import android.text.InputFilter
 import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import kaczmarek.moneycalculator.R
 
 /**
@@ -21,119 +25,135 @@ class BanknoteCard @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : CardView(context, attrs, defStyleAttr) {
-    private var isEnable: Boolean
-    private var valueBanknote = 0F
-    private var count = 0
-    private var amount = 0F
-    var etCount: EditText
+
+    var count = 0 // Количество купюр одного номинала
+        set(value) {
+            field = value
+            calculateTotalAmount()
+        }
+
+    var denomination = 0F  // Номинал купюры
+        set(value) {
+            field = value
+            tvName.text = if (value >= 1) {
+                getString(R.string.common_ruble_format, value.toInt())
+            } else {
+                getString(R.string.common_penny_format, (value * 100).toInt())
+            }
+
+            tvType.text = if (value >= 1) {
+                getString(R.string.common_bank_ruble)
+            } else {
+                getString(R.string.common_bank_penny)
+            }
+        }
+
+    var amount = 0F  // Общая сумма купюр текущего номинала
+        private set
+
     private var clContainer: ConstraintLayout
-    private var tvType: TextView
     private var tvName: TextView
+    private var tvType: TextView
+    private var etCount: EditText
     private var tvTotalAmount: TextView
-    var focusCountChangeListener: OnFocusChangeListener? = null
+
+    var focusChangeCardListener: OnFocusChangeListener? = null // Слушатель фокуса карточки
 
     init {
         View.inflate(context, R.layout.component_banknote_card, this)
         clContainer = findViewById(R.id.cl_banknote_container)
-        tvType = findViewById(R.id.tv_banknote_type)
         tvName = findViewById(R.id.tv_banknote_name)
-        etCount = findViewById(R.id.et_banknote_count)
+        tvType = findViewById(R.id.tv_banknote_type)
         tvTotalAmount = findViewById(R.id.tv_banknote_total_amount)
-        isEnable = false
-        with(etCount) {
-            showSoftInputOnFocus = false
+        etCount = EditText(context).apply {
+            id = View.generateViewId()
+            setEms(8)
+            gravity = Gravity.CENTER
             hint = getString(R.string.common_count_bank_note)
+            filters = arrayOf(InputFilter.LengthFilter(3))
+            setTextColor(ContextCompat.getColor(context, R.color.white))
+            setHintTextColor(ContextCompat.getColor(context, R.color.white))
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
+            backgroundTintList =
+                ContextCompat.getColorStateList(context, R.color.white)
+            typeface = ResourcesCompat.getFont(context, R.font.gotham_pro)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
+                importantForAutofill =
+                    View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
             }
-            backgroundTintList = ContextCompat.getColorStateList(context, R.color.white)
-            setOnFocusChangeListener { v, hasFocus ->
-                focusCountChangeListener?.onFocusChange(v, hasFocus)
+            showSoftInputOnFocus = false
+            setOnFocusChangeListener { _, hasFocus ->
+                hint = if (hasFocus) "" else getString(R.string.digit_0)
+                focusChangeCardListener?.onFocusChange(this@BanknoteCard, hasFocus)
             }
+        }
+
+        clContainer.addView(etCount)
+
+        val constraintSet = ConstraintSet()
+        with(constraintSet) {
+            clone(clContainer)
+            connect(etCount.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 16)
+            connect(etCount.id, ConstraintSet.TOP, tvType.id, ConstraintSet.TOP, 0)
+            connect(etCount.id, ConstraintSet.BOTTOM, tvType.id, ConstraintSet.BOTTOM, 0)
+            connect(etCount.id, ConstraintSet.START, tvType.id, ConstraintSet.END, 0)
+            applyTo(clContainer)
         }
     }
 
-    fun setHideHint(isHide: Boolean) {
-        if (isHide) {
-            etCount.hint = ""
-        } else {
-            etCount.setHint(R.string.digit_0)
-        }
+    /**
+     * Метод для установки цвета фона карточки
+     */
+    fun setBackgroundCard(colorBackground: String) {
+        clContainer.setBackgroundColor(Color.parseColor(colorBackground))
     }
 
-    fun setValueBanknote(value: Float) {
-        valueBanknote = value
-        setNameBanknote(valueBanknote)
-    }
-
-    fun setCount(count: Int = 0) {
-        this.count = count
-        calculateTotalAmount()
-    }
-
-    fun getCount() = count
-
+    /**
+     * Метод для добавления знака в поле ввода
+     */
     fun addDigit(digit: CharSequence) {
-        if (!(digit == getString(R.string.digit_0) && etCount.text.isEmpty())) {
-            etCount.setText(
-                String.format(
-                    "%s%s",
-                    etCount.text,
-                    digit
-                )
-            )
-            etCount.setSelection(etCount.text.length)
-            setCount(etCount.text.toString().toInt())
+        try {
+            if (!(digit == getString(R.string.digit_0) && etCount.text.isEmpty())) {
+                etCount.setText(String.format("%s%s", etCount.text, digit))
+                etCount.setSelection(etCount.text.length)
+                count = etCount.text.toString().toInt()
+            }
+        } catch (e: Exception) {
+            logError(TAG, e.message)
         }
     }
 
-    fun setFocus() {
-        etCount.requestFocus()
-    }
-
-    fun getAmount() = amount
-
+    /**
+     * Метод для удаления знака в поле ввода
+     */
     fun deleteDigit() {
-        val textFromEditText = etCount.text.toString()
-        if (textFromEditText.isNotEmpty()) {
-            etCount.setText(
-                textFromEditText.substring(
-                    0,
-                    textFromEditText.length - 1
-                )
-            )
-            etCount.setSelection(etCount.text.length)
-        }
-        setCount(
-            if (etCount.text.isNotEmpty()) {
-                etCount.text.toString().toInt()
+        try {
+            val textFromEditText = etCount.text.toString()
+            count = if (textFromEditText.isNotEmpty()) {
+                etCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
+                etCount.setSelection(etCount.text.length)
+                textFromEditText.toInt()
             } else {
                 0
             }
-        )
-    }
-
-    private fun setNameBanknote(value: Float) {
-        if (value >= 1) {
-            tvName.text = getString(R.string.common_ruble_format, value.toInt())
-            tvType.setText(R.string.common_bank_ruble)
-        } else {
-            tvName.text = getString(R.string.common_penny_format, (value * 100).toInt())
-            tvType.setText(R.string.common_bank_penny)
+        } catch (e: Exception) {
+            logError(TAG, e.message)
         }
     }
 
+    /**
+     * Метод для расчета и вывода суммы банкнот текущего номинала
+     */
     private fun calculateTotalAmount() {
-        amount = valueBanknote * count
-        if (valueBanknote >= 1) {
-            tvTotalAmount.text =
-                getString(R.string.common_ruble_format, amount.toInt())
+        amount = denomination * count
+        tvTotalAmount.text = if (denomination >= 1) {
+            getString(R.string.common_ruble_format, amount.toInt())
         } else {
-            tvTotalAmount.text = getString(R.string.common_ruble_float_format, amount)
+            getString(R.string.common_ruble_float_format, amount)
         }
     }
 
-    fun setColorTheme(colorBackground: String) {
-        clContainer.setBackgroundColor(Color.parseColor(colorBackground))
+    companion object {
+        const val TAG = "BanknoteCard"
     }
 }

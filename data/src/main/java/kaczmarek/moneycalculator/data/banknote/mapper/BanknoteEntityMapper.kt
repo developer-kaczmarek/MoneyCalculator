@@ -7,11 +7,11 @@ import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 class BanknoteEntityMapper : Mapper<Banknote, BanknoteEntity> {
 
     override fun mapToEntity(obj: Banknote): BanknoteEntity {
-        return BanknoteEntity(obj.id, obj.name, obj.count, obj.amount, obj.backgroundColor, obj.textColor, obj.isShow)
+        return BanknoteEntity(obj.id, obj.name, obj.count, obj.amount, obj.backgroundColor, obj.isShow)
     }
 
     override fun mapFromEntity(obj: BanknoteEntity): Banknote {
-        return Banknote(obj.id, obj.name, obj.count, obj.amount, obj.backgroundColor, obj.textColor, obj.isShow)
+        return Banknote(obj.id, obj.name, obj.count, obj.amount, obj.backgroundColor, obj.isShow)
     }
 
 }

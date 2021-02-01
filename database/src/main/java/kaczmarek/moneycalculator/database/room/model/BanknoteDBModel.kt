@@ -6,11 +6,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "banknotes")
 data class BanknoteDBModel(
     val name: Float,
-    var count: Int,
-    var amount: Float,
+    val count: Int,
+    val amount: Float,
     val backgroundColor: String,
-    val textColor: String,
-    var isShow: Boolean
+    val isShow: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

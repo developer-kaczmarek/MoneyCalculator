@@ -35,12 +35,16 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     View.OnClickListener, View.OnLongClickListener {
 
     private val presenter by moxyPresenter { CalculatorPresenter() }
-    private var focusableCardIndex = -1
+    private var focusableCardIndex = 0
     private var countMeetComponent = 0
     private var _binding: FragmentCalculatorBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentCalculatorBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,10 +79,10 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             binding.bDigit22.setText(R.string.digit_3)
         }
 
-        if (presenter.getCountKnownComponents() <= 2) {
+        /*if (presenter.getCountKnownComponents() <= 2) {
             countMeetComponent = presenter.getCountKnownComponents()
             startAcquaintanceWithComponent(view)
-        }
+        }*/
     }
 
     override fun onStart() {
@@ -105,12 +109,11 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             presenter.banknotes.forEachIndexed { index, item ->
                 val banknoteCard = BanknoteCard(context).apply {
                     id = index
-                    setValueBanknote(item.name)
-                    setCount(item.count)
-                    setColorTheme(item.backgroundColor)
-                    focusCountChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                        focusableCardIndex = id
-                        setHideHint(hasFocus)
+                    denomination = item.name
+                    count = item.count
+                    setBackgroundCard(item.backgroundColor)
+                    focusChangeCardListener = View.OnFocusChangeListener { v, hasFocus ->
+                        if (hasFocus) focusableCardIndex = id
                     }
                 }
                 binding.llContainerComponents.addView(
@@ -126,17 +129,17 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     override fun onLongClick(v: View): Boolean {
         return if (v.id == R.id.iv_delete) {
-           /*  presenter.components.forEachIndexed { index, componentCard ->
-                 with(componentCard) {
-                     editTextBanknoteCount.text.clear()
-                     setCount(0)
-                 }
-                 presenter.banknotes[index].count = componentCard.getCount()
-                 presenter.banknotes[index].amount = componentCard.getAmount()
-             }
-             presenter.updateTotalAmount()
-             scrollById(0)*/
-             showMessage(getString(R.string.fragment_calculator_all_delete_values))
+            /*  presenter.components.forEachIndexed { index, componentCard ->
+                  with(componentCard) {
+                      editTextBanknoteCount.text.clear()
+                      setCount(0)
+                  }
+                  presenter.banknotes[index].count = componentCard.getCount()
+                  presenter.banknotes[index].amount = componentCard.getAmount()
+              }
+              presenter.updateTotalAmount()
+              scrollById(0)*/
+            showMessage(getString(R.string.fragment_calculator_all_delete_values))
             true
         } else {
             false
@@ -146,20 +149,24 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     override fun onClick(view: View) {
         when (view.id) {
             R.id.iv_back -> {
-                if (focusableCardIndex != 0) setFocusForSelectedCard(focusableCardIndex - 1)
-                updateStateControlPanel()
+                /*  if (focusableCardIndex != 0) setFocusForSelectedCard(focusableCardIndex - 1)
+                  updateStateControlPanel()*/
             }
-             R.id.iv_next -> {
-                 if (focusableCardIndex != presenter.banknotes.size - 1) setFocusForSelectedCard(focusableCardIndex + 1)
-                 updateStateControlPanel()
-             }
-             R.id.iv_delete -> {
+            R.id.iv_next -> {
+                /*if (focusableCardIndex != presenter.banknotes.size - 1) setFocusForSelectedCard(focusableCardIndex + 1)
+                updateStateControlPanel()*/
+            }
+            R.id.iv_delete -> {
                 /* presenter.components[focusedEditTextId].deleteDigit()
                  scrollById(idComponent = focusedEditTextId)*/
-             }
-             R.id.iv_save -> presenter.saveCurrentCalculatingSession()
+            }
+            R.id.iv_save -> presenter.saveCurrentCalculatingSession()
             else -> {
                 if (focusableCardIndex == -1) return
+                presenter.banknotes[focusableCardIndex] =
+                    presenter.banknotes[focusableCardIndex].copy(
+                        count = (view as Button).text.toString().toInt()
+                    )
                 (binding.llContainerComponents[focusableCardIndex] as BanknoteCard).addDigit((view as Button).text)
                 setFocusForSelectedCard()
             }
@@ -178,10 +185,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     private fun setFocusForSelectedCard() {
         val outLocation = IntArray(2)
-        val card = binding.llContainerComponents.findViewById<BanknoteCard>(focusableCardIndex)
+        val card = binding.llContainerComponents[focusableCardIndex]
         card.getLocationOnScreen(outLocation)
         binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
-        card.setFocus()
     }
 
     private fun setFocusForSelectedCard(index: Int) {
@@ -190,12 +196,11 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         val card = binding.llContainerComponents.findViewById<BanknoteCard>(focusableCardIndex)
         card.getLocationOnScreen(outLocation)
         binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
-        card.setFocus()
     }
 
     private fun updateStateControlPanel() {
-       // binding.ivBack.isEnabled = presenter.banknotes.size == 1 || focusableCardIndex != 0
-     //   binding.ivNext.isEnabled = presenter.banknotes.size == 1 || focusedEditTextId != presenter.components.size - 1
+        // binding.ivBack.isEnabled = presenter.banknotes.size == 1 || focusableCardIndex != 0
+        //   binding.ivNext.isEnabled = presenter.banknotes.size == 1 || focusedEditTextId != presenter.components.size - 1
     }
 
     private fun meetAppOnCalculator(
