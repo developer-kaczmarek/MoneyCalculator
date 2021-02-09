@@ -20,6 +20,7 @@ import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.main.MainActivity
 import kaczmarek.moneycalculator.ui.settings.SettingsFragment
 import kaczmarek.moneycalculator.utils.BanknoteCard
+import kaczmarek.moneycalculator.utils.dpToPx
 import moxy.ktx.moxyPresenter
 
 /**
@@ -32,12 +33,16 @@ interface CalculatorView : ViewBase {
 }
 
 class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), CalculatorView,
-    View.OnClickListener, View.OnLongClickListener {
+    View.OnClickListener, View.OnLongClickListener, View.OnFocusChangeListener {
 
     private val presenter by moxyPresenter { CalculatorPresenter() }
-    private var focusableCardIndex = 0
+
+    private var focusableBanknoteCardId = -1
+
     private var countMeetComponent = 0
+
     private var _binding: FragmentCalculatorBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -51,14 +56,10 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.ivSave.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
         binding.ivNext.setOnClickListener(this)
-        with(binding.ivDelete) {
-            setOnClickListener(this@CalculatorFragment)
-            setOnLongClickListener(this@CalculatorFragment)
-        }
+
         binding.bDigit00.setOnClickListener(this)
         binding.bDigit01.setOnClickListener(this)
         binding.bDigit02.setOnClickListener(this)
@@ -70,6 +71,11 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         binding.bDigit22.setOnClickListener(this)
         binding.bDigit31.setOnClickListener(this)
 
+        with(binding.ivDelete) {
+            setOnClickListener(this@CalculatorFragment)
+            setOnLongClickListener(this@CalculatorFragment)
+        }
+
         if (presenter.getKeyboardLayout() == NUMPAD) {
             binding.bDigit00.setText(R.string.digit_7)
             binding.bDigit01.setText(R.string.digit_8)
@@ -78,11 +84,11 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             binding.bDigit21.setText(R.string.digit_2)
             binding.bDigit22.setText(R.string.digit_3)
         }
-
-        /*if (presenter.getCountKnownComponents() <= 2) {
+        presenter.getVisibleBanknotes()
+        if (presenter.getCountKnownComponents() <= 2) {
             countMeetComponent = presenter.getCountKnownComponents()
             startAcquaintanceWithComponent(view)
-        }*/
+        }
     }
 
     override fun onStart() {
@@ -93,8 +99,6 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         } else {
             activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
-        presenter.getVisibleBanknotes()
-
     }
 
     override fun onDestroyView() {
@@ -105,24 +109,26 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     override fun addBanknoteCard() {
         context?.let { context ->
-            binding.llContainerComponents.removeAllViews()
+            binding.llBanknotesContainer.removeAllViews()
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            val horizontal = context.dpToPx(16).toInt()
+            val vertical = context.dpToPx(24).toInt()
+            params.setMargins(horizontal, vertical, horizontal, vertical)
+
             presenter.banknotes.forEachIndexed { index, item ->
                 val banknoteCard = BanknoteCard(context).apply {
                     id = index
                     denomination = item.name
                     count = item.count
-                    setBackgroundCard(item.backgroundColor)
-                    focusChangeCardListener = View.OnFocusChangeListener { v, hasFocus ->
-                        if (hasFocus) focusableCardIndex = id
-                    }
+                    cardBackgroundColor = item.backgroundColor
+                    focusChangeCardListener = this@CalculatorFragment
                 }
-                binding.llContainerComponents.addView(
-                    banknoteCard, LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                )
+                binding.llBanknotesContainer.addView(banknoteCard, params)
             }
+            (binding.llBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
         updateStateControlPanel()
     }
@@ -147,60 +153,61 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     }
 
     override fun onClick(view: View) {
+        val card = binding.llBanknotesContainer.findViewById<BanknoteCard>(focusableBanknoteCardId)
+        val position = binding.llBanknotesContainer.indexOfChild(card)
         when (view.id) {
             R.id.iv_back -> {
-                /*  if (focusableCardIndex != 0) setFocusForSelectedCard(focusableCardIndex - 1)
-                  updateStateControlPanel()*/
+                if (position != 0) {
+                    (binding.llBanknotesContainer[position - 1] as BanknoteCard).setFocusOnCard()
+                    setFocusForSelectedCard()
+                    updateStateControlPanel()
+                }
             }
             R.id.iv_next -> {
-                /*if (focusableCardIndex != presenter.banknotes.size - 1) setFocusForSelectedCard(focusableCardIndex + 1)
-                updateStateControlPanel()*/
+                if (position != presenter.banknotes.size - 1) {
+                    (binding.llBanknotesContainer[position + 1] as BanknoteCard).setFocusOnCard()
+                    setFocusForSelectedCard()
+                    updateStateControlPanel()
+                }
             }
             R.id.iv_delete -> {
-                /* presenter.components[focusedEditTextId].deleteDigit()
-                 scrollById(idComponent = focusedEditTextId)*/
+                if (focusableBanknoteCardId == -1) return
+                card.deleteDigit()
+                setFocusForSelectedCard()
+                presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
+                presenter.updateTotalAmount()
             }
             R.id.iv_save -> presenter.saveCurrentCalculatingSession()
             else -> {
-                if (focusableCardIndex == -1) return
-                presenter.banknotes[focusableCardIndex] =
-                    presenter.banknotes[focusableCardIndex].copy(
-                        count = (view as Button).text.toString().toInt()
-                    )
-                (binding.llContainerComponents[focusableCardIndex] as BanknoteCard).addDigit((view as Button).text)
+                if (focusableBanknoteCardId == -1) return
+                card.addDigit((view as Button).text)
                 setFocusForSelectedCard()
+                presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
+                presenter.updateTotalAmount()
             }
         }
-
-        /*     presenter.banknotes[focusedEditTextId].amount =
-                 presenter.components[focusedEditTextId].getAmount()
-             presenter.banknotes[focusedEditTextId].count =
-                 presenter.components[focusedEditTextId].getCount()
-             presenter.updateTotalAmount()*/
     }
 
     override fun setTotalAmount(stringAmount: String) {
         binding.tvTotalAmount.text = stringAmount
     }
 
-    private fun setFocusForSelectedCard() {
-        val outLocation = IntArray(2)
-        val card = binding.llContainerComponents[focusableCardIndex]
-        card.getLocationOnScreen(outLocation)
-        binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
+    override fun onFocusChange(v: View, hasFocus: Boolean) {
+        if (hasFocus) focusableBanknoteCardId = v.id
     }
 
-    private fun setFocusForSelectedCard(index: Int) {
-        focusableCardIndex = index
+    private fun setFocusForSelectedCard() {
         val outLocation = IntArray(2)
-        val card = binding.llContainerComponents.findViewById<BanknoteCard>(focusableCardIndex)
+        val card = binding.llBanknotesContainer.findViewById<BanknoteCard>(focusableBanknoteCardId)
         card.getLocationOnScreen(outLocation)
         binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
     }
 
     private fun updateStateControlPanel() {
-        // binding.ivBack.isEnabled = presenter.banknotes.size == 1 || focusableCardIndex != 0
-        //   binding.ivNext.isEnabled = presenter.banknotes.size == 1 || focusedEditTextId != presenter.components.size - 1
+        binding.ivBack.isEnabled =
+            presenter.banknotes.filter { it.isShow }.size == 1 || focusableBanknoteCardId != 0
+       /* binding.ivNext.isEnabled =
+            presenter.filter { it.isShow }.size == 1 || focusableBanknoteCardId != presenter.components.size - 1*/
     }
 
     private fun meetAppOnCalculator(

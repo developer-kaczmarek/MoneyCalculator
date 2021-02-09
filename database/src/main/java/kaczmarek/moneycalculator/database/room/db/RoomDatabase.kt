@@ -36,7 +36,6 @@ abstract class RoomDatabase : androidx.room.RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(context, RoomDatabase::class.java, DB_NAME)
                     .createFromAsset("databases/$DB_NAME.db")
-                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance

@@ -19,4 +19,13 @@
     <color name="yellow_ffd">#FFD54F</color>
 
     <color name="transparent">#00ffffff</color>
+
+    <color name="CardBackgroundOrangeLight">#FF7043</color>
+    <color name="CardBackgroundBlueLight">#29B6F6</color>
+    <color name="CardBackgroundEmeraldLight">#26A69A</color>
+    <color name="CardBackgroundPurpleLight">#AB47BC</color>
+    <color name="CardBackgroundGreenLight">#66BB6A</color>
+    <color name="CardBackgroundGoldLight">#FFA726</color>
+    <color name="CardBackgroundYellowLight">#FFCA28</color>
+    <color name="CardBackgroundGrayLight">#78909C</color>
 </resources>

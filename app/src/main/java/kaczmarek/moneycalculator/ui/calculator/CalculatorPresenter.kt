@@ -13,6 +13,7 @@ import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponen
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.logDebug
+import kaczmarek.moneycalculator.utils.logError
 import kotlinx.coroutines.launch
 import moxy.presenterScope
 import java.text.SimpleDateFormat
@@ -89,7 +90,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                 viewState.addBanknoteCard()
                 updateTotalAmount()
             } catch (e: Exception) {
-                logDebug(TAG, e.message)
+                logError(TAG, e.toString())
                 viewState.showMessage(getString(R.string.common_load_error, e.toString()))
             }
         }
@@ -109,7 +110,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                 }
             )
         } catch (e: Exception) {
-            logDebug(TAG, e.message)
+            logError(TAG, e.toString())
         }
     }
 
@@ -132,7 +133,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                     viewState.showMessage(getString(R.string.fragment_calculator_save_successful))
                 }
             } catch (e: Exception) {
-                logDebug(TAG, e.message)
+                logError(TAG, e.toString())
                 viewState.showMessage(getString(R.string.common_save_error, e.toString()))
             }
         }
@@ -143,6 +144,15 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
      */
     private fun Double.isInteger(): Boolean {
         return this == floor(this) && this.isFinite()
+    }
+
+    fun updateCountAndAmountBanknote(position: Int, count: Int, amount: Float) {
+        if (position != -1) {
+            banknotes[position] = banknotes[position].copy(
+                count = count,
+                amount = amount
+            )
+        }
     }
 
     companion object {

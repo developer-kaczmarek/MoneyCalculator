@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BanknoteCard">
+        <attr name="count" format="integer" />
+        <attr name="denomination" format="float" />
+        <attr name="amount" format="float" />
+    </declare-styleable>
+</resources>

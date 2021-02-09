@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.main
 
-import android.util.Log
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
@@ -9,6 +8,7 @@ import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetHistoryStoragePeriodUseCase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
+import kaczmarek.moneycalculator.utils.logError
 import kotlinx.coroutines.launch
 import moxy.presenterScope
 import java.text.SimpleDateFormat
@@ -57,7 +57,7 @@ class MainPresenter : PresenterBase<MainView>() {
                     )
                 )
             } catch (e: Exception) {
-                Log.e(TAG, e.message.toString())
+                logError(TAG, e.message)
                 viewState.showMessage(getString(R.string.common_delete_error, e.toString()))
             }
         }

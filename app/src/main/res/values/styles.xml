@@ -12,7 +12,10 @@
 
     <!--Keyboard-->
     <style name="KeyboardTheme" parent="AppTheme">
-        <item name="android:background">@color/transparent</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:fontFamily">@font/gotham_pro_medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="EditTextTheme" parent="@android:style/Widget.Holo.Light.EditText">

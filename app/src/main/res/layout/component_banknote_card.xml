@@ -5,10 +5,6 @@
     android:id="@+id/cv_banknote_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="24dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="24dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp">
 
@@ -16,7 +12,7 @@
         android:id="@+id/cl_banknote_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:background="#564343">
+        tools:background="@color/CardBackgroundOrangeLight">
 
         <TextView
             android:id="@+id/tv_banknote_name"
@@ -48,43 +44,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_banknote_name" />
 
-        <LinearLayout
-            android:id="@+id/ll_bottom"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_banknote_amount_description"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/gotham_pro"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="8dp"
+            android:text="@string/activity_main_total"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_banknote_total_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_banknote_type">
+            app:layout_constraintTop_toBottomOf="@id/tv_banknote_type" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/gotham_pro"
-                android:text="@string/activity_main_total"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_banknote_total_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/gotham_pro"
-                android:text="@string/common_bank_note"
-                android:textAlignment="textEnd"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_banknote_total_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:fontFamily="@font/gotham_pro"
+            android:gravity="end"
+            android:paddingStart="2dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/common_bank_note"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_banknote_amount_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_banknote_type" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

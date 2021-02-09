@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.withStyledAttributes
 import kaczmarek.moneycalculator.R
 
 /**
@@ -50,6 +51,12 @@ class BanknoteCard @JvmOverloads constructor(
 
     var amount = 0F  // Общая сумма купюр текущего номинала
         private set
+
+    var cardBackgroundColor = "" // Цвет фона карточки
+        set(value) {
+            field = value
+            clContainer.setBackgroundColor(Color.parseColor(field))
+        }
 
     private var clContainer: ConstraintLayout
     private var tvName: TextView
@@ -99,13 +106,16 @@ class BanknoteCard @JvmOverloads constructor(
             connect(etCount.id, ConstraintSet.START, tvType.id, ConstraintSet.END, 0)
             applyTo(clContainer)
         }
+
+        context.withStyledAttributes(attrs, R.styleable.BanknoteCard) {
+            count = getInteger(R.styleable.BanknoteCard_count, 0)
+            denomination = getFloat(R.styleable.BanknoteCard_denomination, 0F)
+            amount = getFloat(R.styleable.BanknoteCard_amount, 0F)
+        }
     }
 
-    /**
-     * Метод для установки цвета фона карточки
-     */
-    fun setBackgroundCard(colorBackground: String) {
-        clContainer.setBackgroundColor(Color.parseColor(colorBackground))
+    fun setFocusOnCard() {
+        etCount.requestFocus()
     }
 
     /**
@@ -129,12 +139,18 @@ class BanknoteCard @JvmOverloads constructor(
     fun deleteDigit() {
         try {
             val textFromEditText = etCount.text.toString()
-            count = if (textFromEditText.isNotEmpty()) {
-                etCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
-                etCount.setSelection(etCount.text.length)
-                textFromEditText.toInt()
-            } else {
-                0
+            count = when {
+                textFromEditText.isNotEmpty() && textFromEditText.length > 1 -> {
+                    etCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
+                    etCount.setSelection(etCount.text.length)
+                    textFromEditText.toInt()
+                }
+                textFromEditText.isNotEmpty() && textFromEditText.length == 1 -> {
+                    etCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
+                    etCount.setSelection(etCount.text.length)
+                    0
+                }
+                else -> 0
             }
         } catch (e: Exception) {
             logError(TAG, e.message)

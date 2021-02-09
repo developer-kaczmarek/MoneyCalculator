@@ -28,9 +28,7 @@
     <string name="digit_6" translatable="false">6</string>
     <string name="digit_7" translatable="false">7</string>
     <string name="digit_8" translatable="false">8</string>
-    <string name="digit_9" translatable="false">9</string>
-
-    <!--Image Description-->
+    <string name="digit_9" translatable="false">9</string>scription-->
     <string name="content_description_save">Сохранение</string>
     <string name="content_description_delete">Удаление</string>
     <string name="content_description_arrow_back">Стрелка назад</string>
