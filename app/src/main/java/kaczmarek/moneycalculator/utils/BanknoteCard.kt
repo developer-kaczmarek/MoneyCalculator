@@ -140,16 +140,11 @@ class BanknoteCard @JvmOverloads constructor(
         try {
             val textFromEditText = etCount.text.toString()
             count = when {
-                textFromEditText.isNotEmpty() && textFromEditText.length > 1 -> {
+                textFromEditText.isNotEmpty() -> {
                     val currentCount = textFromEditText.substring(0, textFromEditText.length - 1)
                     etCount.setText(currentCount)
-                    etCount.setSelection(etCount.text.length)
-                    currentCount.toInt()
-                }
-                textFromEditText.isNotEmpty() && textFromEditText.length == 1 -> {
-                    etCount.setText(textFromEditText.substring(0, textFromEditText.length - 1))
-                    etCount.setSelection(etCount.text.length)
-                    0
+                    etCount.setSelection(currentCount.length)
+                    if(currentCount.isEmpty()) 0 else currentCount.toInt()
                 }
                 else -> 0
             }
