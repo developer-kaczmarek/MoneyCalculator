@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.IdRes
@@ -131,6 +133,12 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             (binding.llBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
         updateStateControlPanel()
+        binding.llCalculator.animate().apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+            alpha(1f)
+            start()
+        }
     }
 
     override fun onLongClick(v: View): Boolean {

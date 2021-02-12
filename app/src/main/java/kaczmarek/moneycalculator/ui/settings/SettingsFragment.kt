@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.RadioGroup
 import androidx.core.content.res.ResourcesCompat
 import com.getkeepsafe.taptargetview.TapTarget
@@ -118,7 +119,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     }
 
     override fun showContent() {
-        binding.nsvSettings.visible
+        binding.nsvSettings.animate().apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+            alpha(1f)
+            start()
+        }
     }
 
     override fun returnToCalculator() {

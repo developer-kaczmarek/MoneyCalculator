@@ -4,6 +4,7 @@
     android:id="@+id/ll_calculator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="0"
     android:orientation="vertical">
 
     <HorizontalScrollView
@@ -23,7 +24,7 @@
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:gravity="center"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
     </HorizontalScrollView>
 

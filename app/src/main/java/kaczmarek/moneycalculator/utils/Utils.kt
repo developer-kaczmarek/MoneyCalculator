@@ -1,16 +1,8 @@
 package kaczmarek.moneycalculator.utils
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 
 /**
@@ -34,14 +26,3 @@ inline val View.visible: View
 
 inline val View.gone: View
     get() = apply { visibility = View.GONE }
-
-fun hideSoftKeyboard(context: Context) {
-    try {
-        val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow((context as Activity).currentFocus!!.windowToken, 0)
-        context.currentFocus!!.clearFocus()
-    } catch (e: NullPointerException) {
-        Log.e("KeyBoard", e.toString())
-    }
-}
-
