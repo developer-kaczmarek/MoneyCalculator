@@ -73,7 +73,7 @@ class BanknoteCard @JvmOverloads constructor(
         tvType = findViewById(R.id.tv_banknote_type)
         tvTotalAmount = findViewById(R.id.tv_banknote_total_amount)
         etCount = EditText(context).apply {
-            id = View.generateViewId()
+            id = EDIT_TEXT_ID + View.generateViewId()
             setEms(8)
             gravity = Gravity.CENTER
             hint = getString(R.string.common_count_bank_note)
@@ -81,12 +81,10 @@ class BanknoteCard @JvmOverloads constructor(
             setTextColor(ContextCompat.getColor(context, R.color.white))
             setHintTextColor(ContextCompat.getColor(context, R.color.white))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
-            backgroundTintList =
-                ContextCompat.getColorStateList(context, R.color.white)
+            backgroundTintList = ContextCompat.getColorStateList(context, R.color.white)
             typeface = ResourcesCompat.getFont(context, R.font.gotham_pro)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                importantForAutofill =
-                    View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
+                importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
             }
             showSoftInputOnFocus = false
             setOnFocusChangeListener { _, hasFocus ->
@@ -154,6 +152,18 @@ class BanknoteCard @JvmOverloads constructor(
     }
 
     /**
+     * Метод для чистки количества купюр вместе с набором в поле ввода
+     */
+    fun clearCountWithDigits() {
+        try {
+            etCount.text.clear()
+            count = 0
+        } catch (e: Exception) {
+            logError(TAG, e.message)
+        }
+    }
+
+    /**
      * Метод для расчета и вывода суммы банкнот текущего номинала
      */
     private fun calculateTotalAmount() {
@@ -167,5 +177,6 @@ class BanknoteCard @JvmOverloads constructor(
 
     companion object {
         const val TAG = "BanknoteCard"
+        const val EDIT_TEXT_ID = 57900
     }
 }

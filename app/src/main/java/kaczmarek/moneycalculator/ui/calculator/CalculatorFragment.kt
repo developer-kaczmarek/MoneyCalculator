@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
@@ -30,7 +29,9 @@ import moxy.ktx.moxyPresenter
  */
 
 interface CalculatorView : ViewBase {
+
     fun addBanknoteCard()
+
     fun setTotalAmount(stringAmount: String)
 }
 
@@ -39,7 +40,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     private val presenter by moxyPresenter { CalculatorPresenter() }
 
-    private var focusableBanknoteCardId = -1
+    private var focusableBanknoteCardPosition = -1
 
     private var countMeetComponent = 0
 
@@ -104,7 +105,6 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     }
 
     override fun onDestroyView() {
-        //  presenter.setCalculatorItems()
         super.onDestroyView()
         _binding = null
     }
@@ -143,16 +143,17 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     override fun onLongClick(v: View): Boolean {
         return if (v.id == R.id.iv_delete) {
-            /*  presenter.components.forEachIndexed { index, componentCard ->
-                  with(componentCard) {
-                      editTextBanknoteCount.text.clear()
-                      setCount(0)
-                  }
-                  presenter.banknotes[index].count = componentCard.getCount()
-                  presenter.banknotes[index].amount = componentCard.getAmount()
-              }
-              presenter.updateTotalAmount()
-              scrollById(0)*/
+            for (position in 0 until binding.llBanknotesContainer.childCount) {
+                val view = binding.llBanknotesContainer[position]
+                if (view is BanknoteCard) {
+                    view.clearCountWithDigits()
+                    presenter.updateCountAndAmountBanknote(position, 0, 0F)
+                }
+            }
+            presenter.updateTotalAmount()
+            val firstCard = binding.llBanknotesContainer[0] as BanknoteCard
+            firstCard.setFocusOnCard()
+            scrollToFocusBanknoteCard(firstCard)
             showMessage(getString(R.string.fragment_calculator_all_delete_values))
             true
         } else {
@@ -161,38 +162,38 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     }
 
     override fun onClick(view: View) {
-        val card = binding.llBanknotesContainer.findViewById<BanknoteCard>(focusableBanknoteCardId)
-        val position = binding.llBanknotesContainer.indexOfChild(card)
-        when (view.id) {
-            R.id.iv_back -> {
-                if (position != 0) {
-                    (binding.llBanknotesContainer[position - 1] as BanknoteCard).setFocusOnCard()
-                    setFocusForSelectedCard()
-                    updateStateControlPanel()
+        val position = focusableBanknoteCardPosition
+        if (position == -1) return
+        val card = binding.llBanknotesContainer.getChildAt(focusableBanknoteCardPosition)
+        if (card is BanknoteCard) {
+            when (view.id) {
+                R.id.iv_back -> {
+                    if (position != 0) {
+                        val newPosition = position - 1
+                        (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
+                        updateStateControlPanel()
+                    }
+                }
+                R.id.iv_next -> {
+                    if (position != presenter.banknotes.size - 1) {
+                        val newPosition = position + 1
+                        (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
+                        updateStateControlPanel()
+                    }
+                }
+                R.id.iv_delete -> {
+                    card.deleteDigit()
+                    presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
+                    presenter.updateTotalAmount()
+                }
+                R.id.iv_save -> presenter.saveCurrentCalculatingSession()
+                else -> {
+                    card.addDigit((view as Button).text)
+                    presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
+                    presenter.updateTotalAmount()
                 }
             }
-            R.id.iv_next -> {
-                if (position != presenter.banknotes.size - 1) {
-                    (binding.llBanknotesContainer[position + 1] as BanknoteCard).setFocusOnCard()
-                    setFocusForSelectedCard()
-                    updateStateControlPanel()
-                }
-            }
-            R.id.iv_delete -> {
-                if (focusableBanknoteCardId == -1) return
-                card.deleteDigit()
-                setFocusForSelectedCard()
-                presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
-                presenter.updateTotalAmount()
-            }
-            R.id.iv_save -> presenter.saveCurrentCalculatingSession()
-            else -> {
-                if (focusableBanknoteCardId == -1) return
-                card.addDigit((view as Button).text)
-                setFocusForSelectedCard()
-                presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
-                presenter.updateTotalAmount()
-            }
+            scrollToFocusBanknoteCard(card)
         }
     }
 
@@ -201,21 +202,22 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
-        if (hasFocus) focusableBanknoteCardId = v.id
+        if (hasFocus && v is BanknoteCard) {
+            focusableBanknoteCardPosition = binding.llBanknotesContainer.indexOfChild(v)
+        }
     }
 
-    private fun setFocusForSelectedCard() {
+    private fun scrollToFocusBanknoteCard(item: BanknoteCard) {
         val outLocation = IntArray(2)
-        val card = binding.llBanknotesContainer.findViewById<BanknoteCard>(focusableBanknoteCardId)
-        card.getLocationOnScreen(outLocation)
+        item.getLocationOnScreen(outLocation)
         binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
     }
 
     private fun updateStateControlPanel() {
         binding.ivBack.isEnabled =
-            presenter.banknotes.filter { it.isShow }.size == 1 || focusableBanknoteCardId != 0
-       /* binding.ivNext.isEnabled =
-            presenter.filter { it.isShow }.size == 1 || focusableBanknoteCardId != presenter.components.size - 1*/
+            presenter.banknotes.size == 1 || focusableBanknoteCardPosition != 0
+        binding.ivNext.isEnabled =
+            presenter.banknotes.size == 1 || focusableBanknoteCardPosition != presenter.banknotes.size - 1
     }
 
     private fun meetAppOnCalculator(
