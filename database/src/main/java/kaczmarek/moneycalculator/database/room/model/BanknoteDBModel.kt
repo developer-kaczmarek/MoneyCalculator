@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "banknotes")
-data class BanknoteDBModel(
+class BanknoteDBModel(
     val name: Float,
     val count: Int,
     val amount: Float,

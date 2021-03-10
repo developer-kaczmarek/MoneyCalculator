@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.ui.settings
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.banknote.usecase.UpdateVisibilityBanknoteUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.*
 import kaczmarek.moneycalculator.ui.base.PresenterBase
@@ -42,7 +42,7 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     lateinit var updateCountMeetComponentUseCase: UpdateCountMeetComponentUseCase
 
     @Inject
-    lateinit var getBanknoteUseCase: GetBanknoteUseCase
+    lateinit var getBanknotesListUseCase: GetBanknotesListUseCase
 
     @Inject
     lateinit var updateVisibilityBanknoteUseCase: UpdateVisibilityBanknoteUseCase
@@ -64,7 +64,7 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
         presenterScope.launch {
             try {
                 banknotes.clear()
-                banknotes.addAll(getBanknoteUseCase.getList().map {
+                banknotes.addAll(getBanknotesListUseCase.invoke().map {
                     SettingBanknoteItem(it.id, it.name, it.isShow)
                 })
                 viewState.setVisibilityBanknotes(banknotes)
@@ -84,23 +84,23 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     /**
      * Метод возращающий выбраный период сохранения истории вычислительных сессий
      */
-    fun getHistoryStoragePeriod(): Int = getHistoryStoragePeriodUseCase.getPeriod()
+    fun getHistoryStoragePeriod(): Int = getHistoryStoragePeriodUseCase.invoke()
 
     /**
      * Метод возращающий выбраный тип отображения клавиатуры на калькуляторе
      */
-    fun getKeyboardLayout(): Int = getKeyboardLayoutUseCase.getType()
+    fun getKeyboardLayout(): Int = getKeyboardLayoutUseCase.invoke()
 
     /**
      * Метод возращающий флаг необходимо ли экран держать всегда включеным
      */
-    fun isAlwaysOnDisplay(): Boolean = getAlwaysBacklightOnUseCase.isAlwaysBacklightOn()
+    fun isAlwaysOnDisplay(): Boolean = getAlwaysBacklightOnUseCase.invoke()
 
     /**
      * Метод возращающий количество компонентов с которыми познакомился
      * пользователь при первом использовании
      */
-    fun getCountMeetComponents(): Int = getCountMeetComponentUseCase.getCount()
+    fun getCountMeetComponents(): Int = getCountMeetComponentUseCase.invoke()
 
     /**
      * Метод обновления количества компонентов с которыми познакомился
@@ -109,7 +109,7 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
      * произойдет переход на калькулятор
      */
     fun updateCountMeetComponent(countMeetComponent: Int) {
-        updateCountMeetComponentUseCase.updateCount(countMeetComponent)
+        updateCountMeetComponentUseCase.invoke(countMeetComponent)
         viewState.returnToCalculator()
     }
 
@@ -123,10 +123,10 @@ class SettingsPresenter : PresenterBase<SettingsView>() {
     ) {
         presenterScope.launch {
             try {
-                setAlwaysBacklightOnUseCase.setAlwaysBacklight(isAlwaysBacklightOn)
-                setHistoryStoragePeriodUseCase.setPeriod(stateStoragePeriod)
-                setKeyboardLayoutUseCase.setType(stateKeyboardLayout)
-                banknotes.map { updateVisibilityBanknoteUseCase.changeVisibility(it.id, it.isShow) }
+                setAlwaysBacklightOnUseCase.invoke(isAlwaysBacklightOn)
+                setHistoryStoragePeriodUseCase.invoke(stateStoragePeriod)
+                setKeyboardLayoutUseCase.invoke(stateKeyboardLayout)
+                banknotes.map { updateVisibilityBanknoteUseCase.invoke(it.id, it.isShow) }
                 viewState.showMessage(getString(R.string.fragment_settings_save_successful))
             } catch (e: Exception) {
                 viewState.showMessage(getString(R.string.common_save_error, e.toString()))

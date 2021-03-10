@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.domain.session.entity
 
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 
-data class SessionEntity(
+class SessionEntity(
     val date: String,
     val time: String,
     val totalAmount: Double,

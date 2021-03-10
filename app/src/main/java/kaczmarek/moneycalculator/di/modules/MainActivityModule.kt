@@ -5,7 +5,7 @@ import dagger.Provides
 import kaczmarek.moneycalculator.data.session.port.SessionRepository
 import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.MainActivityScope
-import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
+import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionsByDateUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetHistoryStoragePeriodUseCase
 
 /**
@@ -16,8 +16,8 @@ class MainActivityModule {
 
     @Provides
     @MainActivityScope
-    fun provideDeleteSessionUseCase(repository: SessionRepository): DeleteSessionUseCase {
-        return DeleteSessionUseCase(repository)
+    fun provideDeleteSessionUseCase(repository: SessionRepository): DeleteSessionsByDateUseCase {
+        return DeleteSessionsByDateUseCase(repository)
     }
 
     @Provides

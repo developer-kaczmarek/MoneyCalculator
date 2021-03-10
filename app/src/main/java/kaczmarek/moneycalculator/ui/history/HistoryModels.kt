@@ -15,7 +15,7 @@ class DateItem(
     override fun getItemId() = date.hashCode()
 }
 
-data class SessionItem(
+class SessionItem(
     val session: SessionEntity,
     var isShowDetails: Boolean,
     override val itemViewType: Int = TYPE_HISTORY_SESSION_ITEM

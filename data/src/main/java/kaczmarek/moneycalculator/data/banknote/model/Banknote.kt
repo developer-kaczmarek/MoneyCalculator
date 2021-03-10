@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.data.banknote.model
 
-data class Banknote(
+class Banknote(
     val id: Int,
     val name: Float,
     val count: Int,

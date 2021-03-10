@@ -6,7 +6,7 @@ import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
 import kaczmarek.moneycalculator.data.session.port.SessionRepository
 import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.CalculatorFragmentScope
-import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.SaveSessionUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
@@ -51,8 +51,8 @@ class CalculatorFragmentModule {
 
     @Provides
     @CalculatorFragmentScope
-    fun provideGetBanknoteUseCase(repository: BanknoteRepository): GetBanknoteUseCase {
-        return GetBanknoteUseCase(repository)
+    fun provideGetBanknoteUseCase(repository: BanknoteRepository): GetBanknotesListUseCase {
+        return GetBanknotesListUseCase(repository)
     }
 
 }

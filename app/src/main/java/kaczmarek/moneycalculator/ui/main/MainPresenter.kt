@@ -4,7 +4,7 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.THIRTY_DAYS
-import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
+import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionsByDateUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetHistoryStoragePeriodUseCase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class MainPresenter : PresenterBase<MainView>() {
 
     @Inject
-    lateinit var deleteSessionUseCase: DeleteSessionUseCase
+    lateinit var deleteSessionsByDateUseCase: DeleteSessionsByDateUseCase
 
     @Inject
     lateinit var getHistoryStoragePeriodUseCase: GetHistoryStoragePeriodUseCase
@@ -38,7 +38,7 @@ class MainPresenter : PresenterBase<MainView>() {
 
     override fun onFirstViewAttach() {
         viewState.onFirstOpen()
-        when (getHistoryStoragePeriodUseCase.getPeriod()) {
+        when (getHistoryStoragePeriodUseCase.invoke()) {
             FOURTEEN_DAYS -> deleteSessionsFor(14)
             THIRTY_DAYS -> deleteSessionsFor(30)
         }
@@ -48,7 +48,7 @@ class MainPresenter : PresenterBase<MainView>() {
     private fun deleteSessionsFor(days: Int) {
         presenterScope.launch {
             try {
-                deleteSessionUseCase.deleteByDate(
+                deleteSessionsByDateUseCase.invoke(
                     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
                         Calendar.getInstance().run {
                             add(Calendar.DAY_OF_MONTH, -days)

@@ -5,7 +5,7 @@ import dagger.Provides
 import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
 import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.SettingsFragmentScope
-import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.banknote.usecase.UpdateVisibilityBanknoteUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.*
 
@@ -65,8 +65,8 @@ class SettingsFragmentModule {
 
     @Provides
     @SettingsFragmentScope
-    fun provideGetBanknoteUseCase(repository: BanknoteRepository): GetBanknoteUseCase {
-        return GetBanknoteUseCase(repository)
+    fun provideGetBanknoteUseCase(repository: BanknoteRepository): GetBanknotesListUseCase {
+        return GetBanknotesListUseCase(repository)
     }
 
     @Provides

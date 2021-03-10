@@ -4,7 +4,7 @@ package kaczmarek.moneycalculator.ui.calculator
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
-import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknoteUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.SaveSessionUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
@@ -17,7 +17,6 @@ import moxy.presenterScope
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.floor
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.
@@ -41,7 +40,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
     lateinit var updateCountMeetComponentUseCase: UpdateCountMeetComponentUseCase
 
     @Inject
-    lateinit var getBanknoteUseCase: GetBanknoteUseCase
+    lateinit var getBanknotesListUseCase: GetBanknotesListUseCase
 
     @Inject
     lateinit var saveSessionUseCase: SaveSessionUseCase
@@ -58,23 +57,23 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
     /**
      * Данный метод возвращает тип отображения клавиатуры
      */
-    fun getKeyboardLayout() = getKeyboardLayoutUseCase.getType()
+    fun getKeyboardLayout() = getKeyboardLayoutUseCase.invoke()
 
     /**
      * Данный метод возвращает флаг необходимости поддержки экрана постоянно включенным
      */
-    fun isAlwaysBacklightOn() = getAlwaysBacklightOnUseCase.isAlwaysBacklightOn()
+    fun isAlwaysBacklightOn() = getAlwaysBacklightOnUseCase.invoke()
 
     /**
      * Метод для получением количества компонентов с которыми пользователь знаком
      */
-    fun getCountKnownComponents() = getCountMeetComponentUseCase.getCount()
+    fun getCountKnownComponents() = getCountMeetComponentUseCase.invoke()
 
     /**
      * Метод для получением количества компонентов с которыми пользователь знаком
      */
     fun updateCountMeetComponent(count: Int) {
-        updateCountMeetComponentUseCase.updateCount(count)
+        updateCountMeetComponentUseCase.invoke(count)
     }
 
     /**
@@ -84,7 +83,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         presenterScope.launch {
             try {
                 banknotes.clear()
-                banknotes.addAll(getBanknoteUseCase.getList().filter { it.isShow })
+                banknotes.addAll(getBanknotesListUseCase.invoke().filter { it.isShow })
                 viewState.addBanknoteCard()
                 updateTotalAmount()
             } catch (e: Exception) {
@@ -116,7 +115,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                     viewState.showMessage(getString(R.string.fragment_calculator_empty_total_amount_error))
                 } else {
                     val date = Date()
-                    saveSessionUseCase.save(
+                    saveSessionUseCase.invoke(
                         SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date),
                         SimpleDateFormat("HH:mm", Locale.getDefault()).format(date),
                         totalAmount,

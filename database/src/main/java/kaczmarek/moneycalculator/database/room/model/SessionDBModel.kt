@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "sessions")
-data class SessionDBModel(
+class SessionDBModel(
     val date: String,
     val time: String,
     val totalAmount: Double,

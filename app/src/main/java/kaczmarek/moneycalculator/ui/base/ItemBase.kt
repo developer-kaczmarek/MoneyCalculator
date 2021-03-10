@@ -26,7 +26,7 @@ interface ItemBase : DiffComparable {
     val itemViewType: Int
 }
 
-data class ItemPlaceholder(override val itemViewType: Int = TYPE_PLACEHOLDER_ITEM) : ItemBase {
+class ItemPlaceholder(override val itemViewType: Int = TYPE_PLACEHOLDER_ITEM) : ItemBase {
     override fun getItemId() = hashCode()
 }
 

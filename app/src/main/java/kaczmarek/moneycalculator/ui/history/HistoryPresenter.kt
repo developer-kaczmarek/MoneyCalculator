@@ -2,8 +2,8 @@ package kaczmarek.moneycalculator.ui.history
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
-import kaczmarek.moneycalculator.domain.session.usecase.GetSessionUseCase
+import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionByModelUseCase
+import kaczmarek.moneycalculator.domain.session.usecase.GetSessionsListUseCase
 import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.ui.base.ItemPlaceholder
 import kaczmarek.moneycalculator.ui.base.PresenterBase
@@ -24,10 +24,10 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
     private var recentlyRemovedItem: Pair<Int, SessionItem>? = null
 
     @Inject
-    lateinit var getSessionUseCase: GetSessionUseCase
+    lateinit var getSessionsListUseCase: GetSessionsListUseCase
 
     @Inject
-    lateinit var deleteSessionUseCase: DeleteSessionUseCase
+    lateinit var deleteSessionByModelUseCase: DeleteSessionByModelUseCase
 
     init {
         DIManager.getHistorySubcomponent().inject(this)
@@ -42,7 +42,7 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
         presenterScope.launch {
             try {
                 items.clear()
-                val groupSessions = getSessionUseCase.getList().reversed().groupBy { it.date }
+                val groupSessions = getSessionsListUseCase.invoke().reversed().groupBy { it.date }
                 if (groupSessions.isNullOrEmpty()) {
                     items.add(ItemPlaceholder())
                 } else {
@@ -71,7 +71,7 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
             try {
                 if (items.isNotEmpty()) {
                     recentlyRemovedItem?.let {
-                        deleteSessionUseCase.delete(it.second.session)
+                        deleteSessionByModelUseCase.invoke(it.second.session)
                     }
                     recentlyRemovedItem = Pair(position, items[position] as SessionItem)
                     items.removeAt(position)
@@ -96,7 +96,7 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
         presenterScope.launch {
             try {
                 recentlyRemovedItem?.let {
-                    deleteSessionUseCase.delete(it.second.session)
+                    deleteSessionByModelUseCase.invoke(it.second.session)
                     getSessions()
                 }
                 recentlyRemovedItem = null

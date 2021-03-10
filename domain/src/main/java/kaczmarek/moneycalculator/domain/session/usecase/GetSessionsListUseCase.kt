@@ -3,10 +3,8 @@ package kaczmarek.moneycalculator.domain.session.usecase
 import kaczmarek.moneycalculator.domain.session.entity.SessionEntity
 import kaczmarek.moneycalculator.domain.session.port.ISessionRepository
 
-class GetSessionUseCase(private val repository: ISessionRepository) {
-
-    suspend fun getList(): List<SessionEntity> {
+class GetSessionsListUseCase(private val repository: ISessionRepository) {
+    suspend fun invoke(): List<SessionEntity> {
         return repository.getSessions()
     }
-
 }
