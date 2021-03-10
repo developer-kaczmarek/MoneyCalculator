@@ -6,5 +6,6 @@ data class Session(
     val date: String,
     val time: String,
     val totalAmount: Double,
-    val banknotes: List<Banknote>
+    val banknotes: List<Banknote>,
+    val dbId: Int?,
 )

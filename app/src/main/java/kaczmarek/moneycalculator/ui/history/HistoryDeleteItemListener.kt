@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.history
 
-interface ListenerDeleteItemHistory {
-
+interface HistoryDeleteItemListener {
     fun onSwipe(position: Int)
 }

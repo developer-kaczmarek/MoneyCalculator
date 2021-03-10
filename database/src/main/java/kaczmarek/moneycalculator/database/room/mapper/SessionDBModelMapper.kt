@@ -11,7 +11,9 @@ class SessionDBModelMapper(private val mapper: BanknoteDBModelMapper) :
             obj.time,
             obj.totalAmount,
             obj.banknotes.map { mapper.mapToDBModel(it) }.toList()
-        )
+        ).apply {
+            obj.dbId?.let { id = it }
+        }
     }
 
     override fun mapFromDBModel(obj: SessionDBModel): Session {
@@ -19,7 +21,8 @@ class SessionDBModelMapper(private val mapper: BanknoteDBModelMapper) :
             obj.date,
             obj.time,
             obj.totalAmount,
-            obj.banknotes.map { mapper.mapFromDBModel(it) }.toList()
+            obj.banknotes.map { mapper.mapFromDBModel(it) }.toList(),
+            obj.id
         )
     }
 }

@@ -11,9 +11,7 @@ import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUs
 import kaczmarek.moneycalculator.domain.settings.usecase.GetKeyboardLayoutUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponentUseCase
 import kaczmarek.moneycalculator.ui.base.PresenterBase
-import kaczmarek.moneycalculator.utils.getString
-import kaczmarek.moneycalculator.utils.logDebug
-import kaczmarek.moneycalculator.utils.logError
+import kaczmarek.moneycalculator.utils.*
 import kotlinx.coroutines.launch
 import moxy.presenterScope
 import java.text.SimpleDateFormat
@@ -102,13 +100,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
     fun updateTotalAmount() {
         try {
             totalAmount = banknotes.map { it.amount.toDouble() }.sum()
-            viewState.setTotalAmount(
-                if (totalAmount.isInteger()) {
-                    getString(R.string.common_ruble_format, totalAmount.toInt())
-                } else {
-                    getString(R.string.common_ruble_float_format, totalAmount)
-                }
-            )
+            viewState.setTotalAmount(totalAmount.getFormattedAmount())
         } catch (e: Exception) {
             logError(TAG, e.toString())
         }
@@ -139,12 +131,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         }
     }
 
-    /**
-     * Метод для определения целочисленным ли является число типа Double
-     */
-    private fun Double.isInteger(): Boolean {
-        return this == floor(this) && this.isFinite()
-    }
+
 
     fun updateCountAndAmountBanknote(position: Int, count: Int, amount: Float) {
         if (position != -1) {

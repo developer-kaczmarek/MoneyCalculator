@@ -13,7 +13,8 @@ class SessionEntityMapper(private val banknoteEntityMapper: BanknoteEntityMapper
             obj.date,
             obj.time,
             obj.totalAmount,
-            obj.banknotes.map { banknoteEntityMapper.mapToEntity(it) }.toList()
+            obj.banknotes.map { banknoteEntityMapper.mapToEntity(it) }.toList(),
+            obj.dbId,
         )
     }
 
@@ -22,8 +23,8 @@ class SessionEntityMapper(private val banknoteEntityMapper: BanknoteEntityMapper
             obj.date,
             obj.time,
             obj.totalAmount,
-            obj.banknotes.map { banknoteEntityMapper.mapFromEntity(it) }.toList()
+            obj.banknotes.map { banknoteEntityMapper.mapFromEntity(it) }.toList(),
+            obj.dbId,
         )
     }
-
 }

@@ -17,8 +17,23 @@ class SessionRepository(
     override suspend fun getSessions(): List<SessionEntity> =
         database.getSessions().map { mapper.mapToEntity(it) }.toList()
 
-    override suspend fun saveCurrentSession(date: String, time: String, totalAmount: Double, banknotes: List<BanknoteEntity>) {
-        database.insert(mapper.mapFromEntity(SessionEntity(date, time, totalAmount, banknotes)))
+    override suspend fun saveCurrentSession(
+        date: String,
+        time: String,
+        totalAmount: Double,
+        banknotes: List<BanknoteEntity>
+    ) {
+        database.insert(
+            mapper.mapFromEntity(
+                SessionEntity(
+                    date,
+                    time,
+                    totalAmount,
+                    banknotes,
+                    null
+                )
+            )
+        )
     }
 
     override suspend fun deleteSession(sessionEntity: SessionEntity) {

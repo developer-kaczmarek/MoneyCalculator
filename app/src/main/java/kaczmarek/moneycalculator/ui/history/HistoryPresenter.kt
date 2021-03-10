@@ -1,15 +1,14 @@
 package kaczmarek.moneycalculator.ui.history
 
-import android.util.Log
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
-import kaczmarek.moneycalculator.domain.session.entity.SessionEntity
 import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.GetSessionUseCase
 import kaczmarek.moneycalculator.ui.base.ItemBase
 import kaczmarek.moneycalculator.ui.base.ItemPlaceholder
 import kaczmarek.moneycalculator.ui.base.PresenterBase
 import kaczmarek.moneycalculator.utils.getString
+import kaczmarek.moneycalculator.utils.logError
 import kotlinx.coroutines.launch
 import moxy.presenterScope
 import javax.inject.Inject
@@ -19,7 +18,9 @@ import javax.inject.Inject
  */
 
 class HistoryPresenter : PresenterBase<HistoryView>() {
-    val items = arrayListOf<ItemBase>()
+
+    private val items = arrayListOf<ItemBase>()
+
     private var recentlyRemovedItem: Pair<Int, SessionItem>? = null
 
     @Inject
@@ -54,7 +55,7 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
                 }
                 viewState.updateSessions(items)
             } catch (e: Exception) {
-                Log.e(TAG, e.message.toString())
+                logError(TAG, e.message)
                 viewState.showMessage(
                     getString(
                         R.string.common_load_error,
@@ -65,33 +66,22 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
         }
     }
 
-    fun deleteItemFromList(position: Int) {
-        try {
-            if (items.isNotEmpty()) {
-                // recentlyRemovedItem?.let { interactor.deleteSession(it.second.session) }
-                recentlyRemovedItem = Pair(position, items[position] as SessionItem)
-                items.removeAt(position)
-                viewState.deleteSession(position)
-            }
-        } catch (e: Exception) {
-            viewState.showMessage(
-                getString(
-                    R.string.common_delete_error,
-                    e.toString()
-                )
-            )
-        }
-    }
-
-    fun deleteItemFromDatabase() {
+    fun deleteSessionItemTemporarily(position: Int) {
         presenterScope.launch {
             try {
-                recentlyRemovedItem?.let {
-                    deleteSessionUseCase.delete(it.second.session)
-                    recentlyRemovedItem = null
-                    getSessions()
+                if (items.isNotEmpty()) {
+                    recentlyRemovedItem?.let {
+                        deleteSessionUseCase.delete(it.second.session)
+                    }
+                    recentlyRemovedItem = Pair(position, items[position] as SessionItem)
+                    items.removeAt(position)
+                    with(viewState) {
+                        updateSessions(items)
+                        showInfoAboutDeletingSessionItem()
+                    }
                 }
             } catch (e: Exception) {
+                logError(TAG, e.message)
                 viewState.showMessage(
                     getString(
                         R.string.common_delete_error,
@@ -102,18 +92,41 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
         }
     }
 
-    fun restoreItem() {
-        try {
-            recentlyRemovedItem?.let {
-                items.add(it.first, it.second)
-                viewState.restoreSession(it.first)
+    fun deleteSessionItemForever() {
+        presenterScope.launch {
+            try {
+                recentlyRemovedItem?.let {
+                    deleteSessionUseCase.delete(it.second.session)
+                    getSessions()
+                }
                 recentlyRemovedItem = null
-                getSessions()
+            } catch (e: Exception) {
+                logError(TAG, e.message)
+                viewState.showMessage(
+                    getString(
+                        R.string.common_delete_error,
+                        e.toString()
+                    )
+                )
             }
+        }
+    }
+
+    fun restoreSessionItem() {
+        recentlyRemovedItem = null
+        getSessions()
+    }
+
+    fun changeDetailsVisibility(position: Int) {
+        try {
+            val selectedSession = items[position] as SessionItem
+            (items[position] as SessionItem).isShowDetails = !selectedSession.isShowDetails
+            viewState.updateSessions(items)
         } catch (e: Exception) {
+            logError(TAG, e.message)
             viewState.showMessage(
                 getString(
-                    R.string.common_load_error,
+                    R.string.common_edit_error,
                     e.toString()
                 )
             )
@@ -123,5 +136,4 @@ class HistoryPresenter : PresenterBase<HistoryView>() {
     companion object {
         const val TAG = "HistoryPresenter"
     }
-
 }

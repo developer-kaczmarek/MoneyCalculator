@@ -15,6 +15,7 @@
     <string name="common_cancel">Отмена</string>
     <string name="common_further">Далее</string>
     <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
+    <string name="common_edit_error">В результате изменения данных произошла ошибка: %s</string>
     <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
     <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
 
