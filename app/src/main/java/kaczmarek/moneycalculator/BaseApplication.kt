@@ -1,7 +1,6 @@
 package kaczmarek.moneycalculator
 
 import android.app.Application
-import com.facebook.stetho.Stetho
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.di.components.DaggerAppComponent
 
@@ -15,8 +14,5 @@ class BaseApplication : Application() {
         DIManager.appComponent = DaggerAppComponent.builder()
             .context(applicationContext)
             .build()
-
-        Stetho.initializeWithDefaults(applicationContext)
-
     }
 }

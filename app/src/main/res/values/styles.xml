@@ -10,6 +10,13 @@
         <item name="android:windowBackground">@color/gray_f3f</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@drawable/list_splash_background</item>
+    </style>
+
     <!--Keyboard-->
     <style name="KeyboardTheme" parent="AppTheme">
         <item name="android:background">?attr/selectableItemBackground</item>

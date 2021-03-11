@@ -102,8 +102,12 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         }
     }
 
-    override fun onDestroyView() {
+    override fun onPause() {
         presenter.saveBanknotesFromCurrentSession()
+        super.onPause()
+    }
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
