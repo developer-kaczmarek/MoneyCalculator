@@ -8,4 +8,8 @@ interface IBanknoteRepository {
 
     suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean)
 
+    fun saveBanknotesTemporary(banknotes: List<BanknoteEntity>)
+
+    fun getBanknotesFromTemporaryStorage(): List<BanknoteEntity>
+
 }

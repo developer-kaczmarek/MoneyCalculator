@@ -8,6 +8,7 @@ import kaczmarek.moneycalculator.data.banknote.port.IBanknoteDatabase
 import kaczmarek.moneycalculator.database.room.BanknoteDatabase
 import kaczmarek.moneycalculator.database.room.db.RoomDatabase
 import kaczmarek.moneycalculator.database.room.mapper.BanknoteDBModelMapper
+import kaczmarek.moneycalculator.di.services.TemporaryStorageService
 import javax.inject.Singleton
 
 @Module
@@ -38,8 +39,13 @@ object BanknoteModule {
     @Singleton
     fun provideBanknoteRepository(
         database: BanknoteDatabase,
-        entityMapper: BanknoteEntityMapper
+        entityMapper: BanknoteEntityMapper,
+        temporaryStorageService: TemporaryStorageService
     ): BanknoteRepository {
-        return BanknoteRepository(database = database, mapper = entityMapper)
+        return BanknoteRepository(
+            database = database,
+            mapper = entityMapper,
+            temporaryStorageService = temporaryStorageService
+        )
     }
 }

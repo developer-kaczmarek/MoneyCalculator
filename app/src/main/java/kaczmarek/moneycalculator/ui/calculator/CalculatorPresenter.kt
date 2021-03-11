@@ -5,6 +5,8 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.GetTemporaryBanknotesListUseCase
+import kaczmarek.moneycalculator.domain.banknote.usecase.SaveBanknotesTemporaryUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.SaveSessionUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
@@ -45,6 +47,12 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
     @Inject
     lateinit var saveSessionUseCase: SaveSessionUseCase
 
+    @Inject
+    lateinit var saveBanknotesTemporaryUseCase: SaveBanknotesTemporaryUseCase
+
+    @Inject
+    lateinit var getTemporaryBanknotesListUseCase: GetTemporaryBanknotesListUseCase
+
     init {
         DIManager.getCalculatorSubcomponent().inject(this)
     }
@@ -83,7 +91,18 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         presenterScope.launch {
             try {
                 banknotes.clear()
-                banknotes.addAll(getBanknotesListUseCase.invoke().filter { it.isShow })
+                val visibleBanknotes = getBanknotesListUseCase.invoke().filter { it.isShow }
+                val temporaryBanknotes = getTemporaryBanknotesListUseCase.invoke()
+                logDebug(TAG, temporaryBanknotes.toString())
+                banknotes.addAll(
+                    if (temporaryBanknotes.isNotEmpty() &&
+                        visibleBanknotes.isIdenticalLists(temporaryBanknotes)
+                    ) {
+                        temporaryBanknotes
+                    } else {
+                        visibleBanknotes
+                    }
+                )
                 viewState.addBanknoteCard()
                 updateTotalAmount()
             } catch (e: Exception) {
@@ -130,7 +149,14 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         }
     }
 
-
+    fun saveBanknotesFromCurrentSession() {
+        try {
+            logDebug(TAG, "saveBanknotesTemporaryUseCase")
+            saveBanknotesTemporaryUseCase.invoke(banknotes)
+        } catch (e: Exception) {
+            logError(TAG, e.toString())
+        }
+    }
 
     fun updateCountAndAmountBanknote(position: Int, count: Int, amount: Float) {
         if (position != -1) {
@@ -139,6 +165,20 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                 amount = amount
             )
         }
+    }
+
+    private fun List<BanknoteEntity>.isIdenticalLists(calculatorItems: List<BanknoteEntity>): Boolean {
+        var temp = true
+        if (calculatorItems.size != this.size) {
+            temp =  false
+        } else {
+            calculatorItems.forEachIndexed { index, banknoteEntity ->
+                if (this[index].id != banknoteEntity.id) {
+                    temp = false
+                }
+            }
+        }
+        return temp
     }
 
     companion object {

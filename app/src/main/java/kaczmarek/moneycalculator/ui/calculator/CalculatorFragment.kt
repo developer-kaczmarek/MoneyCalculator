@@ -29,9 +29,7 @@ import moxy.ktx.moxyPresenter
  */
 
 interface CalculatorView : ViewBase {
-
     fun addBanknoteCard()
-
     fun setTotalAmount(stringAmount: String)
 }
 
@@ -105,6 +103,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     }
 
     override fun onDestroyView() {
+        presenter.saveBanknotesFromCurrentSession()
         super.onDestroyView()
         _binding = null
     }
@@ -124,7 +123,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
                 val banknoteCard = BanknoteCard(context).apply {
                     id = index
                     denomination = item.name
-                    count = item.count
+                    addDigit(item.count.toString())
                     cardBackgroundColor = item.backgroundColor
                     focusChangeCardListener = this@CalculatorFragment
                 }

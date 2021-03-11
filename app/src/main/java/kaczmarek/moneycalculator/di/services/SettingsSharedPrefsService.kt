@@ -64,6 +64,5 @@ class SettingsSharedPrefsService(private val prefs: SharedPreferences) :
         const val INDEFINITELY = 0
         const val FOURTEEN_DAYS = 1
         const val THIRTY_DAYS = 2
-
     }
 }

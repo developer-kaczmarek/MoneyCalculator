@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.di.modules
 
 import android.content.Context
 import android.content.SharedPreferences
-import kaczmarek.moneycalculator.di.services.CalculatorService
+import kaczmarek.moneycalculator.di.services.TemporaryStorageService
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.KEY_SETTINGS
 import dagger.Module
@@ -28,7 +28,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCalculatorService() = CalculatorService()
+    fun provideCalculatorService() = TemporaryStorageService()
 
     @Provides
     @Singleton
