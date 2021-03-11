@@ -29,22 +29,19 @@ import moxy.ktx.moxyPresenter
  */
 
 interface CalculatorView : ViewBase {
-    fun addBanknoteCard()
+    fun showBanknoteCards()
     fun setTotalAmount(stringAmount: String)
 }
 
 class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), CalculatorView,
     View.OnClickListener, View.OnLongClickListener, View.OnFocusChangeListener {
 
-    private val presenter by moxyPresenter { CalculatorPresenter() }
-
     private var focusableBanknoteCardPosition = -1
-
     private var countMeetComponent = 0
-
     private var _binding: FragmentCalculatorBinding? = null
-
     private val binding get() = _binding!!
+
+    private val presenter by moxyPresenter { CalculatorPresenter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,7 +82,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             binding.bDigit21.setText(R.string.digit_2)
             binding.bDigit22.setText(R.string.digit_3)
         }
+
         presenter.getVisibleBanknotes()
+
         if (presenter.getCountKnownComponents() <= 2) {
             countMeetComponent = presenter.getCountKnownComponents()
             startAcquaintanceWithComponent(view)
@@ -112,7 +111,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         _binding = null
     }
 
-    override fun addBanknoteCard() {
+    override fun showBanknoteCards() {
         context?.let { context ->
             binding.llBanknotesContainer.removeAllViews()
             val params = LinearLayout.LayoutParams(
@@ -136,12 +135,16 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             (binding.llBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
         updateStateControlPanel()
-        binding.llCalculator.animate().apply {
+        binding.clCalculatorContainer.animate().apply {
             interpolator = LinearInterpolator()
             duration = 500
             alpha(1f)
             start()
         }
+    }
+
+    override fun setTotalAmount(stringAmount: String) {
+        binding.tvTotalAmount.text = stringAmount
     }
 
     override fun onLongClick(v: View): Boolean {
@@ -198,10 +201,6 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             }
             scrollToFocusBanknoteCard(card)
         }
-    }
-
-    override fun setTotalAmount(stringAmount: String) {
-        binding.tvTotalAmount.text = stringAmount
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {

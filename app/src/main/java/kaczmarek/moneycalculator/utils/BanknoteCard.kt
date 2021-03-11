@@ -142,7 +142,7 @@ class BanknoteCard @JvmOverloads constructor(
                     val currentCount = textFromEditText.substring(0, textFromEditText.length - 1)
                     etCount.setText(currentCount)
                     etCount.setSelection(currentCount.length)
-                    if(currentCount.isEmpty()) 0 else currentCount.toInt()
+                    if (currentCount.isEmpty()) 0 else currentCount.toInt()
                 }
                 else -> 0
             }

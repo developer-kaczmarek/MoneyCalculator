@@ -5,20 +5,19 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class BaseListAdapter<D : ItemBase, VH : BaseViewHolder>
+abstract class BaseListAdapter<D : BaseItem, VH : BaseViewHolder>
 @JvmOverloads
 constructor(differ: DiffUtil.ItemCallback<D> = DiffCallback()) : ListAdapter<D, VH>(differ) {
 
     var clicklistener: BaseClickListener? = null
     var checkChangeListener: BaseCheckChangeListener? = null
-    var focusChangeListener: BaseOnFocusChangeListener? = null
 
     fun update(list: List<D>) {
         this.submitList(ArrayList(list))
     }
 
     @SuppressLint("DiffUtilEquals")
-    private class DiffCallback<D : ItemBase> : DiffUtil.ItemCallback<D>() {
+    private class DiffCallback<D : BaseItem> : DiffUtil.ItemCallback<D>() {
 
         override fun areContentsTheSame(oldItem: D, newItem: D): Boolean =
             oldItem == newItem
@@ -44,8 +43,4 @@ interface BaseClickListener {
 
 interface BaseCheckChangeListener {
     fun onChange(view: View, position: Int, isCheck: Boolean)
-}
-
-interface BaseOnFocusChangeListener {
-    fun onFocusChange(view: View, position: Int, hasFocus: Boolean)
 }

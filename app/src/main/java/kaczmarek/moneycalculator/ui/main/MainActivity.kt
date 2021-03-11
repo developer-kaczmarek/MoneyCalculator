@@ -20,12 +20,12 @@ interface MainView : ViewBase {
 
 class MainActivity : BaseActivity(R.layout.activity_main), MainView {
 
-    private val presenter by moxyPresenter { MainPresenter() }
-
     var timeFirstBack = 0L
     var tapTargetView: TapTargetView? = null
 
     private lateinit var binding: ActivityMainBinding
+
+    private val presenter by moxyPresenter { MainPresenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -74,12 +74,15 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
         }
     }
 
+    /**
+     * Метод для отображения SnackBar
+     */
     override fun showMessage(message: String) {
         Snackbar.make(binding.clMainContainer, message, Snackbar.LENGTH_LONG).show()
     }
 
     /**
-     * Метод вызывается при первом открытии приложения и открывает фрагмент с калькулятором
+     * Метод вызывается при первом открытии Activity и открывает фрагмент с калькулятором
      */
     override fun onFirstOpen() {
         openFragment(CalculatorFragment(), CalculatorFragment.TAG, true)
@@ -93,19 +96,22 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
      */
     fun openFragment(fragmentInstance: Fragment, tag: String, isFirstOpen: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        if (isFirstOpen) {
-            fragmentTransaction.add(binding.flMainContainer.id, fragmentInstance, tag)
-            fragmentTransaction.setPrimaryNavigationFragment(fragmentInstance)
-        } else if (supportFragmentManager.primaryNavigationFragment?.tag != tag) {
-            fragmentTransaction.replace(binding.flMainContainer.id, fragmentInstance, tag)
-            fragmentTransaction.setPrimaryNavigationFragment(fragmentInstance)
+        if (isFirstOpen || supportFragmentManager.primaryNavigationFragment?.tag != tag) {
+            with(fragmentTransaction) {
+                if (isFirstOpen)
+                    add(binding.flMainContainer.id, fragmentInstance, tag)
+                else
+                    replace(binding.flMainContainer.id, fragmentInstance, tag)
+                setPrimaryNavigationFragment(fragmentInstance)
+            }
         }
-        when (fragmentInstance) {
-            is SettingsFragment -> binding.bnvMain.menu.findItem(R.id.item_settings).isChecked =
-                true
-            is HistoryFragment -> binding.bnvMain.menu.findItem(R.id.item_history).isChecked = true
-            else -> binding.bnvMain.menu.findItem(R.id.item_calculator).isChecked = true
-        }
+        binding.bnvMain.menu.findItem(
+            when (fragmentInstance) {
+                is SettingsFragment -> R.id.item_settings
+                is HistoryFragment -> R.id.item_history
+                else -> R.id.item_calculator
+            }
+        ).isChecked = true
         fragmentTransaction.commit()
     }
 }

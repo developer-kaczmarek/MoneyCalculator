@@ -11,5 +11,6 @@ interface ViewBase : MvpView {
     fun showMessage(message: String)
 }
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : MvpAppCompatActivity(contentLayoutId), ViewBase
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int) :
+    MvpAppCompatActivity(contentLayoutId), ViewBase
 

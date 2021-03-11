@@ -22,5 +22,4 @@ open class BaseFragment(@LayoutRes contentLayoutId: Int) : MvpAppCompatFragment(
     fun showMessage(message: String) {
         baseActivity?.showMessage(message = message)
     }
-
 }

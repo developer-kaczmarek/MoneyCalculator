@@ -12,7 +12,7 @@
         android:id="@+id/cl_banknote_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:background="@color/CardBackgroundOrangeLight">
+        tools:background="#FF7043">
 
         <TextView
             android:id="@+id/tv_banknote_name"

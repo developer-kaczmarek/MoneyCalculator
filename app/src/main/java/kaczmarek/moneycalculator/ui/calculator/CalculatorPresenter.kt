@@ -1,6 +1,5 @@
 package kaczmarek.moneycalculator.ui.calculator
 
-
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
@@ -12,7 +11,7 @@ import kaczmarek.moneycalculator.domain.settings.usecase.GetAlwaysBacklightOnUse
 import kaczmarek.moneycalculator.domain.settings.usecase.GetCountMeetComponentUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetKeyboardLayoutUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponentUseCase
-import kaczmarek.moneycalculator.ui.base.PresenterBase
+import kaczmarek.moneycalculator.ui.base.BasePresenter
 import kaczmarek.moneycalculator.utils.*
 import kotlinx.coroutines.launch
 import moxy.presenterScope
@@ -24,7 +23,7 @@ import javax.inject.Inject
  * Created by Angelina Podbolotova on 05.10.2019.
  */
 
-class CalculatorPresenter : PresenterBase<CalculatorView>() {
+class CalculatorPresenter : BasePresenter<CalculatorView>() {
 
     var totalAmount: Double = 0.0
     val banknotes = arrayListOf<BanknoteEntity>()
@@ -103,7 +102,7 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
                         visibleBanknotes
                     }
                 )
-                viewState.addBanknoteCard()
+                viewState.showBanknoteCards()
                 updateTotalAmount()
             } catch (e: Exception) {
                 logError(TAG, e.toString())
@@ -149,15 +148,22 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         }
     }
 
+    /**
+     * Метод для сохранения текущий значений банктнот
+     * во времененное хранилище, которое живет пока работает приложение.
+     * Это позволит сохранить значения, если не было изменений в настройках приложения
+     */
     fun saveBanknotesFromCurrentSession() {
         try {
-            logDebug(TAG, "saveBanknotesTemporaryUseCase")
             saveBanknotesTemporaryUseCase.invoke(banknotes)
         } catch (e: Exception) {
             logError(TAG, e.toString())
         }
     }
 
+    /**
+     * Метод для обновления количества и суммы банктноты
+     */
     fun updateCountAndAmountBanknote(position: Int, count: Int, amount: Float) {
         if (position != -1) {
             banknotes[position] = banknotes[position].copy(
@@ -167,22 +173,24 @@ class CalculatorPresenter : PresenterBase<CalculatorView>() {
         }
     }
 
-    private fun List<BanknoteEntity>.isIdenticalLists(calculatorItems: List<BanknoteEntity>): Boolean {
-        var temp = true
-        if (calculatorItems.size != this.size) {
-            temp =  false
+    /**
+     * Метод для сверки двух списков с банкнотами на идентичность по размеру и Id элементов
+     */
+    private fun List<BanknoteEntity>.isIdenticalLists(other: List<BanknoteEntity>): Boolean {
+        var isIdentical = true
+        if (other.size != this.size) {
+            isIdentical = false
         } else {
-            calculatorItems.forEachIndexed { index, banknoteEntity ->
-                if (this[index].id != banknoteEntity.id) {
-                    temp = false
-                }
+            other.filterIndexed { index, otherBanknote ->
+                this[index].id != otherBanknote.id
+            }.firstOrNull()?.let {
+                isIdentical = false
             }
         }
-        return temp
+        return isIdentical
     }
 
     companion object {
         const val TAG = "CalculatorPresenter"
     }
-
 }

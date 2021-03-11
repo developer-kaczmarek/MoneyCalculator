@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.databinding.FragmentHistoryBinding
-import kaczmarek.moneycalculator.ui.base.BaseClickListener
-import kaczmarek.moneycalculator.ui.base.BaseFragment
-import kaczmarek.moneycalculator.ui.base.ItemBase
-import kaczmarek.moneycalculator.ui.base.ViewBase
+import kaczmarek.moneycalculator.ui.base.*
 import moxy.ktx.moxyPresenter
 
 /**
@@ -20,7 +17,7 @@ import moxy.ktx.moxyPresenter
  */
 
 interface HistoryView : ViewBase {
-    fun updateSessions(sessions: List<ItemBase>)
+    fun updateSessions(sessions: List<BaseItem>)
     fun showInfoAboutDeletingSessionItem()
 }
 
@@ -74,7 +71,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
         _binding = null
     }
 
-    override fun updateSessions(sessions: List<ItemBase>) {
+    override fun updateSessions(sessions: List<BaseItem>) {
         rvAdapter?.update(sessions)
     }
 

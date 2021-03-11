@@ -18,11 +18,17 @@
     </style>
 
     <!--Keyboard-->
-    <style name="KeyboardTheme" parent="AppTheme">
+    <style name="KeyboardTextTheme" parent="AppTheme">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:fontFamily">@font/gotham_pro_medium</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Keyboard-->
+    <style name="KeyboardImageTheme" parent="AppTheme">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="EditTextTheme" parent="@android:style/Widget.Holo.Light.EditText">

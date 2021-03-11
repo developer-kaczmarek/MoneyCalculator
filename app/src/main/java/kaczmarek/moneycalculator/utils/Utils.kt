@@ -23,14 +23,6 @@ fun Context.dpToPx(dp: Int): Float {
     )
 }
 
-fun View.dpToPxInt(dp: Int): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        dp.toFloat(),
-        this.context.resources.displayMetrics
-    ).toInt()
-}
-
 inline val View.visible: View
     get() = apply { visibility = View.VISIBLE }
 

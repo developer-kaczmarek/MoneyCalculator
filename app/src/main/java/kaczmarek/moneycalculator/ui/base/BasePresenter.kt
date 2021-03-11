@@ -5,4 +5,4 @@ import moxy.MvpPresenter
 /**
  * Created by Angelina Podbolotova on 14.09.2019.
  */
-open class PresenterBase<View : ViewBase> : MvpPresenter<View>()
+open class BasePresenter<View : ViewBase> : MvpPresenter<View>()

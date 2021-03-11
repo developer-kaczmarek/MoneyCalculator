@@ -6,7 +6,7 @@ import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companio
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.THIRTY_DAYS
 import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionsByDateUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.GetHistoryStoragePeriodUseCase
-import kaczmarek.moneycalculator.ui.base.PresenterBase
+import kaczmarek.moneycalculator.ui.base.BasePresenter
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.logError
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Created by Angelina Podbolotova on 05.10.2019.
  */
 
-class MainPresenter : PresenterBase<MainView>() {
+class MainPresenter : BasePresenter<MainView>() {
 
     @Inject
     lateinit var deleteSessionsByDateUseCase: DeleteSessionsByDateUseCase
@@ -44,7 +44,10 @@ class MainPresenter : PresenterBase<MainView>() {
         }
     }
 
-
+    /**
+     * Метод для удаления из истории старых записей из БД, согласно выбранной настройки
+     * @param days Период дней, за который сессии становятся не актуальными
+     */
     private fun deleteSessionsFor(days: Int) {
         presenterScope.launch {
             try {

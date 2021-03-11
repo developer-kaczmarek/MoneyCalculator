@@ -7,8 +7,8 @@ import kaczmarek.moneycalculator.di.components.DaggerAppComponent
 /**
  * Created by Angelina Podbolotova on 22.09.2019.
  */
+@Suppress("unused")
 class BaseApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
         DIManager.appComponent = DaggerAppComponent.builder()

@@ -8,12 +8,9 @@
     <string name="common_bank_note">0 ₽</string>
     <string name="common_bank_ruble">₽</string>
     <string name="common_bank_penny">К.</string>
-    <string name="common_count_bank_note" translatable="false">0</string>
-    <string name="common_ok">Ок</string>
-    <string name="common_please_wait">Пожалуйста, подождите…</string>
-    <string name="common_done">Готово</string>
     <string name="common_cancel">Отмена</string>
-    <string name="common_further">Далее</string>
+    <string name="common_delete">Удаление</string>
+    <string name="common_count_bank_note" translatable="false">0</string>
     <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
     <string name="common_edit_error">В результате изменения данных произошла ошибка: %s</string>
     <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
@@ -29,7 +26,7 @@
     <string name="digit_6" translatable="false">6</string>
     <string name="digit_7" translatable="false">7</string>
     <string name="digit_8" translatable="false">8</string>
-    <string name="digit_9" translatable="false">9</string>scription-->
+    <string name="digit_9" translatable="false">9</string>
     <string name="content_description_save">Сохранение</string>
     <string name="content_description_delete">Удаление</string>
     <string name="content_description_arrow_back">Стрелка назад</string>
@@ -53,7 +50,6 @@
     <string name="fragment_settings_github">Страница на Github</string>
     <string name="fragment_settings_versions">Калькулятор купюр v%s с 💙 для Android</string>
     <string name="fragment_settings_rate_app">Поделиться своим мнением</string>
-    <string name="fragment_settings_save">Сохранить</string>
     <string name="fragment_settings_save_history">Хранить историю</string>
     <string name="fragment_settings_indefinitely">Бессрочно</string>
     <string name="fragment_settings_in_fourteen_days">За 14 дней</string>
@@ -86,7 +82,4 @@
     <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
     <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
     <string name="fragment_history_session_delete">Запись удалена</string>
-
-    <!--LicensesFragment-->
-
 </resources>

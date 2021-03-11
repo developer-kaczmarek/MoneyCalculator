@@ -5,7 +5,7 @@ import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.banknote.usecase.UpdateVisibilityBanknoteUseCase
 import kaczmarek.moneycalculator.domain.settings.usecase.*
-import kaczmarek.moneycalculator.ui.base.PresenterBase
+import kaczmarek.moneycalculator.ui.base.BasePresenter
 import kaczmarek.moneycalculator.utils.getString
 import kotlinx.coroutines.launch
 import moxy.presenterScope
@@ -14,7 +14,8 @@ import javax.inject.Inject
 /**
  * Created by Angelina Podbolotova on 19.10.2019.
  */
-class SettingsPresenter : PresenterBase<SettingsView>() {
+class SettingsPresenter : BasePresenter<SettingsView>() {
+
     val banknotes = arrayListOf<SettingBanknoteItem>()
 
     @Inject

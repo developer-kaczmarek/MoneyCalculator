@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.ui.base.BaseListAdapter
-import kaczmarek.moneycalculator.ui.base.BaseViewHolder
-import kaczmarek.moneycalculator.ui.base.ItemBase
-import kaczmarek.moneycalculator.ui.base.ItemPlaceholderViewHolder
+import kaczmarek.moneycalculator.ui.base.*
 import kaczmarek.moneycalculator.utils.getFormattedAmount
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.gone
@@ -21,7 +18,7 @@ import kaczmarek.moneycalculator.utils.visible
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistorySessionsRVAdapter : BaseListAdapter<ItemBase, BaseViewHolder>() {
+class HistorySessionsRVAdapter : BaseListAdapter<BaseItem, BaseViewHolder>() {
 
     var root: ViewGroup? = null
 

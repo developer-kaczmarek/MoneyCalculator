@@ -2,7 +2,8 @@
 <androidx.appcompat.widget.AppCompatCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cb_banknote_visibility"
     android:layout_width="match_parent"
-    android:textSize="14sp"
+    android:layout_height="wrap_content"
     android:fontFamily="@font/gotham_pro"
     android:paddingStart="16dp"
-    android:layout_height="wrap_content"/>
+    android:paddingEnd="16dp"
+    android:textSize="14sp" />

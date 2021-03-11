@@ -4,9 +4,9 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.di.DIManager
 import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionByModelUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.GetSessionsListUseCase
-import kaczmarek.moneycalculator.ui.base.ItemBase
+import kaczmarek.moneycalculator.ui.base.BaseItem
 import kaczmarek.moneycalculator.ui.base.ItemPlaceholder
-import kaczmarek.moneycalculator.ui.base.PresenterBase
+import kaczmarek.moneycalculator.ui.base.BasePresenter
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.logError
 import kotlinx.coroutines.launch
@@ -17,10 +17,9 @@ import javax.inject.Inject
  * Created by Angelina Podbolotova on 13.10.2019.
  */
 
-class HistoryPresenter : PresenterBase<HistoryView>() {
+class HistoryPresenter : BasePresenter<HistoryView>() {
 
-    private val items = arrayListOf<ItemBase>()
-
+    private val items = arrayListOf<BaseItem>()
     private var recentlyRemovedItem: Pair<Int, SessionItem>? = null
 
     @Inject

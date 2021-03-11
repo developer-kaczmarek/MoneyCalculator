@@ -20,14 +20,14 @@ const val TYPE_PLACEHOLDER_ITEM = R.layout.rv_placeholder_item
 @Retention(AnnotationRetention.SOURCE)
 annotation class ItemViewType
 
-interface ItemBase : DiffComparable {
-
-    @ItemViewType
-    val itemViewType: Int
-}
-
-class ItemPlaceholder(override val itemViewType: Int = TYPE_PLACEHOLDER_ITEM) : ItemBase {
+class ItemPlaceholder(override val itemViewType: Int = TYPE_PLACEHOLDER_ITEM) : BaseItem {
     override fun getItemId() = hashCode()
 }
 
 class ItemPlaceholderViewHolder(view: View) : BaseViewHolder(view)
+
+interface BaseItem : DiffComparable {
+
+    @ItemViewType
+    val itemViewType: Int
+}

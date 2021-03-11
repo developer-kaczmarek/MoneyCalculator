@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_calculator"
+    android:id="@+id/cl_calculator_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0"
@@ -81,11 +81,12 @@
             android:contentDescription="@string/content_description_arrow_next"
             android:padding="6dp"
             android:src="@drawable/ic_navigate_right" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/b_digit_0_0"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_1"
@@ -96,7 +97,7 @@
 
     <Button
         android:id="@+id/b_digit_0_1"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_2"
@@ -107,7 +108,7 @@
 
     <Button
         android:id="@+id/b_digit_0_2"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_3"
@@ -118,7 +119,7 @@
 
     <Button
         android:id="@+id/b_digit_1_0"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_4"
@@ -129,7 +130,7 @@
 
     <Button
         android:id="@+id/b_digit_1_1"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_5"
@@ -140,7 +141,7 @@
 
     <Button
         android:id="@+id/b_digit_1_2"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_6"
@@ -151,7 +152,7 @@
 
     <Button
         android:id="@+id/b_digit_2_0"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_7"
@@ -162,7 +163,7 @@
 
     <Button
         android:id="@+id/b_digit_2_1"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_8"
@@ -173,7 +174,7 @@
 
     <Button
         android:id="@+id/b_digit_2_2"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_9"
@@ -182,19 +183,13 @@
         app:layout_constraintStart_toEndOf="@id/b_digit_2_1"
         app:layout_constraintTop_toBottomOf="@id/b_digit_1_2" />
 
-
     <ImageView
         android:id="@+id/iv_save"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardImageTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/content_description_save"
-        android:fontFamily="@font/gotham_pro_medium"
-        android:scaleType="centerInside"
         android:src="@drawable/ic_save"
-        android:textColor="@color/black"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/b_digit_3_1"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +197,7 @@
 
     <Button
         android:id="@+id/b_digit_3_1"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_0"
@@ -213,15 +208,11 @@
 
     <ImageView
         android:id="@+id/iv_delete"
-        style="@style/KeyboardTheme"
+        style="@style/KeyboardImageTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/content_description_delete"
-        android:fontFamily="@font/gotham_pro_medium"
-        android:scaleType="centerInside"
         android:src="@drawable/ic_backspace"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/b_digit_3_1"

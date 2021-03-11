@@ -24,7 +24,6 @@ import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
 import kaczmarek.moneycalculator.ui.main.MainActivity
-import kaczmarek.moneycalculator.utils.visible
 import moxy.ktx.moxyPresenter
 
 /**
