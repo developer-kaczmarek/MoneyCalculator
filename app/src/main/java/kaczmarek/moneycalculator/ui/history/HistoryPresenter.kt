@@ -37,6 +37,11 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
         DIManager.removeHistorySubcomponent()
     }
 
+    /**
+     * Метод для получения списка сессий из БД
+     * Для дальнейшего вывода происходит группировка элементов по дате.
+     * В случае если в БД нет сессий будет отображен Placeholder
+     */
     fun getSessions() {
         presenterScope.launch {
             try {
@@ -65,6 +70,12 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
         }
     }
 
+    /**
+     * Метод для временного удаления элемента из списка
+     * В дальнейшем пользователь будет оповещен об удалении элемента
+     * и ему будет предложана функция восстановления записи
+     * @param position Позиция элемента в списке, который необходимо удалить
+     */
     fun deleteSessionItemTemporarily(position: Int) {
         presenterScope.launch {
             try {
@@ -91,6 +102,11 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
         }
     }
 
+    /**
+     * Метод для полного удаления элемента из БД,
+     * который был перед этим удален временно из списка
+     * и не восстановлен пользователем
+     */
     fun deleteSessionItemForever() {
         presenterScope.launch {
             try {
@@ -111,11 +127,20 @@ class HistoryPresenter : BasePresenter<HistoryView>() {
         }
     }
 
+    /**
+     * Метод для полного удаления элемента из БД,
+     * который был перед этим удален временно из списка
+     * и не восстановлен пользователем
+     */
     fun restoreSessionItem() {
         recentlyRemovedItem = null
         getSessions()
     }
 
+    /**
+     * Метод для обновления видимости детализации для выбранной сессии
+     * @param position Позиция элемента в списке для которого необходимо изменить видимость
+     */
     fun changeDetailsVisibility(position: Int) {
         try {
             val selectedSession = items[position] as SessionItem

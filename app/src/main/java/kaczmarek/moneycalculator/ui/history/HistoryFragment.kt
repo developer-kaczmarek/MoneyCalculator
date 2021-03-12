@@ -22,25 +22,21 @@ interface HistoryView : ViewBase {
 }
 
 class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, BaseClickListener,
-    HistoryDeleteItemListener {
-
-    private val presenter by moxyPresenter { HistoryPresenter() }
+    OnSwipeForDeleteItemListener {
 
     private var _binding: FragmentHistoryBinding? = null
-
     private val binding get() = _binding!!
-
     private var rvAdapter: HistorySessionsRVAdapter? = null
-
     private var deletingItemSnackBar: Snackbar? = null
-
-    private val cancelDeletingItemCallback = object : Snackbar.Callback() {
+    private val dismissDeletingItemCallback = object : Snackbar.Callback() {
         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
             if (event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_MANUAL) {
                 presenter.deleteSessionItemForever()
             }
         }
     }
+
+    private val presenter by moxyPresenter { HistoryPresenter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,14 +63,22 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
         super.onDestroyView()
         rvAdapter?.clicklistener = null
         rvAdapter = null
-        deletingItemSnackBar?.removeCallback(cancelDeletingItemCallback)
+        deletingItemSnackBar?.removeCallback(dismissDeletingItemCallback)
         _binding = null
     }
 
+    /**
+     * Метод для обновления списка сессии в RecyclerView
+     * @param sessions Список, записанных сессий, либо Placeholder для пустого списка
+     */
     override fun updateSessions(sessions: List<BaseItem>) {
         rvAdapter?.update(sessions)
     }
 
+    /**
+     * Метод для отображения информационного сообщения об удалении элемента из списка
+     * с функцией возврата элемента на протяжении некоторого времени
+     */
     override fun showInfoAboutDeletingSessionItem() {
         deletingItemSnackBar = Snackbar.make(
             binding.clHistoryContainer,
@@ -85,15 +89,25 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
             setAction(R.string.common_cancel) {
                 presenter.restoreSessionItem()
             }
-            addCallback(cancelDeletingItemCallback)
+            addCallback(dismissDeletingItemCallback)
             show()
         }
     }
 
+    /**
+     * Метод для обработки нажатия на элемент списка в RecyclerView,
+     * в нашем случае на карточку сессии для осуществления
+     * открытия/закрытия детализации сессии
+     */
     override fun onClick(view: View, position: Int) {
         presenter.changeDetailsVisibility(position)
     }
 
+    /**
+     * Метод для обработки свайпа влево для элемент списка в RecyclerView,
+     * в нашем случае для карточки сессии.
+     * При свайпе вбок ожидается удаления элемента из списка и БД
+     */
     override fun onSwipe(position: Int) {
         presenter.deleteSessionItemTemporarily(position)
     }

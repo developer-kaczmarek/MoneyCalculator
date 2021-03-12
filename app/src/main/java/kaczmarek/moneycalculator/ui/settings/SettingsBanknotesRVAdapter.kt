@@ -19,11 +19,7 @@ class SettingsBanknotesRVAdapter :
         return SettingBanknoteViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        holder: SettingBanknoteViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(holder: SettingBanknoteViewHolder, position: Int) {
         holder.bind()
     }
 

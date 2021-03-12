@@ -39,7 +39,6 @@ interface SettingsView : ViewBase {
 class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     View.OnClickListener, BaseCheckChangeListener, RadioGroup.OnCheckedChangeListener {
 
-    private val presenter by moxyPresenter { SettingsPresenter() }
     private var stateAlwaysOnDisplay = false
     private var isNewChange = false
     private var stateStoragePeriod = INDEFINITELY
@@ -47,6 +46,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     private var adapter: SettingsBanknotesRVAdapter? = null
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+
+    private val presenter by moxyPresenter { SettingsPresenter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,8 +74,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         }
 
         val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
-        binding.tvSettingsVersions.text =
-            getString(R.string.fragment_settings_versions, packageInfo?.versionName)
+        binding.tvSettingsVersions.text = getString(
+            R.string.fragment_settings_versions,
+            packageInfo?.versionName
+        )
         if (presenter.getCountMeetComponents() == 3) meetAppOnSettings(view)
         adapter = SettingsBanknotesRVAdapter().apply {
             checkChangeListener = this@SettingsFragment

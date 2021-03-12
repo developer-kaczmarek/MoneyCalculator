@@ -25,6 +25,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
+    @Suppress("unused")
     private val presenter by moxyPresenter { MainPresenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +36,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
 
         binding.bnvMain.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
-                R.id.item_calculator -> {
-                    openFragment(CalculatorFragment(), CalculatorFragment.TAG)
-                    true
-                }
-                R.id.item_history -> {
-                    openFragment(HistoryFragment(), HistoryFragment.TAG)
-                    true
-                }
-                R.id.item_settings -> {
-                    openFragment(SettingsFragment(), SettingsFragment.TAG)
-                    true
-                }
+                R.id.item_calculator -> openFragment(CalculatorFragment(), CalculatorFragment.TAG)
+                R.id.item_history -> openFragment(HistoryFragment(), HistoryFragment.TAG)
+                R.id.item_settings -> openFragment(SettingsFragment(), SettingsFragment.TAG)
                 else -> false
             }
         }
@@ -94,7 +86,11 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
      * @param tag метка фрагмента, по которой можно будет производить сверку текущего фрагмента
      * @param isFirstOpen флаг является ли текущий фрагмент самым первым
      */
-    fun openFragment(fragmentInstance: Fragment, tag: String, isFirstOpen: Boolean = false) {
+    fun openFragment(
+        fragmentInstance: Fragment,
+        tag: String,
+        isFirstOpen: Boolean = false
+    ): Boolean {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (isFirstOpen || supportFragmentManager.primaryNavigationFragment?.tag != tag) {
             with(fragmentTransaction) {
@@ -113,5 +109,6 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
             }
         ).isChecked = true
         fragmentTransaction.commit()
+        return true
     }
 }

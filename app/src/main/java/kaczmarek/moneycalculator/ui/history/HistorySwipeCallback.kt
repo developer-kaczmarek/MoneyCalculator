@@ -9,7 +9,7 @@ import kaczmarek.moneycalculator.R
 class HistorySwipeCallback(
     dragDirs: Int,
     swipeDirs: Int,
-    private val listener: HistoryDeleteItemListener
+    private val listener: OnSwipeForDeleteItemListener
 ) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
 
     override fun onMove(

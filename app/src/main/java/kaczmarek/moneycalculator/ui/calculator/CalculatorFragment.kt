@@ -111,6 +111,10 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         _binding = null
     }
 
+    /**
+     * Метод для добавления карточек банктнот в разметку,
+     * исходя из видимости банкнот
+     */
     override fun showBanknoteCards() {
         context?.let { context ->
             binding.llBanknotesContainer.removeAllViews()
@@ -134,7 +138,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             }
             (binding.llBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
-        updateStateControlPanel()
+        updateStateNavigationButtons()
         binding.clCalculatorContainer.animate().apply {
             interpolator = LinearInterpolator()
             duration = 500
@@ -143,10 +147,17 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         }
     }
 
+    /**
+     * Метод для обновления значения итоговой суммы в интерфейсе
+     */
     override fun setTotalAmount(stringAmount: String) {
         binding.tvTotalAmount.text = stringAmount
     }
 
+    /**
+     * Метод для обработки долго нажатия,
+     * в основном нацелен на обработку кнопки удаления значений
+     */
     override fun onLongClick(v: View): Boolean {
         return if (v.id == R.id.iv_delete) {
             for (position in 0 until binding.llBanknotesContainer.childCount) {
@@ -167,6 +178,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         }
     }
 
+    /**
+     * Метод для обработки нажатия на View
+     */
     override fun onClick(view: View) {
         val position = focusableBanknoteCardPosition
         if (position == -1) return
@@ -177,14 +191,14 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
                     if (position != 0) {
                         val newPosition = position - 1
                         (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
-                        updateStateControlPanel()
+                        updateStateNavigationButtons()
                     }
                 }
                 R.id.iv_next -> {
                     if (position != presenter.banknotes.size - 1) {
                         val newPosition = position + 1
                         (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
-                        updateStateControlPanel()
+                        updateStateNavigationButtons()
                     }
                 }
                 R.id.iv_delete -> {
@@ -203,25 +217,40 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         }
     }
 
+    /**
+     * Метод для обработки установленного фокуса на элемент.
+     * Если v является BanknoteCard, то мы записываем позицию элемента в фокусе
+     */
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (hasFocus && v is BanknoteCard) {
             focusableBanknoteCardPosition = binding.llBanknotesContainer.indexOfChild(v)
         }
     }
 
-    private fun scrollToFocusBanknoteCard(item: BanknoteCard) {
+    /**
+     * Метод для скролла до карточки банкноты.
+     * @param card Компонент BanknoteCard, который должен оказаться
+     * в поле зрения. Как правило, на которой был установлен фокус в последний раз
+     */
+    private fun scrollToFocusBanknoteCard(card: BanknoteCard) {
         val outLocation = IntArray(2)
-        item.getLocationOnScreen(outLocation)
+        card.getLocationOnScreen(outLocation)
         binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
     }
 
-    private fun updateStateControlPanel() {
+    /**
+     * Метод для обновления состояния навигационных кнопок (стрелок вперед - назад)
+     */
+    private fun updateStateNavigationButtons() {
         binding.ivBack.isEnabled =
             presenter.banknotes.size == 1 || focusableBanknoteCardPosition != 0
         binding.ivNext.isEnabled =
             presenter.banknotes.size == 1 || focusableBanknoteCardPosition != presenter.banknotes.size - 1
     }
 
+    /**
+     * Метод вызывается для знакомства с интерфейсом приложения
+     */
     private fun meetAppOnCalculator(
         viewFragment: View, @IdRes idRes: Int,
         title: String,
@@ -256,6 +285,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             })
     }
 
+    /**
+     * Метод вызывается для знакомства с интерфейсом приложения
+     */
     private fun startAcquaintanceWithComponent(view: View) {
         when (countMeetComponent) {
             0 -> meetAppOnCalculator(
