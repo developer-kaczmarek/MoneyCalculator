@@ -71,25 +71,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:checkedButton="@id/rb_save_indefinitely"
+                android:checkedButton="@id/rb_settings_save_indefinitely"
                 android:padding="16dp">
 
                 <RadioButton
-                    android:id="@+id/rb_save_indefinitely"
+                    android:id="@+id/rb_settings_save_indefinitely"
                     style="@style/RadioButtonTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_settings_indefinitely" />
 
                 <RadioButton
-                    android:id="@+id/rb_save_fourteen_days"
+                    android:id="@+id/rb_settings_save_fourteen_days"
                     style="@style/RadioButtonTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_settings_in_fourteen_days" />
 
                 <RadioButton
-                    android:id="@+id/rb_save_thirty_days"
+                    android:id="@+id/rb_settings_save_thirty_days"
                     style="@style/RadioButtonTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,18 +108,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:checkedButton="@id/rb_phone_keyboard"
+                android:checkedButton="@id/rb_settings_phone_keyboard"
                 android:padding="16dp">
 
                 <RadioButton
-                    android:id="@+id/rb_phone_keyboard"
+                    android:id="@+id/rb_settings_phone_keyboard"
                     style="@style/RadioButtonTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_settings_phone_keyboard" />
 
                 <RadioButton
-                    android:id="@+id/rb_numpad_keyboard"
+                    android:id="@+id/rb_settings_numpad_keyboard"
                     style="@style/RadioButtonTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

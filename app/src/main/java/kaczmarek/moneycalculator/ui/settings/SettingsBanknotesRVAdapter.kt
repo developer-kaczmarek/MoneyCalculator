@@ -26,17 +26,17 @@ class SettingsBanknotesRVAdapter :
     inner class SettingBanknoteViewHolder(view: View) : BaseViewHolder(view),
         CompoundButton.OnCheckedChangeListener {
 
-        private val checkBoxVisibility =
-            view.findViewById<AppCompatCheckBox>(R.id.cb_banknote_visibility)
+        private val cbBanknoteVisibility =
+            view.findViewById<AppCompatCheckBox>(R.id.cb_settings_banknote_visibility)
 
         init {
-            checkBoxVisibility.setOnCheckedChangeListener(this)
+            cbBanknoteVisibility.setOnCheckedChangeListener(this)
         }
 
         override fun bind() {
             super.bind()
             val item = getItem(adapterPosition)
-            with(checkBoxVisibility) {
+            with(cbBanknoteVisibility) {
                 isChecked = item.isShow
                 text = if (item.name >= 1) getString(
                     R.string.common_ruble_format,

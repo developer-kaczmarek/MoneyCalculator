@@ -91,9 +91,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
 
         binding.rgSettingsHistory.check(
             when (stateStoragePeriod) {
-                INDEFINITELY -> R.id.rb_save_indefinitely
-                FOURTEEN_DAYS -> R.id.rb_save_fourteen_days
-                else -> R.id.rb_save_thirty_days
+                INDEFINITELY -> R.id.rb_settings_save_indefinitely
+                FOURTEEN_DAYS -> R.id.rb_settings_save_fourteen_days
+                else -> R.id.rb_settings_save_thirty_days
             }
         )
 
@@ -101,8 +101,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
 
         binding.rgSettingsKeyboard.check(
             when (stateKeyboardLayout) {
-                NUMPAD -> R.id.rb_numpad_keyboard
-                else -> R.id.rb_phone_keyboard
+                NUMPAD -> R.id.rb_settings_numpad_keyboard
+                else -> R.id.rb_settings_phone_keyboard
             }
         )
 
@@ -197,15 +197,15 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
             R.id.rg_settings_history -> {
                 isNewChange = true
                 stateStoragePeriod = when (checkedId) {
-                    R.id.rb_save_indefinitely -> INDEFINITELY
-                    R.id.rb_save_fourteen_days -> FOURTEEN_DAYS
+                    R.id.rb_settings_save_indefinitely -> INDEFINITELY
+                    R.id.rb_settings_save_fourteen_days -> FOURTEEN_DAYS
                     else -> THIRTY_DAYS
                 }
             }
             R.id.rg_settings_keyboard -> {
                 isNewChange = true
                 stateKeyboardLayout = when (checkedId) {
-                    R.id.rb_numpad_keyboard -> NUMPAD
+                    R.id.rb_settings_numpad_keyboard -> NUMPAD
                     else -> CLASSIC
                 }
             }
@@ -213,7 +213,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     }
 
     override fun onChange(view: View, position: Int, isCheck: Boolean) {
-        if (view.id == R.id.cb_banknote_visibility) {
+        if (view.id == R.id.cb_settings_banknote_visibility) {
             isNewChange = true
             presenter.banknotes[position] = presenter.banknotes[position].copy(isShow = isCheck)
         }

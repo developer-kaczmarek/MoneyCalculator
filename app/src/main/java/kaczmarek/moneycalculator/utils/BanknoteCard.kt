@@ -67,7 +67,7 @@ class BanknoteCard @JvmOverloads constructor(
     var focusChangeCardListener: OnFocusChangeListener? = null // Слушатель фокуса карточки
 
     init {
-        View.inflate(context, R.layout.component_banknote_card, this)
+        View.inflate(context, R.layout.layout_banknote_card, this)
         clContainer = findViewById(R.id.cl_banknote_container)
         tvName = findViewById(R.id.tv_banknote_name)
         tvType = findViewById(R.id.tv_banknote_type)

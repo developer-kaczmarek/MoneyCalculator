@@ -235,7 +235,8 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     private fun scrollToFocusBanknoteCard(card: BanknoteCard) {
         val outLocation = IntArray(2)
         card.getLocationOnScreen(outLocation)
-        binding.hsvCalculator.smoothScrollBy(outLocation[0], 0)
+        val startMargin = context?.dpToPx(8)?.toInt() ?: 0
+        binding.hsvCalculator.smoothScrollBy(outLocation[0] - startMargin, 0)
     }
 
     /**
