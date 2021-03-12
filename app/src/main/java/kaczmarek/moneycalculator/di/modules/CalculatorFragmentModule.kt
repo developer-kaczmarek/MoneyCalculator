@@ -2,9 +2,9 @@ package kaczmarek.moneycalculator.di.modules
 
 import dagger.Module
 import dagger.Provides
-import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
-import kaczmarek.moneycalculator.data.session.port.SessionRepository
-import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
+import kaczmarek.moneycalculator.data.banknote.BanknoteRepository
+import kaczmarek.moneycalculator.data.session.SessionRepository
+import kaczmarek.moneycalculator.data.settings.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.CalculatorFragmentScope
 import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.banknote.usecase.GetTemporaryBanknotesListUseCase
@@ -20,7 +20,6 @@ import kaczmarek.moneycalculator.domain.settings.usecase.UpdateCountMeetComponen
  */
 @Module
 class CalculatorFragmentModule {
-
     @Provides
     @CalculatorFragmentScope
     fun provideGetKeyboardLayoutUseCase(repository: SettingsRepository): GetKeyboardLayoutUseCase {
@@ -68,5 +67,4 @@ class CalculatorFragmentModule {
     fun provideSaveBanknotesTemporaryUseCase(repository: BanknoteRepository): SaveBanknotesTemporaryUseCase {
         return SaveBanknotesTemporaryUseCase(repository)
     }
-
 }

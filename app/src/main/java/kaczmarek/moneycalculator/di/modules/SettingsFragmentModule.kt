@@ -2,8 +2,8 @@ package kaczmarek.moneycalculator.di.modules
 
 import dagger.Module
 import dagger.Provides
-import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
-import kaczmarek.moneycalculator.data.settings.port.SettingsRepository
+import kaczmarek.moneycalculator.data.banknote.BanknoteRepository
+import kaczmarek.moneycalculator.data.settings.SettingsRepository
 import kaczmarek.moneycalculator.di.scopes.SettingsFragmentScope
 import kaczmarek.moneycalculator.domain.banknote.usecase.GetBanknotesListUseCase
 import kaczmarek.moneycalculator.domain.banknote.usecase.UpdateVisibilityBanknoteUseCase
@@ -14,7 +14,6 @@ import kaczmarek.moneycalculator.domain.settings.usecase.*
  */
 @Module
 class SettingsFragmentModule {
-
     @Provides
     @SettingsFragmentScope
     fun provideGetHistoryStoragePeriodUseCase(repository: SettingsRepository): GetHistoryStoragePeriodUseCase {
@@ -74,5 +73,4 @@ class SettingsFragmentModule {
     fun provideUpdateVisibilityBanknoteUseCase(repository: BanknoteRepository): UpdateVisibilityBanknoteUseCase {
         return UpdateVisibilityBanknoteUseCase(repository)
     }
-
 }

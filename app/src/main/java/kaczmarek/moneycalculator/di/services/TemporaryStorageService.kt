@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.di.services
 
-import kaczmarek.moneycalculator.data.banknote.port.ITemporaryStorageService
+import kaczmarek.moneycalculator.data.banknote.ITemporaryStorageService
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 
 class TemporaryStorageService: ITemporaryStorageService {

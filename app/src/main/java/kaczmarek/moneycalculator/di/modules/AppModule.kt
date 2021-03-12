@@ -15,7 +15,6 @@ import javax.inject.Singleton
  */
 @Module
 object AppModule {
-
     @Provides
     @Singleton
     fun provideSharedPrefs(context: Context): SharedPreferences {
@@ -35,5 +34,4 @@ object AppModule {
     fun provideRoomDatabase(context: Context, prefs: SharedPreferences): RoomDatabase {
         return RoomDatabase.getDatabase(context, prefs)
     }
-
 }

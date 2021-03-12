@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.di.services
 
 import android.content.SharedPreferences
 import androidx.annotation.IntDef
-import kaczmarek.moneycalculator.data.settings.port.ISettingsSharedPrefsService
+import kaczmarek.moneycalculator.data.settings.ISettingsSharedPrefsService
 
 /**
  * Created by Angelina Podbolotova on 20.10.2019.

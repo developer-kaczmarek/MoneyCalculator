@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.data.banknote.port
+package kaczmarek.moneycalculator.data.banknote
 
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 

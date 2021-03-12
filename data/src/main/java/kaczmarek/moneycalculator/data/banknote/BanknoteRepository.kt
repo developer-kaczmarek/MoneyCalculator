@@ -1,17 +1,13 @@
-package kaczmarek.moneycalculator.data.banknote.port
+package kaczmarek.moneycalculator.data.banknote
 
-import kaczmarek.moneycalculator.data.banknote.mapper.BanknoteEntityMapper
 import kaczmarek.moneycalculator.domain.banknote.entity.BanknoteEntity
 import kaczmarek.moneycalculator.domain.banknote.port.IBanknoteRepository
-import sun.rmi.runtime.Log
 
 class BanknoteRepository(
     private val database: IBanknoteDatabase,
     private val temporaryStorageService: ITemporaryStorageService,
-    private val mapper: BanknoteEntityMapper
 ) : IBanknoteRepository {
-    override suspend fun getBanknotes(): List<BanknoteEntity> =
-        database.getBanknotes().map { mapper.mapToEntity(it) }.toList()
+    override suspend fun getBanknotes(): List<BanknoteEntity> = database.getBanknotes()
 
     override suspend fun updateVisibilityBanknote(idBanknote: Int, isVisible: Boolean) {
         database.updateVisibilityBanknote(idBanknote, isVisible)

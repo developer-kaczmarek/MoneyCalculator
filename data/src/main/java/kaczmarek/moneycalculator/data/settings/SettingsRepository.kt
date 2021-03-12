@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.data.settings.port
+package kaczmarek.moneycalculator.data.settings
 
 import kaczmarek.moneycalculator.domain.settings.port.ISettingsRepository
 

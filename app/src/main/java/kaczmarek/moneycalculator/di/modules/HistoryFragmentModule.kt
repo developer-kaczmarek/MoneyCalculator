@@ -3,7 +3,7 @@ package kaczmarek.moneycalculator.di.modules
 import kaczmarek.moneycalculator.di.scopes.HistoryFragmentScope
 import dagger.Module
 import dagger.Provides
-import kaczmarek.moneycalculator.data.session.port.SessionRepository
+import kaczmarek.moneycalculator.data.session.SessionRepository
 import kaczmarek.moneycalculator.domain.session.usecase.DeleteSessionByModelUseCase
 import kaczmarek.moneycalculator.domain.session.usecase.GetSessionsListUseCase
 
@@ -13,7 +13,6 @@ import kaczmarek.moneycalculator.domain.session.usecase.GetSessionsListUseCase
  */
 @Module
 class HistoryFragmentModule {
-
     @Provides
     @HistoryFragmentScope
     fun provideDeleteSessionByModelUseCase(repository: SessionRepository): DeleteSessionByModelUseCase {
@@ -25,5 +24,4 @@ class HistoryFragmentModule {
     fun provideGetSessionUseCase(repository: SessionRepository): GetSessionsListUseCase {
         return GetSessionsListUseCase(repository)
     }
-
 }

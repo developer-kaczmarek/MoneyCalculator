@@ -2,9 +2,8 @@ package kaczmarek.moneycalculator.di.modules
 
 import dagger.Module
 import dagger.Provides
-import kaczmarek.moneycalculator.data.banknote.mapper.BanknoteEntityMapper
-import kaczmarek.moneycalculator.data.banknote.port.BanknoteRepository
-import kaczmarek.moneycalculator.data.banknote.port.IBanknoteDatabase
+import kaczmarek.moneycalculator.data.banknote.BanknoteRepository
+import kaczmarek.moneycalculator.data.banknote.IBanknoteDatabase
 import kaczmarek.moneycalculator.database.room.BanknoteDatabase
 import kaczmarek.moneycalculator.database.room.db.RoomDatabase
 import kaczmarek.moneycalculator.database.room.mapper.BanknoteDBModelMapper
@@ -13,7 +12,6 @@ import javax.inject.Singleton
 
 @Module
 object BanknoteModule {
-
     @Provides
     @Singleton
     fun provideBanknoteDBModelMapper(): BanknoteDBModelMapper {
@@ -31,20 +29,12 @@ object BanknoteModule {
 
     @Provides
     @Singleton
-    fun provideBanknoteEntityMapper(): BanknoteEntityMapper {
-        return BanknoteEntityMapper()
-    }
-
-    @Provides
-    @Singleton
     fun provideBanknoteRepository(
         database: BanknoteDatabase,
-        entityMapper: BanknoteEntityMapper,
         temporaryStorageService: TemporaryStorageService
     ): BanknoteRepository {
         return BanknoteRepository(
             database = database,
-            mapper = entityMapper,
             temporaryStorageService = temporaryStorageService
         )
     }
