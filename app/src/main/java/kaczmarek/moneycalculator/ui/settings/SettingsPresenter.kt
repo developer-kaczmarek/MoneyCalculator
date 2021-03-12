@@ -108,6 +108,7 @@ class SettingsPresenter : BasePresenter<SettingsView>() {
      * пользователь при первом использовании
      * В случае успешного знакомства со всеми компонентами
      * произойдет переход на калькулятор
+     * @param countMeetComponent Количество компонентов, с которыми произошло знакомство
      */
     fun updateCountMeetComponent(countMeetComponent: Int) {
         updateCountMeetComponentUseCase.invoke(countMeetComponent)
@@ -116,6 +117,9 @@ class SettingsPresenter : BasePresenter<SettingsView>() {
 
     /**
      * Метод для сохранения всех настроек
+     * @param stateStoragePeriod Тип периода хранения вычислительных сессий
+     * @param stateKeyboardLayout Тип отображения клавиатуры на экране калькулятора
+     * @param isAlwaysBacklightOn Флаг, указывающий необходимо ли запретить выключение подсветки дисплея
      */
     fun saveAllSettings(
         stateStoragePeriod: Int,

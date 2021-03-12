@@ -116,10 +116,17 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         _binding = null
     }
 
+    /**
+     * Метод для обновления списка чекбоксов в RecyclerView
+     * для настройки видимости карточек банкнот на экране Калькулятора
+     */
     override fun setVisibilityBanknotes(list: List<SettingBanknoteItem>) {
         adapter?.update(list)
     }
 
+    /**
+     * Метод для запуска анимации плавного появления контента после прогрузки
+     */
     override fun showContent() {
         binding.nsvSettings.animate().apply {
             interpolator = LinearInterpolator()
@@ -129,10 +136,17 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         }
     }
 
+    /**
+     * Метод для возвращения на экран калькулятора, вызывается
+     * после окончания знакомства с элементами приложения
+     */
     override fun returnToCalculator() {
         (activity as MainActivity).openFragment(CalculatorFragment(), CalculatorFragment.TAG)
     }
 
+    /**
+     * Метод для обработки нажатия на View
+     */
     override fun onClick(view: View) {
         when (view.id) {
             R.id.iv_toolbar_action -> {
@@ -192,6 +206,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         }
     }
 
+    /**
+     * Метод для обработки изменения состояния радиокнопок внутри RadioGroup
+     */
     override fun onCheckedChanged(rg: RadioGroup, checkedId: Int) {
         when (rg.id) {
             R.id.rg_settings_history -> {
@@ -212,6 +229,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         }
     }
 
+    /**
+     * Метод для обработки изменения состояния чекбокса в Recyclerview
+     */
     override fun onChange(view: View, position: Int, isCheck: Boolean) {
         if (view.id == R.id.cb_settings_banknote_visibility) {
             isNewChange = true
