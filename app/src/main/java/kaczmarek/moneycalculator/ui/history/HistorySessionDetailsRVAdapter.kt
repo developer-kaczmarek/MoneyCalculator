@@ -23,11 +23,11 @@ class HistorySessionDetailsRVAdapter : BaseListAdapter<SessionDetailsItem,
 
     inner class SessionDetailsViewHolder(view: View) : BaseViewHolder(view) {
 
-        private val tvSessionDetailsBanknote = view.findViewById<TextView>(R.id.tv_banknote)
+        private val tvSessionDetailsDescription = view.findViewById<TextView>(R.id.tv_session_details_description)
 
         override fun bind() {
             val item = getItem(adapterPosition) as SessionDetailsItem
-            tvSessionDetailsBanknote.text = getString(
+            tvSessionDetailsDescription.text = getString(
                 R.string.fragment_history_computation,
                 item.name,
                 item.count,
