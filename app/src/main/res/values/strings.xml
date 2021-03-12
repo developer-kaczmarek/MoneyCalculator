@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Калькулятор купюр</string>
 
-    <!--Commons-->
+    <!-- Commons -->
     <string name="common_ruble_format">%d ₽</string>
     <string name="common_ruble_float_format">%.2f ₽</string>
     <string name="common_penny_format">%d к.</string>
@@ -16,7 +16,7 @@
     <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
     <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
 
-    <!--Digits-->
+    <!-- Digits -->
     <string name="digit_0" translatable="false">0</string>
     <string name="digit_1" translatable="false">1</string>
     <string name="digit_2" translatable="false">2</string>
@@ -33,14 +33,14 @@
     <string name="content_description_arrow_next">Стрелка вперед</string>
     <string name="content_description_arrow_card">Стрелка разворота карточки</string>
 
-    <!--ActivityMain-->
+    <!-- Main Activity -->
     <string name="activity_main_title_calculator_item">Калькулятор</string>
     <string name="activity_main_title_history_item">История</string>
     <string name="activity_main_title_settings_item">Настройки</string>
     <string name="activity_main_total">Итог</string>
     <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
 
-    <!--SettingsFragment-->
+    <!-- Settings Fragment -->
     <string name="fragment_settings_banknotes">Номиналы</string>
     <string name="fragment_settings_keyboard_layout">Раскладка клавиатуры</string>
     <string name="fragment_settings_display">Экран</string>
@@ -64,7 +64,7 @@
     <string name="fragment_settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
     <string name="fragment_settings_url_github">https://github.com/developer-kaczmarek/MoneyCalculator</string>
 
-    <!--CalculatorFragment-->
+    <!-- Calculator Fragment -->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
     <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
     <string name="fragment_calculator_all_delete_values">Все значения удалены</string>
@@ -76,7 +76,7 @@
     <string name="fragment_calculator_title_component_delete">Удалить</string>
     <string name="fragment_calculator_description_component_delete">При однократном нажатии удалится последний символ в выбранном поле ввода. При долгом нажатии очистятся все поля ввода</string>
 
-    <!--HistoryFragment-->
+    <!-- History Fragment -->
     <string name="fragment_history_today_sessions">Сегодня</string>
     <string name="fragment_history_yesterday_sessions">Вчера</string>
     <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
