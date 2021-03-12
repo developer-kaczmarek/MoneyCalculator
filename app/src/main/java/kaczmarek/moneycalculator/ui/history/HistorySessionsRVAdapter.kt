@@ -41,7 +41,7 @@ class HistorySessionsRVAdapter : BaseListAdapter<BaseItem, BaseViewHolder>() {
         private val tvSaveTime = view.findViewById<TextView>(R.id.tv_session_time)
         private val tvTotalAmount = view.findViewById<TextView>(R.id.tv_session_total_amount)
 
-        private val rvSessionDetails = view.findViewById<RecyclerView>(R.id.rv_session_banknotes)
+        private val rvSessionDetails = view.findViewById<RecyclerView>(R.id.rv_session_details)
 
         private val ivMoreDetails = view.findViewById<ImageView>(R.id.iv_session_more)
 

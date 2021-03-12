@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,7 +27,6 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/iv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -42,7 +40,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_foreground"
+        android:id="@+id/ll_session_foreground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -106,7 +104,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_session_banknotes"
+                    android:id="@+id/rv_session_details"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingStart="16dp"

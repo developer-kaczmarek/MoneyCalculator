@@ -39,13 +39,15 @@ class HistorySwipeCallback(
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         viewHolder?.let {
-            val foregroundView = viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_foreground)
+            val foregroundView =
+                viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_session_foreground)
             ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(foregroundView)
         }
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        val foregroundView = viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_foreground)
+        val foregroundView =
+            viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_session_foreground)
         ItemTouchHelper.Callback.getDefaultUIUtil().clearView(foregroundView)
     }
 
@@ -58,7 +60,8 @@ class HistorySwipeCallback(
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        val foregroundView = viewHolder?.itemView?.findViewById<LinearLayout>(R.id.ll_foreground)
+        val foregroundView =
+            viewHolder?.itemView?.findViewById<LinearLayout>(R.id.ll_session_foreground)
         ItemTouchHelper.Callback.getDefaultUIUtil()
             .onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
     }
@@ -72,7 +75,8 @@ class HistorySwipeCallback(
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        val foregroundView = viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_foreground)
+        val foregroundView =
+            viewHolder.itemView.findViewById<LinearLayout>(R.id.ll_session_foreground)
         getDefaultUIUtil().onDraw(
             c,
             recyclerView,
