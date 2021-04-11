@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/ll_banknotes_container"
+            android:id="@+id/ll_calculator_banknotes_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:descendantFocusability="beforeDescendants"
@@ -29,7 +29,7 @@
     </HorizontalScrollView>
 
     <LinearLayout
-        android:id="@+id/ll_control_panel"
+        android:id="@+id/ll_calculator_control_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/hsv_calculator">
 
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/iv_calculator_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_description_arrow_back"
@@ -62,7 +62,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv_total_amount"
+            android:id="@+id/tv_calculator_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -75,7 +75,7 @@
             android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/iv_next"
+            android:id="@+id/iv_calculator_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_description_arrow_next"
@@ -85,129 +85,129 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/b_digit_0_0"
+        android:id="@+id/b_calculator_digit_0_0"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_1"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_1_0"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_0_1"
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_1_0"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_0_1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_control_panel" />
+        app:layout_constraintTop_toBottomOf="@id/ll_calculator_control_panel" />
 
     <Button
-        android:id="@+id/b_digit_0_1"
+        android:id="@+id/b_calculator_digit_0_1"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_2"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_1_1"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_0_2"
-        app:layout_constraintStart_toEndOf="@id/b_digit_0_0"
-        app:layout_constraintTop_toBottomOf="@id/ll_control_panel" />
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_1_1"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_0_2"
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_0_0"
+        app:layout_constraintTop_toBottomOf="@id/ll_calculator_control_panel" />
 
     <Button
-        android:id="@+id/b_digit_0_2"
+        android:id="@+id/b_calculator_digit_0_2"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_3"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_1_2"
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_1_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/b_digit_0_1"
-        app:layout_constraintTop_toBottomOf="@id/ll_control_panel" />
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_0_1"
+        app:layout_constraintTop_toBottomOf="@id/ll_calculator_control_panel" />
 
     <Button
-        android:id="@+id/b_digit_1_0"
+        android:id="@+id/b_calculator_digit_1_0"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_4"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_2_0"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_1_1"
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_2_0"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_1_1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_0_0" />
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_0_0" />
 
     <Button
-        android:id="@+id/b_digit_1_1"
+        android:id="@+id/b_calculator_digit_1_1"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_5"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_2_1"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_1_2"
-        app:layout_constraintStart_toEndOf="@id/b_digit_1_0"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_0_1" />
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_2_1"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_1_2"
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_1_0"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_0_1" />
 
     <Button
-        android:id="@+id/b_digit_1_2"
+        android:id="@+id/b_calculator_digit_1_2"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_6"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_2_2"
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_2_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/b_digit_1_1"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_0_2" />
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_1_1"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_0_2" />
 
     <Button
-        android:id="@+id/b_digit_2_0"
+        android:id="@+id/b_calculator_digit_2_0"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_7"
-        app:layout_constraintBottom_toTopOf="@id/iv_save"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_2_1"
+        app:layout_constraintBottom_toTopOf="@id/iv_calculator_save"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_2_1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_1_0" />
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_1_0" />
 
     <Button
-        android:id="@+id/b_digit_2_1"
+        android:id="@+id/b_calculator_digit_2_1"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_8"
-        app:layout_constraintBottom_toTopOf="@id/b_digit_3_1"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_2_2"
-        app:layout_constraintStart_toEndOf="@id/b_digit_2_0"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_1_1" />
+        app:layout_constraintBottom_toTopOf="@id/b_calculator_digit_3_1"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_2_2"
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_2_0"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_1_1" />
 
     <Button
-        android:id="@+id/b_digit_2_2"
+        android:id="@+id/b_calculator_digit_2_2"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_9"
-        app:layout_constraintBottom_toTopOf="@id/iv_delete"
+        app:layout_constraintBottom_toTopOf="@id/iv_calculator_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/b_digit_2_1"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_1_2" />
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_2_1"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_1_2" />
 
     <ImageView
-        android:id="@+id/iv_save"
+        android:id="@+id/iv_calculator_save"
         style="@style/KeyboardImageTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/content_description_save"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/b_digit_3_1"
+        app:layout_constraintEnd_toStartOf="@id/b_calculator_digit_3_1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_2_0" />
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_2_0" />
 
     <Button
-        android:id="@+id/b_digit_3_1"
+        android:id="@+id/b_calculator_digit_3_1"
         style="@style/KeyboardTextTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/digit_0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/iv_delete"
-        app:layout_constraintStart_toEndOf="@id/iv_save"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_2_1" />
+        app:layout_constraintEnd_toStartOf="@id/iv_calculator_delete"
+        app:layout_constraintStart_toEndOf="@id/iv_calculator_save"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_2_1" />
 
     <ImageView
-        android:id="@+id/iv_delete"
+        android:id="@+id/iv_calculator_delete"
         style="@style/KeyboardImageTheme"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -215,7 +215,7 @@
         android:src="@drawable/ic_backspace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/b_digit_3_1"
-        app:layout_constraintTop_toBottomOf="@id/b_digit_2_2" />
+        app:layout_constraintStart_toEndOf="@id/b_calculator_digit_3_1"
+        app:layout_constraintTop_toBottomOf="@id/b_calculator_digit_2_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

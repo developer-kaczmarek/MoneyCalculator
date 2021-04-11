@@ -54,33 +54,33 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivSave.setOnClickListener(this)
-        binding.ivBack.setOnClickListener(this)
-        binding.ivNext.setOnClickListener(this)
+        binding.ivCalculatorSave.setOnClickListener(this)
+        binding.ivCalculatorBack.setOnClickListener(this)
+        binding.ivCalculatorNext.setOnClickListener(this)
 
-        binding.bDigit00.setOnClickListener(this)
-        binding.bDigit01.setOnClickListener(this)
-        binding.bDigit02.setOnClickListener(this)
-        binding.bDigit10.setOnClickListener(this)
-        binding.bDigit11.setOnClickListener(this)
-        binding.bDigit12.setOnClickListener(this)
-        binding.bDigit20.setOnClickListener(this)
-        binding.bDigit21.setOnClickListener(this)
-        binding.bDigit22.setOnClickListener(this)
-        binding.bDigit31.setOnClickListener(this)
+        binding.bCalculatorDigit00.setOnClickListener(this)
+        binding.bCalculatorDigit01.setOnClickListener(this)
+        binding.bCalculatorDigit02.setOnClickListener(this)
+        binding.bCalculatorDigit10.setOnClickListener(this)
+        binding.bCalculatorDigit11.setOnClickListener(this)
+        binding.bCalculatorDigit12.setOnClickListener(this)
+        binding.bCalculatorDigit20.setOnClickListener(this)
+        binding.bCalculatorDigit21.setOnClickListener(this)
+        binding.bCalculatorDigit22.setOnClickListener(this)
+        binding.bCalculatorDigit31.setOnClickListener(this)
 
-        with(binding.ivDelete) {
+        with(binding.ivCalculatorDelete) {
             setOnClickListener(this@CalculatorFragment)
             setOnLongClickListener(this@CalculatorFragment)
         }
 
         if (presenter.getKeyboardLayout() == NUMPAD) {
-            binding.bDigit00.setText(R.string.digit_7)
-            binding.bDigit01.setText(R.string.digit_8)
-            binding.bDigit02.setText(R.string.digit_9)
-            binding.bDigit20.setText(R.string.digit_1)
-            binding.bDigit21.setText(R.string.digit_2)
-            binding.bDigit22.setText(R.string.digit_3)
+            binding.bCalculatorDigit00.setText(R.string.digit_7)
+            binding.bCalculatorDigit01.setText(R.string.digit_8)
+            binding.bCalculatorDigit02.setText(R.string.digit_9)
+            binding.bCalculatorDigit20.setText(R.string.digit_1)
+            binding.bCalculatorDigit21.setText(R.string.digit_2)
+            binding.bCalculatorDigit22.setText(R.string.digit_3)
         }
 
         presenter.getVisibleBanknotes()
@@ -117,7 +117,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      */
     override fun showBanknoteCards() {
         context?.let { context ->
-            binding.llBanknotesContainer.removeAllViews()
+            binding.llCalculatorBanknotesContainer.removeAllViews()
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -134,9 +134,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
                     cardBackgroundColor = item.backgroundColor
                     focusChangeCardListener = this@CalculatorFragment
                 }
-                binding.llBanknotesContainer.addView(banknoteCard, params)
+                binding.llCalculatorBanknotesContainer.addView(banknoteCard, params)
             }
-            (binding.llBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
+            (binding.llCalculatorBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
         updateStateNavigationButtons()
         binding.clCalculatorContainer.animate().apply {
@@ -151,7 +151,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      * Метод для обновления значения итоговой суммы в интерфейсе
      */
     override fun setTotalAmount(stringAmount: String) {
-        binding.tvTotalAmount.text = stringAmount
+        binding.tvCalculatorTotalAmount.text = stringAmount
     }
 
     /**
@@ -159,16 +159,16 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      * в основном нацелен на обработку кнопки удаления значений
      */
     override fun onLongClick(v: View): Boolean {
-        return if (v.id == R.id.iv_delete) {
-            for (position in 0 until binding.llBanknotesContainer.childCount) {
-                val view = binding.llBanknotesContainer[position]
+        return if (v.id == R.id.iv_calculator_delete) {
+            for (position in 0 until binding.llCalculatorBanknotesContainer.childCount) {
+                val view = binding.llCalculatorBanknotesContainer[position]
                 if (view is BanknoteCard) {
                     view.clearCountWithDigits()
                     presenter.updateCountAndAmountBanknote(position, 0, 0F)
                 }
             }
             presenter.updateTotalAmount()
-            val firstCard = binding.llBanknotesContainer[0] as BanknoteCard
+            val firstCard = binding.llCalculatorBanknotesContainer[0] as BanknoteCard
             firstCard.setFocusOnCard()
             scrollToFocusBanknoteCard(firstCard)
             showMessage(getString(R.string.fragment_calculator_all_delete_values))
@@ -184,28 +184,28 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     override fun onClick(view: View) {
         val position = focusableBanknoteCardPosition
         if (position == -1) return
-        val card = binding.llBanknotesContainer.getChildAt(focusableBanknoteCardPosition)
+        val card = binding.llCalculatorBanknotesContainer.getChildAt(focusableBanknoteCardPosition)
         if (card is BanknoteCard) {
             when (view.id) {
-                R.id.iv_back -> {
+                R.id.iv_calculator_back -> {
                     if (position != 0) {
                         val newPosition = position - 1
-                        (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
+                        (binding.llCalculatorBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
                     }
                 }
-                R.id.iv_next -> {
+                R.id.iv_calculator_next -> {
                     if (position != presenter.banknotes.size - 1) {
                         val newPosition = position + 1
-                        (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
+                        (binding.llCalculatorBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
                     }
                 }
-                R.id.iv_delete -> {
+                R.id.iv_calculator_delete -> {
                     card.deleteDigit()
                     presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
                     presenter.updateTotalAmount()
                     scrollToFocusBanknoteCard(card)
                 }
-                R.id.iv_save -> presenter.saveCurrentCalculatingSession()
+                R.id.iv_calculator_save -> presenter.saveCurrentCalculatingSession()
                 else -> {
                     card.addDigit((view as Button).text)
                     presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
@@ -222,7 +222,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      */
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (hasFocus && v is BanknoteCard) {
-            focusableBanknoteCardPosition = binding.llBanknotesContainer.indexOfChild(v)
+            focusableBanknoteCardPosition = binding.llCalculatorBanknotesContainer.indexOfChild(v)
             updateStateNavigationButtons()
             scrollToFocusBanknoteCard(v)
         }
@@ -244,9 +244,9 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      * Метод для обновления состояния навигационных кнопок (стрелок вперед - назад)
      */
     private fun updateStateNavigationButtons() {
-        binding.ivBack.isEnabled =
+        binding.ivCalculatorBack.isEnabled =
             presenter.banknotes.size == 1 || focusableBanknoteCardPosition != 0
-        binding.ivNext.isEnabled =
+        binding.ivCalculatorNext.isEnabled =
             presenter.banknotes.size == 1 || focusableBanknoteCardPosition != presenter.banknotes.size - 1
     }
 
@@ -294,7 +294,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
         when (countMeetComponent) {
             0 -> meetAppOnCalculator(
                 view,
-                R.id.ll_control_panel,
+                R.id.ll_calculator_control_panel,
                 getString(R.string.fragment_calculator_title_component_board),
                 getString(R.string.fragment_calculator_description_component_board),
                 150
@@ -302,7 +302,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             1 -> {
                 meetAppOnCalculator(
                     view,
-                    R.id.iv_delete,
+                    R.id.iv_calculator_delete,
                     getString(R.string.fragment_calculator_title_component_delete),
                     getString(R.string.fragment_calculator_description_component_delete),
                     40
@@ -311,7 +311,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             2 -> {
                 meetAppOnCalculator(
                     view,
-                    R.id.iv_save,
+                    R.id.iv_calculator_save,
                     getString(R.string.fragment_calculator_title_component_save),
                     getString(R.string.fragment_calculator_description_component_save_calculator),
                     40
