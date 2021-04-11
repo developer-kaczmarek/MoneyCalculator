@@ -191,29 +191,28 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
                     if (position != 0) {
                         val newPosition = position - 1
                         (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
-                        updateStateNavigationButtons()
                     }
                 }
                 R.id.iv_next -> {
                     if (position != presenter.banknotes.size - 1) {
                         val newPosition = position + 1
                         (binding.llBanknotesContainer[newPosition] as BanknoteCard).setFocusOnCard()
-                        updateStateNavigationButtons()
                     }
                 }
                 R.id.iv_delete -> {
                     card.deleteDigit()
                     presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
                     presenter.updateTotalAmount()
+                    scrollToFocusBanknoteCard(card)
                 }
                 R.id.iv_save -> presenter.saveCurrentCalculatingSession()
                 else -> {
                     card.addDigit((view as Button).text)
                     presenter.updateCountAndAmountBanknote(position, card.count, card.amount)
                     presenter.updateTotalAmount()
+                    scrollToFocusBanknoteCard(card)
                 }
             }
-            scrollToFocusBanknoteCard(card)
         }
     }
 
@@ -224,6 +223,8 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (hasFocus && v is BanknoteCard) {
             focusableBanknoteCardPosition = binding.llBanknotesContainer.indexOfChild(v)
+            updateStateNavigationButtons()
+            scrollToFocusBanknoteCard(v)
         }
     }
 
