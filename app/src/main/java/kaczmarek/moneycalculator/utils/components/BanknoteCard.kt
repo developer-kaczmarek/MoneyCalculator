@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.utils
+package kaczmarek.moneycalculator.utils.components
 
 import android.content.Context
 import android.graphics.Color
@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.utils.getString
+import kaczmarek.moneycalculator.utils.logError
 
 /**
  * Created by Angelina Podbolotova on 05.10.2019.

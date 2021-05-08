@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    tools:layout_height="wrap_content"
+    tools:layout_width="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ProgressBar
+        android:id="@+id/pb_progress_snack_bar"
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:indeterminate="false"
+        android:max="5"
+        android:progress="0"
+        android:progressDrawable="@drawable/shape_ring_progress_bar"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_progress_snack_bar_time"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/pb_progress_snack_bar"
+        app:layout_constraintEnd_toEndOf="@id/pb_progress_snack_bar"
+        app:layout_constraintStart_toStartOf="@id/pb_progress_snack_bar"
+        app:layout_constraintTop_toTopOf="@id/pb_progress_snack_bar"
+        tools:text="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_progress_snack_bar_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/fragment_history_session_delete"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_progress_snack_bar_action"
+        app:layout_constraintStart_toEndOf="@id/pb_progress_snack_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_progress_snack_bar_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/common_cancel"
+        android:textColor="@color/yellow_ffd"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</merge>

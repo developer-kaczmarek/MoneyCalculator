@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.databinding.FragmentHistoryBinding
 import kaczmarek.moneycalculator.ui.base.*
+import kaczmarek.moneycalculator.utils.components.progresssnackbar.ProgressSnackBar
 import moxy.ktx.moxyPresenter
 
 /**
@@ -27,14 +27,17 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
     private var rvAdapter: HistorySessionsRVAdapter? = null
-    private var deletingItemSnackBar: Snackbar? = null
-    private val dismissDeletingItemCallback = object : Snackbar.Callback() {
-        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-            if (event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_MANUAL) {
-                presenter.deleteSessionItemForever()
+    private var deletingItemSnackBar: ProgressSnackBar? = null
+    private val dismissDeletingItemCallback =
+        object : BaseTransientBottomBar.BaseCallback<ProgressSnackBar>() {
+
+            override fun onDismissed(transientBottomBar: ProgressSnackBar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_MANUAL) {
+                    presenter.deleteSessionItemForever()
+                }
             }
         }
-    }
 
     private val presenter by moxyPresenter { HistoryPresenter() }
 
@@ -80,15 +83,10 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
      * с функцией возврата элемента на протяжении некоторого времени
      */
     override fun showInfoAboutDeletingSessionItem() {
-        deletingItemSnackBar = Snackbar.make(
-            binding.clHistoryContainer,
-            getString(R.string.fragment_history_session_delete),
-            Snackbar.LENGTH_LONG
-        ).apply {
-            setActionTextColor(ContextCompat.getColor(requireContext(), R.color.yellow_ffd))
-            setAction(R.string.common_cancel) {
-                presenter.restoreSessionItem()
-            }
+        deletingItemSnackBar = ProgressSnackBar.make(binding.clHistoryContainer) {
+            presenter.restoreSessionItem()
+            deletingItemSnackBar?.dismiss()
+        }?.apply {
             addCallback(dismissDeletingItemCallback)
             show()
         }

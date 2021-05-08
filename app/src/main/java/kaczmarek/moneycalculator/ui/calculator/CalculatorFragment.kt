@@ -20,7 +20,7 @@ import kaczmarek.moneycalculator.ui.base.BaseFragment
 import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.main.MainActivity
 import kaczmarek.moneycalculator.ui.settings.SettingsFragment
-import kaczmarek.moneycalculator.utils.BanknoteCard
+import kaczmarek.moneycalculator.utils.components.BanknoteCard
 import kaczmarek.moneycalculator.utils.dpToPx
 import moxy.ktx.moxyPresenter
 
