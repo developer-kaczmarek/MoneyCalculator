@@ -57,7 +57,7 @@ class HistorySessionsRVAdapter : BaseListAdapter<BaseItem, BaseViewHolder>() {
             super.bind()
             val item = getItem(adapterPosition) as SessionItem
             tvSaveTime.text = item.session.time
-            tvTotalAmount.text = item.session.totalAmount.getFormattedAmount()
+            tvTotalAmount.text = item.session.totalAmount.getFormattedAmount()+" • 500 шт."
             val sessionDetailsRVAdapter = HistorySessionDetailsRVAdapter()
             rvSessionDetails.adapter = sessionDetailsRVAdapter
             sessionDetails.apply {

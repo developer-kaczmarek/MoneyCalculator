@@ -13,8 +13,31 @@
     <color name="white_33f">#33FFFFFF</color>
 
     <color name="gray_f3f">#F3F4FA</color>
+    <color name="gray_fcf">#F5F5F5</color>
     <color name="gray_7b7">#7B7B7B</color>
 
-    <color name="red_c62">#C62828</color>
+    <color name="red_c62">#DE2222</color>
     <color name="yellow_ffd">#FFD54F</color>
+
+    <!--  Background  -->
+    <color name="BackgroundDefaultLight">#F5F5F5</color>
+    <color name="BackgroundDefaultDark">#000000</color>
+    <color name="BackgroundSecondaryLight">#FFFFFF</color>
+    <color name="BackgroundSecondaryDark">#1E1E1E</color>
+
+    <!--  Snackbar  -->
+    <color name="SnackbarBackgroundLight">#323232</color>
+    <color name="SnackbarBackgroundDark">#4E4E4E</color>
+
+    <!--  Divider  -->
+    <color name="DividerPrimaryLight">#4DB2B3CC</color>
+    <color name="DividerPrimaryDark">#1A1A1A</color>
+
+    <!--  Button Text  -->
+    <color name="ButtonWarningTextLight">#FFB300</color>
+    <color name="ButtonWarningTextDark">#FFCA28</color>
+
+    <!--  Text  -->
+    <color name="TextAdditionalLight">#B2B3CC</color>
+    <color name="TextAdditionalDark">#B2B2B2</color>
 </resources>

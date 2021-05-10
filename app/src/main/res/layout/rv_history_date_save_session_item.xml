@@ -8,7 +8,7 @@
     android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="14dp"
-    android:fontFamily="@font/gotham_pro_bold"
-    android:textColor="@color/black_1d1"
-    android:textSize="18sp"
+    android:fontFamily="@font/gotham_pro_medium"
+    android:textColor="@color/TextAdditionalLight"
+    android:textSize="16sp"
     tools:text="28/10/2019" />

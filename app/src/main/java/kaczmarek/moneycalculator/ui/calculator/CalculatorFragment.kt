@@ -139,12 +139,6 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             (binding.llCalculatorBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }
         updateStateNavigationButtons()
-        binding.clCalculatorContainer.animate().apply {
-            interpolator = LinearInterpolator()
-            duration = 500
-            alpha(1f)
-            start()
-        }
     }
 
     /**

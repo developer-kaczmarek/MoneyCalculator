@@ -4,7 +4,6 @@
     android:id="@+id/cl_calculator_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0"
     android:orientation="vertical">
 
     <HorizontalScrollView
@@ -24,16 +23,17 @@
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:gravity="center"
-            android:orientation="horizontal" />
+            android:orientation="horizontal" >
+        </LinearLayout>
 
     </HorizontalScrollView>
-
+    
     <LinearLayout
         android:id="@+id/ll_calculator_control_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/shape_rect_round_8dp_white"
         android:orientation="horizontal"
         android:paddingTop="8dp"
@@ -46,41 +46,70 @@
             android:id="@+id/iv_calculator_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:contentDescription="@string/content_description_arrow_back"
-            android:padding="6dp"
+            android:padding="10dp"
             android:src="@drawable/ic_navigate_left" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/gotham_pro_bold"
-            android:text="@string/activity_main_total"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+        <View
+            android:layout_width="1dp"
+            android:background="#4DB2B3CC"
+            android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/tv_calculator_total_amount"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_rect_round_8dp_white"
+            android:backgroundTint="#e1f7e0"
+            android:contentDescription="@string/content_description_arrow_back"
+            android:padding="8dp"
+            android:src="@drawable/ic_invoice"
+            app:tint="#6edb69" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/gotham_pro"
-            android:gravity="end"
-            android:text="@string/common_bank_note"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_calculator_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/gotham_pro"
+                android:text="490000₽"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_calculator_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/gotham_pro"
+                android:text="14985 шт."
+                android:textColor="#b2b3cc"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:background="#4DB2B3CC"
+            android:layout_height="match_parent"/>
 
         <ImageView
             android:id="@+id/iv_calculator_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:contentDescription="@string/content_description_arrow_next"
-            android:padding="6dp"
+            android:padding="10dp"
             android:src="@drawable/ic_navigate_right" />
+
+
+        <!--        -->
 
     </LinearLayout>
 

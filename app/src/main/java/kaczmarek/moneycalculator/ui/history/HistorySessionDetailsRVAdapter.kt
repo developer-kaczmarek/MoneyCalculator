@@ -8,6 +8,7 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.BaseListAdapter
 import kaczmarek.moneycalculator.ui.base.BaseViewHolder
 import kaczmarek.moneycalculator.utils.getString
+import kaczmarek.moneycalculator.utils.isInteger
 
 class HistorySessionDetailsRVAdapter : BaseListAdapter<SessionDetailsItem,
         HistorySessionDetailsRVAdapter.SessionDetailsViewHolder>() {
@@ -23,16 +24,19 @@ class HistorySessionDetailsRVAdapter : BaseListAdapter<SessionDetailsItem,
 
     inner class SessionDetailsViewHolder(view: View) : BaseViewHolder(view) {
 
-        private val tvSessionDetailsDescription = view.findViewById<TextView>(R.id.tv_session_details_description)
+        private val tvStart = view.findViewById<TextView>(R.id.tv_start_column)
+        private val tvCenter = view.findViewById<TextView>(R.id.tv_center_column)
+        private val tvEnd = view.findViewById<TextView>(R.id.tv_end_column)
 
         override fun bind() {
             val item = getItem(adapterPosition) as SessionDetailsItem
-            tvSessionDetailsDescription.text = getString(
-                R.string.fragment_history_computation,
-                item.name,
-                item.count,
-                item.amount
-            )
+            tvStart.text = if (item.name.toDouble().isInteger()) {
+                getString(R.string.common_ruble_format, item.name.toInt())
+            } else {
+                getString(R.string.common_ruble_float_format, item.name)
+            }
+            tvCenter.text = "${item.count} шт."
+            tvEnd.text = getString(R.string.common_ruble_float_format, item.amount)
         }
     }
 }
