@@ -1,13 +1,12 @@
 package kaczmarek.moneycalculator.ui.history
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.databinding.FragmentHistoryBinding
 import kaczmarek.moneycalculator.ui.base.*
 import kaczmarek.moneycalculator.utils.components.progresssnackbar.ProgressSnackBar
 import moxy.ktx.moxyPresenter
@@ -24,8 +23,6 @@ interface HistoryView : ViewBase {
 class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, BaseClickListener,
     OnSwipeForDeleteItemListener {
 
-    private var _binding: FragmentHistoryBinding? = null
-    private val binding get() = _binding!!
     private var rvAdapter: HistorySessionsRVAdapter? = null
     private var deletingItemSnackBar: ProgressSnackBar? = null
     private val dismissDeletingItemCallback =
@@ -38,27 +35,22 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
                 }
             }
         }
+    private lateinit var rvHistory: RecyclerView
+    private lateinit var clHistoryContainer: ConstraintLayout
 
     private val presenter by moxyPresenter { HistoryPresenter() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rvHistory = view.findViewById(R.id.rv_history)
+        rvHistory = view.findViewById(R.id.rv_history)
         ItemTouchHelper(HistorySwipeCallback(0, ItemTouchHelper.LEFT, this)).apply {
-            attachToRecyclerView(binding.rvHistory)
+            attachToRecyclerView(rvHistory)
         }
         rvAdapter = HistorySessionsRVAdapter().apply {
             clicklistener = this@HistoryFragment
         }
-        binding.rvHistory.adapter = rvAdapter
+        rvHistory.adapter = rvAdapter
         presenter.getSessions()
     }
 
@@ -67,7 +59,6 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
         rvAdapter?.clicklistener = null
         rvAdapter = null
         deletingItemSnackBar?.removeCallback(dismissDeletingItemCallback)
-        _binding = null
     }
 
     /**
@@ -83,7 +74,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history), HistoryView, Ba
      * с функцией возврата элемента на протяжении некоторого времени
      */
     override fun showInfoAboutDeletingSessionItem() {
-        deletingItemSnackBar = ProgressSnackBar.make(binding.clHistoryContainer) {
+        deletingItemSnackBar = ProgressSnackBar.make(clHistoryContainer) {
             presenter.restoreSessionItem()
             deletingItemSnackBar?.dismiss()
         }?.apply {

@@ -1,11 +1,13 @@
 package kaczmarek.moneycalculator.ui.main
 
 import android.os.Bundle
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.getkeepsafe.taptargetview.TapTargetView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.databinding.ActivityMainBinding
 import kaczmarek.moneycalculator.ui.base.BaseActivity
 import kaczmarek.moneycalculator.ui.base.ViewBase
 import kaczmarek.moneycalculator.ui.calculator.CalculatorFragment
@@ -22,8 +24,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
 
     var timeFirstBack = 0L
     var tapTargetView: TapTargetView? = null
-
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var bnvMain: BottomNavigationView
+    private lateinit var clMainContainer: ConstraintLayout
+    private lateinit var flMainContainer: FrameLayout
 
     @Suppress("unused")
     private val presenter by moxyPresenter { MainPresenter() }
@@ -31,10 +34,11 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.bnvMain.setOnNavigationItemSelectedListener {
+        setContentView(R.layout.activity_main)
+        bnvMain = findViewById(R.id.bnv_main)
+        clMainContainer = findViewById(R.id.cl_main_container)
+        flMainContainer = findViewById(R.id.fl_main_container)
+        bnvMain.setOnNavigationItemSelectedListener {
             return@setOnNavigationItemSelectedListener when (it.itemId) {
                 R.id.item_calculator -> openFragment(CalculatorFragment(), CalculatorFragment.TAG)
                 R.id.item_history -> openFragment(HistoryFragment(), HistoryFragment.TAG)
@@ -70,7 +74,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
      * Метод для отображения SnackBar
      */
     override fun showMessage(message: String) {
-        Snackbar.make(binding.clMainContainer, message, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(clMainContainer, message, Snackbar.LENGTH_LONG).show()
     }
 
     /**
@@ -95,13 +99,13 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
         if (isFirstOpen || supportFragmentManager.primaryNavigationFragment?.tag != tag) {
             with(fragmentTransaction) {
                 if (isFirstOpen)
-                    add(binding.flMainContainer.id, fragmentInstance, tag)
+                    add(flMainContainer.id, fragmentInstance, tag)
                 else
-                    replace(binding.flMainContainer.id, fragmentInstance, tag)
+                    replace(flMainContainer.id, fragmentInstance, tag)
                 setPrimaryNavigationFragment(fragmentInstance)
             }
         }
-        binding.bnvMain.menu.findItem(
+        bnvMain.menu.findItem(
             when (fragmentInstance) {
                 is SettingsFragment -> R.id.item_settings
                 is HistoryFragment -> R.id.item_history

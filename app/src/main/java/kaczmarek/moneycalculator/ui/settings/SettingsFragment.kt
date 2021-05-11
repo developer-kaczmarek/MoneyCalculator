@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.ImageView
 import android.widget.RadioGroup
+import android.widget.Switch
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.databinding.FragmentSettingsBinding
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.CLASSIC
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.INDEFINITELY
@@ -44,37 +48,39 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
     private var stateStoragePeriod = INDEFINITELY
     private var stateKeyboardLayout = CLASSIC
     private var adapter: SettingsBanknotesRVAdapter? = null
-    private var _binding: FragmentSettingsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var rgSettingsHistory: RadioGroup
+    private lateinit var rgSettingsKeyboard: RadioGroup
+    private lateinit var swSettingsDisplay: SwitchCompat
+    private lateinit var rvSettingsBanknotes: RecyclerView
 
     private val presenter by moxyPresenter { SettingsPresenter() }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.getAllBanknotes()
-        binding.ivToolbarAction.setOnClickListener(this)
-        binding.rgSettingsHistory.setOnCheckedChangeListener(this)
-        binding.rgSettingsKeyboard.setOnCheckedChangeListener(this)
-        binding.tvSettingsFeedback.setOnClickListener(this)
-        binding.tvSettingsRateApp.setOnClickListener(this)
-        binding.tvSettingsGithub.setOnClickListener(this)
-        binding.swSettingsDisplay.setOnCheckedChangeListener { _, isSelected ->
+        rgSettingsHistory = view.findViewById(R.id.rg_settings_history)
+        rgSettingsKeyboard = view.findViewById(R.id.rg_settings_keyboard)
+        swSettingsDisplay = view.findViewById(R.id.sw_settings_display)
+        rvSettingsBanknotes = view.findViewById(R.id.rv_settings_banknotes)
+        val ivToolbarAction = view.findViewById<ImageView>(R.id.iv_toolbar_action)
+        val tvSettingsFeedback = view.findViewById<TextView>(R.id.tv_settings_feedback)
+        val tvSettingsRateApp = view.findViewById<TextView>(R.id.tv_settings_rate_app)
+        val tvSettingsGithub = view.findViewById<TextView>(R.id.tv_settings_github)
+        val tvSettingsVersions = view.findViewById<TextView>(R.id.tv_settings_versions)
+        ivToolbarAction.setOnClickListener(this)
+        rgSettingsHistory.setOnCheckedChangeListener(this)
+        rgSettingsKeyboard.setOnCheckedChangeListener(this)
+        tvSettingsFeedback.setOnClickListener(this)
+        tvSettingsRateApp.setOnClickListener(this)
+        tvSettingsGithub.setOnClickListener(this)
+        swSettingsDisplay.setOnCheckedChangeListener { _, isSelected ->
             isNewChange = true
             stateAlwaysOnDisplay = isSelected
         }
 
         val packageInfo = context?.packageManager?.getPackageInfo(view.context.packageName, 0)
-        binding.tvSettingsVersions.text = getString(
+        tvSettingsVersions.text = getString(
             R.string.fragment_settings_versions,
             packageInfo?.versionName
         )
@@ -82,14 +88,14 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
         adapter = SettingsBanknotesRVAdapter().apply {
             checkChangeListener = this@SettingsFragment
         }
-        binding.rvSettingsBanknotes.adapter = adapter
+        rvSettingsBanknotes.adapter = adapter
     }
 
     override fun onStart() {
         super.onStart()
         stateStoragePeriod = presenter.getHistoryStoragePeriod()
 
-        binding.rgSettingsHistory.check(
+        rgSettingsHistory.check(
             when (stateStoragePeriod) {
                 INDEFINITELY -> R.id.rb_settings_save_indefinitely
                 FOURTEEN_DAYS -> R.id.rb_settings_save_fourteen_days
@@ -99,7 +105,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
 
         stateKeyboardLayout = presenter.getKeyboardLayout()
 
-        binding.rgSettingsKeyboard.check(
+        rgSettingsKeyboard.check(
             when (stateKeyboardLayout) {
                 NUMPAD -> R.id.rb_settings_numpad_keyboard
                 else -> R.id.rb_settings_phone_keyboard
@@ -108,12 +114,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
 
         stateAlwaysOnDisplay = presenter.isAlwaysOnDisplay()
 
-        binding.swSettingsDisplay.isChecked = stateAlwaysOnDisplay
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        swSettingsDisplay.isChecked = stateAlwaysOnDisplay
     }
 
     /**
@@ -128,12 +129,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings), SettingsView,
      * Метод для запуска анимации плавного появления контента после прогрузки
      */
     override fun showContent() {
-        binding.nsvSettings.animate().apply {
-            interpolator = LinearInterpolator()
-            duration = 500
-            alpha(1f)
-            start()
-        }
+
     }
 
     /**
