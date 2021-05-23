@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.ui.base.*
-import kaczmarek.moneycalculator.utils.components.progresssnackbar.ProgressSnackBar
+import kaczmarek.moneycalculator.component.snackbar.progress.ProgressSnackBar
 import moxy.ktx.moxyPresenter
 
 /**

@@ -2,6 +2,8 @@ package kaczmarek.moneycalculator.di.services
 
 import android.content.SharedPreferences
 import androidx.annotation.IntDef
+import kaczmarek.moneycalculator.component.keyboard.Keyboard
+import kaczmarek.moneycalculator.component.keyboard.Keyboard.Companion.CLASSIC
 import kaczmarek.moneycalculator.data.settings.ISettingsSharedPrefsService
 
 /**
@@ -15,7 +17,7 @@ class SettingsSharedPrefsService(private val prefs: SharedPreferences) :
         prefs.edit().putInt(KEY_HISTORY_STORAGE_PERIOD, period).apply()
     }
 
-    override fun setKeyboardLayout(@KeyboardLayout type: Int) {
+    override fun setKeyboardLayout(@Keyboard.Companion.KeyboardType type: Int) {
         prefs.edit().putInt(KEY_KEYBOARD_LAYOUT, type).apply()
     }
 
@@ -37,12 +39,6 @@ class SettingsSharedPrefsService(private val prefs: SharedPreferences) :
     }
 
     companion object {
-        @IntDef(
-            CLASSIC,
-            NUMPAD
-        )
-        @Retention(AnnotationRetention.SOURCE)
-        annotation class KeyboardLayout
 
         @IntDef(
             INDEFINITELY,
@@ -57,9 +53,6 @@ class SettingsSharedPrefsService(private val prefs: SharedPreferences) :
         const val KEY_ALWAYS_ON_DISPLAY = "KEY_ALWAYS_ON_DISPLAY"
         const val KEY_HISTORY_STORAGE_PERIOD = "KEY_HISTORY_STORAGE_PERIOD"
         const val KEY_COUNT_MEET_COMPONENTS = "KEY_COUNT_MEET_COMPONENTS"
-
-        const val CLASSIC = 0
-        const val NUMPAD = 1
 
         const val INDEFINITELY = 0
         const val FOURTEEN_DAYS = 1

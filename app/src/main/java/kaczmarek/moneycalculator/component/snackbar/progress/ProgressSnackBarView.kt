@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.utils.components.progresssnackbar
+package kaczmarek.moneycalculator.component.snackbar.progress
 
 import android.content.Context
 import android.os.CountDownTimer

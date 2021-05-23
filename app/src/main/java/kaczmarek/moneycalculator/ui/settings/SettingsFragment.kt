@@ -4,13 +4,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.RadioGroup
-import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
@@ -18,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.CLASSIC
+import kaczmarek.moneycalculator.component.keyboard.Keyboard.Companion.CLASSIC
+import kaczmarek.moneycalculator.component.keyboard.Keyboard.Companion.NUMPAD
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.FOURTEEN_DAYS
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.INDEFINITELY
-import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.NUMPAD
 import kaczmarek.moneycalculator.di.services.SettingsSharedPrefsService.Companion.THIRTY_DAYS
 import kaczmarek.moneycalculator.ui.base.BaseCheckChangeListener
 import kaczmarek.moneycalculator.ui.base.BaseFragment

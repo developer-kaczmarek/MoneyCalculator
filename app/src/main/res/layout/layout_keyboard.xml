@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <Button
+        android:id="@+id/b_keyboard_digit_0_0"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_1"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_1_0"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_0_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_0_1"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_2"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_1_1"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_0_2"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_0_0"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_0_2"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_3"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_1_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_0_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_1_0"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_4"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_2_0"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_1_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_0_0" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_1_1"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_5"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_2_1"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_1_2"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_1_0"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_0_1" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_1_2"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_6"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_2_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_1_1"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_0_2" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_2_0"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_7"
+        app:layout_constraintBottom_toTopOf="@id/iv_keyboard_save"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_2_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_1_0" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_2_1"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_8"
+        app:layout_constraintBottom_toTopOf="@id/b_keyboard_digit_3_1"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_2_2"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_2_0"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_1_1" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_2_2"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_9"
+        app:layout_constraintBottom_toTopOf="@id/iv_keyboard_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_2_1"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_1_2" />
+
+    <ImageView
+        android:id="@+id/iv_keyboard_save"
+        style="@style/KeyboardImageTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/content_description_save"
+        android:src="@drawable/ic_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/b_keyboard_digit_3_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_2_0" />
+
+    <Button
+        android:id="@+id/b_keyboard_digit_3_1"
+        style="@style/KeyboardTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/digit_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_keyboard_delete"
+        app:layout_constraintStart_toEndOf="@id/iv_keyboard_save"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_2_1" />
+
+    <ImageView
+        android:id="@+id/iv_keyboard_delete"
+        style="@style/KeyboardImageTheme"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/content_description_delete"
+        android:src="@drawable/ic_backspace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/b_keyboard_digit_3_1"
+        app:layout_constraintTop_toBottomOf="@id/b_keyboard_digit_2_2" />
+</merge>

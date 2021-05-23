@@ -2,6 +2,7 @@ package kaczmarek.moneycalculator.ui.main
 
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.getkeepsafe.taptargetview.TapTargetView
@@ -25,7 +26,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainView {
     var timeFirstBack = 0L
     var tapTargetView: TapTargetView? = null
     private lateinit var bnvMain: BottomNavigationView
-    private lateinit var clMainContainer: ConstraintLayout
+    private lateinit var clMainContainer: LinearLayout
     private lateinit var flMainContainer: FrameLayout
 
     @Suppress("unused")

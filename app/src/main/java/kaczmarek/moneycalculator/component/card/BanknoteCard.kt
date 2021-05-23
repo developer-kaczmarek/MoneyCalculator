@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.utils.components
+package kaczmarek.moneycalculator.component.card
 
 import android.content.Context
 import android.graphics.Color
@@ -10,13 +10,14 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
+import com.google.android.material.card.MaterialCardView
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.utils.dpToPx
 import kaczmarek.moneycalculator.utils.getString
 import kaczmarek.moneycalculator.utils.logError
 
@@ -27,7 +28,7 @@ class BanknoteCard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr) {
+) : MaterialCardView(context, attrs, defStyleAttr) {
 
     var count = 0 // Количество купюр одного номинала
         set(value) {
@@ -60,20 +61,24 @@ class BanknoteCard @JvmOverloads constructor(
             clContainer.setBackgroundColor(Color.parseColor(field))
         }
 
+    var focusChangeCardListener: OnFocusChangeListener? = null // Слушатель фокуса карточки
+
     private var clContainer: ConstraintLayout
     private var tvName: TextView
     private var tvType: TextView
     private var etCount: EditText
     private var tvTotalAmount: TextView
 
-    var focusChangeCardListener: OnFocusChangeListener? = null // Слушатель фокуса карточки
-
     init {
         View.inflate(context, R.layout.layout_banknote_card, this)
+        elevation = CARD_ELEVATION_DEFAULT
+        radius = context.dpToPx(CARD_RADIUS_DEFAULT)
+
         clContainer = findViewById(R.id.cl_banknote_container)
         tvName = findViewById(R.id.tv_banknote_name)
         tvType = findViewById(R.id.tv_banknote_type)
         tvTotalAmount = findViewById(R.id.tv_banknote_total_amount)
+
         etCount = EditText(context).apply {
             id = EDIT_TEXT_ID + View.generateViewId()
             setEms(8)
@@ -180,5 +185,8 @@ class BanknoteCard @JvmOverloads constructor(
     companion object {
         const val TAG = "BanknoteCard"
         const val EDIT_TEXT_ID = 57900
+
+        private const val CARD_RADIUS_DEFAULT = 8
+        private const val CARD_ELEVATION_DEFAULT = 0f
     }
 }
