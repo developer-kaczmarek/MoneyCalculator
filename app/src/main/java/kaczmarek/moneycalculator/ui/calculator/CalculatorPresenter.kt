@@ -26,7 +26,128 @@ import javax.inject.Inject
 class CalculatorPresenter : BasePresenter<CalculatorView>() {
 
     var totalAmount: Double = 0.0
-    val banknotes = arrayListOf<BanknoteEntity>()
+    val banknotes = arrayListOf(
+        BanknoteEntity(
+            0,
+            5000F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            1,
+            2000F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            2,
+            1000F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            3,
+            500F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            4,
+            200F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            5,
+            100F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            6,
+            50F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            7,
+            10F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            8,
+            5F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            9,
+            2F,
+            0,
+            0F,
+            "#000000",
+            false
+        ),
+        BanknoteEntity(
+            10,
+            1F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            11,
+            0.5F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            12,
+            0.1F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            13,
+            0.05F,
+            0,
+            0F,
+            "#000000",
+            true
+        ),
+        BanknoteEntity(
+            14,
+            0.01F,
+            0,
+            0F,
+            "#000000",
+            true
+        )
+    )
 
     @Inject
     lateinit var getKeyboardLayoutUseCase: GetKeyboardLayoutUseCase
@@ -89,7 +210,7 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
     fun getVisibleBanknotes() {
         presenterScope.launch {
             try {
-                banknotes.clear()
+               /* banknotes.clear()
                 val visibleBanknotes = getBanknotesListUseCase.invoke().filter { it.isShow }
                 val temporaryBanknotes = getTemporaryBanknotesListUseCase.invoke()
                 logDebug(TAG, temporaryBanknotes.toString())
@@ -101,7 +222,7 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
                     } else {
                         visibleBanknotes
                     }
-                )
+                )*/
                 viewState.showBanknoteCards()
                 updateTotalAmount()
             } catch (e: Exception) {
@@ -166,10 +287,10 @@ class CalculatorPresenter : BasePresenter<CalculatorView>() {
      */
     fun updateCountAndAmountBanknote(position: Int, count: Int, amount: Float) {
         if (position != -1) {
-            banknotes[position] = banknotes[position].copy(
+            /*banknotes[position] = banknotes[position].copy(
                 count = count,
                 amount = amount
-            )
+            )*/
         }
     }
 

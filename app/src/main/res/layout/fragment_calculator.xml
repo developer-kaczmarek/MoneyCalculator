@@ -9,7 +9,7 @@
     <HorizontalScrollView
         android:id="@+id/hsv_calculator"
         android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:fadeScrollbars="false"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,11 +23,188 @@
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_5000_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FF7043"
+                android:visibility="invisible"
+                app:denomination="5000.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_2000_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#29B6F6"
+                android:visibility="invisible"
+                app:denomination="2000.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_1000_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#26A69A"
+                app:denomination="1000.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_500_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#AB47BC"
+                app:denomination="500.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_200_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#66BB6A"
+                app:denomination="200.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_100_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#FFA726"
+                app:denomination="100.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_50_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="50.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_10_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#FFCA28"
+                app:denomination="10.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_5_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="5.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_2_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="2.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_1_rub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="1.0" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_50_kop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#FFCA28"
+                app:denomination="0.5" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_10_kop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#FFCA28"
+                app:denomination="0.1" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_5_kop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="0.05" />
+
+            <kaczmarek.moneycalculator.component.card.BanknoteCard
+                android:id="@+id/bc_calculator_1_kop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="#78909C"
+                app:denomination="0.01" />
         </LinearLayout>
 
     </HorizontalScrollView>
-    
+
     <LinearLayout
         android:id="@+id/ll_calculator_control_panel"
         android:layout_width="match_parent"
@@ -53,8 +230,8 @@
 
         <View
             android:layout_width="1dp"
-            android:background="#4DB2B3CC"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#4DB2B3CC" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -95,8 +272,8 @@
 
         <View
             android:layout_width="1dp"
-            android:background="#4DB2B3CC"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#4DB2B3CC" />
 
         <ImageView
             android:id="@+id/iv_calculator_next"

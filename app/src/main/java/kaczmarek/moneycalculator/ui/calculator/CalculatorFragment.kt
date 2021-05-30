@@ -1,13 +1,13 @@
 package kaczmarek.moneycalculator.ui.calculator
 
+import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.view.ViewTreeObserver
-import android.view.WindowManager
+import android.view.*
 import android.widget.*
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import kaczmarek.moneycalculator.R
@@ -17,6 +17,7 @@ import kaczmarek.moneycalculator.ui.main.MainActivity
 import kaczmarek.moneycalculator.component.card.BanknoteCard
 import kaczmarek.moneycalculator.component.keyboard.Keyboard
 import kaczmarek.moneycalculator.utils.dpToPx
+import kaczmarek.moneycalculator.utils.gone
 import kaczmarek.moneycalculator.utils.logDebug
 import kaczmarek.moneycalculator.utils.visible
 import moxy.ktx.moxyPresenter
@@ -60,21 +61,7 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
             selectKeyboardType(presenter.getKeyboardLayout())
             setOnClickKeyboardListener(this@CalculatorFragment)
         }
-
-        llCalculatorBanknotesContainer.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener{
-            override fun onGlobalLayout() {
-                if(llCalculatorBanknotesContainer.height !=0) {
-                    kbCalculator.visible
-                    llCalculatorControlPanel.visible
-                    llCalculatorBanknotesContainer.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-               logDebug(TAG, "size = ${llCalculatorBanknotesContainer.height}")
-            }
-
-        })
-
-        presenter.getVisibleBanknotes()
-
+        showBanknoteCards()
         if (presenter.getCountKnownComponents() <= 2) {
             countMeetComponent = presenter.getCountKnownComponents()
             startAcquaintanceWithComponent(view)
@@ -102,24 +89,33 @@ class CalculatorFragment : BaseFragment(R.layout.fragment_calculator), Calculato
      */
     override fun showBanknoteCards() {
         context?.let { context ->
-            llCalculatorBanknotesContainer.removeAllViews()
+
+            /*//llCalculatorBanknotesContainer.removeAllViews()
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             val horizontal = context.dpToPx(16).toInt()
             val vertical = context.dpToPx(24).toInt()
-            params.setMargins(horizontal, vertical, horizontal, vertical)
+            params.setMargins(horizontal, vertical, horizontal, vertical)*/
 
             presenter.banknotes.forEachIndexed { index, item ->
-                val banknoteCard = BanknoteCard(context).apply {
+                /*val banknoteCard = BanknoteCard(context).apply {
                     id = index
                     denomination = item.name
                     addDigit(item.count.toString())
                     cardBackgroundColor = item.backgroundColor
                     focusChangeCardListener = this@CalculatorFragment
                 }
-                llCalculatorBanknotesContainer.addView(banknoteCard, params)
+                llCalculatorBanknotesContainer.addView(banknoteCard, params)*/
+                val view = llCalculatorBanknotesContainer[index] as BanknoteCard
+                if (view.denomination == item.name) {
+                    view.isVisible = item.isShow
+                    if (item.isShow) {
+                        view.addDigit(item.count.toString())
+                        view.focusChangeCardListener = this@CalculatorFragment
+                    }
+                }
             }
             (llCalculatorBanknotesContainer[0] as BanknoteCard).setFocusOnCard()
         }

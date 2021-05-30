@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_banknote_container"
         android:layout_width="wrap_content"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         tools:background="#FF7043">
 
         <TextView
@@ -40,6 +40,7 @@
             android:textSize="72sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_banknote_amount_description"
             app:layout_constraintTop_toBottomOf="@+id/tv_banknote_name" />
 
         <TextView

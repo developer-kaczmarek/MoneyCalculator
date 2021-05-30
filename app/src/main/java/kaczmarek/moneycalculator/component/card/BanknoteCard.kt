@@ -1,7 +1,6 @@
 package kaczmarek.moneycalculator.component.card
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.text.InputFilter
 import android.util.AttributeSet
@@ -54,12 +53,6 @@ class BanknoteCard @JvmOverloads constructor(
 
     var amount = 0F  // Общая сумма купюр текущего номинала
         private set
-
-    var cardBackgroundColor = "" // Цвет фона карточки
-        set(value) {
-            field = value
-            clContainer.setBackgroundColor(Color.parseColor(field))
-        }
 
     var focusChangeCardListener: OnFocusChangeListener? = null // Слушатель фокуса карточки
 
