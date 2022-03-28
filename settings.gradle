@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "улькулятор купюр"
+rootProject.name = "Кулькулятор купюр"
 include ':app'
