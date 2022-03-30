@@ -88,6 +88,9 @@
     <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
     <string name="fragment_history_session_delete">Запись удалена</string>
 
-    <!--LicensesFragment-->
+    <!-- Home -->
+    <string name="home_calculator_name">Калькулятор</string>
+    <string name="home_history_name">История</string>
+    <string name="home_settings_name">Настройки</string>
 
 </resources>

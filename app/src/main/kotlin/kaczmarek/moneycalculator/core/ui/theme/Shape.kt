@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.ui.theme
+package kaczmarek.moneycalculator.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

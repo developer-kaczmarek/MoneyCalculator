@@ -44,6 +44,10 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        useIR = true
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
+        freeCompilerArgs += "-Xopt-in=kotlin.time.ExperimentalTime"
     }
 
     buildFeatures {
@@ -75,6 +79,10 @@ dependencies {
     implementation libs.compose.preview
     implementation libs.activity.compose
     implementation libs.appcompat
+
+    // Architecture
+    implementation libs.bundles.sesame
+    implementation libs.bundles.decompose
 
     // DI
     implementation libs.koin.android

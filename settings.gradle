@@ -33,6 +33,14 @@ dependencyResolutionManagement {
             alias('activity-compose').to('androidx.activity', 'activity-compose').version('1.3.1')
             alias('appcompat').to('androidx.appcompat', 'appcompat').version('1.3.1')
 
+            // Architecture
+            version('sesame', '1.4.0-beta1')
+            alias('sesame-loading').to('com.github.aartikov', 'sesame-loading').versionRef('sesame')
+            alias('sesame-dialog').to('com.github.aartikov', 'sesame-dialog').versionRef('sesame')
+            alias('sesame-localizedString').to('com.github.aartikov', 'sesame-localized-string').versionRef('sesame')
+            alias('sesame-composeForm').to('com.github.aartikov', 'sesame-compose-form').versionRef('sesame')
+            bundle('sesame', ['sesame-loading', 'sesame-dialog', 'sesame-localizedString', 'sesame-composeForm'])
+
             version('decompose', '0.5.0')
             alias('decompose-core').to('com.arkivanov.decompose', 'decompose').versionRef('decompose')
             alias('decompose-compose').to('com.arkivanov.decompose', 'extensions-compose-jetpack').versionRef('decompose')

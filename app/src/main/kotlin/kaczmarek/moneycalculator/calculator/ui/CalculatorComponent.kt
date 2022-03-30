@@ -1,0 +1,3 @@
+package kaczmarek.moneycalculator.calculator.ui
+
+interface CalculatorComponent
