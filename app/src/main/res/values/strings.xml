@@ -44,32 +44,33 @@
     <string name="activity_main_total">Итог</string>
     <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
 
-    <!--SettingsFragment-->
-    <string name="fragment_settings_banknotes">Номиналы</string>
-    <string name="fragment_settings_keyboard_layout">Раскладка клавиатуры</string>
-    <string name="fragment_settings_display">Экран</string>
-    <string name="fragment_settings_about_app">О приложении</string>
-    <string name="fragment_settings_display_off">Не выключать экран при подсчете купюр</string>
-    <string name="fragment_settings_feedback">Обратная связь</string>
-    <string name="fragment_settings_github">Страница на Github</string>
-    <string name="fragment_settings_versions">Калькулятор купюр v%s с 💙 для Android</string>
-    <string name="fragment_settings_rate_app">Поделиться своим мнением</string>
-    <string name="fragment_settings_save">Сохранить</string>
-    <string name="fragment_settings_save_history">Хранить историю</string>
-    <string name="fragment_settings_indefinitely">Бессрочно</string>
-    <string name="fragment_settings_in_fourteen_days">За 14 дней</string>
-    <string name="fragment_settings_in_thirty_days">За 30 дней</string>
-    <string name="fragment_settings_phone_keyboard">Телефонная раскладка</string>
-    <string name="fragment_settings_numpad_keyboard">Раскладка Numpad</string>
-    <string name="fragment_settings_save_successful">Изменения сохранены</string>
-    <string name="fragment_settings_no_new_changes">Нет новых изменений</string>
-    <string name="fragment_settings_all_banknotes_invisible">Изменения не сохранены. Выберите хотя бы один номинал</string>
-    <string name="fragment_settings_email_title">developer.kaczmarek@yandex.ru</string>
-    <string name="fragment_settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
-    <string name="fragment_settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
-    <string name="fragment_settings_url_github">https://github.com/developer-kaczmarek/MoneyCalculator</string>
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_banknotes">Номиналы</string>
+    <string name="settings_keyboard_layout">Раскладка клавиатуры</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_dark_theme">Темная</string>
+    <string name="settings_light_theme">Светлая</string>
+    <string name="settings_system_theme">Как в системе</string>
+    <string name="settings_display">Экран</string>
+    <string name="settings_other">Другое</string>
+    <string name="settings_display_off">Не выключать экран при подсчете купюр</string>
+    <string name="settings_contact_developer">Связаться с разработчиком</string>
+    <string name="settings_privacy_policy">Политика конфиденциальности</string>
+    <string name="settings_github">Страница на Github</string>
+    <string name="settings_version">Калькулятор купюр v%s с 💙 для Android</string>
+    <string name="settings_rate_app">Поделиться своим мнением</string>
+    <string name="settings_save_history">Хранить историю</string>
+    <string name="settings_indefinitely">Бессрочно</string>
+    <string name="settings_in_fourteen_days">За 14 дней</string>
+    <string name="settings_in_thirty_days">За 30 дней</string>
+    <string name="settings_phone_keyboard">Телефонная раскладка</string>
+    <string name="settings_numpad_keyboard">Раскладка Numpad</string>
+    <string name="settings_email">developer.kaczmarek@yandex.ru</string>
+    <string name="settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
+    <string name="settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
 
-    <!--CalculatorFragment-->
+    <!-- Calculator -->
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
     <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
     <string name="fragment_calculator_all_delete_values">Все значения удалены</string>
@@ -81,7 +82,7 @@
     <string name="fragment_calculator_title_component_delete">Удалить</string>
     <string name="fragment_calculator_description_component_delete">При однократном нажатии удалится последний символ в выбранном поле ввода. При долгом нажатии очистятся все поля ввода</string>
 
-    <!--HistoryFragment-->
+    <!-- History -->
     <string name="fragment_history_today_sessions">Сегодня</string>
     <string name="fragment_history_yesterday_sessions">Вчера</string>
     <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>

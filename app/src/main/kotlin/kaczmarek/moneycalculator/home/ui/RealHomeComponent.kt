@@ -11,6 +11,7 @@ import kaczmarek.moneycalculator.core.ComponentFactory
 import kaczmarek.moneycalculator.core.ui.utils.toComposeState
 import kaczmarek.moneycalculator.history.createHistoryComponent
 import kaczmarek.moneycalculator.settings.createSettingsComponent
+import kaczmarek.moneycalculator.settings.ui.SettingsComponent
 import kotlinx.parcelize.Parcelize
 
 class RealHomeComponent(
@@ -52,9 +53,17 @@ class RealHomeComponent(
             )
 
             is ChildConfig.Settings -> HomeComponent.Child.Settings(
-                componentFactory.createSettingsComponent(componentContext)
+                componentFactory.createSettingsComponent(componentContext, ::onSettingsOutput)
             )
         }
+
+    private fun onSettingsOutput(output: SettingsComponent.Output) {
+        when (output) {
+            is SettingsComponent.Output.ThemeChanged -> {
+                onOutput(HomeComponent.Output.ThemeChanged)
+            }
+        }
+    }
 
     private sealed interface ChildConfig : Parcelable {
 

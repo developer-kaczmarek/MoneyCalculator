@@ -1,7 +1,5 @@
 package kaczmarek.moneycalculator.core.ui.message
 
-import kaczmarek.moneycalculator.core.ui.message.MessageData
-import kaczmarek.moneycalculator.core.ui.message.MessageService
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 

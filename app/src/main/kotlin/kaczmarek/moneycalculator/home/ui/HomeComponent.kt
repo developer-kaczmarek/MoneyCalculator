@@ -14,7 +14,7 @@ interface HomeComponent {
     }
 
     sealed interface Output {
-        object ChangeTheme : Output
+        object ThemeChanged : Output
     }
 
     sealed interface Child {

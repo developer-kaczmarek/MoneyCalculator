@@ -47,7 +47,7 @@ class RealRootComponent(
 
     private fun onHomeOutput(output: HomeComponent.Output) {
         when (output) {
-            is HomeComponent.Output.ChangeTheme -> appThemeComponent.onThemeChange()
+            is HomeComponent.Output.ThemeChanged -> appThemeComponent.onThemeChange()
         }
     }
 

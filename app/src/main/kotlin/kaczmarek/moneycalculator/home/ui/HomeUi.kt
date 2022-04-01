@@ -98,8 +98,9 @@ fun HomeUiPreview() {
 }
 
 class FakeHomeComponent : HomeComponent {
-    override val routerState =
-        createFakeRouterState(HomeComponent.Child.Calculator(FakeCalculatorComponent()))
+    override val routerState = createFakeRouterState(
+        HomeComponent.Child.Calculator(FakeCalculatorComponent())
+    )
 
     override fun onPageSelected(page: HomeComponent.Page) = Unit
 }

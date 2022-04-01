@@ -11,12 +11,17 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 18.sp
     ),
-    h4 = TextStyle(
+    caption = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W700,
-        fontSize = 32.sp,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
+    ),
+    h1 = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
         letterSpacing = 0.25.sp
     )
 )
