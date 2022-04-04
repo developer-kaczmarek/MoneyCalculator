@@ -10,7 +10,7 @@ data class SettingsViewData(
     val banknotes: List<SettingsChoice<Banknote>>,
     val historyStoragePeriods: List<SettingsChoice<Settings.HistoryStoragePeriod>>,
     val keyboardLayoutTypes: List<SettingsChoice<Settings.KeyboardLayoutType>>,
-    val isDisplayAlwaysOn: Boolean,
+    val isKeepScreenOn: Boolean,
     val themeTypes: List<SettingsChoice<Settings.ThemeType>>,
     val versionDescription: LocalizedString
 ) {
@@ -52,7 +52,7 @@ data class SettingsViewData(
                     output = Settings.KeyboardLayoutType.NumPad
                 )
             ),
-            isDisplayAlwaysOn = false,
+            isKeepScreenOn = false,
             themeTypes = listOf(
                 SettingsChoice(
                     id = Settings.ThemeType.Light.name,
@@ -118,7 +118,7 @@ fun Settings.toViewData(): SettingsViewData {
                 output = Settings.KeyboardLayoutType.NumPad
             )
         ),
-        isDisplayAlwaysOn = isDisplayAlwaysOn,
+        isKeepScreenOn = isKeepScreenOn,
         themeTypes = listOf(
             SettingsChoice(
                 id = Settings.ThemeType.Light.name,

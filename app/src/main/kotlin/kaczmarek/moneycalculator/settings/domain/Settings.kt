@@ -6,7 +6,7 @@ data class Settings(
     val banknotes: List<Banknote>,
     val historyStoragePeriod: HistoryStoragePeriod,
     val keyboardLayoutType: KeyboardLayoutType,
-    val isDisplayAlwaysOn: Boolean,
+    val isKeepScreenOn: Boolean,
     val themeType: ThemeType
 ) {
     enum class HistoryStoragePeriod(val id: Int) {

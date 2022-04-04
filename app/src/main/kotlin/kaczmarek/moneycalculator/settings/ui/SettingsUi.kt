@@ -64,8 +64,8 @@ fun SettingsUi(
                     )
 
                     DisplaySettingsBlock(
-                        checked = data.data.isDisplayAlwaysOn,
-                        onDisplayAlwaysOnClick = component::onDisplayAlwaysOnClick
+                        checked = data.data.isKeepScreenOn,
+                        onKeepScreenOnClick = component::onKeepScreenOnClick
                     )
 
                     ThemeSettingsBlock(
@@ -286,7 +286,7 @@ fun ThemeSettingsBlock(
 @Composable
 fun DisplaySettingsBlock(
     checked: Boolean,
-    onDisplayAlwaysOnClick: (oldCheckedValue: Boolean) -> Unit,
+    onKeepScreenOnClick: (oldCheckedValue: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -302,7 +302,7 @@ fun DisplaySettingsBlock(
         checked = checked,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onDisplayAlwaysOnClick(checked) }
+            .clickable { onKeepScreenOnClick(checked) }
     )
 }
 
@@ -388,7 +388,7 @@ class FakeSettingsUiComponent : SettingsComponent {
 
     override fun onGooglePlayClick() = Unit
 
-    override fun onDisplayAlwaysOnClick(oldCheckedValue: Boolean) = Unit
+    override fun onKeepScreenOnClick(oldCheckedValue: Boolean) = Unit
 
     override fun onThemeTypeClick(themeType: Settings.ThemeType) = Unit
 }

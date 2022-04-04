@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kaczmarek.moneycalculator.core.domain.Banknote
 import kaczmarek.moneycalculator.core.domain.BanknoteId
+import kaczmarek.moneycalculator.core.domain.DetailedBanknote
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -18,17 +19,19 @@ data class BanknoteDbModel(
     var id: Int = 0
 }
 
-fun BanknoteDbModel.toDomain() = Banknote(
+fun BanknoteDbModel.toBanknote() = Banknote(
     id = BanknoteId(id.toString()),
     name = name,
     isShow = isShow,
-    backgroundColor = backgroundColor,
-    value = value
+    denomination = value.toDouble()
 )
 
-fun Banknote.toDb() = BanknoteDbModel(
+fun BanknoteDbModel.toDetailedBanknote() = DetailedBanknote(
+    id = BanknoteId(id.toString()),
     name = name,
     isShow = isShow,
-    backgroundColor = backgroundColor,
-    value = value
+    denomination = value.toDouble(),
+    backgroundColor = ("ff" + backgroundColor.removePrefix("#").lowercase()).toLong(16),
+    count = "0",
+    amount = "0"
 )

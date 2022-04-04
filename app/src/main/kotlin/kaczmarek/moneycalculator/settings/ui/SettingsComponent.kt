@@ -26,7 +26,7 @@ interface SettingsComponent {
 
     fun onGooglePlayClick()
 
-    fun onDisplayAlwaysOnClick(oldCheckedValue: Boolean)
+    fun onKeepScreenOnClick(oldCheckedValue: Boolean)
 
     fun onThemeTypeClick(themeType: Settings.ThemeType)
 }

@@ -1,35 +1,6 @@
 <resources>
     <string name="app_name">Калькулятор купюр</string>
 
-    <!--Commons-->
-    <string name="common_ruble_format">%d ₽</string>
-    <string name="common_ruble_float_format">%.2f ₽</string>
-    <string name="common_penny_format">%d к.</string>
-    <string name="common_bank_note">0 ₽</string>
-    <string name="common_bank_ruble">₽</string>
-    <string name="common_bank_penny">К.</string>
-    <string name="common_count_bank_note" translatable="false">0</string>
-    <string name="common_ok">Ок</string>
-    <string name="common_please_wait">Пожалуйста, подождите…</string>
-    <string name="common_done">Готово</string>
-    <string name="common_cancel">Отмена</string>
-    <string name="common_further">Далее</string>
-    <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
-    <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
-    <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
-
-    <!--Digits-->
-    <string name="digit_0" translatable="false">0</string>
-    <string name="digit_1" translatable="false">1</string>
-    <string name="digit_2" translatable="false">2</string>
-    <string name="digit_3" translatable="false">3</string>
-    <string name="digit_4" translatable="false">4</string>
-    <string name="digit_5" translatable="false">5</string>
-    <string name="digit_6" translatable="false">6</string>
-    <string name="digit_7" translatable="false">7</string>
-    <string name="digit_8" translatable="false">8</string>
-    <string name="digit_9" translatable="false">9</string>
-
     <!--Image Description-->
     <string name="content_description_save">Сохранение</string>
     <string name="content_description_delete">Удаление</string>
@@ -37,11 +8,6 @@
     <string name="content_description_arrow_next">Стрелка вперед</string>
     <string name="content_description_arrow_card">Стрелка разворота карточки</string>
 
-    <!--ActivityMain-->
-    <string name="activity_main_title_calculator_item">Калькулятор</string>
-    <string name="activity_main_title_history_item">История</string>
-    <string name="activity_main_title_settings_item">Настройки</string>
-    <string name="activity_main_total">Итог</string>
     <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
 
     <!-- Settings -->
@@ -69,8 +35,14 @@
     <string name="settings_email">developer.kaczmarek@yandex.ru</string>
     <string name="settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
     <string name="settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
+    <string name="settings_all_banknotes_invisible">Для расчетов нужен минимум один номинал</string>
 
     <!-- Calculator -->
+    <string name="calculator_total">Итого</string>
+    <string name="calculator_total_amount">₽ %s</string>
+    <string name="calculator_total_count">шт %d</string>
+    <string name="calculator_name_rub">%s ₽</string>
+    <string name="calculator_name_penny">%s к.</string>
     <string name="fragment_calculator_save_successful">Результат сохранен</string>
     <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
     <string name="fragment_calculator_all_delete_values">Все значения удалены</string>

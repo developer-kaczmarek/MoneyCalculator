@@ -12,9 +12,9 @@ interface SettingsStorage {
 
     fun updateHistoryStoragePeriod(historyStoragePeriod: Settings.HistoryStoragePeriod)
 
-    fun isDisplayAlwaysOn(): Boolean
+    fun isKeepScreenOn(): Boolean
 
-    fun updateDisplayAlwaysOn(checked: Boolean)
+    fun updateKeepScreenOn(checked: Boolean)
 
     fun getThemeType(): Settings.ThemeType
 

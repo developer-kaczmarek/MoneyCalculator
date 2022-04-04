@@ -5,7 +5,8 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import java.util.*
 
 data class MessageData(
-    val id: UUID = UUID.randomUUID(),
     val text: LocalizedString,
-    @DrawableRes val iconRes: Int? = null
+    @DrawableRes val iconRes: Int? = null,
+    val actionTitle: LocalizedString? = null,
+    val action: (() -> Unit)? = null
 )

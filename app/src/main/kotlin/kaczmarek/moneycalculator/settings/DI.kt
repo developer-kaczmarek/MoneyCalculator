@@ -21,7 +21,7 @@ val settingsModule = module {
     factory { GetSettingsInteractor(get(), get()) }
     factory { ChangeKeyboardLayoutTypeInteractor(get()) }
     factory { ChangeHistoryStoragePeriodInteractor(get()) }
-    factory { ChangeDisplayAlwaysOnInteractor(get()) }
+    factory { ChangeKeepScreenOnInteractor(get()) }
     factory { ChangeThemeTypeInteractor(get()) }
 }
 
@@ -32,6 +32,7 @@ fun ComponentFactory.createSettingsComponent(
     return RealSettingsComponent(
         componentContext,
         onOutput,
+        get(),
         get(),
         get(),
         get(),

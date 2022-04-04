@@ -4,36 +4,44 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
+import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.domain.Banknote
 import kaczmarek.moneycalculator.core.domain.ChangeBanknoteVisibilityInteractor
 import kaczmarek.moneycalculator.core.ui.error_handling.ErrorHandler
+import kaczmarek.moneycalculator.core.ui.error_handling.safeLaunch
+import kaczmarek.moneycalculator.core.ui.error_handling.safeRun
 import kaczmarek.moneycalculator.core.ui.external_app_service.ExternalAppService
+import kaczmarek.moneycalculator.core.ui.message.MessageData
+import kaczmarek.moneycalculator.core.ui.message.MessageService
 import kaczmarek.moneycalculator.core.ui.utils.componentCoroutineScope
 import kaczmarek.moneycalculator.core.ui.utils.handleErrors
 import kaczmarek.moneycalculator.core.ui.utils.toComposeState
 import kaczmarek.moneycalculator.settings.domain.*
-import kotlinx.coroutines.launch
 import me.aartikov.sesame.loading.simple.OrdinaryLoading
+import me.aartikov.sesame.loading.simple.dataOrNull
 import me.aartikov.sesame.loading.simple.mapData
 import me.aartikov.sesame.loading.simple.refresh
+import me.aartikov.sesame.localizedstring.LocalizedString
 
 class RealSettingsComponent(
     componentContext: ComponentContext,
     private val onOutput: (SettingsComponent.Output) -> Unit,
     private val errorHandler: ErrorHandler,
+    private val messageService: MessageService,
     private val externalAppService: ExternalAppService,
     getSettingsInteractor: GetSettingsInteractor,
     private val changeKeyboardLayoutTypeInteractor: ChangeKeyboardLayoutTypeInteractor,
     private val changeHistoryStoragePeriodInteractor: ChangeHistoryStoragePeriodInteractor,
     private val changeBanknoteVisibilityInteractor: ChangeBanknoteVisibilityInteractor,
-    private val changeDisplayAlwaysOnInteractor: ChangeDisplayAlwaysOnInteractor,
+    private val changeKeepScreenOnInteractor: ChangeKeepScreenOnInteractor,
     private val changeThemeTypeInteractor: ChangeThemeTypeInteractor,
 ) : ComponentContext by componentContext, SettingsComponent {
 
     companion object {
         private const val SUPPORT_EMAIL = "developer.kaczmarek@yandex.ru"
         private const val GITHUB_PAGE_URL = "https://github.com/developer-kaczmarek/MoneyCalculator"
-        private const val PRIVACY_POLICY_PAGE_URL = "https://github.com/developer-kaczmarek/MoneyCalculator/blob/main/privacy_policy.pdf"
+        private const val PRIVACY_POLICY_PAGE_URL =
+            "https://github.com/developer-kaczmarek/MoneyCalculator/blob/main/privacy_policy.pdf"
     }
 
     private val coroutineScope = componentCoroutineScope()
@@ -57,59 +65,64 @@ class RealSettingsComponent(
     }
 
     override fun onBanknoteClick(banknote: Banknote) {
-        coroutineScope.launch {
-            changeBanknoteVisibilityInteractor.execute(banknote.copy(isShow = !banknote.isShow))
-            settingsLoading.refresh()
+        coroutineScope.safeLaunch(errorHandler) {
+            val visibilityBanknotes = settingsState.dataOrNull?.banknotes?.filter { it.isShow }
+            if (visibilityBanknotes?.count() == 1 && visibilityBanknotes.first().id == banknote.id) {
+                messageService.showMessage(MessageData(LocalizedString.resource(R.string.settings_all_banknotes_invisible)))
+            } else {
+                changeBanknoteVisibilityInteractor.execute(banknote.copy(isShow = !banknote.isShow))
+                settingsLoading.refresh()
+            }
         }
     }
 
     override fun onKeyboardLayoutTypeClick(keyboardLayoutType: Settings.KeyboardLayoutType) {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             changeKeyboardLayoutTypeInteractor.execute(keyboardLayoutType)
             settingsLoading.refresh()
         }
     }
 
     override fun onHistoryStoragePeriodClick(historyStoragePeriod: Settings.HistoryStoragePeriod) {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             changeHistoryStoragePeriodInteractor.execute(historyStoragePeriod)
             settingsLoading.refresh()
         }
     }
 
     override fun onContactDeveloperClick() {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             externalAppService.sendEmail(SUPPORT_EMAIL)
         }
     }
 
     override fun onPrivacyPolicyClick() {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             externalAppService.openBrowser(PRIVACY_POLICY_PAGE_URL)
         }
     }
 
     override fun onGithubClick() {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             externalAppService.openBrowser(GITHUB_PAGE_URL)
         }
     }
 
     override fun onGooglePlayClick() {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             externalAppService.openPageOnGooglePlay()
         }
     }
 
-    override fun onDisplayAlwaysOnClick(oldCheckedValue: Boolean) {
-        coroutineScope.launch {
-            changeDisplayAlwaysOnInteractor.execute(!oldCheckedValue)
+    override fun onKeepScreenOnClick(oldCheckedValue: Boolean) {
+        safeRun(errorHandler) {
+            changeKeepScreenOnInteractor.execute(!oldCheckedValue)
             settingsLoading.refresh()
         }
     }
 
     override fun onThemeTypeClick(themeType: Settings.ThemeType) {
-        coroutineScope.launch {
+        safeRun(errorHandler) {
             changeThemeTypeInteractor.execute(themeType)
             settingsLoading.refresh()
             onOutput(SettingsComponent.Output.ThemeChanged)

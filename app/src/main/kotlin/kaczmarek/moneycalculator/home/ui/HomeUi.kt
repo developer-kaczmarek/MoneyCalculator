@@ -13,7 +13,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import kaczmarek.moneycalculator.calculator.ui.CalculatorUi
-import kaczmarek.moneycalculator.calculator.ui.FakeCalculatorComponent
 import kaczmarek.moneycalculator.core.ui.theme.AppTheme
 import kaczmarek.moneycalculator.core.ui.utils.createFakeRouterState
 import kaczmarek.moneycalculator.core.ui.utils.noOverlapByMessage
@@ -21,6 +20,7 @@ import kaczmarek.moneycalculator.history.ui.HistoryUi
 import kaczmarek.moneycalculator.settings.ui.SettingsUi
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.ui.utils.currentInstance
+import kaczmarek.moneycalculator.settings.ui.FakeSettingsUiComponent
 
 @Composable
 fun HomeUi(
@@ -99,7 +99,7 @@ fun HomeUiPreview() {
 
 class FakeHomeComponent : HomeComponent {
     override val routerState = createFakeRouterState(
-        HomeComponent.Child.Calculator(FakeCalculatorComponent())
+        HomeComponent.Child.Settings(FakeSettingsUiComponent())
     )
 
     override fun onPageSelected(page: HomeComponent.Page) = Unit

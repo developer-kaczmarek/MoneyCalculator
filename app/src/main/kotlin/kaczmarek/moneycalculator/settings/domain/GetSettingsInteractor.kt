@@ -13,7 +13,7 @@ class GetSettingsInteractor(
             banknotes = getBanknotesInteractor.execute(),
             historyStoragePeriod = settingsStorage.getHistoryStoragePeriod(),
             keyboardLayoutType = settingsStorage.getKeyboardLayoutType(),
-            isDisplayAlwaysOn = settingsStorage.isDisplayAlwaysOn(),
+            isKeepScreenOn = settingsStorage.isKeepScreenOn(),
             themeType = settingsStorage.getThemeType()
         )
     }

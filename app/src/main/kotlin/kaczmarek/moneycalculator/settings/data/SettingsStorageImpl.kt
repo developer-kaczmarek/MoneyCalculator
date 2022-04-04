@@ -36,11 +36,11 @@ class SettingsStorageImpl(private val prefs: SharedPreferences) : SettingsStorag
         prefs.edit { putInt(HISTORY_STORAGE_PERIOD_KEY, historyStoragePeriod.id) }
     }
 
-    override fun isDisplayAlwaysOn(): Boolean {
+    override fun isKeepScreenOn(): Boolean {
         return prefs.getBoolean(ALWAYS_ON_DISPLAY_KEY, false)
     }
 
-    override fun updateDisplayAlwaysOn(checked: Boolean) {
+    override fun updateKeepScreenOn(checked: Boolean) {
         prefs.edit { putBoolean(ALWAYS_ON_DISPLAY_KEY, checked) }
     }
 
