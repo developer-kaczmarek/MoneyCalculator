@@ -3,10 +3,8 @@ package kaczmarek.moneycalculator.core.ui.theme
 import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
+import kaczmarek.moneycalculator.core.ui.utils.LocalMessageOffsets
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -32,8 +30,11 @@ fun AppTheme(
         getMaterialDarkColors()
     }
 
+    val messageOffset = remember { mutableStateMapOf<Int, Int>() }
+
     CompositionLocalProvider(
-        LocalThemeType provides themeType
+        LocalThemeType provides themeType,
+        LocalMessageOffsets provides messageOffset,
     ) {
         MaterialTheme(
             colors = materialColors,
@@ -48,7 +49,7 @@ val LocalThemeType = staticCompositionLocalOf {
     ThemeType.Default
 }
 
-val MaterialTheme.themeType: ThemeType
+val themeType: ThemeType
     @Composable
     @ReadOnlyComposable
     get() = LocalThemeType.current
