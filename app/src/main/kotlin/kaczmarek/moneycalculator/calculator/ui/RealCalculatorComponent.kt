@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnStart
+import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.calculator.domain.GetCalculatingSessionInteractor
 import kaczmarek.moneycalculator.core.ui.error_handling.ErrorHandler
 import kaczmarek.moneycalculator.core.ui.error_handling.safeLaunch
@@ -14,6 +15,7 @@ import kaczmarek.moneycalculator.core.ui.message.MessageService
 import kaczmarek.moneycalculator.core.ui.utils.componentCoroutineScope
 import kaczmarek.moneycalculator.core.ui.utils.toComposeState
 import kaczmarek.moneycalculator.core.ui.utils.toFormattedAmount
+import kaczmarek.moneycalculator.sessions.domain.SaveSessionInteractor
 import me.aartikov.sesame.loading.simple.OrdinaryLoading
 import me.aartikov.sesame.loading.simple.dataOrNull
 import me.aartikov.sesame.loading.simple.mapData
@@ -24,7 +26,8 @@ class RealCalculatorComponent(
     componentContext: ComponentContext,
     private val errorHandler: ErrorHandler,
     private val messageService: MessageService,
-    getCalculatingSessionInteractor: GetCalculatingSessionInteractor
+    getCalculatingSessionInteractor: GetCalculatingSessionInteractor,
+    private val saveSessionInteractor: SaveSessionInteractor
 ) : ComponentContext by componentContext, CalculatorComponent {
 
     private val coroutineScope = componentCoroutineScope()
@@ -119,7 +122,26 @@ class RealCalculatorComponent(
 
     override fun onSaveClick() {
         coroutineScope.safeLaunch(errorHandler) {
-            messageService.showMessage(MessageData(text = LocalizedString.raw("onSaveClick")))
+            calculatorLoading.dataOrNull?.let { currentSession ->
+                val totalAmount = currentSession.banknotes.sumOf { item ->
+                    item.amount.filterNot { it.isWhitespace() }.toDouble()
+                }
+
+                if (totalAmount == 0.0) {
+                    messageService.showMessage(
+                        MessageData(
+                            text = LocalizedString.resource(R.string.calculator_empty_total_amount_error)
+                        )
+                    )
+                } else {
+                    saveSessionInteractor.execute(totalAmount, currentSession.banknotes)
+                    messageService.showMessage(
+                        MessageData(
+                            text = LocalizedString.resource(R.string.calculator_save_successful)
+                        )
+                    )
+                }
+            }
         }
     }
 

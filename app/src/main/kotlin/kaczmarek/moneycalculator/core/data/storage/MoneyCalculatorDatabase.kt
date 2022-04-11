@@ -4,14 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import kaczmarek.moneycalculator.core.data.storage.banknotes.BanknoteDbModel
 import kaczmarek.moneycalculator.core.data.storage.banknotes.BanknotesDao
+import kaczmarek.moneycalculator.sessions.data.SessionDbModel
+import kaczmarek.moneycalculator.sessions.data.SessionsDao
 
 @Database(
-    entities = [BanknoteDbModel::class],
+    entities = [BanknoteDbModel::class, SessionDbModel::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(BanknoteConverter::class)
 abstract class MoneyCalculatorDatabase : RoomDatabase() {
 
     companion object {
@@ -24,4 +28,6 @@ abstract class MoneyCalculatorDatabase : RoomDatabase() {
     }
 
     abstract fun getBanknotesDao(): BanknotesDao
+
+    abstract fun getSessionsDao(): SessionsDao
 }

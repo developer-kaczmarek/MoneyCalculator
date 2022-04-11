@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">Калькулятор купюр</string>
 
-    <!--Image Description-->
-    <string name="content_description_save">Сохранение</string>
-    <string name="content_description_delete">Удаление</string>
-    <string name="content_description_arrow_back">Стрелка назад</string>
-    <string name="content_description_arrow_next">Стрелка вперед</string>
-    <string name="content_description_arrow_card">Стрелка разворота карточки</string>
-
-    <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
+    <!-- Common -->
+    <string name="common_retry">Повторить</string>
+    <string name="common_error">Произошла ошибка: %s. Пожалуйста, обратитесь к разработчику для ее устранения</string>
+    <string name="common_name_rub">%s ₽</string>
+    <string name="common_name_penny">%s к.</string>
 
     <!-- Settings -->
     <string name="settings_title">Настройки</string>
@@ -41,25 +38,19 @@
     <string name="calculator_total">Итого</string>
     <string name="calculator_total_amount">₽ %s</string>
     <string name="calculator_total_count">шт %d</string>
-    <string name="calculator_name_rub">%s ₽</string>
-    <string name="calculator_name_penny">%s к.</string>
-    <string name="fragment_calculator_save_successful">Результат сохранен</string>
-    <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
-    <string name="fragment_calculator_all_delete_values">Все значения удалены</string>
-    <string name="fragment_calculator_title_component_board">Панель управления</string>
-    <string name="fragment_calculator_description_component_board">Позволяет перемещаться между карточками банкнот, а также отображает итоговую сумму расчета</string>
-    <string name="fragment_calculator_title_component_save">Сохранить</string>
-    <string name="fragment_calculator_description_component_save_calculator">При однократном нажатии сохраняются расчеты и попадают в раздел Истории. Сессию с итоговой суммой равной 0 сохранить нельзя</string>
-    <string name="fragment_calculator_description_component_save_settings">Нажатие на кнопку позволит применить настройки, выбранные в данном разделе. Обязательно хотя бы один номинал для расчета должен быть выбран, иначе настройки не будут сохранены</string>
-    <string name="fragment_calculator_title_component_delete">Удалить</string>
-    <string name="fragment_calculator_description_component_delete">При однократном нажатии удалится последний символ в выбранном поле ввода. При долгом нажатии очистятся все поля ввода</string>
+    <string name="calculator_save_successful">Результат сохранен</string>
+    <string name="calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
+    <string name="calculator_all_delete_values">Все значения удалены</string>
 
     <!-- History -->
-    <string name="fragment_history_today_sessions">Сегодня</string>
-    <string name="fragment_history_yesterday_sessions">Вчера</string>
-    <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
-    <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
-    <string name="fragment_history_session_delete">Запись удалена</string>
+    <string name="history_title">История</string>
+    <string name="history_today_sessions">Сегодня</string>
+    <string name="history_yesterday_sessions">Вчера</string>
+    <string name="history_empty_history">Здесь будет отображаться история вычислений</string>
+    <string name="history_session_delete">Запись удалена</string>
+    <string name="history_total_count">%d шт</string>
+    <string name="history_sum_name">Сумма:</string>
+    <string name="history_count_name">Количество:</string>
 
     <!-- Home -->
     <string name="home_calculator_name">Калькулятор</string>

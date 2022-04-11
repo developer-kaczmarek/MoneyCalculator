@@ -15,5 +15,5 @@ val calculatorModule = module {
 fun ComponentFactory.createCalculatorComponent(
     componentContext: ComponentContext
 ): CalculatorComponent {
-    return RealCalculatorComponent(componentContext, get(), get(), get())
+    return RealCalculatorComponent(componentContext, get(), get(), get(), get())
 }

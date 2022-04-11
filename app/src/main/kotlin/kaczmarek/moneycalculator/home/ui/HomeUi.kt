@@ -16,10 +16,10 @@ import kaczmarek.moneycalculator.calculator.ui.CalculatorUi
 import kaczmarek.moneycalculator.core.ui.theme.AppTheme
 import kaczmarek.moneycalculator.core.ui.utils.createFakeRouterState
 import kaczmarek.moneycalculator.core.ui.utils.noOverlapByMessage
-import kaczmarek.moneycalculator.history.ui.HistoryUi
 import kaczmarek.moneycalculator.settings.ui.SettingsUi
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.ui.utils.currentInstance
+import kaczmarek.moneycalculator.sessions.ui.SessionsUi
 import kaczmarek.moneycalculator.settings.ui.FakeSettingsUiComponent
 
 @Composable
@@ -35,7 +35,7 @@ fun HomeUi(
             Children(component.routerState, Modifier.padding(paddingValues)) { child ->
                 when (val instance = child.instance) {
                     is HomeComponent.Child.Calculator -> CalculatorUi(instance.component)
-                    is HomeComponent.Child.History -> HistoryUi(instance.component)
+                    is HomeComponent.Child.History -> SessionsUi(instance.component)
                     is HomeComponent.Child.Settings -> SettingsUi(instance.component)
                 }
             }

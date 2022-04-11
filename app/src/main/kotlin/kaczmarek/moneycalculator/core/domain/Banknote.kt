@@ -1,5 +1,7 @@
 package kaczmarek.moneycalculator.core.domain
 
+import kotlinx.serialization.Serializable
+
 data class Banknote(
     val id: BanknoteId,
     val name: String,
@@ -7,6 +9,7 @@ data class Banknote(
     val isShow: Boolean
 )
 
+@Serializable
 data class DetailedBanknote(
     val id: BanknoteId,
     val name: String,
@@ -17,5 +20,6 @@ data class DetailedBanknote(
     val amount: String
 )
 
+@Serializable
 @JvmInline
 value class BanknoteId(val value: String)

@@ -18,6 +18,7 @@ import kaczmarek.moneycalculator.core.domain.Banknote
 import kaczmarek.moneycalculator.core.ui.theme.AppTheme
 import kaczmarek.moneycalculator.core.ui.utils.resolve
 import kaczmarek.moneycalculator.core.ui.widgets.Header
+import kaczmarek.moneycalculator.core.ui.widgets.LceWidget
 import kaczmarek.moneycalculator.settings.domain.Settings
 import me.aartikov.sesame.loading.simple.Loading
 
@@ -26,78 +27,68 @@ fun SettingsUi(
     component: SettingsComponent,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
-        Header(text = stringResource(id = R.string.settings_title))
+    Column(modifier = modifier.fillMaxSize()) {
+        LceWidget(
+            data = component.settingsViewState,
+            onRetryClick = {},
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = 20.dp)
+            ) {
+                Header(text = stringResource(id = R.string.settings_title))
 
-        Column(modifier = Modifier.padding(bottom = 20.dp)) {
-            when (val data = component.settingsViewState) {
-                is Loading.State.Error -> {
-                    println("Error, ${data.throwable}")
-                }
+                BanknotesSettingsBlock(
+                    items = it.banknotes,
+                    onChoiceChanged = component::onBanknoteClick
+                )
 
-                is Loading.State.Loading -> {
-                    println("Loading")
-                }
+                HistorySettingsBlock(
+                    items = it.historyStoragePeriods,
+                    onChoiceChanged = component::onHistoryStoragePeriodClick
+                )
 
-                is Loading.State.Empty -> {
-                    println("Empty")
-                }
+                KeyboardSettingsBlock(
+                    items = it.keyboardLayoutTypes,
+                    onChoiceChanged = component::onKeyboardLayoutTypeClick
+                )
 
-                is Loading.State.Data -> {
-                    BanknotesSettingsBlock(
-                        items = data.data.banknotes,
-                        onChoiceChanged = component::onBanknoteClick
-                    )
+                DisplaySettingsBlock(
+                    checked = it.isKeepScreenOn,
+                    onKeepScreenOnClick = component::onKeepScreenOnClick
+                )
 
-                    HistorySettingsBlock(
-                        items = data.data.historyStoragePeriods,
-                        onChoiceChanged = component::onHistoryStoragePeriodClick
-                    )
+                ThemeSettingsBlock(
+                    items = it.themeTypes,
+                    onChoiceChanged = component::onThemeTypeClick
+                )
 
-                    KeyboardSettingsBlock(
-                        items = data.data.keyboardLayoutTypes,
-                        onChoiceChanged = component::onKeyboardLayoutTypeClick
-                    )
+                OtherSettingsBlock(
+                    onGithubClick = component::onGithubClick,
+                    onPrivacyPolicyClick = component::onPrivacyPolicyClick,
+                    onContactDeveloperClick = component::onContactDeveloperClick,
+                    onGooglePlayClick = component::onGooglePlayClick
+                )
 
-                    DisplaySettingsBlock(
-                        checked = data.data.isKeepScreenOn,
-                        onKeepScreenOnClick = component::onKeepScreenOnClick
-                    )
-
-                    ThemeSettingsBlock(
-                        items = data.data.themeTypes,
-                        onChoiceChanged = component::onThemeTypeClick
-                    )
-
-                    OtherSettingsBlock(
-                        onGithubClick = component::onGithubClick,
-                        onPrivacyPolicyClick = component::onPrivacyPolicyClick,
-                        onContactDeveloperClick = component::onContactDeveloperClick,
-                        onGooglePlayClick = component::onGooglePlayClick
-                    )
-
-                    Text(
-                        text = data.data.versionDescription.resolve(),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.caption,
-                        color = MaterialTheme.colors.onSurface,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
-                            .padding(top = 30.dp)
-                    )
-                }
+                Text(
+                    text = it.versionDescription.resolve(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 30.dp)
+                )
             }
         }
     }
 }
 
 @Composable
-fun TextCheckBox(
+private fun TextCheckBox(
     text: String,
     checked: Boolean,
     modifier: Modifier = Modifier
@@ -126,7 +117,7 @@ fun TextCheckBox(
 }
 
 @Composable
-fun TextRadioButton(
+private fun TextRadioButton(
     text: String,
     selected: Boolean,
     modifier: Modifier = Modifier
@@ -154,7 +145,7 @@ fun TextRadioButton(
 }
 
 @Composable
-fun TextSwitchButton(
+private fun TextSwitchButton(
     text: String,
     checked: Boolean,
     modifier: Modifier = Modifier
@@ -183,7 +174,7 @@ fun TextSwitchButton(
 }
 
 @Composable
-fun BanknotesSettingsBlock(
+private fun BanknotesSettingsBlock(
     items: List<SettingsChoice<Banknote>>,
     onChoiceChanged: (Banknote) -> Unit,
     modifier: Modifier = Modifier
@@ -209,7 +200,7 @@ fun BanknotesSettingsBlock(
 }
 
 @Composable
-fun HistorySettingsBlock(
+private fun HistorySettingsBlock(
     items: List<SettingsChoice<Settings.HistoryStoragePeriod>>,
     onChoiceChanged: (Settings.HistoryStoragePeriod) -> Unit,
     modifier: Modifier = Modifier
@@ -234,7 +225,7 @@ fun HistorySettingsBlock(
 }
 
 @Composable
-fun KeyboardSettingsBlock(
+private fun KeyboardSettingsBlock(
     items: List<SettingsChoice<Settings.KeyboardLayoutType>>,
     onChoiceChanged: (Settings.KeyboardLayoutType) -> Unit,
     modifier: Modifier = Modifier
@@ -259,7 +250,7 @@ fun KeyboardSettingsBlock(
 }
 
 @Composable
-fun ThemeSettingsBlock(
+private fun ThemeSettingsBlock(
     items: List<SettingsChoice<Settings.ThemeType>>,
     onChoiceChanged: (Settings.ThemeType) -> Unit,
     modifier: Modifier = Modifier
@@ -284,7 +275,7 @@ fun ThemeSettingsBlock(
 }
 
 @Composable
-fun DisplaySettingsBlock(
+private fun DisplaySettingsBlock(
     checked: Boolean,
     onKeepScreenOnClick: (oldCheckedValue: Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -307,7 +298,7 @@ fun DisplaySettingsBlock(
 }
 
 @Composable
-fun OtherSettingsBlock(
+private fun OtherSettingsBlock(
     onGithubClick: () -> Unit,
     onPrivacyPolicyClick: () -> Unit,
     onContactDeveloperClick: () -> Unit,

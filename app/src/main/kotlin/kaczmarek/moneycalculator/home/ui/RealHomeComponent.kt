@@ -9,7 +9,7 @@ import com.arkivanov.decompose.router.router
 import kaczmarek.moneycalculator.calculator.createCalculatorComponent
 import kaczmarek.moneycalculator.core.ComponentFactory
 import kaczmarek.moneycalculator.core.ui.utils.toComposeState
-import kaczmarek.moneycalculator.history.createHistoryComponent
+import kaczmarek.moneycalculator.sessions.createSessionComponent
 import kaczmarek.moneycalculator.settings.createSettingsComponent
 import kaczmarek.moneycalculator.settings.ui.SettingsComponent
 import kotlinx.parcelize.Parcelize
@@ -49,7 +49,7 @@ class RealHomeComponent(
             )
 
             is ChildConfig.History -> HomeComponent.Child.History(
-                componentFactory.createHistoryComponent(componentContext)
+                componentFactory.createSessionComponent(componentContext)
             )
 
             is ChildConfig.Settings -> HomeComponent.Child.Settings(

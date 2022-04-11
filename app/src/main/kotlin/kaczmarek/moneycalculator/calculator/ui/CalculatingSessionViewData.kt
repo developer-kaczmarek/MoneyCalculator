@@ -43,9 +43,9 @@ fun DetailedBanknote.toViewData() = DetailedBanknoteViewData(
     id = id,
     borderColor = backgroundColor,
     name = if (denomination < 1) {
-        LocalizedString.resource(R.string.calculator_name_penny, name)
+        LocalizedString.resource(R.string.common_name_penny, name)
     } else {
-        LocalizedString.resource(R.string.calculator_name_rub, name)
+        LocalizedString.resource(R.string.common_name_rub, name)
     },
     count = count,
     amount = amount,
