@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.settings.domain
 
-import kaczmarek.moneycalculator.core.domain.Banknote
+import kaczmarek.moneycalculator.core.banknote.domain.Banknote
 
 data class Settings(
     val banknotes: List<Banknote>,

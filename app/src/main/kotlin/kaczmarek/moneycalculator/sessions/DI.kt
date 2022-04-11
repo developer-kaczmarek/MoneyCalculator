@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.sessions
 
 import com.arkivanov.decompose.ComponentContext
 import kaczmarek.moneycalculator.core.ComponentFactory
-import kaczmarek.moneycalculator.core.data.storage.MoneyCalculatorDatabase
+import kaczmarek.moneycalculator.core.storage.MoneyCalculatorDatabase
 import kaczmarek.moneycalculator.sessions.data.SessionsStorage
 import kaczmarek.moneycalculator.sessions.data.SessionsStorageImpl
 import kaczmarek.moneycalculator.sessions.domain.DeleteOldSessionsIfNeedInteractor

@@ -26,8 +26,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.core.ui.theme.AppTheme
-import kaczmarek.moneycalculator.core.ui.utils.resolve
+import kaczmarek.moneycalculator.core.theme.AppTheme
+import kaczmarek.moneycalculator.core.utils.resolve
+import kaczmarek.moneycalculator.core.widgets.LceWidget
 import me.aartikov.sesame.loading.simple.Loading
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -36,76 +37,65 @@ fun CalculatorUi(
     component: CalculatorComponent,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
-        val lazyListState = rememberLazyListState()
+    LceWidget(
+        data = component.calculatingSessionViewState,
+        onRetryClick = {}
+    ) {
+        Box(modifier = modifier) {
+            val lazyListState = rememberLazyListState()
 
-        when (val data = component.calculatingSessionViewState) {
-            is Loading.State.Error -> {
-                println("Error, ${data.throwable}")
+            if (it.isKeepScreenOn) {
+                KeepScreenOn()
             }
+            Spacer(
+                modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colors.surface)
+            )
 
-            is Loading.State.Loading -> {
-                println("Loading")
-            }
-
-            is Loading.State.Empty -> {
-                println("Empty")
-            }
-
-            is Loading.State.Data -> {
-                if (data.data.isKeepScreenOn) {
-                    KeepScreenOn()
-                }
-                Spacer(
-                    modifier = Modifier
-                        .height(150.dp)
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colors.surface)
+            Column(modifier = Modifier.padding(vertical = 10.dp)) {
+                TotalBoard(
+                    totalAmount = stringResource(
+                        R.string.calculator_total_amount,
+                        it.totalAmount
+                    ),
+                    totalCount = stringResource(
+                        R.string.calculator_total_count,
+                        it.totalCount
+                    )
                 )
 
-                Column(modifier = Modifier.padding(vertical = 10.dp)) {
-                    TotalBoard(
-                        totalAmount = stringResource(
-                            R.string.calculator_total_amount,
-                            data.data.totalAmount
-                        ),
-                        totalCount = stringResource(
-                            R.string.calculator_total_count,
-                            data.data.totalCount
-                        )
-                    )
-
-                    LaunchedEffect(component.selectedBanknoteIndex) {
-                        lazyListState.animateScrollToItem(component.selectedBanknoteIndex)
-                    }
-
-                    LazyRow(
-                        contentPadding = PaddingValues(10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        state = lazyListState
-                    ) {
-                        itemsIndexed(data.data.banknotes) { index: Int, item: DetailedBanknoteViewData ->
-                            BanknoteCard(
-                                item = item,
-                                isSelected = index == component.selectedBanknoteIndex,
-                                onBanknoteCardClick = component::onBanknoteCardClick
-                            )
-                        }
-                    }
-
-                    CalculatorKeyboard(
-                        isClassicKeyboard = data.data.isClassicKeyboard,
-                        isForwardButtonEnabled = data.data.isForwardButtonEnabled,
-                        isNextButtonEnabled = data.data.isNextButtonEnabled,
-                        onDigitClick = component::onDigitClick,
-                        onBackspaceClick = component::onBackspaceClick,
-                        onSaveClick = component::onSaveClick,
-                        onForwardClick = component::onForwardClick,
-                        onNextClick = component::onNextClick,
-                        onCountingDetailsClick = component::onCountingDetailsClick,
-                        onBackspaceLongClick = component::onBackspaceLongClick
-                    )
+                LaunchedEffect(component.selectedBanknoteIndex) {
+                    lazyListState.animateScrollToItem(component.selectedBanknoteIndex)
                 }
+
+                LazyRow(
+                    contentPadding = PaddingValues(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    state = lazyListState
+                ) {
+                    itemsIndexed(it.banknotes) { index: Int, item: DetailedBanknoteViewData ->
+                        BanknoteCard(
+                            item = item,
+                            isSelected = index == component.selectedBanknoteIndex,
+                            onBanknoteCardClick = component::onBanknoteCardClick
+                        )
+                    }
+                }
+
+                CalculatorKeyboard(
+                    isClassicKeyboard = it.isClassicKeyboard,
+                    isForwardButtonEnabled = it.isForwardButtonEnabled,
+                    isNextButtonEnabled = it.isNextButtonEnabled,
+                    onDigitClick = component::onDigitClick,
+                    onBackspaceClick = component::onBackspaceClick,
+                    onSaveClick = component::onSaveClick,
+                    onForwardClick = component::onForwardClick,
+                    onNextClick = component::onNextClick,
+                    onCountingDetailsClick = component::onCountingDetailsClick,
+                    onBackspaceLongClick = component::onBackspaceLongClick
+                )
             }
         }
     }

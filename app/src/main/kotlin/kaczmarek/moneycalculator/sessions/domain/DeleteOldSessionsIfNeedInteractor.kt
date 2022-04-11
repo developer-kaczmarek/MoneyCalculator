@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.sessions.domain
 
-import kaczmarek.moneycalculator.core.ui.utils.getFormattedDateAfterDaysSubtracted
+import kaczmarek.moneycalculator.core.utils.getFormattedDateAfterDaysSubtracted
 import kaczmarek.moneycalculator.sessions.data.SessionsStorage
 import kaczmarek.moneycalculator.settings.data.SettingsStorage
 import kaczmarek.moneycalculator.settings.domain.Settings

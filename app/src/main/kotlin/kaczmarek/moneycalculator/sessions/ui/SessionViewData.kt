@@ -1,8 +1,8 @@
 package kaczmarek.moneycalculator.sessions.ui
 
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.core.ui.utils.getFormattedDateHeader
-import kaczmarek.moneycalculator.core.ui.utils.toFormattedAmount
+import kaczmarek.moneycalculator.core.utils.getFormattedDateHeader
+import kaczmarek.moneycalculator.core.utils.toFormattedAmount
 import kaczmarek.moneycalculator.sessions.domain.Session
 import me.aartikov.sesame.localizedstring.LocalizedString
 

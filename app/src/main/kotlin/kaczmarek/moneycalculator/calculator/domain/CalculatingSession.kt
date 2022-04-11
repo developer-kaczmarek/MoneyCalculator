@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.calculator.domain
 
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.settings.domain.Settings
 
 data class CalculatingSession(

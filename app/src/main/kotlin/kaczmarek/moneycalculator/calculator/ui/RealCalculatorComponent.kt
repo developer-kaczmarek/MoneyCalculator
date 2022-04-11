@@ -8,13 +8,13 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnStart
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.calculator.domain.GetCalculatingSessionInteractor
-import kaczmarek.moneycalculator.core.ui.error_handling.ErrorHandler
-import kaczmarek.moneycalculator.core.ui.error_handling.safeLaunch
-import kaczmarek.moneycalculator.core.ui.message.MessageData
-import kaczmarek.moneycalculator.core.ui.message.MessageService
-import kaczmarek.moneycalculator.core.ui.utils.componentCoroutineScope
-import kaczmarek.moneycalculator.core.ui.utils.toComposeState
-import kaczmarek.moneycalculator.core.ui.utils.toFormattedAmount
+import kaczmarek.moneycalculator.core.error_handling.ErrorHandler
+import kaczmarek.moneycalculator.core.error_handling.safeLaunch
+import kaczmarek.moneycalculator.core.message.domain.MessageData
+import kaczmarek.moneycalculator.core.message.data.MessageService
+import kaczmarek.moneycalculator.core.utils.componentCoroutineScope
+import kaczmarek.moneycalculator.core.utils.toComposeState
+import kaczmarek.moneycalculator.core.utils.toFormattedAmount
 import kaczmarek.moneycalculator.sessions.domain.SaveSessionInteractor
 import me.aartikov.sesame.loading.simple.OrdinaryLoading
 import me.aartikov.sesame.loading.simple.dataOrNull
@@ -155,6 +155,11 @@ class RealCalculatorComponent(
         coroutineScope.safeLaunch(errorHandler) {
             calculatorLoading.refresh()
             selectedBanknoteIndex = 0
+            messageService.showMessage(
+                MessageData(
+                    text = LocalizedString.resource(R.string.calculator_all_delete_values)
+                )
+            )
         }
     }
 }

@@ -1,8 +1,8 @@
 package kaczmarek.moneycalculator.sessions.domain
 
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
-import kaczmarek.moneycalculator.core.ui.utils.getFormattedCurrentDate
-import kaczmarek.moneycalculator.core.ui.utils.getFormattedCurrentTime
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.utils.getFormattedCurrentDate
+import kaczmarek.moneycalculator.core.utils.getFormattedCurrentTime
 import kaczmarek.moneycalculator.sessions.data.SessionsStorage
 import java.util.*
 

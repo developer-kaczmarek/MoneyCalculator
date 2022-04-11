@@ -5,11 +5,11 @@ import androidx.compose.runtime.getValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import kaczmarek.moneycalculator.app_theme.domain.GetThemeTypeInteractor
-import kaczmarek.moneycalculator.core.ui.error_handling.ErrorHandler
-import kaczmarek.moneycalculator.core.ui.theme.ThemeType
-import kaczmarek.moneycalculator.core.ui.utils.componentCoroutineScope
-import kaczmarek.moneycalculator.core.ui.utils.handleErrors
-import kaczmarek.moneycalculator.core.ui.utils.toComposeState
+import kaczmarek.moneycalculator.core.error_handling.ErrorHandler
+import kaczmarek.moneycalculator.core.theme.ThemeType
+import kaczmarek.moneycalculator.core.utils.componentCoroutineScope
+import kaczmarek.moneycalculator.core.utils.handleErrors
+import kaczmarek.moneycalculator.core.utils.toComposeState
 import kaczmarek.moneycalculator.settings.domain.Settings
 import me.aartikov.sesame.loading.simple.OrdinaryLoading
 import me.aartikov.sesame.loading.simple.dataOrNull

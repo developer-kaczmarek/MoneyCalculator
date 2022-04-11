@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.sessions.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
 import kotlinx.serialization.Serializable

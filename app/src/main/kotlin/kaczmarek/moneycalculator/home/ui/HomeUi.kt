@@ -13,12 +13,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import kaczmarek.moneycalculator.calculator.ui.CalculatorUi
-import kaczmarek.moneycalculator.core.ui.theme.AppTheme
-import kaczmarek.moneycalculator.core.ui.utils.createFakeRouterState
-import kaczmarek.moneycalculator.core.ui.utils.noOverlapByMessage
+import kaczmarek.moneycalculator.core.theme.AppTheme
+import kaczmarek.moneycalculator.core.utils.createFakeRouterState
+import kaczmarek.moneycalculator.core.utils.noOverlapByMessage
 import kaczmarek.moneycalculator.settings.ui.SettingsUi
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.core.ui.utils.currentInstance
+import kaczmarek.moneycalculator.core.utils.currentInstance
 import kaczmarek.moneycalculator.sessions.ui.SessionsUi
 import kaczmarek.moneycalculator.settings.ui.FakeSettingsUiComponent
 

@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import com.arkivanov.decompose.defaultComponentContext
 import kaczmarek.moneycalculator.core.ComponentFactory
 import kaczmarek.moneycalculator.core.koin
-import kaczmarek.moneycalculator.core.ui.ActivityProvider
+import kaczmarek.moneycalculator.core.ActivityProvider
 import kaczmarek.moneycalculator.root.createRootComponent
 import kaczmarek.moneycalculator.root.ui.RootUi
 

@@ -2,9 +2,9 @@ package kaczmarek.moneycalculator.calculator.ui
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.calculator.domain.CalculatingSession
-import kaczmarek.moneycalculator.core.domain.BanknoteId
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
-import kaczmarek.moneycalculator.core.ui.utils.toFormattedAmount
+import kaczmarek.moneycalculator.core.banknote.domain.BanknoteId
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.utils.toFormattedAmount
 import kaczmarek.moneycalculator.settings.domain.Settings
 import me.aartikov.sesame.localizedstring.LocalizedString
 

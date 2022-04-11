@@ -8,10 +8,10 @@ import com.arkivanov.decompose.router.RouterState
 import com.arkivanov.decompose.router.router
 import kaczmarek.moneycalculator.app_theme.createAppThemeComponent
 import kaczmarek.moneycalculator.core.ComponentFactory
-import kaczmarek.moneycalculator.core.ui.utils.toComposeState
+import kaczmarek.moneycalculator.core.utils.toComposeState
 import kaczmarek.moneycalculator.home.createHomeComponent
 import kaczmarek.moneycalculator.home.ui.HomeComponent
-import kaczmarek.moneycalculator.message.createMessagesComponent
+import kaczmarek.moneycalculator.core.message.createMessagesComponent
 import kotlinx.parcelize.Parcelize
 
 class RealRootComponent(

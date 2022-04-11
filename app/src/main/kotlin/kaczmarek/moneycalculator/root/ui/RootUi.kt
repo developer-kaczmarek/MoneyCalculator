@@ -12,14 +12,14 @@ import com.arkivanov.decompose.extensions.compose.jetpack.Children
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kaczmarek.moneycalculator.app_theme.ui.AppThemeUi
 import kaczmarek.moneycalculator.app_theme.ui.FakeAppThemeComponent
-import kaczmarek.moneycalculator.core.ui.theme.AppTheme
-import kaczmarek.moneycalculator.core.ui.theme.LocalThemeType
-import kaczmarek.moneycalculator.core.ui.theme.ThemeType
-import kaczmarek.moneycalculator.core.ui.utils.createFakeRouterState
+import kaczmarek.moneycalculator.core.theme.AppTheme
+import kaczmarek.moneycalculator.core.theme.LocalThemeType
+import kaczmarek.moneycalculator.core.theme.ThemeType
+import kaczmarek.moneycalculator.core.utils.createFakeRouterState
 import kaczmarek.moneycalculator.home.ui.FakeHomeComponent
 import kaczmarek.moneycalculator.home.ui.HomeUi
-import kaczmarek.moneycalculator.message.ui.FakeMessageComponent
-import kaczmarek.moneycalculator.message.ui.MessageUi
+import kaczmarek.moneycalculator.core.message.ui.FakeMessageComponent
+import kaczmarek.moneycalculator.core.message.ui.MessageUi
 
 @Composable
 fun RootUi(

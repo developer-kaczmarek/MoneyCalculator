@@ -3,7 +3,7 @@ package kaczmarek.moneycalculator.root.ui
 import com.arkivanov.decompose.router.RouterState
 import kaczmarek.moneycalculator.app_theme.ui.AppThemeComponent
 import kaczmarek.moneycalculator.home.ui.HomeComponent
-import kaczmarek.moneycalculator.message.ui.MessageComponent
+import kaczmarek.moneycalculator.core.message.ui.MessageComponent
 
 interface RootComponent {
 

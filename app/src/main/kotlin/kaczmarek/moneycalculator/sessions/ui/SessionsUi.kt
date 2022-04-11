@@ -14,13 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kaczmarek.moneycalculator.R
-import kaczmarek.moneycalculator.core.ui.utils.resolve
-import kaczmarek.moneycalculator.core.ui.widgets.Header
-import kaczmarek.moneycalculator.core.ui.widgets.LceWidget
+import kaczmarek.moneycalculator.core.utils.resolve
+import kaczmarek.moneycalculator.core.widgets.Header
+import kaczmarek.moneycalculator.core.widgets.LceWidget
 import me.aartikov.sesame.localizedstring.LocalizedString
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.tooling.preview.Preview
-import kaczmarek.moneycalculator.core.ui.theme.AppTheme
+import kaczmarek.moneycalculator.core.theme.AppTheme
 import me.aartikov.sesame.loading.simple.Loading
 
 @Composable

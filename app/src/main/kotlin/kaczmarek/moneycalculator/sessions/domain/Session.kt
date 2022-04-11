@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.sessions.domain
 
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 
 data class Session(
     val id: SessionId,

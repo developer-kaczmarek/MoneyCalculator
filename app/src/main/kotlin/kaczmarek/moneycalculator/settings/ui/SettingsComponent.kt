@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.settings.ui
 
-import kaczmarek.moneycalculator.core.domain.Banknote
+import kaczmarek.moneycalculator.core.banknote.domain.Banknote
 import kaczmarek.moneycalculator.settings.domain.Settings
 import me.aartikov.sesame.loading.simple.Loading
 

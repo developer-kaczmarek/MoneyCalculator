@@ -8,7 +8,7 @@ import com.arkivanov.decompose.router.bringToFront
 import com.arkivanov.decompose.router.router
 import kaczmarek.moneycalculator.calculator.createCalculatorComponent
 import kaczmarek.moneycalculator.core.ComponentFactory
-import kaczmarek.moneycalculator.core.ui.utils.toComposeState
+import kaczmarek.moneycalculator.core.utils.toComposeState
 import kaczmarek.moneycalculator.sessions.createSessionComponent
 import kaczmarek.moneycalculator.settings.createSettingsComponent
 import kaczmarek.moneycalculator.settings.ui.SettingsComponent

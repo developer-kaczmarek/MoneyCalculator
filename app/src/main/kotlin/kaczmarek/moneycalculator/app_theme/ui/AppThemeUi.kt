@@ -2,8 +2,8 @@ package kaczmarek.moneycalculator.app_theme.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import kaczmarek.moneycalculator.core.ui.theme.AppTheme
-import kaczmarek.moneycalculator.core.ui.theme.ThemeType
+import kaczmarek.moneycalculator.core.theme.AppTheme
+import kaczmarek.moneycalculator.core.theme.ThemeType
 
 @Composable
 fun AppThemeUi(

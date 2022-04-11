@@ -1,6 +1,6 @@
 package kaczmarek.moneycalculator.sessions.data
 
-import kaczmarek.moneycalculator.core.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
 
 class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorage {
