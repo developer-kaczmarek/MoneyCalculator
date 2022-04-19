@@ -42,15 +42,16 @@
     <string name="calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
     <string name="calculator_all_delete_values">Все значения удалены</string>
 
-    <!-- History -->
-    <string name="history_title">История</string>
-    <string name="history_today_sessions">Сегодня</string>
-    <string name="history_yesterday_sessions">Вчера</string>
-    <string name="history_empty_history">Здесь будет отображаться история вычислений</string>
-    <string name="history_session_delete">Запись удалена</string>
-    <string name="history_total_count">%d шт</string>
-    <string name="history_sum_name">Сумма:</string>
-    <string name="history_count_name">Количество:</string>
+    <!-- Sessions -->
+    <string name="sessions_title">История</string>
+    <string name="sessions_today_sessions">Сегодня</string>
+    <string name="sessions_yesterday_sessions">Вчера</string>
+    <string name="sessions_empty_history">Здесь будет отображаться история вычислений</string>
+    <string name="sessions_session_delete">Запись удалена</string>
+    <string name="sessions_total_count">%d шт</string>
+    <string name="sessions_sum_name">Сумма:</string>
+    <string name="sessions_count_name">Количество:</string>
+    <string name="sessions_cancel">Отмена</string>
 
     <!-- Home -->
     <string name="home_calculator_name">Калькулятор</string>

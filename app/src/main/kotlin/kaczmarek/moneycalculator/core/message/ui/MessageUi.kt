@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,6 +30,7 @@ fun MessageUi(
         component.visibleMessageData?.let {
             MessagePopup(
                 messageData = it,
+                timerData = component.timerData,
                 bottomPadding = 16.dp + additionalBottomPadding,
                 onAction = component::onActionClick
             )
@@ -41,52 +41,70 @@ fun MessageUi(
 @Composable
 fun MessagePopup(
     messageData: MessageData,
+    timerData: TimerData?,
     onAction: () -> Unit,
     bottomPadding: Dp
 ) {
-    Popup(
-        alignment = Alignment.BottomCenter,
-        properties = PopupProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false
-        )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = bottomPadding)
     ) {
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = MaterialTheme.colors.background,
-            elevation = 3.dp,
-            modifier = Modifier
-                .padding(bottom = bottomPadding, start = 8.dp, end = 8.dp)
-                .wrapContentSize()
+        Popup(
+            alignment = Alignment.BottomCenter,
+            properties = PopupProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            )
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            Card(
+                shape = RoundedCornerShape(8.dp),
+                elevation = 3.dp,
                 modifier = Modifier
-                    .padding(vertical = 13.dp, horizontal = 16.dp)
-                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .wrapContentSize()
             ) {
-                messageData.iconRes?.let {
-                    Icon(
-                        painter = painterResource(it),
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.primary
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier
+                        .padding(vertical = 13.dp, horizontal = 16.dp)
+                        .fillMaxWidth()
+                ) {
+                    timerData?.let { MessageTimer(label = it.label, progress = it.progress) }
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = messageData.text.resolve(),
+                        color = MaterialTheme.colors.onBackground,
+                        style = MaterialTheme.typography.body1
                     )
-                }
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = messageData.text.resolve(),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.body1
-                )
-                messageData.actionTitle?.let {
-                    MessageButton(
-                        text = it.resolve(),
-                        onClick = onAction
-                    )
+                    messageData.buttonLabel?.let {
+                        MessageButton(text = it.resolve(), onClick = onAction)
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MessageTimer(
+    label: String,
+    progress: Float,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.size(32.dp), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.onSurface,
+            progress = progress,
+            strokeWidth = 3.dp
+        )
+        Text(
+            text = label,
+            modifier = Modifier.padding(2.dp),
+            color = MaterialTheme.colors.onBackground
+        )
     }
 }
 
@@ -118,6 +136,8 @@ fun MessageUiPreview() {
 class FakeMessageComponent : MessageComponent {
 
     override val visibleMessageData = MessageData(LocalizedString.raw("Message"))
+
+    override val timerData: TimerData? = null
 
     override fun onActionClick() = Unit
 }

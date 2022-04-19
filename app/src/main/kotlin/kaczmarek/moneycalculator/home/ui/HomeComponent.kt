@@ -2,7 +2,7 @@ package kaczmarek.moneycalculator.home.ui
 
 import com.arkivanov.decompose.router.RouterState
 import kaczmarek.moneycalculator.calculator.ui.CalculatorComponent
-import kaczmarek.moneycalculator.sessions.ui.SessionsComponent
+import kaczmarek.moneycalculator.sessions.ui.list.SessionsComponent
 import kaczmarek.moneycalculator.settings.ui.SettingsComponent
 
 interface HomeComponent {

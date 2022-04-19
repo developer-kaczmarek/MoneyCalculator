@@ -19,7 +19,7 @@ import kaczmarek.moneycalculator.core.utils.noOverlapByMessage
 import kaczmarek.moneycalculator.settings.ui.SettingsUi
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.utils.currentInstance
-import kaczmarek.moneycalculator.sessions.ui.SessionsUi
+import kaczmarek.moneycalculator.sessions.ui.list.SessionsUi
 import kaczmarek.moneycalculator.settings.ui.FakeSettingsUiComponent
 
 @Composable

@@ -12,4 +12,4 @@ data class Session(
 )
 
 @JvmInline
-value class SessionId(val value: String)
+value class SessionId(val value: Int)

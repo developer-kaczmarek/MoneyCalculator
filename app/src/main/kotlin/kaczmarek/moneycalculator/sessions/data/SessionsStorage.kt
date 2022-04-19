@@ -2,12 +2,13 @@ package kaczmarek.moneycalculator.sessions.data
 
 import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
+import kaczmarek.moneycalculator.sessions.domain.SessionId
 
 interface SessionsStorage {
 
     suspend fun getSessions(): List<Session>
 
-    suspend fun deleteSession(session: Session)
+    suspend fun deleteSessionById(id: SessionId)
 
     suspend fun saveSession(
         date: String,

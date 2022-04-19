@@ -6,5 +6,7 @@ interface MessageComponent {
 
     val visibleMessageData: MessageData?
 
+    val timerData: TimerData?
+
     fun onActionClick()
 }

@@ -2,6 +2,7 @@ package kaczmarek.moneycalculator.sessions.data
 
 import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
+import kaczmarek.moneycalculator.sessions.domain.SessionId
 
 class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorage {
 
@@ -9,8 +10,8 @@ class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorag
         return sessionsDao.getSessions().map { it.toSession() }
     }
 
-    override suspend fun deleteSession(session: Session) {
-        sessionsDao.deleteSessionById(session.id.value.toInt())
+    override suspend fun deleteSessionById(id: SessionId) {
+        sessionsDao.deleteSessionById(id.value)
     }
 
     override suspend fun saveSession(

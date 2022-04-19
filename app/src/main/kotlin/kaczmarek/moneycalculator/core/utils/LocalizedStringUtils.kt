@@ -9,7 +9,7 @@ import kotlinx.datetime.toJavaInstant
 import me.aartikov.sesame.localizedstring.LocalizedString
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
 
 @Composable
 fun LocalizedString.resolve(): String {
@@ -20,10 +20,10 @@ fun LocalizedString.resolve(): String {
 fun String.getFormattedDateHeader(): LocalizedString {
     val formatter = SimpleDateFormat(Patterns.DD_MM_YYYY, Locale.getDefault())
     val today = Date.from(Clock.System.now().toJavaInstant())
-    val yesterday = Date.from(Clock.System.now().minus(Duration.Companion.days(1)).toJavaInstant())
+    val yesterday = Date.from(Clock.System.now().minus(1.days).toJavaInstant())
     return when (this) {
-        formatter.format(today) -> LocalizedString.resource(R.string.history_today_sessions)
-        formatter.format(yesterday) -> LocalizedString.resource(R.string.history_yesterday_sessions)
+        formatter.format(today) -> LocalizedString.resource(R.string.sessions_today_sessions)
+        formatter.format(yesterday) -> LocalizedString.resource(R.string.sessions_yesterday_sessions)
         else -> LocalizedString.raw(this)
     }
 }
