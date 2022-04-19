@@ -21,7 +21,7 @@ data class SessionDbModel(
 
 fun SessionDbModel.toSession(): Session {
     return Session(
-        id = SessionId(id.toString()),
+        id = SessionId(id),
         date = date,
         time = time,
         totalAmount = totalAmount,

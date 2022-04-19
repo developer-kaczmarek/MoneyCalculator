@@ -6,7 +6,7 @@ import kaczmarek.moneycalculator.core.utils.toFormattedAmount
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
 import me.aartikov.sesame.localizedstring.LocalizedString
-import java.util.*
+import kotlin.random.Random
 
 sealed class SessionViewData(open val id: String) {
 
@@ -17,18 +17,18 @@ sealed class SessionViewData(open val id: String) {
         val totalAmount: LocalizedString,
         val totalCount: LocalizedString,
         val time: String
-    ) : SessionViewData(sessionId.value)
+    ) : SessionViewData(sessionId.value.toString())
 
     companion object {
         val MOCK = DetailsViewData(
-            sessionId = SessionId("1"),
+            sessionId = SessionId(1),
             totalAmount = LocalizedString.raw("0"),
             totalCount = LocalizedString.raw("0"),
             time = "18/02/2021"
         )
 
         fun mocks(count: Int = 7): List<SessionViewData> {
-            return List(count) { MOCK.copy(sessionId = SessionId(UUID.randomUUID().toString())) }
+            return List(count) { MOCK.copy(sessionId = SessionId(Random.nextInt())) }
         }
     }
 }
