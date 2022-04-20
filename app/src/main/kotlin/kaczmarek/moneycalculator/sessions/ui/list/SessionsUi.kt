@@ -25,7 +25,6 @@ import kaczmarek.moneycalculator.core.utils.resolve
 import kaczmarek.moneycalculator.core.widgets.Header
 import kaczmarek.moneycalculator.core.widgets.LceWidget
 import kaczmarek.moneycalculator.sessions.domain.SessionId
-import kaczmarek.moneycalculator.sessions.ui.SessionViewData
 import me.aartikov.sesame.loading.simple.Loading
 import me.aartikov.sesame.localizedstring.LocalizedString
 

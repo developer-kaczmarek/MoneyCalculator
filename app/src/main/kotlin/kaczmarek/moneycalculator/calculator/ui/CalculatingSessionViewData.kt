@@ -10,8 +10,8 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 
 data class CalculatingSessionViewData(
     val banknotes: List<DetailedBanknoteViewData>,
-    val totalAmount: String,
-    val totalCount: Int,
+    val totalAmount: LocalizedString,
+    val totalCount: LocalizedString,
     val isClassicKeyboard: Boolean,
     val isKeepScreenOn: Boolean,
     val isForwardButtonEnabled: Boolean,
@@ -20,8 +20,8 @@ data class CalculatingSessionViewData(
     companion object {
         val MOCK = CalculatingSessionViewData(
             banknotes = emptyList(),
-            totalCount = 0,
-            totalAmount = "0",
+            totalCount = LocalizedString.raw("0 шт"),
+            totalAmount = LocalizedString.raw(" 0 руб"),
             isClassicKeyboard = true,
             isForwardButtonEnabled = false,
             isNextButtonEnabled = false,
@@ -56,10 +56,15 @@ fun CalculatingSession.toViewData(selectedBanknoteIndex: Int): CalculatingSessio
     val items = this.banknotes.map { it.toViewData() }
     return CalculatingSessionViewData(
         banknotes = items,
-        totalAmount = items.sumOf { item ->
-            item.amount.filterNot { it.isWhitespace() }.toDouble()
-        }.toFormattedAmount(),
-        totalCount = items.sumOf { it.count.toInt() },
+        totalAmount = LocalizedString.resource(
+            R.string.calculator_total_amount,
+            items.sumOf { item ->
+                item.amount.filterNot { it.isWhitespace() }.toDouble()
+            }.toFormattedAmount()
+        ),
+        totalCount = LocalizedString.resource(
+            R.string.calculator_total_count,
+            items.sumOf { it.count.toInt() }),
         isForwardButtonEnabled = selectedBanknoteIndex != 0,
         isNextButtonEnabled = selectedBanknoteIndex != items.lastIndex,
         isClassicKeyboard = this.keyboardLayoutType == Settings.KeyboardLayoutType.Classic,

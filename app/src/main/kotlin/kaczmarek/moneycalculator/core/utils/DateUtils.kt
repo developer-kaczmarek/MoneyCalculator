@@ -6,7 +6,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.toJavaInstant
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
 
 object Patterns {
     const val DD_MM_YYYY = "dd/MM/yyyy"
@@ -22,6 +22,6 @@ fun getFormattedCurrentDate(): String {
 }
 
 fun getFormattedDateAfterDaysSubtracted(days: Int): String {
-    val date = Date.from(Clock.System.now().minus(Duration.Companion.days(days)).toJavaInstant())
+    val date = Date.from(Clock.System.now().minus(days.days).toJavaInstant())
     return SimpleDateFormat(DD_MM_YYYY, Locale.getDefault()).format(date)
 }

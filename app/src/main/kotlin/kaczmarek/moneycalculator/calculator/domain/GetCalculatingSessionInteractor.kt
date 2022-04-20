@@ -9,10 +9,12 @@ class GetCalculatingSessionInteractor(
 ) {
 
     suspend fun execute(): CalculatingSession {
-        return CalculatingSession(
+        val session = CalculatingSession(
             banknotes = banknotesStorage.getVisibleBanknotes(),
             keyboardLayoutType = settingsStorage.getKeyboardLayoutType(),
             isKeepScreenOn = settingsStorage.isKeepScreenOn()
         )
+        banknotesStorage.resetBanknotesVisibilityChangedSettings()
+        return session
     }
 }

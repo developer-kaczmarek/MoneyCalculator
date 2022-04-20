@@ -2,6 +2,7 @@ package kaczmarek.moneycalculator.home.ui
 
 import com.arkivanov.decompose.router.RouterState
 import kaczmarek.moneycalculator.calculator.ui.CalculatorComponent
+import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.ui.list.SessionsComponent
 import kaczmarek.moneycalculator.settings.ui.SettingsComponent
 
@@ -15,6 +16,7 @@ interface HomeComponent {
 
     sealed interface Output {
         object ThemeChanged : Output
+        class DetailedSessionRequested(val session: Session) : Output
     }
 
     sealed interface Child {

@@ -20,6 +20,7 @@ import kaczmarek.moneycalculator.home.ui.FakeHomeComponent
 import kaczmarek.moneycalculator.home.ui.HomeUi
 import kaczmarek.moneycalculator.core.message.ui.FakeMessageComponent
 import kaczmarek.moneycalculator.core.message.ui.MessageUi
+import kaczmarek.moneycalculator.sessions.ui.details.SessionUi
 
 @Composable
 fun RootUi(
@@ -44,6 +45,7 @@ fun RootUi(
                 Children(component.routerState) { child ->
                     when (val instance = child.instance) {
                         is RootComponent.Child.Home -> HomeUi(instance.component)
+                        is RootComponent.Child.DetailedSession -> SessionUi(instance.component)
                     }
                 }
 

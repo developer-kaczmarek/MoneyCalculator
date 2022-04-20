@@ -10,6 +10,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kaczmarek.moneycalculator.R
+import kaczmarek.moneycalculator.core.error_handling.errorMessage
+import kaczmarek.moneycalculator.core.utils.resolve
 import me.aartikov.sesame.loading.simple.Loading
 
 @Composable
@@ -23,28 +25,18 @@ fun <T> LceWidget(
     when (data) {
         is Loading.State.Error -> ErrorWidget(
             modifier = modifier,
-            description = stringResource(id = R.string.common_error, data.throwable),
+            throwable = data.throwable,
             onRetry = onRetryClick
         )
-        is Loading.State.Loading -> LoadingWidget(modifier = modifier)
+        is Loading.State.Loading -> Unit
         is Loading.State.Empty -> emptyContent?.invoke()
         is Loading.State.Data -> content(data.data)
     }
 }
 
 @Composable
-private fun LoadingWidget(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
 private fun ErrorWidget(
-    description: String,
+    throwable: Throwable,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -57,7 +49,7 @@ private fun ErrorWidget(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = description,
+                text = throwable.errorMessage.resolve(),
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.body1

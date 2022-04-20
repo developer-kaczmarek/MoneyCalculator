@@ -5,10 +5,9 @@ import kaczmarek.moneycalculator.core.ComponentFactory
 import kaczmarek.moneycalculator.core.storage.MoneyCalculatorDatabase
 import kaczmarek.moneycalculator.sessions.data.SessionsStorage
 import kaczmarek.moneycalculator.sessions.data.SessionsStorageImpl
-import kaczmarek.moneycalculator.sessions.domain.DeleteOldSessionsIfNeedInteractor
-import kaczmarek.moneycalculator.sessions.domain.DeleteSessionByIdInteractor
-import kaczmarek.moneycalculator.sessions.domain.GetSessionsInteractor
-import kaczmarek.moneycalculator.sessions.domain.SaveSessionInteractor
+import kaczmarek.moneycalculator.sessions.domain.*
+import kaczmarek.moneycalculator.sessions.ui.details.RealSessionComponent
+import kaczmarek.moneycalculator.sessions.ui.details.SessionComponent
 import kaczmarek.moneycalculator.sessions.ui.list.SessionsComponent
 import kaczmarek.moneycalculator.sessions.ui.list.RealSessionsComponent
 import org.koin.core.component.get
@@ -23,8 +22,16 @@ val sessionsModule = module {
     factory { DeleteSessionByIdInteractor(get()) }
 }
 
-fun ComponentFactory.createSessionComponent(
-    componentContext: ComponentContext
+fun ComponentFactory.createSessionsComponent(
+    componentContext: ComponentContext,
+    onOutput: (SessionsComponent.Output) -> Unit,
 ): SessionsComponent {
-    return RealSessionsComponent(componentContext, get(), get(), get(), get(), get())
+    return RealSessionsComponent(componentContext, onOutput, get(), get(), get(), get(), get())
+}
+
+fun createSessionComponent(
+    componentContext: ComponentContext,
+    detailedSession: Session
+): SessionComponent {
+    return RealSessionComponent(componentContext, detailedSession)
 }

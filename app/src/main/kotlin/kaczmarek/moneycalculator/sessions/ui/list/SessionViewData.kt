@@ -1,4 +1,4 @@
-package kaczmarek.moneycalculator.sessions.ui
+package kaczmarek.moneycalculator.sessions.ui.list
 
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.utils.getFormattedDateHeader
@@ -6,7 +6,7 @@ import kaczmarek.moneycalculator.core.utils.toFormattedAmount
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
 import me.aartikov.sesame.localizedstring.LocalizedString
-import kotlin.random.Random
+import java.util.*
 
 sealed class SessionViewData(open val id: String) {
 
@@ -16,19 +16,28 @@ sealed class SessionViewData(open val id: String) {
         val sessionId: SessionId,
         val totalAmount: LocalizedString,
         val totalCount: LocalizedString,
-        val time: String
-    ) : SessionViewData(sessionId.value.toString())
+        val time: String,
+        val output: Session
+    ) : SessionViewData(sessionId.value)
 
     companion object {
         val MOCK = DetailsViewData(
-            sessionId = SessionId(1),
+            sessionId = SessionId("1"),
             totalAmount = LocalizedString.raw("0"),
             totalCount = LocalizedString.raw("0"),
-            time = "18/02/2021"
+            time = "18/02/2021",
+            output = Session(
+                id = SessionId("1"),
+                date = "18/02/2021",
+                time = "17:22",
+                totalAmount = 0.0,
+                totalCount = 0,
+                banknotes = emptyList()
+            )
         )
 
         fun mocks(count: Int = 7): List<SessionViewData> {
-            return List(count) { MOCK.copy(sessionId = SessionId(Random.nextInt())) }
+            return List(count) { MOCK.copy(sessionId = SessionId(UUID.randomUUID().toString())) }
         }
     }
 }
@@ -43,6 +52,7 @@ fun Session.toViewData() = SessionViewData.DetailsViewData(
         R.string.common_name_rub,
         totalAmount.toFormattedAmount()
     ),
-    totalCount = LocalizedString.resource(R.string.sessions_total_count, totalCount),
-    time = time
+    totalCount = LocalizedString.resource(R.string.common_total_count, totalCount),
+    time = time,
+    output = this
 )

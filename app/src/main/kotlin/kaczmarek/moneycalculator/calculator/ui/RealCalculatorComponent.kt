@@ -5,29 +5,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.lifecycle.doOnCreate
 import com.arkivanov.essenty.lifecycle.doOnStart
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.calculator.domain.GetCalculatingSessionInteractor
+import kaczmarek.moneycalculator.core.banknote.domain.IsBanknotesVisibilityChangedInteractor
 import kaczmarek.moneycalculator.core.error_handling.ErrorHandler
 import kaczmarek.moneycalculator.core.error_handling.safeLaunch
-import kaczmarek.moneycalculator.core.message.domain.MessageData
 import kaczmarek.moneycalculator.core.message.data.MessageService
-import kaczmarek.moneycalculator.core.utils.componentCoroutineScope
-import kaczmarek.moneycalculator.core.utils.toComposeState
-import kaczmarek.moneycalculator.core.utils.toFormattedAmount
+import kaczmarek.moneycalculator.core.message.domain.MessageData
+import kaczmarek.moneycalculator.core.utils.*
 import kaczmarek.moneycalculator.sessions.domain.SaveSessionInteractor
-import me.aartikov.sesame.loading.simple.OrdinaryLoading
-import me.aartikov.sesame.loading.simple.dataOrNull
-import me.aartikov.sesame.loading.simple.mapData
-import me.aartikov.sesame.loading.simple.refresh
+import kaczmarek.moneycalculator.sessions.domain.Session
+import kaczmarek.moneycalculator.sessions.domain.SessionId
+import me.aartikov.sesame.loading.simple.*
 import me.aartikov.sesame.localizedstring.LocalizedString
+import java.util.*
 
 class RealCalculatorComponent(
     componentContext: ComponentContext,
+    private val onOutput: (CalculatorComponent.Output) -> Unit,
     private val errorHandler: ErrorHandler,
     private val messageService: MessageService,
     getCalculatingSessionInteractor: GetCalculatingSessionInteractor,
-    private val saveSessionInteractor: SaveSessionInteractor
+    private val saveSessionInteractor: SaveSessionInteractor,
+    private val isBanknotesVisibilityChangedInteractor: IsBanknotesVisibilityChangedInteractor
 ) : ComponentContext by componentContext, CalculatorComponent {
 
     private val coroutineScope = componentCoroutineScope()
@@ -47,8 +49,15 @@ class RealCalculatorComponent(
     }
 
     init {
+        lifecycle.doOnCreate {
+            calculatorLoading.handleErrors(coroutineScope, errorHandler)
+        }
         lifecycle.doOnStart {
-            calculatorLoading.refresh()
+            val refresh = isBanknotesVisibilityChangedInteractor.execute()
+
+            if (refresh || calculatorState is Loading.State.Empty) {
+                calculatorLoading.refresh()
+            }
         }
     }
 
@@ -134,7 +143,9 @@ class RealCalculatorComponent(
                         )
                     )
                 } else {
-                    saveSessionInteractor.execute(totalAmount, currentSession.banknotes)
+                    saveSessionInteractor.execute(
+                        totalAmount,
+                        currentSession.banknotes.filter { it.count.toInt() != 0 })
                     messageService.showMessage(
                         MessageData(
                             text = LocalizedString.resource(R.string.calculator_save_successful)
@@ -146,8 +157,31 @@ class RealCalculatorComponent(
     }
 
     override fun onCountingDetailsClick() {
-        coroutineScope.safeLaunch(errorHandler) {
-            messageService.showMessage(MessageData(text = LocalizedString.raw("onCountingDetailsClick")))
+        calculatorLoading.dataOrNull?.let { currentSession ->
+            val totalAmount = currentSession.banknotes.sumOf { item ->
+                item.amount.filterNot { it.isWhitespace() }.toDouble()
+            }
+
+            if (totalAmount == 0.0) {
+                messageService.showMessage(
+                    MessageData(
+                        text = LocalizedString.resource(R.string.calculator_open_details_error)
+                    )
+                )
+            } else {
+                onOutput(
+                    CalculatorComponent.Output.DetailedSessionRequested(
+                        Session(
+                            id = SessionId(UUID.randomUUID().toString()),
+                            date = getFormattedCurrentDate(),
+                            time = getFormattedCurrentTime(),
+                            totalAmount = totalAmount,
+                            totalCount = currentSession.banknotes.sumOf { it.count.toInt() },
+                            banknotes = currentSession.banknotes.filter { it.count.toInt() != 0 }
+                        )
+                    )
+                )
+            }
         }
     }
 
@@ -156,9 +190,7 @@ class RealCalculatorComponent(
             calculatorLoading.refresh()
             selectedBanknoteIndex = 0
             messageService.showMessage(
-                MessageData(
-                    text = LocalizedString.resource(R.string.calculator_all_delete_values)
-                )
+                MessageData(text = LocalizedString.resource(R.string.calculator_all_delete_values))
             )
         }
     }

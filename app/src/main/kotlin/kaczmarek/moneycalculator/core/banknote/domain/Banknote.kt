@@ -1,5 +1,7 @@
 package kaczmarek.moneycalculator.core.banknote.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 data class Banknote(
@@ -10,6 +12,7 @@ data class Banknote(
 )
 
 @Serializable
+@Parcelize
 data class DetailedBanknote(
     val id: BanknoteId,
     val name: String,
@@ -18,8 +21,9 @@ data class DetailedBanknote(
     val isShow: Boolean,
     val count: String,
     val amount: String
-)
+) : Parcelable
 
 @Serializable
 @JvmInline
-value class BanknoteId(val value: String)
+@Parcelize
+value class BanknoteId(val value: String) : Parcelable

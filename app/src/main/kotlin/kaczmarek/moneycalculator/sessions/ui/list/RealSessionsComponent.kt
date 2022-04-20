@@ -19,8 +19,6 @@ import kaczmarek.moneycalculator.sessions.domain.DeleteOldSessionsIfNeedInteract
 import kaczmarek.moneycalculator.sessions.domain.DeleteSessionByIdInteractor
 import kaczmarek.moneycalculator.sessions.domain.GetSessionsInteractor
 import kaczmarek.moneycalculator.sessions.domain.SessionId
-import kaczmarek.moneycalculator.sessions.ui.SessionViewData
-import kaczmarek.moneycalculator.sessions.ui.toViewData
 import me.aartikov.sesame.loading.simple.OrdinaryLoading
 import me.aartikov.sesame.loading.simple.mapData
 import me.aartikov.sesame.loading.simple.refresh
@@ -28,6 +26,7 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 
 class RealSessionsComponent(
     componentContext: ComponentContext,
+    private val onOutput: (SessionsComponent.Output) -> Unit,
     private val errorHandler: ErrorHandler,
     private val messageService: MessageService,
     getSessionsInteractor: GetSessionsInteractor,
@@ -90,9 +89,7 @@ class RealSessionsComponent(
     }
 
     override fun onSessionDetailsClick(item: SessionViewData.DetailsViewData) {
-        messageService.showMessage(
-            MessageData(text = LocalizedString.raw("onSessionClick"))
-        )
+        onOutput(SessionsComponent.Output.DetailedSessionRequested(item.output))
     }
 
     private fun deleteSessionById(id: SessionId) {

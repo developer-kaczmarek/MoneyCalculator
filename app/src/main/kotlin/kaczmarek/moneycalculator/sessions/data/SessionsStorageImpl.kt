@@ -11,7 +11,7 @@ class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorag
     }
 
     override suspend fun deleteSessionById(id: SessionId) {
-        sessionsDao.deleteSessionById(id.value)
+        sessionsDao.deleteSessionById(id.value.toInt())
     }
 
     override suspend fun saveSession(

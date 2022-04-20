@@ -1,7 +1,10 @@
 package kaczmarek.moneycalculator.sessions.domain
 
+import android.os.Parcelable
 import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Session(
     val id: SessionId,
     val date: String,
@@ -9,7 +12,8 @@ data class Session(
     val totalAmount: Double,
     val totalCount: Int,
     val banknotes: List<DetailedBanknote>
-)
+) : Parcelable
 
 @JvmInline
-value class SessionId(val value: Int)
+@Parcelize
+value class SessionId(val value: String) : Parcelable

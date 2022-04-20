@@ -56,14 +56,8 @@ fun CalculatorUi(
 
             Column(modifier = Modifier.padding(vertical = 10.dp)) {
                 TotalBoard(
-                    totalAmount = stringResource(
-                        R.string.calculator_total_amount,
-                        it.totalAmount
-                    ),
-                    totalCount = stringResource(
-                        R.string.calculator_total_count,
-                        it.totalCount
-                    )
+                    totalAmount = it.totalAmount.resolve(),
+                    totalCount = it.totalCount.resolve()
                 )
 
                 LaunchedEffect(component.selectedBanknoteIndex) {
@@ -113,7 +107,7 @@ fun TotalBoard(
             .padding(horizontal = 10.dp)
     ) {
         Text(
-            text = stringResource(id = R.string.calculator_total),
+            text = stringResource(id = R.string.common_total),
             style = MaterialTheme.typography.caption,
             color = MaterialTheme.colors.onSurface
         )

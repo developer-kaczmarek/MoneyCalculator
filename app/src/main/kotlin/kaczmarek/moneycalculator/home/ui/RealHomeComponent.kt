@@ -7,9 +7,11 @@ import com.arkivanov.decompose.router.RouterState
 import com.arkivanov.decompose.router.bringToFront
 import com.arkivanov.decompose.router.router
 import kaczmarek.moneycalculator.calculator.createCalculatorComponent
+import kaczmarek.moneycalculator.calculator.ui.CalculatorComponent
 import kaczmarek.moneycalculator.core.ComponentFactory
 import kaczmarek.moneycalculator.core.utils.toComposeState
-import kaczmarek.moneycalculator.sessions.createSessionComponent
+import kaczmarek.moneycalculator.sessions.createSessionsComponent
+import kaczmarek.moneycalculator.sessions.ui.list.SessionsComponent
 import kaczmarek.moneycalculator.settings.createSettingsComponent
 import kaczmarek.moneycalculator.settings.ui.SettingsComponent
 import kotlinx.parcelize.Parcelize
@@ -45,11 +47,11 @@ class RealHomeComponent(
     ): HomeComponent.Child =
         when (config) {
             is ChildConfig.Calculator -> HomeComponent.Child.Calculator(
-                componentFactory.createCalculatorComponent(componentContext)
+                componentFactory.createCalculatorComponent(componentContext, ::onCalculatorOutput)
             )
 
             is ChildConfig.History -> HomeComponent.Child.History(
-                componentFactory.createSessionComponent(componentContext)
+                componentFactory.createSessionsComponent(componentContext, ::onSessionsOutput)
             )
 
             is ChildConfig.Settings -> HomeComponent.Child.Settings(
@@ -62,6 +64,22 @@ class RealHomeComponent(
             is SettingsComponent.Output.ThemeChanged -> {
                 onOutput(HomeComponent.Output.ThemeChanged)
             }
+        }
+    }
+
+    private fun onCalculatorOutput(output: CalculatorComponent.Output) {
+        when (output) {
+            is CalculatorComponent.Output.DetailedSessionRequested -> onOutput(
+                HomeComponent.Output.DetailedSessionRequested(output.session)
+            )
+        }
+    }
+
+    private fun onSessionsOutput(output: SessionsComponent.Output) {
+        when (output) {
+            is SessionsComponent.Output.DetailedSessionRequested -> onOutput(
+                HomeComponent.Output.DetailedSessionRequested(output.session)
+            )
         }
     }
 

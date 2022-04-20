@@ -6,6 +6,8 @@
     <string name="common_error">Произошла ошибка: %s. Пожалуйста, обратитесь к разработчику для ее устранения</string>
     <string name="common_name_rub">%s ₽</string>
     <string name="common_name_penny">%s к.</string>
+    <string name="common_total_count">%d шт</string>
+    <string name="common_total">Итого</string>
 
     <!-- Settings -->
     <string name="settings_title">Настройки</string>
@@ -29,17 +31,15 @@
     <string name="settings_in_thirty_days">За 30 дней</string>
     <string name="settings_phone_keyboard">Телефонная раскладка</string>
     <string name="settings_numpad_keyboard">Раскладка Numpad</string>
-    <string name="settings_email">developer.kaczmarek@yandex.ru</string>
-    <string name="settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
     <string name="settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
     <string name="settings_all_banknotes_invisible">Для расчетов нужен минимум один номинал</string>
 
     <!-- Calculator -->
-    <string name="calculator_total">Итого</string>
     <string name="calculator_total_amount">₽ %s</string>
     <string name="calculator_total_count">шт %d</string>
     <string name="calculator_save_successful">Результат сохранен</string>
-    <string name="calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
+    <string name="calculator_empty_total_amount_error">Результат не сохранен, так как итоговая сумма равна 0</string>
+    <string name="calculator_open_details_error">Для просмотра детализации итоговая сумма должна быть больше 0</string>
     <string name="calculator_all_delete_values">Все значения удалены</string>
 
     <!-- Sessions -->
@@ -48,10 +48,14 @@
     <string name="sessions_yesterday_sessions">Вчера</string>
     <string name="sessions_empty_history">Здесь будет отображаться история вычислений</string>
     <string name="sessions_session_delete">Запись удалена</string>
-    <string name="sessions_total_count">%d шт</string>
     <string name="sessions_sum_name">Сумма:</string>
     <string name="sessions_count_name">Количество:</string>
     <string name="sessions_cancel">Отмена</string>
+
+    <!-- Session -->
+    <string name="session_banknotes_count">%s шт</string>
+    <string name="session_total_count">Количество купюр: %s шт</string>
+    <string name="session_total_amount">Сумма: %s ₽</string>
 
     <!-- Home -->
     <string name="home_calculator_name">Калькулятор</string>

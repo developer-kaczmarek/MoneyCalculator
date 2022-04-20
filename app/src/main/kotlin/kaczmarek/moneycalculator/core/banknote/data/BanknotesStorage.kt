@@ -10,4 +10,8 @@ interface BanknotesStorage {
     suspend fun getVisibleBanknotes(): List<DetailedBanknote>
 
     suspend fun updateBanknoteVisibility(banknote: Banknote)
+
+    fun isBanknotesVisibilityChanged(): Boolean
+
+    fun resetBanknotesVisibilityChangedSettings()
 }

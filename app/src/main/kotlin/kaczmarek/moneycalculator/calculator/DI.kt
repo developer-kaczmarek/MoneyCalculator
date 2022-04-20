@@ -13,7 +13,8 @@ val calculatorModule = module {
 }
 
 fun ComponentFactory.createCalculatorComponent(
-    componentContext: ComponentContext
+    componentContext: ComponentContext,
+    onOutput: (CalculatorComponent.Output) -> Unit
 ): CalculatorComponent {
-    return RealCalculatorComponent(componentContext, get(), get(), get(), get())
+    return RealCalculatorComponent(componentContext, onOutput, get(), get(), get(), get(), get())
 }

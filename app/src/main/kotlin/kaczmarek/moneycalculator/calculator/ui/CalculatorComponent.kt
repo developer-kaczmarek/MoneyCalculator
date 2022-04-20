@@ -1,8 +1,13 @@
 package kaczmarek.moneycalculator.calculator.ui
 
+import kaczmarek.moneycalculator.sessions.domain.Session
 import me.aartikov.sesame.loading.simple.Loading
 
 interface CalculatorComponent {
+
+    sealed interface Output {
+        class DetailedSessionRequested(val session: Session) : Output
+    }
 
     val calculatingSessionViewState: Loading.State<CalculatingSessionViewData>
 
