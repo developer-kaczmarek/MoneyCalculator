@@ -20,7 +20,6 @@ dependencyResolutionManagement {
     versionCatalogs {
         libs {
             // Kotlin
-            version('kotlin', '1.6.10')
             alias('kotlin-datetime').to('org.jetbrains.kotlinx', 'kotlinx-datetime').version('0.3.2')
 
             version('coroutines', '1.5.2')
@@ -31,11 +30,12 @@ dependencyResolutionManagement {
             alias('android-desugar').to('com.android.tools', 'desugar_jdk_libs').version('1.1.5')
 
             // UI
-            version('compose', '1.1.1')
+            version('compose', '1.2.0-alpha08')
             alias('compose-ui').to('androidx.compose.ui', 'ui').versionRef('compose')
             alias('compose-material').to('androidx.compose.material', 'material').versionRef('compose')
             alias('compose-tooling').to('androidx.compose.ui', 'ui-tooling').versionRef('compose')
             alias('activity-compose').to('androidx.activity', 'activity-compose').version('1.4.0')
+            alias('splashscreen').to('androidx.core', 'core-splashscreen').version('1.0.0-alpha02')
 
             // Architecture
             version('sesame', '1.4.0-beta1')
