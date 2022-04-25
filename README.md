@@ -12,6 +12,7 @@
 
 ## Как это выглядит?
 ![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI_V3.png)
+![UI_THEMES](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI_V3_THEMES.png)
 
 ## Баги / Вопросы /  Предложения
 
