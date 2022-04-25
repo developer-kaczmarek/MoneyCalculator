@@ -1,5 +1,5 @@
 # Калькулятор купюр
-[![LICENSE](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/downloads.svg)](https://play.google.com/store/apps/details?id=kaczmarek.moneycalculator ) [![LICENSE](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/license-GPLv3-blue.svg)](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/LICENSE)
+[![LICENSE](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/license-GPLv3-blue.svg)](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/LICENSE)
 
 "Калькулятор купюр" - удобное приложение, предназначенное для подсчета наличности в кассе или сейфе и значительно облегчающее работу кассира. В новой версии добавлена история подсчетов.
 
@@ -11,7 +11,8 @@
 * [Версия 1.2](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/downloads/money_calculator_v1_2.apk)
 
 ## Как это выглядит?
-![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI.png)
+![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI_V3.png)
+![UI_THEMES](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI_V3_THEMES.png)
 
 ## Баги / Вопросы /  Предложения
 
