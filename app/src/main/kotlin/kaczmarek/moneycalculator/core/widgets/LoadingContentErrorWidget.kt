@@ -54,25 +54,25 @@ private fun ErrorWidget(
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.body1
             )
-        }
-        Button(
-            onClick = onRetry,
-            enabled = true,
-            modifier = modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                disabledBackgroundColor = MaterialTheme.colors.surface,
-                disabledContentColor = MaterialTheme.colors.onSurface
-            ),
-            shape = MaterialTheme.shapes.medium,
-            contentPadding = PaddingValues(vertical = 12.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.common_retry),
-                style = MaterialTheme.typography.body2,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            Button(
+                onClick = onRetry,
+                enabled = true,
+                modifier = modifier
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    disabledBackgroundColor = MaterialTheme.colors.surface,
+                    disabledContentColor = MaterialTheme.colors.onSurface
+                ),
+                shape = MaterialTheme.shapes.medium,
+                contentPadding = PaddingValues(vertical = 12.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.common_retry),
+                    style = MaterialTheme.typography.body2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
         }
     }
 }
