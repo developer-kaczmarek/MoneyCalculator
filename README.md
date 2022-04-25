@@ -11,7 +11,7 @@
 * [Версия 1.2](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/downloads/money_calculator_v1_2.apk)
 
 ## Как это выглядит?
-![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI.png)
+![UI](https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/images/UI_V3.png)
 
 ## Баги / Вопросы /  Предложения
 
