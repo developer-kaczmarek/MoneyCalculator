@@ -41,6 +41,7 @@
     <string name="calculator_empty_total_amount_error">Результат не сохранен, так как итоговая сумма равна 0</string>
     <string name="calculator_open_details_error">Для просмотра детализации итоговая сумма должна быть больше 0</string>
     <string name="calculator_all_delete_values">Все значения удалены</string>
+    <string name="calculator_exit_description">Для выхода из приложения повторно нажмите назад</string>
 
     <!-- Sessions -->
     <string name="sessions_title">История</string>

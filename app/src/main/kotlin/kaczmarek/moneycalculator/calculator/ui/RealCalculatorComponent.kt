@@ -48,7 +48,11 @@ class RealCalculatorComponent(
         calculatorState.mapData { it.toViewData(selectedBanknoteIndex) }
     }
 
+    private var firstBackTime = 0L
+
     init {
+        backPressedHandler.register(::onBackPressed)
+
         lifecycle.doOnCreate {
             calculatorLoading.handleErrors(coroutineScope, errorHandler)
         }
@@ -191,6 +195,18 @@ class RealCalculatorComponent(
             messageService.showMessage(
                 MessageData(text = LocalizedString.resource(R.string.calculator_all_delete_values))
             )
+        }
+    }
+
+    private fun onBackPressed(): Boolean {
+        return if (System.currentTimeMillis() - firstBackTime < 4000L && firstBackTime != 0L) {
+            false
+        } else {
+            firstBackTime = System.currentTimeMillis()
+            messageService.showMessage(
+                MessageData(text = LocalizedString.resource(R.string.calculator_exit_description))
+            )
+            true
         }
     }
 }
