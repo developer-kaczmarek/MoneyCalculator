@@ -1,5 +1,6 @@
 package kaczmarek.moneycalculator.sessions.ui.details
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,10 +24,12 @@ fun SessionUi(
     component: SessionComponent,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        Box(
-            contentAlignment = Alignment.CenterStart
-        ) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+    ) {
+        Box(contentAlignment = Alignment.CenterStart) {
             Text(
                 text = component.detailedSessionViewData.date.resolve(),
                 textAlign = TextAlign.Center,
