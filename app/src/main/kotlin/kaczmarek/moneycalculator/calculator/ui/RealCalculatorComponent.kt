@@ -145,11 +145,10 @@ class RealCalculatorComponent(
                 } else {
                     saveSessionInteractor.execute(
                         totalAmount,
-                        currentSession.banknotes.filter { it.count.toInt() != 0 })
+                        currentSession.banknotes.filter { it.count.toInt() != 0 }
+                    )
                     messageService.showMessage(
-                        MessageData(
-                            text = LocalizedString.resource(R.string.calculator_save_successful)
-                        )
+                        MessageData(text = LocalizedString.resource(R.string.calculator_save_successful))
                     )
                 }
             }

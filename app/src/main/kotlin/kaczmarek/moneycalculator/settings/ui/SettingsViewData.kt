@@ -156,7 +156,11 @@ data class SettingsChoice<T>(
 fun Banknote.toSettingsChoice(): SettingsChoice<Banknote> {
     return SettingsChoice(
         id = id.value,
-        title = LocalizedString.raw(name),
+        title = if (denomination < 1) {
+            LocalizedString.resource(R.string.common_name_penny, name)
+        } else {
+            LocalizedString.resource(R.string.common_name_rub, name)
+        },
         isChosen = isShow,
         output = this
     )

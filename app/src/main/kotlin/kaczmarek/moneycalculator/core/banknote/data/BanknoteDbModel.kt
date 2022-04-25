@@ -46,7 +46,7 @@ fun BanknoteDbModel.toDetailedBanknote(): DetailedBanknote {
         isShow = isShow,
         denomination = denomination,
         backgroundColor = ("ff" + backgroundColor.removePrefix("#").lowercase()).toLong(16),
-        count = "0",
-        amount = "0"
+        count = count.toString(),
+        amount = amount.toString()
     )
 }

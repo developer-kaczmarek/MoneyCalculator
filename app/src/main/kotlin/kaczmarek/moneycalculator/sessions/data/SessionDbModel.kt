@@ -2,7 +2,8 @@ package kaczmarek.moneycalculator.sessions.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
+import kaczmarek.moneycalculator.core.banknote.data.BanknoteDbModel
+import kaczmarek.moneycalculator.core.banknote.data.toDetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
 import kotlinx.serialization.Serializable
@@ -13,7 +14,7 @@ data class SessionDbModel(
     val date: String,
     val time: String,
     val totalAmount: Double,
-    val banknotes: List<DetailedBanknote>
+    val banknotes: List<BanknoteDbModel>
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
@@ -25,7 +26,7 @@ fun SessionDbModel.toSession(): Session {
         date = date,
         time = time,
         totalAmount = totalAmount,
-        banknotes = banknotes,
-        totalCount = banknotes.sumOf { it.count.toInt() }
+        banknotes = banknotes.map { it.toDetailedBanknote() },
+        totalCount = banknotes.sumOf { it.count }
     )
 }

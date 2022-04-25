@@ -15,7 +15,7 @@ import org.koin.dsl.module
 
 val sessionsModule = module {
     single { get<MoneyCalculatorDatabase>().getSessionsDao() }
-    single<SessionsStorage> { SessionsStorageImpl(get()) }
+    single<SessionsStorage> { SessionsStorageImpl(get(), get()) }
     factory { GetSessionsInteractor(get()) }
     factory { SaveSessionInteractor(get()) }
     factory { DeleteOldSessionsIfNeedInteractor(get(), get()) }

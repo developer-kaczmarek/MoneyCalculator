@@ -1,10 +1,14 @@
 package kaczmarek.moneycalculator.sessions.data
 
+import kaczmarek.moneycalculator.core.banknote.data.BanknotesDao
 import kaczmarek.moneycalculator.core.banknote.domain.DetailedBanknote
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
 
-class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorage {
+class SessionsStorageImpl(
+    private val sessionsDao: SessionsDao,
+    private val banknotesDao: BanknotesDao
+) : SessionsStorage {
 
     override suspend fun getSessions(): List<Session> {
         return sessionsDao.getSessions().map { it.toSession() }
@@ -25,7 +29,12 @@ class SessionsStorageImpl(private val sessionsDao: SessionsDao) : SessionsStorag
                 date = date,
                 time = time,
                 totalAmount = totalAmount,
-                banknotes = banknotes
+                banknotes = banknotes.map {
+                    banknotesDao.getBanknoteById(it.id.value.toInt()).copy(
+                        count = it.count.toInt(),
+                        amount = it.amount.replace(" ", "").toDouble()
+                    )
+                }
             )
         )
     }
