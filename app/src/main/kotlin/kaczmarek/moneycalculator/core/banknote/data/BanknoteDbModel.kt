@@ -47,6 +47,6 @@ fun BanknoteDbModel.toDetailedBanknote(): DetailedBanknote {
         denomination = denomination,
         backgroundColor = ("ff" + backgroundColor.removePrefix("#").lowercase()).toLong(16),
         count = count.toString(),
-        amount = amount.toString()
+        amount = if (amount == 0.0) "0" else amount.toString()
     )
 }

@@ -5,17 +5,14 @@ import java.text.DecimalFormatSymbols
 import java.util.*
 
 fun Double.toFormattedAmount(): String {
-    return if (this >= 0.0) {
-        val separator = DecimalFormatSymbols(Locale.getDefault()).apply {
-            groupingSeparator = ' '
-        }
-        val decimalFormat = DecimalFormat().apply {
-            isGroupingUsed = true
-            groupingSize = 3
-            decimalFormatSymbols = separator
-        }
-        decimalFormat.format(this)
-    } else {
-        this.toString()
+    val separator = DecimalFormatSymbols(Locale.getDefault()).apply {
+        groupingSeparator = ' '
+        decimalSeparator = '.'
     }
+    val decimalFormat = DecimalFormat().apply {
+        isGroupingUsed = true
+        groupingSize = 3
+        decimalFormatSymbols = separator
+    }
+    return decimalFormat.format(this)
 }
