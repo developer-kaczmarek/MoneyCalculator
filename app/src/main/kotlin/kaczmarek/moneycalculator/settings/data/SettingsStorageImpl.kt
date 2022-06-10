@@ -3,6 +3,7 @@ package kaczmarek.moneycalculator.settings.data
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import kaczmarek.moneycalculator.settings.domain.Settings
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsStorageImpl(private val prefs: SharedPreferences) : SettingsStorage {
 
@@ -11,6 +12,16 @@ class SettingsStorageImpl(private val prefs: SharedPreferences) : SettingsStorag
         private const val ALWAYS_ON_DISPLAY_KEY = "KEY_ALWAYS_ON_DISPLAY"
         private const val HISTORY_STORAGE_PERIOD_KEY = "KEY_HISTORY_STORAGE_PERIOD"
         private const val THEME_TYPE_KEY = "THEME_TYPE_KEY"
+    }
+
+    private val stateSettingsChanged = MutableStateFlow(false)
+
+    override fun isSettingsChanged(): Boolean {
+        return stateSettingsChanged.value
+    }
+
+    override fun resetSettingsChangedState() {
+        stateSettingsChanged.value = false
     }
 
     override fun getKeyboardLayoutType(): Settings.KeyboardLayoutType {
@@ -22,6 +33,7 @@ class SettingsStorageImpl(private val prefs: SharedPreferences) : SettingsStorag
 
     override fun updateKeyboardLayoutType(keyboardLayoutType: Settings.KeyboardLayoutType) {
         prefs.edit { putInt(KEYBOARD_LAYOUT_KEY, keyboardLayoutType.id) }
+        stateSettingsChanged.value = true
     }
 
     override fun getHistoryStoragePeriod(): Settings.HistoryStoragePeriod {
@@ -42,6 +54,7 @@ class SettingsStorageImpl(private val prefs: SharedPreferences) : SettingsStorag
 
     override fun updateKeepScreenOn(checked: Boolean) {
         prefs.edit { putBoolean(ALWAYS_ON_DISPLAY_KEY, checked) }
+        stateSettingsChanged.value = true
     }
 
     override fun getThemeType(): Settings.ThemeType {

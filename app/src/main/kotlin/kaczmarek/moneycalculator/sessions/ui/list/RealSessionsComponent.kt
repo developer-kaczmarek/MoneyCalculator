@@ -60,10 +60,10 @@ class RealSessionsComponent(
 
     init {
         lifecycle.doOnCreate {
+            sessionsLoading.handleErrors(coroutineScope, errorHandler)
             coroutineScope.safeLaunch(errorHandler) {
                 deleteOldSessionsIfNeedInteractor.execute()
             }
-            sessionsLoading.handleErrors(coroutineScope, errorHandler)
         }
         lifecycle.doOnStart {
             sessionsLoading.refresh()

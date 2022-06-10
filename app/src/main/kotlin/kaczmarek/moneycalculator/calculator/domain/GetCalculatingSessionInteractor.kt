@@ -15,6 +15,7 @@ class GetCalculatingSessionInteractor(
             isKeepScreenOn = settingsStorage.isKeepScreenOn()
         )
         banknotesStorage.resetBanknotesVisibilityChangedSettings()
+        settingsStorage.resetSettingsChangedState()
         return session
     }
 }

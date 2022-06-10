@@ -19,4 +19,8 @@ interface SettingsStorage {
     fun getThemeType(): Settings.ThemeType
 
     fun updateThemeType(themeType: Settings.ThemeType)
+
+    fun isSettingsChanged(): Boolean
+
+    fun resetSettingsChangedState()
 }

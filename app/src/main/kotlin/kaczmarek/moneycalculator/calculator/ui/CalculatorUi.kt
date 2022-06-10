@@ -31,7 +31,6 @@ import kaczmarek.moneycalculator.core.utils.resolve
 import kaczmarek.moneycalculator.core.widgets.LceWidget
 import me.aartikov.sesame.loading.simple.Loading
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalculatorUi(
     component: CalculatorComponent,

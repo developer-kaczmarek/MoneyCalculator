@@ -23,6 +23,7 @@ val settingsModule = module {
     factory { ChangeHistoryStoragePeriodInteractor(get()) }
     factory { ChangeKeepScreenOnInteractor(get()) }
     factory { ChangeThemeTypeInteractor(get()) }
+    factory { IsSettingsChangedInteractor(get()) }
 }
 
 fun ComponentFactory.createSettingsComponent(

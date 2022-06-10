@@ -17,12 +17,13 @@
 
         <activity
             android:name=".MainActivity"
-            tools:ignore="LockedOrientationActivity"
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity"
             android:configChanges="density|fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:exported="true"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"
+            android:resizeableActivity="false"
             android:theme="@style/SplashTheme">
 
             <intent-filter>

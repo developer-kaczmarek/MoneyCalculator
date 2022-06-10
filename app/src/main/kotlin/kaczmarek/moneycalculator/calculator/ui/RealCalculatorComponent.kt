@@ -18,6 +18,7 @@ import kaczmarek.moneycalculator.core.utils.*
 import kaczmarek.moneycalculator.sessions.domain.SaveSessionInteractor
 import kaczmarek.moneycalculator.sessions.domain.Session
 import kaczmarek.moneycalculator.sessions.domain.SessionId
+import kaczmarek.moneycalculator.settings.domain.IsSettingsChangedInteractor
 import me.aartikov.sesame.loading.simple.*
 import me.aartikov.sesame.localizedstring.LocalizedString
 import java.util.*
@@ -29,7 +30,8 @@ class RealCalculatorComponent(
     private val messageService: MessageService,
     getCalculatingSessionInteractor: GetCalculatingSessionInteractor,
     private val saveSessionInteractor: SaveSessionInteractor,
-    private val isBanknotesVisibilityChangedInteractor: IsBanknotesVisibilityChangedInteractor
+    private val isBanknotesVisibilityChangedInteractor: IsBanknotesVisibilityChangedInteractor,
+    private val isSettingsChangedInteractor: IsSettingsChangedInteractor
 ) : ComponentContext by componentContext, CalculatorComponent {
 
     private val coroutineScope = componentCoroutineScope()
@@ -57,7 +59,8 @@ class RealCalculatorComponent(
             calculatorLoading.handleErrors(coroutineScope, errorHandler)
         }
         lifecycle.doOnStart {
-            val refresh = isBanknotesVisibilityChangedInteractor.execute()
+            val refresh =
+                isBanknotesVisibilityChangedInteractor.execute() || isSettingsChangedInteractor.execute()
 
             if (refresh || calculatorState is Loading.State.Empty) {
                 calculatorLoading.refresh()

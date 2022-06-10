@@ -16,5 +16,5 @@ fun ComponentFactory.createCalculatorComponent(
     componentContext: ComponentContext,
     onOutput: (CalculatorComponent.Output) -> Unit
 ): CalculatorComponent {
-    return RealCalculatorComponent(componentContext, onOutput, get(), get(), get(), get(), get())
+    return RealCalculatorComponent(componentContext, onOutput, get(), get(), get(), get(), get(), get())
 }
