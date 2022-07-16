@@ -64,6 +64,7 @@ class RealCalculatorComponent(
 
             if (refresh || calculatorState is Loading.State.Empty) {
                 calculatorLoading.refresh()
+                selectedBanknoteIndex = 0
             }
         }
     }
