@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Калькулятор купюр"
+rootProject.name = "money_calculator_android"
 include ':app'
 
 enableFeaturePreview('VERSION_CATALOGS')
@@ -38,7 +38,7 @@ dependencyResolutionManagement {
             alias('splashscreen').to('androidx.core', 'core-splashscreen').version('1.0.0-alpha02')
 
             // Architecture
-            version('sesame', '1.4.0-beta1')
+            version('sesame', '1.5.0')
             alias('sesame-loading').to('com.github.aartikov', 'sesame-loading').versionRef('sesame')
             alias('sesame-dialog').to('com.github.aartikov', 'sesame-dialog').versionRef('sesame')
             alias('sesame-localizedString').to('com.github.aartikov', 'sesame-localized-string').versionRef('sesame')

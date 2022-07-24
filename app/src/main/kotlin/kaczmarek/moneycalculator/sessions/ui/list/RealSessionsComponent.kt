@@ -91,7 +91,9 @@ class RealSessionsComponent(
     }
 
     override fun onSessionDetailsClick(item: SessionViewData.DetailsViewData) {
-        onOutput(SessionsComponent.Output.DetailedSessionRequested(item.output))
+        if (item.sessionId != removedSessionId) {
+            onOutput(SessionsComponent.Output.DetailedSessionRequested(item.output))
+        }
     }
 
     private fun deleteSessionById(id: SessionId) {

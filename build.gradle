@@ -1,7 +1,7 @@
 buildscript {
     ext {
         min_sdk_version = 23
-        target_sdk_version = 31
+        target_sdk_version = 32
     }
 }
 
