@@ -41,7 +41,7 @@ class RealSettingsComponent(
         private const val SUPPORT_EMAIL = "developer.kaczmarek@yandex.ru"
         private const val GITHUB_PAGE_URL = "https://github.com/developer-kaczmarek/MoneyCalculator"
         private const val PRIVACY_POLICY_PAGE_URL =
-            "https://github.com/developer-kaczmarek/MoneyCalculator/blob/main/privacy_policy.pdf"
+            "https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/privacy_policy.pdf"
     }
 
     private val coroutineScope = componentCoroutineScope()

@@ -75,17 +75,19 @@ class RealSessionsComponent(
     }
 
     override fun onSessionDeleteClick(sessionId: SessionId) {
-        removedSessionId?.let { deleteSessionById(it) }
-        removedSessionId = sessionId
-        messageService.showMessage(
-            MessageData(
-                text = LocalizedString.resource(R.string.sessions_session_delete),
-                timerVisible = true,
-                buttonLabel = LocalizedString.resource(R.string.sessions_cancel),
-                onButtonClick = { removedSessionId = null },
-                onDismiss = { deleteSessionById(sessionId) }
+        if (removedSessionId != sessionId) {
+            removedSessionId?.let { deleteSessionById(it) }
+            removedSessionId = sessionId
+            messageService.showMessage(
+                MessageData(
+                    text = LocalizedString.resource(R.string.sessions_session_delete),
+                    timerVisible = true,
+                    buttonLabel = LocalizedString.resource(R.string.sessions_cancel),
+                    onButtonClick = { removedSessionId = null },
+                    onDismiss = { deleteSessionById(sessionId) }
+                )
             )
-        )
+        }
     }
 
     override fun onSessionDetailsClick(item: SessionViewData.DetailsViewData) {
