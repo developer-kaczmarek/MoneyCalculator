@@ -1,93 +1,66 @@
 <resources>
     <string name="app_name">Калькулятор купюр</string>
 
-    <!--Commons-->
-    <string name="common_ruble_format">%d ₽</string>
-    <string name="common_ruble_float_format">%.2f ₽</string>
-    <string name="common_penny_format">%d к.</string>
-    <string name="common_bank_note">0 ₽</string>
-    <string name="common_bank_ruble">₽</string>
-    <string name="common_bank_penny">К.</string>
-    <string name="common_count_bank_note" translatable="false">0</string>
-    <string name="common_ok">Ок</string>
-    <string name="common_please_wait">Пожалуйста, подождите…</string>
-    <string name="common_done">Готово</string>
-    <string name="common_cancel">Отмена</string>
-    <string name="common_further">Далее</string>
-    <string name="common_load_error">В результате загрузки данных произошла ошибка: %s</string>
-    <string name="common_delete_error">В результате удаления данных произошла ошибка: %s</string>
-    <string name="common_save_error">В результате сохранения произошла ошибка: %s</string>
+    <!-- Common -->
+    <string name="common_retry">Повторить</string>
+    <string name="common_error">Произошла ошибка: %s. Пожалуйста, обратитесь к разработчику для ее устранения</string>
+    <string name="common_name_rub">%s ₽</string>
+    <string name="common_name_penny">%s к.</string>
+    <string name="common_total_count">%d шт</string>
+    <string name="common_total">Итого</string>
 
-    <!--Digits-->
-    <string name="digit_0" translatable="false">0</string>
-    <string name="digit_1" translatable="false">1</string>
-    <string name="digit_2" translatable="false">2</string>
-    <string name="digit_3" translatable="false">3</string>
-    <string name="digit_4" translatable="false">4</string>
-    <string name="digit_5" translatable="false">5</string>
-    <string name="digit_6" translatable="false">6</string>
-    <string name="digit_7" translatable="false">7</string>
-    <string name="digit_8" translatable="false">8</string>
-    <string name="digit_9" translatable="false">9</string>
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_banknotes">Номиналы</string>
+    <string name="settings_keyboard_layout">Раскладка клавиатуры</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_dark_theme">Темная</string>
+    <string name="settings_light_theme">Светлая</string>
+    <string name="settings_system_theme">Как в системе</string>
+    <string name="settings_display">Экран</string>
+    <string name="settings_other">Другое</string>
+    <string name="settings_display_off">Не выключать экран при подсчете купюр</string>
+    <string name="settings_contact_developer">Связаться с разработчиком</string>
+    <string name="settings_privacy_policy">Политика конфиденциальности</string>
+    <string name="settings_github">Страница на Github</string>
+    <string name="settings_version">Калькулятор купюр v%s с 💙 для Android</string>
+    <string name="settings_rate_app">Поделиться своим мнением</string>
+    <string name="settings_save_history">Хранить историю</string>
+    <string name="settings_indefinitely">Бессрочно</string>
+    <string name="settings_in_fourteen_days">За 14 дней</string>
+    <string name="settings_in_thirty_days">За 30 дней</string>
+    <string name="settings_phone_keyboard">Телефонная раскладка</string>
+    <string name="settings_numpad_keyboard">Раскладка Numpad</string>
+    <string name="settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
+    <string name="settings_all_banknotes_invisible">Для расчетов нужен минимум один номинал</string>
 
-    <!--Image Description-->
-    <string name="content_description_save">Сохранение</string>
-    <string name="content_description_delete">Удаление</string>
-    <string name="content_description_arrow_back">Стрелка назад</string>
-    <string name="content_description_arrow_next">Стрелка вперед</string>
-    <string name="content_description_arrow_card">Стрелка разворота карточки</string>
+    <!-- Calculator -->
+    <string name="calculator_total_amount">₽ %s</string>
+    <string name="calculator_total_count">шт %d</string>
+    <string name="calculator_save_successful">Результат сохранен</string>
+    <string name="calculator_empty_total_amount_error">Результат не сохранен, так как итоговая сумма равна 0</string>
+    <string name="calculator_open_details_error">Для просмотра детализации итоговая сумма должна быть больше 0</string>
+    <string name="calculator_all_delete_values">Все значения удалены</string>
+    <string name="calculator_exit_description">Для выхода из приложения повторите действие</string>
 
-    <!--ActivityMain-->
-    <string name="activity_main_title_calculator_item">Калькулятор</string>
-    <string name="activity_main_title_history_item">История</string>
-    <string name="activity_main_title_settings_item">Настройки</string>
-    <string name="activity_main_total">Итог</string>
-    <string name="activity_main_exit_toast">Для выхода из приложения повторно нажмите назад</string>
+    <!-- Sessions -->
+    <string name="sessions_title">История</string>
+    <string name="sessions_today_sessions">Сегодня</string>
+    <string name="sessions_yesterday_sessions">Вчера</string>
+    <string name="sessions_empty_history">Здесь будет отображаться история вычислений</string>
+    <string name="sessions_session_delete">Запись удалена</string>
+    <string name="sessions_sum_name">Сумма:</string>
+    <string name="sessions_count_name">Количество:</string>
+    <string name="sessions_cancel">Отмена</string>
 
-    <!--SettingsFragment-->
-    <string name="fragment_settings_banknotes">Номиналы</string>
-    <string name="fragment_settings_keyboard_layout">Раскладка клавиатуры</string>
-    <string name="fragment_settings_display">Экран</string>
-    <string name="fragment_settings_about_app">О приложении</string>
-    <string name="fragment_settings_display_off">Не выключать экран при подсчете купюр</string>
-    <string name="fragment_settings_feedback">Обратная связь</string>
-    <string name="fragment_settings_github">Страница на Github</string>
-    <string name="fragment_settings_versions">Калькулятор купюр v%s с 💙 для Android</string>
-    <string name="fragment_settings_rate_app">Поделиться своим мнением</string>
-    <string name="fragment_settings_save">Сохранить</string>
-    <string name="fragment_settings_save_history">Хранить историю</string>
-    <string name="fragment_settings_indefinitely">Бессрочно</string>
-    <string name="fragment_settings_in_fourteen_days">За 14 дней</string>
-    <string name="fragment_settings_in_thirty_days">За 30 дней</string>
-    <string name="fragment_settings_phone_keyboard">Телефонная раскладка</string>
-    <string name="fragment_settings_numpad_keyboard">Раскладка Numpad</string>
-    <string name="fragment_settings_save_successful">Изменения сохранены</string>
-    <string name="fragment_settings_no_new_changes">Нет новых изменений</string>
-    <string name="fragment_settings_all_banknotes_invisible">Изменения не сохранены. Выберите хотя бы один номинал</string>
-    <string name="fragment_settings_email_title">developer.kaczmarek@yandex.ru</string>
-    <string name="fragment_settings_mail_chooser_title">Выберите приложение для отправки электронной почты</string>
-    <string name="fragment_settings_app_for_intent_not_found">Приложения для обработки действия не найдено</string>
-    <string name="fragment_settings_url_github">https://github.com/developer-kaczmarek/MoneyCalculator</string>
+    <!-- Session -->
+    <string name="session_banknotes_count">%s шт</string>
+    <string name="session_total_count">Количество купюр: %s шт</string>
+    <string name="session_total_amount">Сумма: %s ₽</string>
 
-    <!--CalculatorFragment-->
-    <string name="fragment_calculator_save_successful">Результат сохранен</string>
-    <string name="fragment_calculator_empty_total_amount_error">Итоговая сумма равна 0. Результат не сохранен</string>
-    <string name="fragment_calculator_all_delete_values">Все значения удалены</string>
-    <string name="fragment_calculator_title_component_board">Панель управления</string>
-    <string name="fragment_calculator_description_component_board">Позволяет перемещаться между карточками банкнот, а также отображает итоговую сумму расчета</string>
-    <string name="fragment_calculator_title_component_save">Сохранить</string>
-    <string name="fragment_calculator_description_component_save_calculator">При однократном нажатии сохраняются расчеты и попадают в раздел Истории. Сессию с итоговой суммой равной 0 сохранить нельзя</string>
-    <string name="fragment_calculator_description_component_save_settings">Нажатие на кнопку позволит применить настройки, выбранные в данном разделе. Обязательно хотя бы один номинал для расчета должен быть выбран, иначе настройки не будут сохранены</string>
-    <string name="fragment_calculator_title_component_delete">Удалить</string>
-    <string name="fragment_calculator_description_component_delete">При однократном нажатии удалится последний символ в выбранном поле ввода. При долгом нажатии очистятся все поля ввода</string>
-
-    <!--HistoryFragment-->
-    <string name="fragment_history_today_sessions">Сегодня</string>
-    <string name="fragment_history_yesterday_sessions">Вчера</string>
-    <string name="fragment_history_empty_history">Здесь будет отображаться история вычислений</string>
-    <string name="fragment_history_computation">%.2f ₽ x %d = %.2f ₽</string>
-    <string name="fragment_history_session_delete">Запись удалена</string>
-
-    <!--LicensesFragment-->
+    <!-- Home -->
+    <string name="home_calculator_name">Калькулятор</string>
+    <string name="home_history_name">История</string>
+    <string name="home_settings_name">Настройки</string>
 
 </resources>
