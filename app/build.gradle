@@ -76,7 +76,8 @@ dependencies {
     implementation libs.compose.material
     implementation libs.activity.compose
     implementation libs.splashscreen
-    debugImplementation libs.compose.tooling
+    debugImplementation libs.compose.ui.tooling
+    implementation libs.compose.tooling.preview
 
     // Architecture
     implementation libs.bundles.sesame
