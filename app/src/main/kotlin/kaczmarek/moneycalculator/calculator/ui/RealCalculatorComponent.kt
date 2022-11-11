@@ -82,7 +82,7 @@ class RealCalculatorComponent(
                                         amount = (banknote.denomination * digit.toInt()).toFormattedAmount()
                                     )
                                 }
-                                index == selectedBanknoteIndex && banknote.count.count() < 3 -> {
+                                index == selectedBanknoteIndex && banknote.count.count() < 5 -> {
                                     val digits = banknote.count + digit
                                     it[index] = banknote.copy(
                                         count = digits,
