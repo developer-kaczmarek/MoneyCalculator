@@ -1,5 +1,7 @@
 package kaczmarek.moneycalculator.calculator.ui
 
+import AutoResizeText
+import FontSizeRange
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.theme.AppTheme
 import kaczmarek.moneycalculator.core.utils.resolve
@@ -140,7 +143,7 @@ fun BanknoteCard(
             } else {
                 BorderStroke(1.dp, MaterialTheme.colors.onBackground)
             },
-            backgroundColor = MaterialTheme.colors.background
+            backgroundColor = MaterialTheme.colors.background,
         ) {
             Column {
                 Text(
@@ -150,50 +153,58 @@ fun BanknoteCard(
                     text = item.name.resolve(),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onBackground
+                    color = MaterialTheme.colors.onBackground,
                 )
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Column {
-                        Text(
-                            modifier = Modifier
-                                .background(MaterialTheme.colors.surface)
-                                .padding(vertical = 10.dp)
-                                .padding(start = 10.dp),
-                            text = "шт",
-                            color = MaterialTheme.colors.onSurface,
-                            style = MaterialTheme.typography.body1
-                        )
-                        Text(
-                            modifier = Modifier
-                                .padding(vertical = 10.dp)
-                                .padding(start = 10.dp),
-                            text = "₽",
-                            style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colors.onBackground
-                        )
-                    }
-                    Column {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(MaterialTheme.colors.surface)
-                                .padding(10.dp),
-                            text = item.count,
-                            textAlign = TextAlign.End,
-                            style = MaterialTheme.typography.body1
-                        )
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp),
-                            text = item.amount,
-                            textAlign = TextAlign.End,
-                            style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colors.onBackground
-                        )
-                    }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.surface)
+                        .padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier.width(30.dp),
+                        text = "шт",
+                        color = MaterialTheme.colors.onSurface,
+                        style = MaterialTheme.typography.body1,
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f),
+                        text = item.count,
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.body1,
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier.width(30.dp),
+                        text = "₽",
+                        style = MaterialTheme.typography.body1,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colors.onBackground,
+                    )
+                    AutoResizeText(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.0f),
+                        text = item.amount,
+                        textAlign = TextAlign.End,
+                        style = MaterialTheme.typography.body1,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colors.onBackground,
+                        fontSizeRange = FontSizeRange(
+                            min = 12.sp,
+                            max = 18.sp,
+                        ),
+                        maxLines = 1,
+                    )
                 }
             }
         }
