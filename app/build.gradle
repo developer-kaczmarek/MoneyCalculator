@@ -1,22 +1,25 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlinx-serialization'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 
 android {
+    namespace 'kaczmarek.moneycalculator'
     compileSdk target_sdk_version
 
     defaultConfig {
         applicationId "kaczmarek.moneycalculator"
         minSdk min_sdk_version
         targetSdk target_sdk_version
-        versionCode 6
-        versionName "3.1"
+        versionCode 7
+        versionName "3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         vectorDrawables {
             useSupportLibrary true
         }
@@ -72,12 +75,8 @@ dependencies {
     implementation libs.coroutines.android
 
     // UI
-    implementation libs.compose.ui
-    implementation libs.compose.material
-    implementation libs.activity.compose
+    implementation libs.bundles.compose
     implementation libs.splashscreen
-    debugImplementation libs.compose.ui.tooling
-    implementation libs.compose.tooling.preview
 
     // Architecture
     implementation libs.bundles.sesame
@@ -94,5 +93,5 @@ dependencies {
 
     // Room
     implementation libs.bundles.room
-    kapt libs.room.compiler
+    ksp libs.room.compiler
 }
