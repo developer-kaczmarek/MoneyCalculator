@@ -38,7 +38,7 @@ class RealSettingsComponent(
 ) : ComponentContext by componentContext, SettingsComponent {
 
     companion object {
-        private const val SUPPORT_EMAIL = "developer.kaczmarek@yandex.ru"
+        private const val SUPPORT_EMAIL = "developer.kaczmarek@gmail.com"
         private const val GITHUB_PAGE_URL = "https://github.com/developer-kaczmarek/MoneyCalculator"
         private const val PRIVACY_POLICY_PAGE_URL =
             "https://github.com/developer-kaczmarek/MoneyCalculator/blob/master/privacy_policy.pdf"
