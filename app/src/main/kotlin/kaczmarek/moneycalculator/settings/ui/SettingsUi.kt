@@ -17,6 +17,7 @@ import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.banknote.domain.Banknote
 import kaczmarek.moneycalculator.core.theme.AppTheme
 import kaczmarek.moneycalculator.core.utils.resolve
+import kaczmarek.moneycalculator.core.utils.testTagAsId
 import kaczmarek.moneycalculator.core.widgets.Header
 import kaczmarek.moneycalculator.core.widgets.LceWidget
 import kaczmarek.moneycalculator.settings.domain.Settings
@@ -29,6 +30,7 @@ fun SettingsUi(
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         LceWidget(
+            modifier = Modifier.testTagAsId("SettingsUiLceWidget"),
             data = component.settingsViewState,
             onRetryClick = {},
         ) {
@@ -38,7 +40,10 @@ fun SettingsUi(
                     .verticalScroll(rememberScrollState())
                     .padding(bottom = 20.dp)
             ) {
-                Header(text = stringResource(id = R.string.settings_title))
+                Header(
+                    text = stringResource(id = R.string.settings_title),
+                    modifier = Modifier.testTagAsId("SettingsUiHeader"),
+                )
 
                 BanknotesSettingsBlock(
                     items = it.banknotes,
@@ -184,6 +189,7 @@ private fun BanknotesSettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiBanknotesSettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .padding(bottom = 10.dp)
@@ -193,6 +199,7 @@ private fun BanknotesSettingsBlock(
             text = item.title.resolve(),
             checked = item.isChosen,
             modifier = Modifier
+                .testTagAsId("SettingsUiBanknotesSettingsBlockTextCheckBox${item.id}")
                 .fillMaxWidth()
                 .clickable { onChoiceChanged(item.output) }
         )
@@ -210,6 +217,7 @@ private fun HistorySettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiHistorySettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
@@ -218,6 +226,7 @@ private fun HistorySettingsBlock(
             text = item.title.resolve(),
             selected = item.isChosen,
             modifier = Modifier
+                .testTagAsId("SettingsUiHistorySettingsBlockTextRadioButton${item.id}")
                 .fillMaxWidth()
                 .clickable { onChoiceChanged(item.output) }
         )
@@ -235,6 +244,7 @@ private fun KeyboardSettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiKeyboardSettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
@@ -243,6 +253,7 @@ private fun KeyboardSettingsBlock(
             text = item.title.resolve(),
             selected = item.isChosen,
             modifier = Modifier
+                .testTagAsId("SettingsUiKeyboardSettingsBlockTextRadioButton${item.id}")
                 .fillMaxWidth()
                 .clickable { onChoiceChanged(item.output) }
         )
@@ -260,6 +271,7 @@ private fun ThemeSettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiThemeSettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
@@ -268,6 +280,7 @@ private fun ThemeSettingsBlock(
             text = item.title.resolve(),
             selected = item.isChosen,
             modifier = Modifier
+                .testTagAsId("SettingsUiThemeSettingsBlockTextRadioButton${item.id}")
                 .fillMaxWidth()
                 .clickable { onChoiceChanged(item.output) }
         )
@@ -285,6 +298,7 @@ private fun DisplaySettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiDisplaySettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
@@ -292,6 +306,7 @@ private fun DisplaySettingsBlock(
         text = stringResource(id = R.string.settings_display_off),
         checked = checked,
         modifier = Modifier
+            .testTagAsId("SettingsUiDisplaySettingsBlockTextSwitchButton")
             .fillMaxWidth()
             .clickable { onKeepScreenOnClick(checked) }
     )
@@ -310,6 +325,7 @@ private fun OtherSettingsBlock(
         style = MaterialTheme.typography.caption,
         color = MaterialTheme.colors.onSurface,
         modifier = modifier
+            .testTagAsId("SettingsUiOtherSettingsBlockTitle")
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
@@ -318,6 +334,7 @@ private fun OtherSettingsBlock(
         style = MaterialTheme.typography.body1,
         color = MaterialTheme.colors.onBackground,
         modifier = modifier
+            .testTagAsId("SettingsUiOtherSettingsBlockGithubPage")
             .fillMaxWidth()
             .clickable { onGithubClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp)
@@ -327,6 +344,7 @@ private fun OtherSettingsBlock(
         style = MaterialTheme.typography.body1,
         color = MaterialTheme.colors.onBackground,
         modifier = modifier
+            .testTagAsId("SettingsUiOtherSettingsBlockPrivacyPolicy")
             .fillMaxWidth()
             .clickable { onPrivacyPolicyClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp)
@@ -336,6 +354,7 @@ private fun OtherSettingsBlock(
         style = MaterialTheme.typography.body1,
         color = MaterialTheme.colors.onBackground,
         modifier = modifier
+            .testTagAsId("SettingsUiOtherSettingsBlockContactDeveloper")
             .fillMaxWidth()
             .clickable { onContactDeveloperClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp)
@@ -345,6 +364,7 @@ private fun OtherSettingsBlock(
         style = MaterialTheme.typography.body1,
         color = MaterialTheme.colors.onBackground,
         modifier = modifier
+            .testTagAsId("SettingsUiOtherSettingsBlockFeedback")
             .fillMaxWidth()
             .clickable { onGooglePlayClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp)

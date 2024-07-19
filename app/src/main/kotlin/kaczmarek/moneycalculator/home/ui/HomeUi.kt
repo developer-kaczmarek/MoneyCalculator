@@ -19,6 +19,7 @@ import kaczmarek.moneycalculator.core.utils.noOverlapByMessage
 import kaczmarek.moneycalculator.settings.ui.SettingsUi
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.utils.currentInstance
+import kaczmarek.moneycalculator.core.utils.testTagAsId
 import kaczmarek.moneycalculator.sessions.ui.list.SessionsUi
 import kaczmarek.moneycalculator.settings.ui.FakeSettingsUiComponent
 
@@ -46,10 +47,13 @@ fun HomeUi(
 @Composable
 fun BottomBar(currentChild: HomeComponent.Child, onPageSelected: (HomeComponent.Page) -> Unit) {
     BottomNavigation(
-        modifier = Modifier.noOverlapByMessage(),
+        modifier = Modifier
+            .noOverlapByMessage()
+            .testTagAsId("BottomBarContainer"),
         backgroundColor = MaterialTheme.colors.surface
     ) {
         NavigationItem(
+            modifier = Modifier.testTagAsId("CalculatorNavigationItem"),
             iconRes = R.drawable.ic_24_home,
             labelRes = R.string.home_calculator_name,
             isSelected = currentChild is HomeComponent.Child.Calculator,
@@ -57,6 +61,7 @@ fun BottomBar(currentChild: HomeComponent.Child, onPageSelected: (HomeComponent.
         )
 
         NavigationItem(
+            modifier = Modifier.testTagAsId("HistoryNavigationItem"),
             iconRes = R.drawable.ic_24_history,
             labelRes = R.string.home_history_name,
             isSelected = currentChild is HomeComponent.Child.History,
@@ -64,6 +69,7 @@ fun BottomBar(currentChild: HomeComponent.Child, onPageSelected: (HomeComponent.
         )
 
         NavigationItem(
+            modifier = Modifier.testTagAsId("SettingsNavigationItem"),
             iconRes = R.drawable.ic_24_settings,
             labelRes = R.string.home_settings_name,
             isSelected = currentChild is HomeComponent.Child.Settings,
@@ -77,9 +83,11 @@ fun RowScope.NavigationItem(
     @DrawableRes iconRes: Int,
     @StringRes labelRes: Int,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     BottomNavigationItem(
+        modifier = modifier,
         icon = { Icon(painterResource(iconRes), contentDescription = null) },
         label = { Text(stringResource(labelRes), maxLines = 1, overflow = TextOverflow.Ellipsis) },
         selected = isSelected,
