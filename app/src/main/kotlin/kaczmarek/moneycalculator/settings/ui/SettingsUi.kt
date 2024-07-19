@@ -83,6 +83,7 @@ fun SettingsUi(
                     style = MaterialTheme.typography.caption,
                     color = MaterialTheme.colors.onSurface,
                     modifier = modifier
+                        .testTagAsId("SettingsUiVersionInformation")
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                         .padding(top = 30.dp)
@@ -306,7 +307,7 @@ private fun DisplaySettingsBlock(
         text = stringResource(id = R.string.settings_display_off),
         checked = checked,
         modifier = Modifier
-            .testTagAsId("SettingsUiDisplaySettingsBlockTextSwitchButton")
+            .testTagAsId("SettingsUiDisplaySettingsBlockSwitchButton")
             .fillMaxWidth()
             .clickable { onKeepScreenOnClick(checked) }
     )
