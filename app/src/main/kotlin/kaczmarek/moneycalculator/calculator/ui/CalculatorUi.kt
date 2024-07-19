@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import kaczmarek.moneycalculator.R
 import kaczmarek.moneycalculator.core.theme.AppTheme
 import kaczmarek.moneycalculator.core.utils.resolve
+import kaczmarek.moneycalculator.core.utils.testTagAsId
 import kaczmarek.moneycalculator.core.widgets.LceWidget
 import me.aartikov.sesame.loading.simple.Loading
 
@@ -40,6 +41,7 @@ fun CalculatorUi(
     modifier: Modifier = Modifier
 ) {
     LceWidget(
+        modifier = Modifier.testTagAsId("CalculatorUiLceWidget"),
         data = component.calculatingSessionViewState,
         onRetryClick = {}
     ) {
@@ -58,6 +60,7 @@ fun CalculatorUi(
 
             Column(modifier = Modifier.padding(vertical = 10.dp)) {
                 TotalBoard(
+                    modifier = Modifier.testTagAsId("CalculatorUiTotalBoard"),
                     totalAmount = it.totalAmount.resolve(),
                     totalCount = it.totalCount.resolve()
                 )
@@ -73,6 +76,7 @@ fun CalculatorUi(
                 ) {
                     itemsIndexed(it.banknotes) { index: Int, item: DetailedBanknoteViewData ->
                         BanknoteCard(
+                            modifier = Modifier.testTagAsId("CalculatorUiBanknoteCard${item.id}"),
                             item = item,
                             isSelected = index == component.selectedBanknoteIndex,
                             onBanknoteCardClick = component::onBanknoteCardClick
@@ -114,11 +118,13 @@ fun TotalBoard(
             color = MaterialTheme.colors.onSurface
         )
         Text(
+            modifier = Modifier.testTagAsId("CalculatorUiTotalBoardTotalAmount"),
             text = totalAmount,
             style = MaterialTheme.typography.h1,
             color = MaterialTheme.colors.onBackground
         )
         Text(
+            modifier = Modifier.testTagAsId("CalculatorUiTotalBoardTotalCount"),
             text = totalCount,
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onBackground
@@ -148,6 +154,7 @@ fun BanknoteCard(
             Column {
                 Text(
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiBanknoteCardName")
                         .fillMaxWidth()
                         .padding(5.dp),
                     text = item.name.resolve(),
@@ -170,6 +177,7 @@ fun BanknoteCard(
                     )
                     Text(
                         modifier = Modifier
+                            .testTagAsId("CalculatorUiBanknoteCardCount")
                             .fillMaxWidth()
                             .weight(1.0f),
                         text = item.count,
@@ -192,6 +200,7 @@ fun BanknoteCard(
                     )
                     AutoResizeText(
                         modifier = Modifier
+                            .testTagAsId("CalculatorUiBanknoteCardAmount")
                             .fillMaxWidth()
                             .weight(1.0f),
                         text = item.amount,
@@ -241,7 +250,9 @@ fun CalculatorKeyboard(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .testTagAsId("CalculatorUiCalculatorKeyboard"),
         contentAlignment = Alignment.Center
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(36.dp)) {
@@ -250,6 +261,7 @@ fun CalculatorKeyboard(
                     onClick = onForwardClick,
                     enabled = isForwardButtonEnabled,
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiCalculatorKeyboardLeftArrowIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                 ) {
@@ -267,6 +279,7 @@ fun CalculatorKeyboard(
                 IconButton(
                     onClick = onSaveClick,
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiCalculatorKeyboardSaveIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                 ) {
@@ -280,6 +293,7 @@ fun CalculatorKeyboard(
                 IconButton(
                     onClick = onCountingDetailsClick,
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiCalculatorKeyboardListIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                 ) {
@@ -301,6 +315,7 @@ fun CalculatorKeyboard(
                     onClick = onNextClick,
                     enabled = isNextButtonEnabled,
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiCalculatorKeyboardRightArrowIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                 ) {
@@ -317,6 +332,7 @@ fun CalculatorKeyboard(
 
                 Box(
                     modifier = Modifier
+                        .testTagAsId("CalculatorUiCalculatorKeyboardBackspaceIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                         .combinedClickable(
@@ -353,7 +369,9 @@ fun DigitButton(
     Button(
         onClick = onClick,
         shape = CircleShape,
-        modifier = Modifier.size(64.dp),
+        modifier = Modifier
+            .testTagAsId("CalculatorUiCalculatorKeyboardDigitButton$text")
+            .size(64.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onBackground
