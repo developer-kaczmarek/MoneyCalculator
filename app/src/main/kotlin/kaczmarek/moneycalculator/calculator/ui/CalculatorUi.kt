@@ -76,7 +76,7 @@ fun CalculatorUi(
                 ) {
                     itemsIndexed(it.banknotes) { index: Int, item: DetailedBanknoteViewData ->
                         BanknoteCard(
-                            modifier = Modifier.testTagAsId("CalculatorUiBanknoteCard${item.id}"),
+                            modifier = Modifier.testTagAsId("CalculatorUiBanknoteCard${item.id.value}"),
                             item = item,
                             isSelected = index == component.selectedBanknoteIndex,
                             onBanknoteCardClick = component::onBanknoteCardClick
@@ -293,7 +293,7 @@ fun CalculatorKeyboard(
                 IconButton(
                     onClick = onCountingDetailsClick,
                     modifier = Modifier
-                        .testTagAsId("CalculatorUiCalculatorKeyboardListIconButton")
+                        .testTagAsId("CalculatorUiCalculatorKeyboardCountingDetailsIconButton")
                         .size(64.dp)
                         .padding(18.dp)
                 ) {
