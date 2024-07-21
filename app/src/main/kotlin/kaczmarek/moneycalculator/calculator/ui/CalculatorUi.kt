@@ -70,6 +70,7 @@ fun CalculatorUi(
                 }
 
                 LazyRow(
+                    modifier = Modifier.testTagAsId("CalculatorUiBanknoteCardsContainer"),
                     contentPadding = PaddingValues(10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     state = lazyListState
